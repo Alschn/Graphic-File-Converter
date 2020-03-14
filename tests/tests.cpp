@@ -1,8 +1,6 @@
 #include "pch.h"
 #include "CppUnitTest.h"
 
-#include "../graphic-file-converter/TestExample.h"
-#include "../graphic-file-converter/TestExample.cpp"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -12,15 +10,9 @@ namespace Tests
 	{
 	public:
 
-		TEST_METHOD(multiply)
+		TEST_METHOD(test)
 		{
-			int result = test_example::multiply(2, 3);
-			Assert::AreEqual(6, result);
-		}
-
-		TEST_METHOD(divide)
-		{
-			Assert::ExpectException<std::invalid_argument>([] { test_example::divide(2, 0); });
+			Assert::AreEqual(1, 1);
 		}
 	};
 }
