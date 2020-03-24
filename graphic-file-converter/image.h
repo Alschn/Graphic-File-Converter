@@ -15,6 +15,7 @@ public:
 	unsigned int height;
 	char* header;
 	size_t file_size;
+	unsigned char* content;
 
 	const size_t HEADER_SIZE = 52;
 	const int FILE_SIZE_OFFSET = 2;

@@ -45,10 +45,12 @@ void Image::load(bool expect_saving)
 	{
 		std::copy(buffer.begin(), buffer.begin() + this->HEADER_SIZE, this->header);
 	}
-	char contents[8*3][48];
+	unsigned char contents[48][8*3];
 	auto dataSize = ((width * 3 + 3) & (~3));
 	int offset = buffer.at(10);
 
+	this->content = new unsigned char[height * width];
+	
 	int f = 0;
 	for(int j = 0; j < height; ++j)
 	{
@@ -58,6 +60,10 @@ void Image::load(bool expect_saving)
 			std::cout << "R: " << hex(buffer.at(i + 2 )) <<
 				" G: "<< hex(buffer.at(i + 1 ))
 			<< " B: "<< hex(buffer.at(i )) << std::endl;
+
+			contents[j][(i - offset - j * dataSize)] = buffer.at(i + 2);
+			contents[j][(i - offset - j * dataSize + 1)] = buffer.at(i + 1);
+			contents[j][(i - offset - j * dataSize + 2)] = buffer.at(i + 0);
 		}
 		std::cout << "============================================" << std::endl;
 	}
