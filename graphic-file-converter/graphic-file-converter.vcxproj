@@ -152,14 +152,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Converter.cpp" />
-    <ClCompile Include="graphic-file-converter.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="image.cpp" />
-    <ClCompile Include="Pixel.cpp" />
+    <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="converter.h" />
     <ClInclude Include="image.h" />
-    <ClInclude Include="Pixel.h" />
+    <ClInclude Include="utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

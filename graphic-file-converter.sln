@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tests", "tests\tests.vcxpro
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{59EEF056-CCFB-4B62-9684-5297526FD02D}"
 	ProjectSection(SolutionItems) = preProject
+		sample_bmps\10x10.bmp = sample_bmps\10x10.bmp
+		sample_bmps\8x48.bmp = sample_bmps\8x48.bmp
 		README.md = README.md
 	EndProjectSection
 EndProject
