@@ -5,25 +5,6 @@
 #include <iostream>
 #include <vector>
 
-struct HexCharStruct
-{
-	unsigned char c;
-
-	HexCharStruct(unsigned char _c) : c(_c)
-	{
-	}
-};
-
-inline std::ostream& operator<<(std::ostream& o, const HexCharStruct& hs)
-{
-	return (o << std::setw(2) << std::setfill('0') << std::hex << (int)hs.c);
-}
-
-inline HexCharStruct hex(unsigned char _c)
-{
-	return HexCharStruct(_c);
-}
-
 void Image::getPixel(int x, int y, unsigned char (&output)[3])
 {
 	for (int i = 0; i < 3; ++i)
