@@ -12,7 +12,7 @@ public:
 	void SaveImage();
 	Converter(const Image &base_image) : oldImage(base_image)
 	{
-		newImage = new Image(base_image); //heap allocated memory
+		newImage = new Image(base_image);
 	};
 };
 
