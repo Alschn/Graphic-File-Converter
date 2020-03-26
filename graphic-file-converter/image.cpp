@@ -13,7 +13,7 @@ void Image::getPixel(int x, int y, unsigned char (&output)[3])
 	}
 }
 
-void Image::show()
+std::string Image::show()
 {
 	std::string output;
 
@@ -40,7 +40,7 @@ void Image::show()
 		output.append("\n");
 	}
 
-	std::cout << output;
+	return output;
 }
 
 void Image::load(bool expect_saving)

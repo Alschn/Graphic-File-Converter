@@ -29,14 +29,14 @@ public:
 	char** getAllPixels();
 
 	void save(const std::string& path);
-	void show();
+	std::string show();
 
 private:
 	void load(bool expect_saving);
 public:
 
 	
-	Image(const std::string& path, bool expect_saving) : path(path)
+	Image(const std::string& path, bool expect_saving, int mode) : path(path)
 	{
 		if (expect_saving)
 		{
