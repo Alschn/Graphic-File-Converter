@@ -1,31 +1,28 @@
 #include <iostream>
-#include "converter.h"
 #include "user_interface.h"
 #include <map>
 #include <string>
+#include "converter.h"
 
-using namespace std;
 
-
-void UserInterface::registerAction(const string command_name, action_pointer action, const vector<int> params)
+void UserInterface::registerAction(const std::string command_name, Converter conversion)
 {
-    this->actions_map.emplace(command_name, action));
-    this->actions_parameters.emplace(command_name, params)
+    this->conversions_map.emplace(command_name, conversion);
 }
 
 
 void UserInterface::display()
 {
-    cout << "Welcome to file converter!" << endl;
-    cout << "Type command or --help to get commands examples" << endl;
-    string command;
-    for (::)
+    std::cout << "Welcome to file converter!" << std::endl;
+    std::cout << "Type command or --help to get commands examples" << std::endl;
+    std::string command;
+    for (;;)
     {
-        cin << command;
+        std::cin >> command;
 
-        if (actions_map.find(command) == actions_map.end() )
+        if (conversions_map.find(command) == conversions_map.end())
         {
-            cout << "There is no such function!" << endl;
+            std::cout << "There is no such function!" << std::endl;
             showHelp();
         }
         else if (command == "--help")
@@ -39,18 +36,17 @@ void UserInterface::display()
     }
 }
 
-void UserInterface::executeAction(const string &command)
+void UserInterface::executeAction(const std::string& command)
 {
-    action_pointer action = actions_map[command];
-    (this->*action)(); //dilemma about passing arguments
+   
 }
 
 void UserInterface::showHelp()
 {
-    cout << "Possible commands: " << endl;
-    for (auto command : this->actions_map)
+    std:: cout << "Possible commands: " << std::endl;
+    for (auto command : this->conversions_map)
     {
-        cout << command.first << endl;
+        std::cout << command.first << std::endl;
     }
 }
 
