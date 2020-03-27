@@ -2,12 +2,13 @@
 #include "user_interface.h"
 #include <map>
 #include <string>
-#include "converter.h"
+
+std::map<std::string, Converter*> UserInterface::conversions_map;
 
 
 void UserInterface::registerAction(const std::string command_name, Converter conversion)
 {
-    this->conversions_map.emplace(command_name, conversion);
+    // this->conversions_map.emplace(command_name, conversion);
 }
 
 

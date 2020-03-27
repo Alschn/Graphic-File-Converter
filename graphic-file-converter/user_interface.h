@@ -7,7 +7,7 @@ class UserInterface
 {
 
 public:
-	static map <const std::string, Converter> conversions_map;
+	static std::map <std::string, Converter*> conversions_map;
 
 	void registerAction(const std::string command_name, Converter conversion);
 	void display();

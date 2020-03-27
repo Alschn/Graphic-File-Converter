@@ -1,7 +1,6 @@
 #include <iostream>
 #include "user_interface.h"
 #include "image.h"
-#include "user_interface.cpp"
 
 using namespace std;
 
