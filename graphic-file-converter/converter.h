@@ -1,5 +1,5 @@
 #include "Image.h"
-
+#include <vector>
 
 class Converter
 {
@@ -8,7 +8,7 @@ protected:
 	Image *newImage;
 
 public:
-	virtual void ProccessImage();
+	virtual void ProccessImage(const vector<int> parameters);
 	void SaveImage();
 	Converter(const Image &base_image) : oldImage(base_image)
 	{
