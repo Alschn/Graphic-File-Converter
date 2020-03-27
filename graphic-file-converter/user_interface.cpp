@@ -6,9 +6,9 @@
 std::map<std::string, Converter*> UserInterface::conversions_map;
 
 
-void UserInterface::registerAction(const std::string command_name, Converter conversion)
+void UserInterface::registerAction(const std::string command_name, Converter *conversion)
 {
-    // this->conversions_map.emplace(command_name, conversion);
+    conversions_map.emplace(command_name, conversion);
 }
 
 
@@ -21,10 +21,9 @@ void UserInterface::display()
     {
         std::cin >> command;
 
-        if (conversions_map.find(command) == conversions_map.end())
+        if (conversions_map.find(command) != conversions_map.end())
         {
-            std::cout << "There is no such function!" << std::endl;
-            showHelp();
+            executeAction(command);
         }
         else if (command == "--help")
         {
@@ -32,7 +31,8 @@ void UserInterface::display()
         }
         else
         {
-            executeAction(command);
+            std::cout << "There is no such function!" << std::endl;
+            showHelp();
         }
     }
 }
@@ -45,7 +45,7 @@ void UserInterface::executeAction(const std::string& command)
 void UserInterface::showHelp()
 {
     std:: cout << "Possible commands: " << std::endl;
-    for (auto command : this->conversions_map)
+    for (auto command : conversions_map)
     {
         std::cout << command.first << std::endl;
     }
