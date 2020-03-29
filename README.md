@@ -16,7 +16,10 @@ Optymalizacja pamięci pod względem przechowywanego obrazu.
 * Obracanie obrazu o kąt całkowitej wielokrotności 90 stopni.
 * Dynamiczny CLI
 
-
+### Uruchamianie programu
+* Program będzie uruchamiany z wiersza poleceń poprzez podanie odpowiednich argumentów
+* W przypadku niepodania argumentów program będzie działał w trybie pilotażowym (wprowadzanie opcji po kolei)
+* Program będzie wyświetlał dynamicznie formułowaną pomoc
 
 
 ### Literatura
