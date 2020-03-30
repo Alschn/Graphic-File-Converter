@@ -38,9 +38,28 @@ void Image::putPixel(int x, int y, unsigned char (& input)[3])
 	}
 }
 
+void Image::resize(int width, int height)
+{
+	this->width = width;
+	this->height = height;
+	this->setBufferSize();
+	this->content = new unsigned char[this->buffer_size];
+	
+	
+}
+
+void Image::setBufferSize()
+{
+	this->buffer_size = this->BYTES_PER_PIXEL * this->width * this->height;
+}
+
+
+
 unsigned Image::calculateRowSize()
 {
-	
+	const int bytes_per_pixel = 3;
+	this->row_size = (this->width * bytes_per_pixel + 3) & ~3;
+	return this->row_size;
 }
 
 int Image::calculatePixelIndex(int x, int y, int color) const
@@ -64,18 +83,28 @@ void Image::save(const std::string& path)
 	std::ofstream fout;
 	fout.open(path, std::ios::binary | std::ios::out);
 
-	fout.write(reinterpret_cast<char*>(this->header), sizeof(this->header));
-
+	std::vector<char> output;
+	output.reserve(this->HEADER_SIZE + this->row_size * this->height);
+	output.insert(output.end(), this->header, this->header + this->HEADER_SIZE);
 	for (int j = 0; j < this->height; ++j)
 	{
 		for (int i = 0; i < this->width; ++i)
 		{
-			unsigned char output[3];
-			this->getPixel(i, j, output, PixelMode::BGR);
+			unsigned char px[3];
+			this->getPixel(i, j, px, PixelMode::BGR);
+
+			for (auto c:px)
+			{
+				output.push_back(c);
+			}
+		}
+		for(int i = 0; i< (this->row_size-this->width*this->BYTES_PER_PIXEL); ++i)
+		{
+			output.push_back(0);
 		}
 	}
 
-	fout.close();
+	fout.write(output.data(), output.size());
 }
 
 std::string Image::toStr() const
@@ -87,14 +116,14 @@ std::string Image::toStr() const
 		for (int j = 0; j < width; j++)
 		{
 			unsigned char arr[3];
-			getPixel(j, i, arr);
+			getPixel(j, i, arr, PixelMode::RGB);
 			if (arr[0] > 0)
 			{
 				output.append("R");
 			}
 			else if (arr[1] > 0)
 			{
-				output.append("B");
+				output.append("G");
 			}
 			if (arr[2] > 0)
 			{
@@ -134,12 +163,9 @@ void Image::load()
 	}
 
 	const auto offset = Utils::fourCharsToInt(buffer, PIXEL_ARRAY_OFFSET);
-	const auto row_size = (width * 3 + 3) & ~3;
-
-	if (this->depth == ColorDepth::bpp24)
-	{
-		this->buffer_size = this->height * this->width * 3;
-	}
+	this->calculateRowSize();
+	this->setBufferSize();
+	
 
 	this->content = new unsigned char[this->buffer_size];
 
@@ -147,7 +173,7 @@ void Image::load()
 	{
 		for (int i = 0; i < width; ++i)
 		{
-			const unsigned int bmp_real_offset = i * 3 + offset + j * row_size;
+			const unsigned int bmp_real_offset = i * 3 + offset + j * this->row_size;
 			this->content[this->calculatePixelIndex(i, j, 0)] = buffer.at(bmp_real_offset + 2); // save R
 			this->content[this->calculatePixelIndex(i, j, 1)] = buffer.at(bmp_real_offset + 1); // save G
 			this->content[this->calculatePixelIndex(i, j, 2)] = buffer.at(bmp_real_offset);				  // save B
@@ -174,7 +200,6 @@ Image::Image(const Image& other): mode(other.mode), depth(other.depth)
 
 std::ostream& operator<<(std::ostream& os, const Image& im)
 {
-	
 	os << im.toStr();
 	return os;
 }
