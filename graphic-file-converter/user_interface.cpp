@@ -2,13 +2,15 @@
 #include "user_interface.h"
 #include <map>
 #include <string>
+#include <regex>
 
 std::map<std::string, Converter*> UserInterface::conversions_map;
 std::map <std::string, std::string> UserInterface::help_map;
 
-void UserInterface::registerAction(const std::string command_name, Converter *conversion)
+void UserInterface::registerAction(const std::string command_name, const std::string command_explanation, Converter *conversion)
 {
     conversions_map.emplace(command_name, conversion);
+    help_map.emplace(command_name, command_explanation);
 }
 
 
@@ -20,6 +22,8 @@ void UserInterface::display()
     for (;;)
     {
         std::cin >> command;
+       // std::smatch matches;
+        // std::regex reg("load []");
 
         if (conversions_map.find(command) != conversions_map.end())
         {
@@ -49,9 +53,4 @@ void UserInterface::showHelp()
     {
         std::cout << explanation.first << "    " << explanation.second << std::endl;
     }
-}
-
-void UserInterface::registerHelp(std::string command, std::string command_explanation)
-{
-    help_map.emplace(command, command_explanation);
 }
