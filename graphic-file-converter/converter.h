@@ -9,7 +9,7 @@ protected:
 
 public:
 	virtual void ProccessImage();
-	void SaveImage();
+	void saveImage(const std::string &path) const;
 	Converter(const Image *base_image) : oldImage(base_image)
 	{
 		newImage = new Image(*base_image);
