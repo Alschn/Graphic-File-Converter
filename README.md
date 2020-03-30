@@ -30,4 +30,9 @@ Optymalizacja pamięci pod względem przechowywanego obrazu.
 #### Aktualny podział pracy:
 * Klasa `Image` odpowiadająca za przechowywanie zdjęcia w pamięci jak i zamianę go na tekst - Gustaw Daczkowski
 * Klasa `UserInterface` odpowiedzialna za dynamiczny CLI - Wojciech Nowicki
-* Klasa `Rotate` dziedzicząca z `Converter` w celu konwersji zdjęcia - obrotu - Adam Lischin.
+* Klasa `Rotate` dziedzicząca z `Converter` w celu konwersji zdjęcia - obrotu - Adam Lischin.  
+
+#### Aktualna funkcjonalnośc programu:
+* CLI reaguje na komendę --help i wyświetla pomoc dla użytkownika, przy każdej źle wpisanej komendzie  
+również wyśtwietla pomoc, CLI jest gotowy do rejestracji kolejnych funckjonalności programu
+
