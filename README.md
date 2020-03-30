@@ -16,9 +16,23 @@ Optymalizacja pamięci pod względem przechowywanego obrazu.
 * Obracanie obrazu o kąt całkowitej wielokrotności 90 stopni.
 * Dynamiczny CLI
 
-
+### Uruchamianie programu
+* Program będzie uruchamiany z wiersza poleceń poprzez podanie odpowiednich argumentów
+* W przypadku niepodania argumentów program będzie działał w trybie pilotażowym (wprowadzanie opcji po kolei)
+* Program będzie wyświetlał dynamicznie formułowaną pomoc
 
 
 ### Literatura
 
  [Struktura pliku BMP](http://www.ue.eti.pg.gda.pl/fpgalab/zadania.spartan3/zad_vga_struktura_pliku_bmp_en.html)
+
+
+#### Aktualny podział pracy:
+* Klasa `Image` odpowiadająca za przechowywanie zdjęcia w pamięci jak i zamianę go na tekst - Gustaw Daczkowski
+* Klasa `UserInterface` odpowiedzialna za dynamiczny CLI - Wojciech Nowicki
+* Klasa `Rotate` dziedzicząca z `Converter` w celu konwersji zdjęcia - obrotu - Adam Lischin.  
+
+#### Aktualna funkcjonalnośc programu:
+* CLI reaguje na komendę --help i wyświetla pomoc dla użytkownika, przy każdej źle wpisanej komendzie  
+również wyśtwietla pomoc, CLI jest gotowy do rejestracji kolejnych funckjonalności programu
+
