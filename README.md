@@ -1,13 +1,23 @@
-## Skład zespołu:
+## Skład zespołu (gr. 208):
 * Gustaw Daczkowski
 * Wojciech Nowicki
 * Adam Lisichin
 
 Wybrane środowisko to Visual Studio 2019.
 
-Został zainicjowany wstępny projekt programu wraz z wstepnym projektem testów 
-jednostkowych. Do testowania będzie użyty CppUnitTestFramework o ile nie 
-znajdzie się lepsze rozwiązanie (sugestie prowadzącego).
+### Temat projektu:
+Konwersja .bmp <-> pliki nagłowkowe pamieci (statyczna).
+Wyświetlanie obrazów w formie tekstowej (ASCII).
+Optymalizacja pamięci pod względem przechowywanego obrazu.
+
+
+### Wstępna funkcjonalność:
+* Wczytywanie obrazu do pamięci z pliku .bmp (24bpp).
+* Obracanie obrazu o kąt całkowitej wielokrotności 90 stopni.
+* Dynamiczny CLI
+
+
+
 
 ### Literatura
 

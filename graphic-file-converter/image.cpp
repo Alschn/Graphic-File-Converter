@@ -5,21 +5,47 @@
 #include <iostream>
 #include <vector>
 
+void Image::replacePixel(int x, int y, const char pixel[3])
+{
+}
+
 void Image::getPixel(int x, int y, unsigned char (&output)[3])
 {
 	for (int i = 0; i < 3; ++i)
 	{
-		output[i] = this->content[this->width * 3 * y + x*3+i];
+		auto index = this->calculatePixelIndex(x, y, i);
+		output[i] = this->content[index];
 	}
 }
 
-std::string Image::show()
+void Image::putPixel(int x, int y, unsigned char (& input)[3])
+{
+	for (int i = 0; i < 3; ++i)
+	{
+		auto index = this->calculatePixelIndex(x, y, i);
+		this->content[index] = input[i];
+	}
+}
+
+int Image::calculatePixelIndex(int x, int y, int color) const
+{
+	switch (this->depth)
+	{
+	case ColorDepth::bpp24:
+		return this->width * 3 * y + x * 3 + color;
+
+	default:
+		return this->width * 3 * y + x * 3 + color;
+	}
+}
+
+std::string Image::to_str()
 {
 	std::string output;
 
 	for (int i = height - 1; i > 0; --i)
 	{
-		for (int j = 0; j <width; j++)
+		for (int j = 0; j < width; j++)
 		{
 			unsigned char arr[3];
 			getPixel(j, i, arr);
@@ -35,7 +61,6 @@ std::string Image::show()
 			{
 				output.append("B");
 			}
-
 		}
 		output.append("\n");
 	}
@@ -71,16 +96,21 @@ void Image::load(bool expect_saving)
 
 	const auto offset = Utils::fourCharsToInt(buffer, PIXEL_ARRAY_OFFSET);
 	const auto row_size = (width * 3 + 3) & ~3;
-	this->content = new unsigned char[height * width*3];
+	if (this->depth == ColorDepth::bpp24)
+	{
+		this->buffer_size = this->height * this->width * 3;
+	}
+
+	this->content = new unsigned char[this->buffer_size];
 
 	for (int j = 0; j < height; ++j)
 	{
-		for (int i = 0; i < width * 3; i += 3)
+		for (int i = 0; i < width; ++i)
 		{
-			const unsigned int bmp_real_offset = i + offset + j * row_size;
-			this->content[j * width * 3 + i] = buffer.at(bmp_real_offset + 2); // save R
-			this->content[j * width * 3 + i + 1] = buffer.at(bmp_real_offset + 1); // save G
-			this->content[j * width * 3 + i + 2] = buffer.at(bmp_real_offset); // save B
+			const unsigned int bmp_real_offset = i * 3 + offset + j * row_size;
+			this->content[this->calculatePixelIndex(j, i, 0)] = buffer.at(bmp_real_offset + 2); // save R
+			this->content[this->calculatePixelIndex(j, i, 1)] = buffer.at(bmp_real_offset + 1); // save G
+			this->content[this->calculatePixelIndex(j, i, 2)] = buffer.at(bmp_real_offset);				 // save B
 		}
 	}
 }
