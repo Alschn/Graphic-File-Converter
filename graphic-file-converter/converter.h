@@ -4,15 +4,15 @@
 class Converter
 {
 protected:
-	const Image &oldImage;
+	const Image *oldImage;
 	Image *newImage;
 
 public:
 	virtual void ProccessImage();
 	void SaveImage();
-	Converter(const Image &base_image) : oldImage(base_image)
+	Converter(const Image *base_image) : oldImage(base_image)
 	{
-		newImage = new Image(base_image);
+		newImage = new Image(*base_image);
 	};
 };
 
