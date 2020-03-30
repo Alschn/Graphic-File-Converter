@@ -4,7 +4,7 @@
 #include <string>
 
 std::map<std::string, Converter*> UserInterface::conversions_map;
-
+std::map <std::string, std::string> UserInterface::help_map;
 
 void UserInterface::registerAction(const std::string command_name, Converter *conversion)
 {
@@ -45,9 +45,13 @@ void UserInterface::executeAction(const std::string& command)
 void UserInterface::showHelp()
 {
     std:: cout << "Possible commands: " << std::endl;
-    for (auto command : conversions_map)
+    for (auto explanation : help_map)
     {
-        std::cout << command.first << std::endl;
+        std::cout << explanation.first << "    " << explanation.second << std::endl;
     }
 }
 
+void UserInterface::registerHelp(std::string command, std::string command_explanation)
+{
+    help_map.emplace(command, command_explanation);
+}

@@ -10,6 +10,8 @@ int main()
 	Image im(R"(..\sample_bmps\10x10.bmp)", true, ImageMode::ReadFromBMP);
 	std::cout << im.to_str();
 	UserInterface Desktop;
+	Desktop.registerHelp("--rotation", "rotates picture by n degrees");
+	Desktop.registerHelp("--contrast", "changes colours intensification");
 	Desktop.display();
 
 }
