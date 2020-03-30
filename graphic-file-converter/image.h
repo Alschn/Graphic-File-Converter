@@ -32,11 +32,12 @@ private:
 	unsigned char* content;
 	bool save_header{};
 
+
+
+public:
 	unsigned int width{};
 	unsigned int height{};
 	unsigned int row_size{};
-
-public:
 
 	unsigned char* header{};
 	size_t file_size{};

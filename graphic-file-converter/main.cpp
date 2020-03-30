@@ -1,6 +1,6 @@
 #include <iostream>
 #include "user_interface.h"
-#include "image.h"
+// #include "image.h"
 
 using namespace std;
 
@@ -11,7 +11,12 @@ int main()
 	std::cout << im;
 	std::cout << endl;
 
-	Converter conv = Converter(&im);
+	Image im2(im);
+
+	im2.resize(im.height, im.width);
+
+	
+	// Converter conv = Converter(&im);
 
 	UserInterface Desktop;
 
