@@ -88,6 +88,8 @@ public:
 	      const ColorDepth& depth = ColorDepth::bpp24);
 
 	Image(const Image& other);
+	
+	Image();
 
 	friend std::ostream& operator<<(std::ostream& os, const Image& im);
 

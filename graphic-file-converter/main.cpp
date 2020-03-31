@@ -15,15 +15,13 @@ int main()
 
 	im2.resize(im.height, im.width);
 
-	
-	// Converter conv = Converter(&im);
 
 	UserInterface Desktop;
 
 	
-	// Desktop.registerHelp("--rotation", "rotates picture by n degrees");
-	// Desktop.registerHelp("--contrast", "changes colours intensification");
-	// Desktop.display();
+	//Desktop.registerAction("--rotation", "rotates picture by n degrees");
+	//Desktop.registerAction("--contrast", "changes colours intensification");
+	//Desktop.display();
 
 	im.save(R"(..\sample_bmps\10x101111.bmp)");
 	

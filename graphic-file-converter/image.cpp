@@ -207,3 +207,8 @@ std::ostream& operator<<(std::ostream& os, const Image& im)
 	os << im.toStr();
 	return os;
 }
+
+Image::Image()
+{
+
+}
