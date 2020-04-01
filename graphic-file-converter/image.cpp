@@ -27,6 +27,29 @@ void Image::putPixel(int x, int y, unsigned char (& input)[3])
 	}
 }
 
+void Image::resize(int width, int height)
+{
+	this->width = width;
+	this->height = height;
+	this->setBufferSize();
+	this->content = new unsigned char[this->buffer_size];
+	this->calculateRowSize();
+}
+
+void Image::setBufferSize()
+{
+	this->buffer_size = this->BYTES_PER_PIXEL * this->width * this->height;
+}
+
+
+
+unsigned Image::calculateRowSize()
+{
+	const int bytes_per_pixel = 3;
+	this->row_size = (this->width * bytes_per_pixel + 3) & ~3;
+	return this->row_size;
+}
+
 int Image::calculatePixelIndex(int x, int y, int color) const
 {
 	switch (this->depth)
