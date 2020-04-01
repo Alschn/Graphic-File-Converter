@@ -46,10 +46,10 @@ void Rotation::createMap()
     }
 };
 
-void Rotation::proccessImage(int angle)
+void Rotation::processImage(int angle)
 {
-    Rotation.angle = angle;
-    for(const auto pair:Rotation.map)
+    this->angle = angle;
+    for(const auto &pair:this->map)
     {
         auto old_x = pair.first.first;
         auto old_y = pair.first.second;
