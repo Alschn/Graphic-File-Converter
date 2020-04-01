@@ -9,5 +9,6 @@ class Rotation: public Converter
     void createMap();
 
     public:
+    void processImage(int angle) override;
     int angle;
 };
