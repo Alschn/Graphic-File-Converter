@@ -152,19 +152,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="contrast.cpp" />
-    <ClCompile Include="Converter.cpp" />
+    <ClCompile Include="converter.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="image.cpp" />
-    <ClCompile Include="Pixel.cpp" />
     <ClCompile Include="rotation.cpp" />
     <ClCompile Include="user_interface.cpp" />
-    <ClCompile Include="Utils.cpp" />
+    <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="contrast.h" />
     <ClInclude Include="converter.h" />
     <ClInclude Include="image.h" />
-    <ClInclude Include="Pixel.h" />
     <ClInclude Include="rotation.h" />
     <ClInclude Include="user_interface.h" />
     <ClInclude Include="utils.h" />
