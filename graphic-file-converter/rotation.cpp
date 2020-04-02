@@ -32,17 +32,17 @@ void Rotation::createMap()
                 y_n += (this->oldImage->width - 1);
                 break;
             case 180:
-                y_n += this->oldImage->width;
-                y_n += this->oldImage->height;
+                x_n += (this->oldImage->width - 1);
+                y_n += (this->oldImage->height - 1);
                 break;
             case 270:
-                x_n += this->oldImage->height;
+                x_n += (this->oldImage->height - 1);
                 break;
             }
 
             unsigned char colors[3] = { 0xAA, 0xBB, 0xAA };
             this->newImage->putPixel(j, i, colors);
-            map.emplace(std::make_pair(std::make_pair(j, i), std::make_pair(int(x_n), int(y_n))));
+            map.emplace(std::make_pair(std::make_pair(j, i), std::make_pair(int(round((x_n))), int(round(y_n)))));
         }
     }
     }

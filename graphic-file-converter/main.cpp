@@ -21,7 +21,7 @@ int main()
 	
 	Rotation  conv = Rotation(&im);
 	conv.processImage(90);
-	conv.saveImage(R"(..\sample_bmps\1011x1022222.bmp)");
+	conv.saveImage(R"(..\sample_bmps\1011x102222.bmp)");
 
 	// UserInterface Desktop;
 
