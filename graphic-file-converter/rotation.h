@@ -8,7 +8,9 @@ class Rotation: public Converter
     std::map <std::pair<int, int>, std::pair<int, int>> map;
     void createMap();
 
+    
     public:
-    void processImage(int angle) override;
+    using Converter::Converter;
+	void processImage(int angle) override;
     int angle;
 };
