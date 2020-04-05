@@ -19,35 +19,14 @@ void UserInterface::display()
     Image image;
     std::cout << "Welcome to file converter!" << std::endl;
     std::cout << "Type command or --help to get commands examples" << std::endl;
-    BEGIN:std::string command;
-    std::cin >> command;
-    std::smatch match;
-    std::regex reg("^load [\S]+$");
+    std::string command;
+    std::getline(std::cin, command);
+	std::regex reg(R"(^load \S+$)");
+	std::smatch match;
     std::regex_search(command, match, reg);
-    if (match.size()>0)
+    for(auto x: match)
     {
-        std::smatch match_path;
-        std::regex reg_path("(?!load\b)\b\S+");
-        std::regex_search(match, match_path, reg_path);
-        Image image(match_path.str(), true, ImageMode::ReadFromBMP);
-    }
-    else if (command == "--help")
-    {
-        showHelp();
-    }
-    else
-    {
-        std::cout << "You need to load file first!" << std::endl;
-        showHelp();
-    }
-    for (;;)
-    {
-        std::string next_command;
-        std::cin >> next_command;
-        std::smatch match_command;
-        std::regex reg_command("(^load[\S]+$|^save[\S]+$|^display$|^--help$)");
-        std::regex_search(next_command, match_command, reg_command);
-        std::string command_match = match_command.str();
+        std::cout << x << std::endl;
     }
 }
 
