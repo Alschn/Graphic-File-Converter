@@ -4,12 +4,10 @@
 #include <ios>
 #include <iostream>
 #include <vector>
+#include "utils.h"
+// #include "utils.cpp"
 
-void Image::replacePixel(int x, int y, const char pixel[3])
-{
-}
-
-void Image::getPixel(int x, int y, unsigned char (&output)[3], PixelMode mode) const
+void Image::getPixel(int x, int y, unsigned char(&output)[3], PixelMode mode) const
 {
 	if (mode == PixelMode::RGB)
 	{
@@ -29,7 +27,7 @@ void Image::getPixel(int x, int y, unsigned char (&output)[3], PixelMode mode) c
 	}
 }
 
-void Image::putPixel(int x, int y, unsigned char (& input)[3])
+void Image::putPixel(int x, int y, unsigned char(&input)[3])
 {
 	for (int i = 0; i < 3; ++i)
 	{
@@ -38,6 +36,11 @@ void Image::putPixel(int x, int y, unsigned char (& input)[3])
 	}
 }
 
+/**
+ * \brief Resizes image to given both width and height
+ * \param width new width to resize
+ * \param height 
+ */
 void Image::resize(int width, int height)
 {
 	this->width = width;
@@ -52,6 +55,10 @@ void Image::setBufferSize()
 	this->buffer_size = this->BYTES_PER_PIXEL * this->width * this->height;
 }
 
+unsigned Image::calculatePadding()
+{
+	return 0;
+}
 
 
 unsigned Image::calculateRowSize()
@@ -59,6 +66,17 @@ unsigned Image::calculateRowSize()
 	const int bytes_per_pixel = 3;
 	this->row_size = (this->width * bytes_per_pixel + 3) & ~3;
 	return this->row_size;
+}
+
+unsigned Image::rowSize(const unsigned width, const unsigned bytes_per_pixel)
+{
+	return (width * bytes_per_pixel + 3) & ~3;
+}
+
+unsigned Image::rowPadding(const unsigned width, const unsigned bytes_per_pixel)
+{
+	const auto row_size = Image::rowSize(width, bytes_per_pixel);
+	return row_size - width * bytes_per_pixel;
 }
 
 int Image::calculatePixelIndex(int x, int y, int color) const
@@ -92,12 +110,12 @@ void Image::save(const std::string& path)
 			unsigned char px[3];
 			this->getPixel(i, j, px, PixelMode::BGR);
 
-			for (auto c:px)
+			for (auto c : px)
 			{
 				output.push_back(c);
 			}
 		}
-		for(int i = 0; i< (this->row_size-this->width*this->BYTES_PER_PIXEL); ++i)
+		for (int i = 0; i < (this->row_size - this->width * this->BYTES_PER_PIXEL); ++i)
 		{
 			output.push_back(0);
 		}
@@ -164,7 +182,7 @@ void Image::load()
 	const auto offset = Utils::fourCharsToInt(buffer, PIXEL_ARRAY_OFFSET);
 	this->calculateRowSize();
 	this->setBufferSize();
-	
+
 
 	this->content = new unsigned char[this->buffer_size];
 
@@ -175,13 +193,13 @@ void Image::load()
 			const unsigned int bmp_real_offset = i * 3 + offset + j * this->row_size;
 			this->content[this->calculatePixelIndex(i, j, 0)] = buffer.at(bmp_real_offset + 2); // save R
 			this->content[this->calculatePixelIndex(i, j, 1)] = buffer.at(bmp_real_offset + 1); // save G
-			this->content[this->calculatePixelIndex(i, j, 2)] = buffer.at(bmp_real_offset);				  // save B
+			this->content[this->calculatePixelIndex(i, j, 2)] = buffer.at(bmp_real_offset); // save B
 		}
 	}
 }
 
 Image::Image(const std::string& path, const bool expect_saving, const ImageMode& m,
-             const ColorDepth& depth): path(path), mode(m), depth(depth), save_header(expect_saving)
+	const ColorDepth& depth) : path(path), mode(m), depth(depth), save_header(expect_saving)
 {
 	if (this->save_header)
 	{
@@ -192,20 +210,30 @@ Image::Image(const std::string& path, const bool expect_saving, const ImageMode&
 	this->load();
 }
 
-Image::Image(const Image& other): mode(other.mode), depth(other.depth)
+Image::Image(const Image& other) : mode(other.mode), depth(other.depth)
 {
+#ifdef _DEBUG
+	std::cout << "Inside copy constructor of class Image" << std::endl;
+#endif
+
+
 	this->width = other.width;
 	this->height = other.height;
 	this->buffer_size = other.buffer_size;
 	this->row_size = other.row_size;
 
-	
+
 	this->save_header = other.save_header;
 	this->file_size = other.file_size;
 	this->header = new unsigned char[other.HEADER_SIZE];
-	memcpy(this->header, other.header, this->HEADER_SIZE);
+	memcpy(this->header, other.header, this->HEADER_SIZE * 1);
 	this->content = new unsigned char[other.buffer_size];
+}
 
+Image::~Image()
+{
+	delete[] this->header;
+	delete[] this->content;
 }
 
 std::ostream& operator<<(std::ostream& os, const Image& im)
