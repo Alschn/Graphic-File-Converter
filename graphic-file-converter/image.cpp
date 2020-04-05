@@ -45,8 +45,6 @@ void Image::resize(int width, int height)
 	this->setBufferSize();
 	this->content = new unsigned char[this->buffer_size];
 	this->calculateRowSize();
-	
-	
 }
 
 void Image::setBufferSize()
@@ -196,10 +194,18 @@ Image::Image(const std::string& path, const bool expect_saving, const ImageMode&
 
 Image::Image(const Image& other): mode(other.mode), depth(other.depth)
 {
+	this->width = other.width;
+	this->height = other.height;
+	this->buffer_size = other.buffer_size;
+	this->row_size = other.row_size;
+
+	
+	this->save_header = other.save_header;
 	this->file_size = other.file_size;
 	this->header = new unsigned char[other.HEADER_SIZE];
 	memcpy(this->header, other.header, this->HEADER_SIZE);
 	this->content = new unsigned char[other.buffer_size];
+
 }
 
 std::ostream& operator<<(std::ostream& os, const Image& im)

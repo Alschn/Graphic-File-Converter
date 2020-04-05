@@ -8,9 +8,9 @@ protected:
 	Image *newImage;
 
 public:
-	// virtual void proccessImage();
+	virtual void processImage(int angle) = 0;
 	void saveImage(const std::string &path) const;
-	Converter(const Image *base_image) : oldImage(base_image)
+	explicit Converter(const Image *base_image) : oldImage(base_image)
 	{
 		newImage = new Image(*base_image);
 	};

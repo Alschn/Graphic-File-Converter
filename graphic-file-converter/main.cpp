@@ -1,6 +1,9 @@
 #include <iostream>
-#include "user_interface.h"
+
+#include "rotation.h"
+// #include "user_interface.h"
 // #include "image.h"
+
 
 using namespace std;
 
@@ -15,6 +18,8 @@ int main()
 
 	im2.resize(im.height, im.width);
 
+	
+	// Converter conv = Converter(&im);
 
 	UserInterface Desktop;
 
@@ -23,6 +28,6 @@ int main()
 	//Desktop.registerAction("--contrast", "changes colours intensification");
 	//Desktop.display();
 
-	im.save(R"(..\sample_bmps\10x101111.bmp)");
+	im.save(R"(..\sample_bmps\10x1011121.bmp)");
 	
 }
