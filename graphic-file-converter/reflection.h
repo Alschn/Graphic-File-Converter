@@ -2,15 +2,15 @@
 #include "converter.h"
 #include <map>
 
-class Reflection : public Converter
+class Reflection: public Converter
 {
-private:
+    private:
     std::map <std::pair<int, int>, std::pair<int, int>> map;
     void createMap();
 
-public:
-    using Converter::Converter;
-    void reflectImage(std::string reflect_type) override;
-    std::string reflect_type;
 
+    public:
+    using Converter::Converter;
+    void processImage(int reflect_num) override;
+    int reflect_num;
 };
