@@ -351,3 +351,6 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+/sample_bmps/1011x102222.bmp
+/sample_bmps/10x1011121.bmp
+/sample_bmps/10x1110_rotated.bmp
