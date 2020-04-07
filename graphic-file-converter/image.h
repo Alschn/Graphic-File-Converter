@@ -56,8 +56,17 @@ public:
 	const int PIXEL_ARRAY_OFFSET = 10;
 	const int BYTES_PER_PIXEL = 3;
 
-	void getPixel(int x, int y, unsigned char (&output)[3], PixelMode mode = PixelMode::RGB) const;
-	void putPixel(int x, int y, unsigned char (&input)[3]);
+	/**
+	 * \brief Gets pixel on specified index given by coordinates (x, y). Default orientation is: (0, 0) at the bottom left corner. Empty char array has to be supplied for the return value.
+	 * For 24bit color spaces array has have 3 elements.
+	 * \param x x coordinate
+	 * \param y y coordinate
+	 * \param output empty char array for output
+	 * \param mode for color space if the color space has more than one color.
+	 */
+	void getPixel(int x, int y, unsigned char output[], PixelMode mode = PixelMode::RGB) const;
+	void putPixel(int x, int y, unsigned char input[]);
+	void putPixel(int x, int y, bool output);
 
 	void resize(int width, int height);
 	void setBufferSize();

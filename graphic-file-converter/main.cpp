@@ -8,10 +8,7 @@
 using namespace std;
 
 
-enum class abc
-{
-	a=1
-};
+
 
 int main()
 {
@@ -23,17 +20,17 @@ int main()
 	std::cout << endl;
 
 
-	std::map<std::string, Converter*> conversions;
-	// Converter* conv = new Rotation(&im);
+	// std::map<std::string, Converter*> conversions;
 
-	conversions.try_emplace("rotate", new Rotation());
+
+	// conversions.try_emplace("rotate", new Rotation());
 
 
 	Image im(R"(..\sample_bmps\10x10.bmp)", true, ImageMode::ReadFromBMP);
+	Converter* conv = new Rotation(&im);
 
-
-	// conv->processImage(90);
-	// conv->saveImage(R"(..\sample_bmps\10x1110_rotated.bmp)");
+	conv->processImage(90);
+	conv->saveImage(R"(..\sample_bmps\101x1110_rotated.bmp)");
 
 
 	// UserInterface Desktop;

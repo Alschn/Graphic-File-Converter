@@ -5,15 +5,15 @@
 #include <iostream>
 #include <vector>
 #include "utils.h"
-// #include "utils.cpp"
 
-void Image::getPixel(int x, int y, unsigned char(&output)[3], PixelMode mode) const
+
+void Image::getPixel(int x, int y, unsigned char output[], PixelMode mode) const
 {
 	if (mode == PixelMode::RGB)
 	{
 		for (int i = 0; i < 3; ++i)
 		{
-			auto index = this->calculatePixelIndex(x, y, i);
+			const auto index = this->calculatePixelIndex(x, y, i);
 			output[i] = this->content[index];
 		}
 	}
@@ -21,13 +21,16 @@ void Image::getPixel(int x, int y, unsigned char(&output)[3], PixelMode mode) co
 	{
 		for (int i = 0; i < 3; ++i)
 		{
-			auto index = this->calculatePixelIndex(x, y, i);
+			const auto index = this->calculatePixelIndex(x, y, i);
 			output[2 - i] = this->content[index];
 		}
 	}
+	else if (mode == PixelMode::MONOBW)
+	{
+	}
 }
 
-void Image::putPixel(int x, int y, unsigned char(&input)[3])
+void Image::putPixel(int x, int y, unsigned char input[])
 {
 	for (int i = 0; i < 3; ++i)
 	{
@@ -36,11 +39,16 @@ void Image::putPixel(int x, int y, unsigned char(&input)[3])
 	}
 }
 
-/**
- * \brief Resizes image to given both width and height
- * \param width new width to resize
- * \param height 
+
+/*
+ *This method is for 1bpp mode. Cannot be used with another modes. 
  */
+void Image::putPixel(int x, int y, bool output)
+{
+	
+}
+
+
 void Image::resize(int width, int height)
 {
 	this->width = width;
@@ -112,7 +120,7 @@ void Image::save(const std::string& path)
 
 			for (auto c : px)
 			{
-				output.push_back(c);
+				output.emplace_back(c);
 			}
 		}
 		for (int i = 0; i < (this->row_size - this->width * this->BYTES_PER_PIXEL); ++i)
@@ -199,7 +207,7 @@ void Image::load()
 }
 
 Image::Image(const std::string& path, const bool expect_saving, const ImageMode& m,
-	const ColorDepth& depth) : path(path), mode(m), depth(depth), save_header(expect_saving)
+             const ColorDepth& depth) : path(path), mode(m), depth(depth), save_header(expect_saving)
 {
 	if (this->save_header)
 	{
