@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "rotation.h"
+#include "reflection.h"
 // #include "user_interface.h"
 // #include "image.h"
 
@@ -27,9 +28,9 @@ int main()
 
 
 	Image im(R"(..\sample_bmps\10x10.bmp)", true, ImageMode::ReadFromBMP);
-	Converter* conv = new Rotation(&im);
+	Converter* conv = new Reflection(&im);
 
-	conv->processImage(90);
+	conv->processImage(0);
 	conv->saveImage(R"(..\sample_bmps\101x1110_rotated.bmp)");
 
 
