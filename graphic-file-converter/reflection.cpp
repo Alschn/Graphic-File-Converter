@@ -14,16 +14,16 @@ std::map <std::pair<int, int>, std::pair<int, int>> Reflection::create_map()
             {
             case 0:
                 // vertical mirror reflection
-                int x_n = this->oldImage->width - j - 1;
+                x_n = this->oldImage->width - j - 1;
                 break;
             case 1:
                 // horizontal mirror reflection
-                int y_n = this->oldImage->height - i - 1;
+               y_n = this->oldImage->height - i - 1;
                 break;
             case 2:
             	// diagonal mirror reflection y = x
-                int x_n = i;
-                int y_n = j;
+                x_n = i;
+                y_n = j;
 
                 if (i == j)
                 {
@@ -33,8 +33,8 @@ std::map <std::pair<int, int>, std::pair<int, int>> Reflection::create_map()
                 break;
             case 3:
                 // diagonal mirror reflection y = -x+height
-                int x_n = this->oldImage->width - i - 1;
-                int y_n = this->oldImage->height - i - 1;
+                x_n = this->oldImage->width - i - 1;
+                y_n = this->oldImage->height - i - 1;
             	if (j == this->oldImage->width - i - 1)
                 {
                 unsigned char colors[3] = { 0xAA, 0xBB, 0xAA };

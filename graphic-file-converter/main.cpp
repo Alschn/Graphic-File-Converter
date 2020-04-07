@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "rotation.h"
+#include "reflection.h"
 // #include "user_interface.h"
 // #include "image.h"
 
@@ -19,9 +20,9 @@ int main()
 	im2.resize(im.height, im.width);
 
 	
-	Rotation  conv = Rotation(&im);
-	conv.processImage(90);
-	conv.saveImage(R"(..\sample_bmps\1011x102222.bmp)");
+	Converter  *conv = new Reflection(&im);
+	conv->processImage(3);
+	conv->saveImage(R"(..\sample_bmps\diagonal.bmp)");
 
 	// UserInterface Desktop;
 
