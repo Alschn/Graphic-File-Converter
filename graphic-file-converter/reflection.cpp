@@ -18,7 +18,7 @@ std::map <std::pair<int, int>, std::pair<int, int>> Reflection::create_map(int n
                 break;
             case 1:
                 // horizontal mirror reflection
-               y_n = this->oldImage->height - i - 1;
+				y_n = this->oldImage->height - i - 1;
                 break;
             case 2:
             	// diagonal mirror reflection y = x ONLY FOR SQUARES

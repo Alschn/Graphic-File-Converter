@@ -15,7 +15,7 @@ std::map <std::pair<int, int>, std::pair<int, int>> Rotation::create_map()
     }
     if (angle != 360 || angle != 0)
     {
-    const double pi = std::acos(-1);
+    const auto pi = std::acos(-1);
     double deg = angle * pi / 180;
 
     for (int i = 0; i < this->oldImage->height; i++)
@@ -42,7 +42,7 @@ std::map <std::pair<int, int>, std::pair<int, int>> Rotation::create_map()
                     break;
             }
 
-            map.emplace(std::make_pair(std::make_pair(j, i), std::make_pair(int(round((x_n))), int(round(y_n)))));
+            map.emplace(std::make_pair(std::make_pair(j, i), std::make_pair(int(round(x_n)), int(round(y_n)))));
         }
     }
     }
