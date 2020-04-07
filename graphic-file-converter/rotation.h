@@ -6,7 +6,7 @@ class Rotation: public Converter
 {
     private:
     std::map <std::pair<int, int>, std::pair<int, int>> map;
-    std::map <std::pair<int, int>, std::pair<int, int>> create_map();
+    std::map <std::pair<int, int>, std::pair<int, int>> create_map(int angle);
 
     
     public:

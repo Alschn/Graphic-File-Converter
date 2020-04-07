@@ -20,7 +20,7 @@ int main()
 	//im2.resize(im.height, im.width);
 
 	Converter  *conv = new Reflection(&im);
-	conv->processImage(0);
+	conv->processImage(3);
 	conv->saveImage(R"(..\sample_bmps\output.bmp)");
 
 	// UserInterface Desktop;
