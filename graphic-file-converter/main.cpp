@@ -15,14 +15,13 @@ int main()
 	std::cout << im;
 	std::cout << endl;
 
-	Image im2(im);
 
-	im2.resize(im.height, im.width);
+	//Image im2(im);
+	//im2.resize(im.height, im.width);
 
-	
 	Converter  *conv = new Reflection(&im);
-	conv->processImage(3);
-	conv->saveImage(R"(..\sample_bmps\diagonal.bmp)");
+	conv->processImage(0);
+	conv->saveImage(R"(..\sample_bmps\output.bmp)");
 
 	// UserInterface Desktop;
 
@@ -31,6 +30,6 @@ int main()
 	// Desktop.registerHelp("--contrast", "changes colours intensification");
 	// Desktop.display();
 
-	im.save(R"(..\sample_bmps\10x1011121.bmp)");
+	// im.save(R"(..\sample_bmps\10x1011121.bmp)");
 	
 }

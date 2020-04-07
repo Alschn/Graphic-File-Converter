@@ -1,6 +1,6 @@
 #include "reflection.h"
 
-std::map <std::pair<int, int>, std::pair<int, int>> Reflection::create_map()
+std::map <std::pair<int, int>, std::pair<int, int>> Reflection::create_map(int num)
 {
     // vertical and horizontal reflection allowed for all bmp files
     // diagonal reflection allowed only for square ones
@@ -10,7 +10,7 @@ std::map <std::pair<int, int>, std::pair<int, int>> Reflection::create_map()
         {
             int x_n = j;
             int y_n = i;
-            switch (this->reflect_num)
+            switch (num)
             {
             case 0:
                 // vertical mirror reflection
@@ -21,25 +21,18 @@ std::map <std::pair<int, int>, std::pair<int, int>> Reflection::create_map()
                y_n = this->oldImage->height - i - 1;
                 break;
             case 2:
-            	// diagonal mirror reflection y = x
-                x_n = i;
-                y_n = j;
-
-                if (i == j)
-                {
-                unsigned char colors[3] = { 0xAA, 0xBB, 0xAA };
-				this->newImage->putPixel(j, i, colors);
+            	// diagonal mirror reflection y = x ONLY FOR SQUARES
+                if (this->oldImage->width == this->oldImage->height) {
+                    x_n = i;
+                    y_n = j;
                 }
                 break;
             case 3:
-                // diagonal mirror reflection y = -x+height
-                x_n = this->oldImage->width - i - 1;
-                y_n = this->oldImage->height - i - 1;
-            	if (j == this->oldImage->width - i - 1)
-                {
-                unsigned char colors[3] = { 0xAA, 0xBB, 0xAA };
-				this->newImage->putPixel(j, i, colors);
-				}
+                // diagonal mirror reflection y = -x+height ONLY FOR SQUARES
+                if (this->oldImage->width == this->oldImage->height) {
+                    x_n = this->oldImage->width - i - 1;
+                    y_n = this->oldImage->height - j - 1;
+                }
                 break;
             default: 
                 break;
@@ -55,7 +48,7 @@ std::map <std::pair<int, int>, std::pair<int, int>> Reflection::create_map()
 void Reflection::processImage(int reflect_num)
 {
     this->reflect_num = reflect_num;
-    this->create_map();
+    this->create_map(this->reflect_num);
 
     for (const auto& pair : this->map)
     {
