@@ -1,7 +1,6 @@
 #include "reflection.h"
-#include <cmath>
 
-void Reflection::createMap()
+std::map <std::pair<int, int>, std::pair<int, int>> Reflection::create_map()
 {
     // vertical and horizontal reflection allowed for all bmp files
     // diagonal reflection allowed only for square ones
@@ -9,39 +8,61 @@ void Reflection::createMap()
     {
         for (int j = 0; j < this->oldImage->width; j++)
         {
+            int x_n = j;
+            int y_n = i;
             switch (this->reflect_num)
             {
             case 0:
-                // code for vertical mirror reflection
+                // vertical mirror reflection
+                int x_n = this->oldImage->width - j - 1;
                 break;
             case 1:
-                // code for horizontal mirror reflection
+                // horizontal mirror reflection
+                int y_n = this->oldImage->height - i - 1;
                 break;
             case 2:
-                // code for diagonal mirror reflection #1
+            	// diagonal mirror reflection y = x
+                int x_n = i;
+                int y_n = j;
+
+                if (i == j)
+                {
+                unsigned char colors[3] = { 0xAA, 0xBB, 0xAA };
+				this->newImage->putPixel(j, i, colors);
+                }
                 break;
             case 3:
-                // code for diagonal mirror reflection #2
+                // diagonal mirror reflection y = -x+height
+                int x_n = this->oldImage->width - i - 1;
+                int y_n = this->oldImage->height - i - 1;
+            	if (j == this->oldImage->width - i - 1)
+                {
+                unsigned char colors[3] = { 0xAA, 0xBB, 0xAA };
+				this->newImage->putPixel(j, i, colors);
+				}
+                break;
+            default: 
                 break;
             }
 
-            //map.emplace(std::make_pair(std::make_pair(j, i), std::make_pair(int(round((x_n))), int(round(y_n)))));
+            map.emplace(std::make_pair(std::make_pair(j, i), std::make_pair(x_n, y_n)));
         }
     }
+    return this->map;
 };
 
 
 void Reflection::processImage(int reflect_num)
 {
     this->reflect_num = reflect_num;
-    this->createMap();
+    this->create_map();
 
     for (const auto& pair : this->map)
     {
-        auto old_x = pair.first.first;
-        auto old_y = pair.first.second;
-        auto new_x = pair.second.first;
-        auto new_y = pair.second.second;
+        const auto old_x = pair.first.first;
+        const auto old_y = pair.first.second;
+        const auto new_x = pair.second.first;
+        const auto new_y = pair.second.second;
 
         unsigned char pixels[3];
 
