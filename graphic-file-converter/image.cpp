@@ -5,7 +5,7 @@
 #include <iostream>
 #include <vector>
 #include "utils.h"
-
+#include <sys/stat.h>
 
 void Image::getPixel(int x, int y, unsigned char output[], PixelMode mode) const
 {
@@ -30,7 +30,7 @@ void Image::getPixel(int x, int y, unsigned char output[], PixelMode mode) const
 	}
 }
 
-void Image::putPixel(int x, int y, unsigned char input[])
+void Image::putPixel(int x, int y, unsigned char input[], PixelMode mode)
 {
 	for (int i = 0; i < 3; ++i)
 	{
@@ -45,7 +45,6 @@ void Image::putPixel(int x, int y, unsigned char input[])
  */
 void Image::putPixel(int x, int y, bool output)
 {
-	
 }
 
 
@@ -53,27 +52,14 @@ void Image::resize(int width, int height)
 {
 	this->width = width;
 	this->height = height;
-	this->setBufferSize();
+	this->buffer_size = Image::bufferSize(this->BYTES_PER_PIXEL, this->width, this->height);
 	this->content = new unsigned char[this->buffer_size];
-	this->calculateRowSize();
+	this->row_size = Image::rowSize(this->width, this->BYTES_PER_PIXEL);
 }
 
-void Image::setBufferSize()
+size_t Image::bufferSize(const unsigned bytes_per_pixel, const unsigned width, const unsigned height)
 {
-	this->buffer_size = this->BYTES_PER_PIXEL * this->width * this->height;
-}
-
-unsigned Image::calculatePadding()
-{
-	return 0;
-}
-
-
-unsigned Image::calculateRowSize()
-{
-	const int bytes_per_pixel = 3;
-	this->row_size = (this->width * bytes_per_pixel + 3) & ~3;
-	return this->row_size;
+	return bytes_per_pixel * width * height;
 }
 
 unsigned Image::rowSize(const unsigned width, const unsigned bytes_per_pixel)
@@ -161,6 +147,12 @@ std::string Image::toStr() const
 	return output;
 }
 
+bool Image::fileExists(const std::string& path)
+{
+	struct stat buffer;
+	return stat(path.c_str(), &buffer) == 0;
+}
+
 void Image::load()
 {
 	std::ifstream infile(this->path, std::ios_base::binary);
@@ -188,9 +180,8 @@ void Image::load()
 	}
 
 	const auto offset = Utils::fourCharsToInt(buffer, PIXEL_ARRAY_OFFSET);
-	this->calculateRowSize();
-	this->setBufferSize();
-
+	this->row_size = Image::rowSize(this->width, this->BYTES_PER_PIXEL);
+	this->buffer_size = Image::bufferSize(this->BYTES_PER_PIXEL, this->width, this->height);
 
 	this->content = new unsigned char[this->buffer_size];
 
@@ -206,14 +197,24 @@ void Image::load()
 	}
 }
 
+
+void Image::generateHeader(const uint8_t(& input)[])
+{
+	// to be implemented
+}
+
 Image::Image(const std::string& path, const bool expect_saving, const ImageMode& m,
              const ColorDepth& depth) : path(path), mode(m), depth(depth), save_header(expect_saving)
 {
+	if (!Image::fileExists(path))
+	{
+		throw std::exception("Image with specified input path does not exist!");
+	}
+
 	if (this->save_header)
 	{
 		this->header = new unsigned char[this->HEADER_SIZE];
 	}
-
 
 	this->load();
 }
