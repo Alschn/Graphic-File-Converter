@@ -46,7 +46,7 @@ std::map <std::pair<int, int>, std::pair<int, int>> Rotation::create_map(int ang
 			}
 		}
 	}
-	return map;
+	return this->map;
 };
 
 void Rotation::processImage(int angle)
