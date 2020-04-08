@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "rotation.h"
+#include "reflection.h"
 // #include "user_interface.h"
 // #include "image.h"
 
@@ -14,14 +15,13 @@ int main()
 	std::cout << im;
 	std::cout << endl;
 
-	Image im2(im);
 
-	im2.resize(im.height, im.width);
+	//Image im2(im);
+	//im2.resize(im.height, im.width);
 
-	
-	Rotation  conv = Rotation(&im);
-	conv.processImage(90);
-	conv.saveImage(R"(..\sample_bmps\1011x102222.bmp)");
+	Converter  *conv = new Reflection(&im);
+	conv->processImage(2);
+	conv->saveImage(R"(..\sample_bmps\output.bmp)");
 
 	// UserInterface Desktop;
 
@@ -30,6 +30,6 @@ int main()
 	// Desktop.registerHelp("--contrast", "changes colours intensification");
 	// Desktop.display();
 
-	im.save(R"(..\sample_bmps\10x1011121.bmp)");
+	// im.save(R"(..\sample_bmps\10x1011121.bmp)");
 	
 }
