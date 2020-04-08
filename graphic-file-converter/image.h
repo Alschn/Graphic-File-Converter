@@ -28,10 +28,12 @@ class Image
 private:
 	std::string path;
 	unsigned char* header;
-	unsigned char* content;
+	unsigned char* content{};
 	bool save_header{};
 	size_t buffer_size{};
 
+	unsigned int pixel_array_offset{};
+	
 
 public:
 	unsigned int width{};
@@ -53,7 +55,7 @@ public:
 	const int FILE_SIZE_OFFSET = 2;
 	const int WIDTH_OFFSET = 18;
 	const int HEIGHT_OFFSET = 22;
-	const int PIXEL_ARRAY_OFFSET = 10;
+	const int PIXEL_ARRAY_OFFSET_INDEX = 10;
 	const int BYTES_PER_PIXEL = 3;
 
 	/**
@@ -143,20 +145,36 @@ private:
 	/**
 	 * \brief Helper method that loads image from .bmp file into memory
 	 */
-	void load();
+	void loadFromFile();
 
 	/**
 	 * \brief Reads information from .bmp header in windows format (54 bytes) and saves it into class' memory (not all but certain parameters)
 	 * \param header header as byte buffer from .bmp file
 	 */
-	void readHeader(const std::vector<int> &header);
+	void readHeader(const char* buffer);
 
 	/**
 	 * \brief Generates .bmp header in windows standard (54 bytes) from variables present in class scope
 	 * \param input Input byte array for header
 	 * \return 
 	 */
-	void generateHeader(const uint8_t (&input)[]);
+	void generateHeader( char *input);
+
+	/**
+	 * \brief Reads specified number of bytes from file. The number of bytes is implicitly defined as a input buffer size
+	 * \param file_path Path to file
+	 * \param buffer Input buffer for which bytes will be written to
+	 * \param size Size to read in bytes
+	 * \param offset starting index
+	 * \return pointer to the input buffer
+	 */
+	static char* readBytesFromFile(const std::string& file_path, char * buffer, size_t size, const unsigned int offset = 0);
+
+	/**
+	 * \brief Reads pixel array into memory
+	 * \param buffer bytes to read 
+	 */
+	void readPixelArray(const char* buffer);
 	
 public:
 	Image(const std::string& path, const bool expect_saving, const ImageMode& m,
@@ -168,3 +186,4 @@ public:
 
 	friend std::ostream& operator<<(std::ostream& os, const Image& im);
 };
+

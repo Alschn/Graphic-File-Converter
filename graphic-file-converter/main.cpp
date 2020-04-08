@@ -28,10 +28,10 @@ int main()
 
 
 	Image im(R"(..\sample_bmps\10x10.bmp)", true, ImageMode::ReadFromBMP);
-	Converter* conv = new Reflection(&im);
+	Converter* conv = new Rotation(&im);
 
-	conv->processImage(0);
-	conv->saveImage(R"(..\sample_bmps\101x1110_rotated.bmp)");
+	conv->processImage(90);
+	conv->saveImage(R"(..\sample_bmps\xxx.bmp)");
 
 
 	// UserInterface Desktop;
