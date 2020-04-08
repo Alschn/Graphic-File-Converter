@@ -22,17 +22,13 @@ std::map <std::pair<int, int>, std::pair<int, int>> Reflection::create_map(int n
 				break;
 			case 2:
 				// diagonal mirror reflection y = x ONLY FOR SQUARES
-				if (this->oldImage->width == this->oldImage->height) {
-					x_n = i;
-					y_n = j;
-				}
+				x_n = i;
+				y_n = j;
 				break;
 			case 3:
 				// diagonal mirror reflection y = -x+height ONLY FOR SQUARES
-				if (this->oldImage->width == this->oldImage->height) {
-					x_n = this->oldImage->width - i - 1;
-					y_n = this->oldImage->height - j - 1;
-				}
+				x_n = this->oldImage->width - i - 1;
+				y_n = this->oldImage->height - j - 1;
 				break;
 			default:
 				break;
@@ -47,6 +43,10 @@ std::map <std::pair<int, int>, std::pair<int, int>> Reflection::create_map(int n
 
 void Reflection::processImage(int reflect_num)
 {
+	if (this->oldImage->width != this->oldImage->height && (reflect_num == 2 || reflect_num == 3))
+	{
+		throw std::exception("Diagonal reflection is not allowed for non-square bmp files");
+	}
 	this->reflect_num = reflect_num;
 	this->create_map(this->reflect_num);
 
