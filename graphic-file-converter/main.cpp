@@ -31,22 +31,12 @@ int main()
 
 
 	UserInterface Desktop;
-	// Desktop.registerHelp("--rotation", "rotates picture by n degrees");
-	// Desktop.registerHelp("--contrast", "changes colours intensification");
+	Rotation conversion;
+	Desktop.registerAction("rotation", "rotates picture by n degrees", &conversion, regex(R"###(^converter +rotation +\d\d +('[^']\S+[^']') *('\S+[^']')? *$)###"), 1);
 	Desktop.display();
 
 	//im.save(R"(..\sample_bmps\10x1011121.bmp)");
 }
 
 
-//void proccesscommand(std::string command)
-
-
-	//Converter conversion= map[command]
-
-	// Image *im = new Image(path);
-
-	// conversion.loadimage(im);
-	// conversion.proccessImage();
-	
 
