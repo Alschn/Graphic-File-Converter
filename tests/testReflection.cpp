@@ -49,7 +49,7 @@ namespace Tests
 		{
 			const auto result = create_map(2, 2, 0);
 			const std::map <std::pair<int, int>, std::pair<int, int>> my_map = {
-				{{0,0},{1,1}}, {{0,0},{1,1}}, {{0,0},{1,1}}, {{0,0},{1,1}}
+				{{0, 0} , {0, 1}}, {{0, 1} , {0, 0}}, {{1, 0} , {1, 1}}, {{1, 1} , {1, 0}},
 			};
 			Assert::AreEqual(my_map, result);
 		}
@@ -58,48 +58,75 @@ namespace Tests
 		{
 			const auto result = create_map(3, 3, 1);
 			const std::map <std::pair<int, int>, std::pair<int, int>> map = { 
-				{{0,0},{1,1}}, {{0,0},{1,1}}, {{0,0},{1,1}}, {{0,0},{1,1}}, {{0,0},{1,1}}, {{0,0},{1,1}}, {{0,0},{1,1}}, {{0,0},{1,1}}, {{0,0},{1,1}}, {{0,0},{1,1}}
+				{{0,0} , {2,0}}, {{0,1} , {2,1}}, {{0,2} , {2,2}}, {{1,0} , {1,0}},  {{1,1} , {1,1}}, {{1,2} , {1,2}}, {{2,0} , {0,0}}, {{2,1} , {0,1}}, {{2,2} , {0,2}}
 			};
 			Assert::AreEqual(map, result);
 		}
 		
 		TEST_METHOD(testCreatemap_sq2) // Square Diagonal 1
 		{
-			const auto result = create_map(2, 2, 2);
-			const std::map <std::pair<int, int>, std::pair<int, int>> map = { {{0,0},{1,1}}, {{}, {}} };
+			const auto result = create_map(3, 3, 2);
+			const std::map <std::pair<int, int>, std::pair<int, int>> map = {
+				{{0, 0} , {0, 0}}, {{0, 1} , {1, 0}}, {{0, 2} , {2, 0}}, {{1, 0} , {0, 1}}, {{1, 1} , {1, 1}}, {{1, 2} , {2, 1}}, {{2, 0} , {0, 2}}, {{2, 1} , {1, 2}}, {{2, 2} , {2, 2}}
+			};
 			Assert::AreEqual(map, result);
 		}
 		
 		TEST_METHOD(testCreatemap_sq3) // Square Diagonal 2
 		{
 			const auto result = create_map(2, 2, 3);
-			const std::map <std::pair<int, int>, std::pair<int, int>> map;
+			const std::map <std::pair<int, int>, std::pair<int, int>> map = {
+				{{0, 0} , {1, 1}}, {{0, 1} , {0, 1}}, {{1, 0} , {1, 0}}, {{1, 1} , {0, 0}}
+			};
 			Assert::AreEqual(map, result);
 		}
 		
 		TEST_METHOD(testCreatemap_rect0) // Rectangle Vertical
 		{
-			const auto result = create_map(3, 4, 1);
-			const std::map <std::pair<int, int>, std::pair<int, int>> map;
+			const auto result = create_map(2, 3, 1);
+			const std::map <std::pair<int, int>, std::pair<int, int>> map = {
+				{{0, 0}, {0, 1}}, {{0, 1}, {0, 0}}, {{1, 0}, {1, 1}}, {{1, 1}, {1, 0}}, {{2, 0}, {2, 1}}, {{2, 1}, {2, 0}}
+			};
 			Assert::AreEqual(map, result);
 		}
 		
 		TEST_METHOD(testCreatemap_rect1) /// Rectangle Horizontal
 		{
-			const auto result = create_map(2, 2, 0);
-			const std::map <std::pair<int, int>, std::pair<int, int>> map;
+			const auto result = create_map(3, 2, 0);
+			const std::map <std::pair<int, int>, std::pair<int, int>> map = {
+				{{0, 0} , {1, 0}},
+				{{0, 1}, {1, 1}},
+				{{0, 2}, {1, 2}},
+				{{1, 0}, {0, 0}},
+				{{1, 1}, {0, 1}},
+				{{1, 2} , {0, 2}}
+			};
 			Assert::AreEqual(map, result);
 		}
 		TEST_METHOD(testCreatemap_rect2) // Rectangle Diagonal 1
 		{
-			const auto result = create_map(2, 2, 0);
-			const std::map <std::pair<int, int>, std::pair<int, int>> map;
+			const auto result = create_map(3, 2, 0);
+			const std::map <std::pair<int, int>, std::pair<int, int>> map = {
+				{{0, 0}, {0, 0}},
+				{{0, 1}, {1, 0}},
+				{{0, 2} , {2, 0}},
+				{{1, 0} , {0, 1}},
+				{{1, 1}, {1, 1}},
+				{{1, 2}, {2, 1}}
+			};
 			Assert::AreEqual(map, result);
 		}
 		TEST_METHOD(testCreatemap_rect3) // Rectangle Diagonal 2
 		{
-			const auto result = create_map(2, 2, 0);
-			const std::map <std::pair<int, int>, std::pair<int, int>> map;
+			const auto result = create_map(3, 2, 0);
+			const std::map <std::pair<int, int>, std::pair<int, int>> map = {
+				{{0, 0} , {1, 2}},
+				{{0, 1}, {0, 2}},
+				{{0, 2}, {-1, 2}},
+				{{1, 0}, {1, 1}},
+				{{1, 1}, {0, 1}},
+				{{1, 2}, {-1, 1}}
+			};
 			Assert::AreEqual(map, result);
 		}
 
