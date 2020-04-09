@@ -27,7 +27,7 @@ int main()
 	// conversions.try_emplace("rotate", new Rotation());
 
 
-	Image im(R"(..\sample_bmps\8x48.bmp)", true, ImageMode::ReadFromBMP);
+	Image im(R"(..\sample_bmps\big_square.bmp)", true, ImageMode::ReadFromBMP);
 	im.save(R"(..\sample_bmps\test_save.bmp)");
 	Converter* conv = new Rotation(&im);
 
