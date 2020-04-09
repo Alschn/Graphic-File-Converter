@@ -31,11 +31,12 @@ namespace Tests
 			};
 			Assert::IsTrue(compareMaps(map0, result));
 		}
+
 		TEST_METHOD(testCreatemap_rot180sq) // rotate square by 180 deg
 		{
 			auto result = Rotation::create_map(2, 2, 180);
 			const std::map <std::pair<int, int>, std::pair<int, int>> map1 = {
-				{{0, 0} , {1, 0}}, {{1, 0} , {0, 1}}, {{0, 1} , {0, 0}}, {{1, 1} , {0, 0}}
+				{{0, 0} , {1, 1}}, {{1, 0} , {0, 1}}, {{0, 1} , {1, 0}}, {{1, 1} , {0, 0}}
 			};
 			Assert::IsTrue(compareMaps(map1, result));
 		}
@@ -44,7 +45,7 @@ namespace Tests
 		{
 			auto result = Rotation::create_map(2, 2, 270);
 			const std::map <std::pair<int, int>, std::pair<int, int>> map2 = {
-				{{0, 0} , {1, 1}}, {{1, 0} , {0, 0}}, {{0, 1} , {1, 0}}, {{1, 1} , {0, 0}}
+				{{0, 0} , {1, 1}}, {{1, 0} , {0, 1}}, {{0, 1} , {1, 0}}, {{1, 1} , {0, 0}}
 			};
 			Assert::IsTrue(compareMaps(map2, result));
 		}
