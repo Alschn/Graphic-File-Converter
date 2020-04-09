@@ -29,14 +29,14 @@ std::map <std::pair<int, int>, std::pair<int, int>> Rotation::create_map(int ang
 				switch (angle)
 				{
 				case 90:
-					y_n += width - 1;
+					y_n += double(width) - 1;
 					break;
 				case 180:
-					x_n += width - 1;
-					y_n += height - 1;
+					x_n += double(width) - 1;
+					y_n += double(height) - 1;
 					break;
 				case 270:
-					x_n += height - 1;
+					x_n += double(height) - 1;
 					break;
 				default:
 					break;
