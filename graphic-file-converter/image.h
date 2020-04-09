@@ -27,11 +27,8 @@ class Image
 {
 private:
 	std::string path;
-	unsigned char* header;
-	unsigned char* content{};
-	bool save_header{};
+	unsigned char* content;
 	size_t buffer_size{};
-
 	unsigned int pixel_array_offset{};
 	
 
@@ -46,8 +43,8 @@ public:
 
 
 	/*Specified modes*/
-	ImageMode mode;
-	ColorDepth depth;
+	ImageMode mode = ImageMode::ReadFromBMP;
+	ColorDepth depth = ColorDepth::bpp24;
 
 
 
@@ -163,7 +160,7 @@ private:
 	 * \param input Input byte array for header
 	 * \return 
 	 */
-	void generateHeader( char *input);
+	void generateHeader( char *input) const;
 
 	/**
 	 * \brief Reads specified number of bytes from file. The number of bytes is implicitly defined as a input buffer size
@@ -182,13 +179,19 @@ private:
 	void readPixelArray(const char* buffer);
 	
 public:
+	Image() = default;
+	
 	Image(const std::string& path, const bool expect_saving, const ImageMode& m,
 	      const ColorDepth& depth = ColorDepth::bpp24);
+
 
 	Image(const Image& other);
 
 	~Image();
 
 	friend std::ostream& operator<<(std::ostream& os, const Image& im);
+	friend std::istream& operator>> (std::istream& is, Image& im);
+
+
 };
 

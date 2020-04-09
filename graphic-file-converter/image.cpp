@@ -27,6 +27,7 @@ void Image::getPixel(int x, int y, unsigned char output[], PixelMode mode) const
 	}
 	else if (mode == PixelMode::MONOBW)
 	{
+		//to be implemented
 	}
 }
 
@@ -45,6 +46,7 @@ void Image::putPixel(int x, int y, unsigned char input[], PixelMode mode)
  */
 void Image::putPixel(int x, int y, bool output)
 {
+	//to be implemented
 }
 
 
@@ -87,7 +89,6 @@ int Image::calculatePixelIndex(int x, int y, int color) const
 
 void Image::save(const std::string& path)
 {
-
 	char buf[54];
 	this->generateHeader(buf);
 
@@ -97,7 +98,7 @@ void Image::save(const std::string& path)
 
 	std::vector<char> output;
 	output.reserve(this->HEADER_SIZE + this->row_size * this->height);
-	output.insert(output.end(), buf , buf+ this->HEADER_SIZE);
+	output.insert(output.end(), buf, buf + this->HEADER_SIZE);
 	for (int j = 0; j < this->height; ++j)
 	{
 		for (int i = 0; i < this->width; ++i)
@@ -159,9 +160,10 @@ void Image::loadFromFile()
 	header_buffer = Image::readBytesFromFile(this->path, header_buffer, this->HEADER_SIZE);
 	this->readHeader(header_buffer);
 	delete[] header_buffer;
-	
+
 	char* pixel_array_buffer = new char[this->file_size - this->HEADER_SIZE];
-	pixel_array_buffer = Image::readBytesFromFile(this->path, pixel_array_buffer, this->file_size - this->HEADER_SIZE, this->pixel_array_offset);
+	pixel_array_buffer = Image::readBytesFromFile(this->path, pixel_array_buffer, this->file_size - this->HEADER_SIZE,
+	                                              this->pixel_array_offset);
 	this->readPixelArray(pixel_array_buffer);
 	delete[] pixel_array_buffer;
 }
@@ -171,12 +173,6 @@ void Image::readHeader(const char* buffer)
 	const auto sig_0 = buffer[0];
 	const auto sig_1 = buffer[1];
 
-	char buf[54];
-
-	memcpy(buf, buffer, 54);
-	char a = buf[3];
-	uint8_t b = buf[38];
-	
 	if (sig_0 != 'B' || sig_1 != 'M')
 		throw std::runtime_error("BMP signature is not valid!");
 
@@ -184,7 +180,7 @@ void Image::readHeader(const char* buffer)
 	this->width = Utils::fourCharsToInt(buffer, this->WIDTH_OFFSET);
 	this->height = Utils::fourCharsToInt(buffer, this->HEIGHT_OFFSET);
 
-	this->pixel_array_offset = Utils::fourCharsToInt(buffer, PIXEL_ARRAY_OFFSET_INDEX);
+	this->pixel_array_offset = Utils::fourCharsToInt(buffer, this->PIXEL_ARRAY_OFFSET_INDEX);
 	this->horizontal_resolution = Utils::fourCharsToInt(buffer, this->HORIZONTAL_RESOLUTION_OFFSET);
 	this->vertical_resolution = Utils::fourCharsToInt(buffer, this->VERTICAL_RESOLUTION_OFFSET);
 	this->row_size = Image::rowSize(this->width, this->BYTES_PER_PIXEL);
@@ -192,7 +188,7 @@ void Image::readHeader(const char* buffer)
 }
 
 
-void Image::generateHeader(char *input)
+void Image::generateHeader(char* input) const
 {
 	input[0] = 'B';
 	input[1] = 'M';
@@ -229,27 +225,22 @@ void Image::readPixelArray(const char* buffer)
 		for (int i = 0; i < this->width; ++i)
 		{
 			const unsigned int offset = i * 3 + j * this->row_size;
-			this->content[this->calculatePixelIndex(i, j, 0)] = buffer[offset + 2];  // save R
-			this->content[this->calculatePixelIndex(i, j, 1)] = buffer[offset + 1];  // save G
-			this->content[this->calculatePixelIndex(i, j, 2)] = buffer[offset];		  // save B
+			this->content[this->calculatePixelIndex(i, j, 0)] = buffer[offset + 2]; // save R
+			this->content[this->calculatePixelIndex(i, j, 1)] = buffer[offset + 1]; // save G
+			this->content[this->calculatePixelIndex(i, j, 2)] = buffer[offset]; // save B
 		}
 	}
 }
 
 Image::Image(const std::string& path, const bool expect_saving, const ImageMode& m,
-             const ColorDepth& depth) : path(path), mode(m), depth(depth), save_header(expect_saving)
+             const ColorDepth& depth) : path(path), mode(m), depth(depth)
 {
 	if (!Image::fileExists(path))
 	{
 		throw std::exception("Image with specified input path does not exist!");
 	}
 
-	if (this->save_header)
-	{
-		this->header = new unsigned char[this->HEADER_SIZE];
-	}
-
-	this->loadFromFile();
+	this->loadFromFile(); // to be changed
 }
 
 Image::Image(const Image& other) : mode(other.mode), depth(other.depth)
@@ -265,16 +256,12 @@ Image::Image(const Image& other) : mode(other.mode), depth(other.depth)
 	this->row_size = other.row_size;
 	this->pixel_array_offset = other.pixel_array_offset;
 
-	this->save_header = other.save_header;
 	this->file_size = other.file_size;
-	this->header = new unsigned char[other.HEADER_SIZE];
-	memcpy(this->header, other.header, this->HEADER_SIZE * 1);
 	this->content = new unsigned char[other.buffer_size];
 }
 
 Image::~Image()
 {
-	delete[] this->header;
 	delete[] this->content;
 }
 
@@ -282,4 +269,21 @@ std::ostream& operator<<(std::ostream& os, const Image& im)
 {
 	os << im.toStr();
 	return os;
+}
+
+std::istream& operator>>(std::istream& is, Image& im)
+{
+	char* header = new char[im.HEADER_SIZE];
+	is.read(header, im.HEADER_SIZE);
+	im.readHeader(header);
+	delete[] header;
+
+	is.seekg(im.HEADER_SIZE);
+
+	char* pixel_array_buffer = new char[im.file_size - im.HEADER_SIZE];
+	is.read(pixel_array_buffer, im.file_size - im.HEADER_SIZE);
+	im.readPixelArray(pixel_array_buffer);
+	delete[] pixel_array_buffer;
+
+	return is;
 }

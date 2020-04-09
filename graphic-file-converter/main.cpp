@@ -5,7 +5,8 @@
 // #include "user_interface.h"
 // #include "image.h"
 
-
+#include <chrono>
+#include <fstream>
 using namespace std;
 
 
@@ -17,8 +18,7 @@ int main()
 	std::cout << "In DEBUG mode." << std::endl;
 #endif
 
-	// std::cout << im;
-	std::cout << endl;
+
 
 
 	// std::map<std::string, Converter*> conversions;
@@ -27,13 +27,23 @@ int main()
 	// conversions.try_emplace("rotate", new Rotation());
 
 
-	Image im(R"(..\sample_bmps\big_square.bmp)", true, ImageMode::ReadFromBMP);
-	im.save(R"(..\sample_bmps\test_save.bmp)");
+	// Image im(R"(..\sample_bmps\10x10.bmp)", true, ImageMode::ReadFromBMP);
+	Image im=Image();
+
+	std::ifstream file(R"(..\sample_bmps\10x10.bmp)", std::ios_base::binary);
+
+	file >> im;
+
+	im.save(R"(..\sample_bmps\saved_test.bmp)");
+	// im.save(R"(..\sample_bmps\test_save.bmp)");
 	Converter* conv = new Rotation(&im);
-
-	conv->processImage(180);
-	conv->saveImage(R"(..\sample_bmps\xxx.bmp)");
-
+	auto start = chrono::steady_clock::now();
+	conv->processImage(90);
+	conv->saveImage(R"(..\sample_bmps\11222.bmp)");
+	// auto end = chrono::steady_clock::now();
+	// cout << "Elapsed time in milliseconds : "
+	// 	<< chrono::duration_cast<chrono::milliseconds>(end - start).count()
+	// 	<< " ms" << endl;
 
 	// UserInterface Desktop;
 	// Desktop.registerHelp("--rotation", "rotates picture by n degrees");
@@ -41,17 +51,4 @@ int main()
 	// Desktop.display();
 
 	im.save(R"(..\sample_bmps\10x1011121.bmp)");
-}
-
-
-void proccesscommand(std::string command)
-{
-
-	//Converter conversion= map[command]
-
-	// Image *im = new Image(path);
-
-	// conversion.loadimage(im);
-	// conversion.proccessImage();
-	
 }
