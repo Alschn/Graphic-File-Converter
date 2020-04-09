@@ -1,7 +1,18 @@
 #include "pch.h"
 #include "CppUnitTest.h"
 #include "../graphic-file-converter/reflection.h"
+#include "../graphic-file-converter/rotation.h"
+#include "../graphic-file-converter/converter.h"
+#include "../graphic-file-converter/converter.cpp"
+#include "../graphic-file-converter/rotation.cpp"
+#include "../graphic-file-converter/reflection.cpp"
+#include "../graphic-file-converter/image.cpp"
+#include "../graphic-file-converter/image.h"
+#include "../graphic-file-converter/main.cpp"
+#include "../graphic-file-converter/utils.h"
+#include "../graphic-file-converter/utils.cpp"
 #include <map>
+
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -23,7 +34,7 @@ namespace Tests
 		{
 			auto result = Reflection::create_map(2, 2, 0);
 			const std::map <std::pair<int, int>, std::pair<int, int>> map0 = {
-				{{0, 0} , {0, 1}}, {{1, 0} , {1, 1}}, {{0, 1} , {0, 0}}, {{1, 1} , {1, 0} }
+				{{0, 0} , {0, 1}}, {{1, 0} , {1, 1}}, {{0, 1} , {0, 0}}, {{1, 1} , {1, 0}}
 		};
 			Assert::IsTrue(compareMaps(map0, result));
 			//Assert::AreEqual(map0, result);
