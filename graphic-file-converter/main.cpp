@@ -32,7 +32,7 @@ int main()
 
 	UserInterface Desktop;
 	Rotation conversion;
-	Desktop.registerAction("rotation", "rotates picture by n degrees", &conversion, regex(R"###(^converter +rotation +\d\d +('[^']\S+[^']') *('\S+[^']')? *$)###"), 1);
+	Desktop.registerAction("rotation", "rotates picture by n degrees", &conversion, regex(R"###(^converter +rotation +\d\d +(('|")[^']\S+[^']('|")) *('\S+[^']')? *$)###"), 1);
 	Desktop.display();
 
 	//im.save(R"(..\sample_bmps\10x1011121.bmp)");

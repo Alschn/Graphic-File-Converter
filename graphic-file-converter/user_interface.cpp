@@ -31,7 +31,7 @@ void UserInterface::display()
     {
         std::string command;
         std::getline(std::cin, command);
-        std::regex choose_route_regex(R"###(^converter +load +('[^']\S+[^']') ?$)###");
+        std::regex choose_route_regex(R"###(^converter +load +(('|")[^']\S+[^']('|")) ?$)###");
         std::regex help_regex(R"(^converter +help *$)");
         std::smatch help_regex_matches;
         std::smatch choose_route_regex_matches;
@@ -48,10 +48,10 @@ void UserInterface::display()
                 splitted.push_back(buf_string);
             }
             splitted[2].erase(splitted[2].begin());
-            splitted[2].erase(splitted[2].end());
+            splitted[2].erase(splitted[2].end()-1,splitted[2].end());
         	std::string input_path = splitted[2];
             Image image(input_path, 1, ImageMode::ReadFromBMP);
-        ASK_LOOP:
+			ASK_LOOP:
             std::cout << "What do you want to do? (type one name of following functions)" << std::endl;
             for (auto a : help_map)
             {
@@ -117,13 +117,13 @@ void UserInterface::display()
                         }
                     }
                     splitted[3].erase(splitted[3].begin());
-                    splitted[3].erase(splitted[3].end());
+                    splitted[3].erase(splitted[3].end()-1,splitted[3].end());
                     std::string input_path = splitted[3];
                     std::string output_path;
                     if (splitted.size() == 5)
                     {
                         splitted[4].erase(splitted[4].begin());
-                        splitted[4].erase(splitted[4].end());
+                        splitted[4].erase(splitted[4].end()-1,splitted[4].end());
                         output_path = splitted[4];
                     }
                     else
@@ -161,14 +161,15 @@ void UserInterface::showHelp()
 {
     std::cout << "Command structure:" << std::endl;
     std::cout << "converter [command_name] [argument] '[in_path]' {'[out_path]'}" << std::endl;
-    std::cout << "( {} - possible, not needed, notice that not all functions need arguments )" << std::endl;
+    std::cout << "( {} - possible )" << std::endl;
 	for (int i = 0; i<90; i++)
 	{
         std::cout << "=";
 	}
     std::cout<<std::endl;
 	std:: cout << "Possible commands: " << std::endl;
-    for (auto explanation : help_map)
+    std::cout << "load" << "   |   " << "step-by-step operations" << std::endl;
+	for (auto explanation : help_map)
     {
         std::cout << explanation.first <<"   |   "<< explanation.second << std::endl;
     }
