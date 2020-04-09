@@ -146,7 +146,6 @@ void UserInterface::executeAction(const std::string& command, const std::string&
 {
     Image image(path, 1, ImageMode::ReadFromBMP, ColorDepth::bpp24);
     Converter* conversion = conversions_map[command];
-    conversion = new Converter(&image);
     conversion->loadImage(&image);
     conversion->processImage(argument);
 	conversion->saveImage(out_path);
