@@ -39,6 +39,9 @@ public:
 	unsigned int width{};
 	unsigned int height{};
 	unsigned int row_size{};
+	unsigned int horizontal_resolution{};
+	unsigned int vertical_resolution{};
+	
 	size_t file_size{};
 
 
@@ -55,6 +58,8 @@ public:
 	const int FILE_SIZE_OFFSET = 2;
 	const int WIDTH_OFFSET = 18;
 	const int HEIGHT_OFFSET = 22;
+	const int HORIZONTAL_RESOLUTION_OFFSET = 38;
+	const int VERTICAL_RESOLUTION_OFFSET = 42;
 	const int PIXEL_ARRAY_OFFSET_INDEX = 10;
 	const int BYTES_PER_PIXEL = 3;
 

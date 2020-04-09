@@ -27,10 +27,11 @@ int main()
 	// conversions.try_emplace("rotate", new Rotation());
 
 
-	Image im(R"(..\sample_bmps\10x10.bmp)", true, ImageMode::ReadFromBMP);
+	Image im(R"(..\sample_bmps\8x48.bmp)", true, ImageMode::ReadFromBMP);
+	im.save(R"(..\sample_bmps\test_save.bmp)");
 	Converter* conv = new Rotation(&im);
 
-	conv->processImage(90);
+	conv->processImage(180);
 	conv->saveImage(R"(..\sample_bmps\xxx.bmp)");
 
 

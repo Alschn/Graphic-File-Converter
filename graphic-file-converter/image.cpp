@@ -97,7 +97,7 @@ void Image::save(const std::string& path)
 
 	std::vector<char> output;
 	output.reserve(this->HEADER_SIZE + this->row_size * this->height);
-	output.insert(output.end(), this->header, this->header + this->HEADER_SIZE);
+	output.insert(output.end(), buf , buf+ this->HEADER_SIZE);
 	for (int j = 0; j < this->height; ++j)
 	{
 		for (int i = 0; i < this->width; ++i)
@@ -115,7 +115,6 @@ void Image::save(const std::string& path)
 			output.push_back(0);
 		}
 	}
-
 	fout.write(output.data(), output.size());
 }
 
@@ -162,7 +161,7 @@ void Image::loadFromFile()
 	delete[] header_buffer;
 	
 	char* pixel_array_buffer = new char[this->file_size - this->HEADER_SIZE];
-	pixel_array_buffer = Image::readBytesFromFile(this->path, pixel_array_buffer, sizeof(pixel_array_buffer), this->pixel_array_offset);
+	pixel_array_buffer = Image::readBytesFromFile(this->path, pixel_array_buffer, this->file_size - this->HEADER_SIZE, this->pixel_array_offset);
 	this->readPixelArray(pixel_array_buffer);
 	delete[] pixel_array_buffer;
 }
@@ -175,6 +174,8 @@ void Image::readHeader(const char* buffer)
 	char buf[54];
 
 	memcpy(buf, buffer, 54);
+	char a = buf[3];
+	uint8_t b = buf[38];
 	
 	if (sig_0 != 'B' || sig_1 != 'M')
 		throw std::runtime_error("BMP signature is not valid!");
@@ -184,19 +185,31 @@ void Image::readHeader(const char* buffer)
 	this->height = Utils::fourCharsToInt(buffer, this->HEIGHT_OFFSET);
 
 	this->pixel_array_offset = Utils::fourCharsToInt(buffer, PIXEL_ARRAY_OFFSET_INDEX);
+	this->horizontal_resolution = Utils::fourCharsToInt(buffer, this->HORIZONTAL_RESOLUTION_OFFSET);
+	this->vertical_resolution = Utils::fourCharsToInt(buffer, this->VERTICAL_RESOLUTION_OFFSET);
 	this->row_size = Image::rowSize(this->width, this->BYTES_PER_PIXEL);
 	this->buffer_size = Image::bufferSize(this->BYTES_PER_PIXEL, this->width, this->height);
 }
 
 
-void Image::generateHeader(char *input2)
+void Image::generateHeader(char *input)
 {
-	char input[54];
 	input[0] = 'B';
 	input[1] = 'M';
 	Utils::writeIntToCharBufffer(input, this->file_size, 2);
 	Utils::writeIntToCharBufffer(input, 0, 6);
 	Utils::writeIntToCharBufffer(input, this->pixel_array_offset, 10);
+	Utils::writeIntToCharBufffer(input, 40, 14);
+	Utils::writeIntToCharBufffer(input, this->width, 18);
+	Utils::writeIntToCharBufffer(input, this->height, 22);
+	Utils::writeIntToCharBufffer(input, 1, 26);
+	Utils::writeIntToCharBufffer(input, 24, 28);
+	Utils::writeIntToCharBufffer(input, 0, 30);
+	Utils::writeIntToCharBufffer(input, 0, 34);
+	Utils::writeIntToCharBufffer(input, this->horizontal_resolution, 38);
+	Utils::writeIntToCharBufffer(input, this->vertical_resolution, 42);
+	Utils::writeIntToCharBufffer(input, 0, 46);
+	Utils::writeIntToCharBufffer(input, 0, 50);
 }
 
 char* Image::readBytesFromFile(const std::string& file_path, char* buffer, size_t size, const unsigned int offset)
