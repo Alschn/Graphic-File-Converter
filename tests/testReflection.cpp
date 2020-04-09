@@ -48,25 +48,25 @@ namespace Tests
 		{
 			const auto result = create_map(2, 2, 0);
 			const std::map <std::pair<int, int>, std::pair<int, int>> map0 = {
-				{{0, 0} , {0, 1}}, {{0, 1} , {0, 0}}, {{1, 0} , {1, 1}}, {{1, 1} , {1, 0}},
-			};
+				{{0, 0} , {0, 1}}, {{1, 0} , {1, 1}}, {{0, 1} , {0, 0}}, {{1, 1} , {1, 0} }
+		};
 			Assert::AreEqual(map0, result);
 		}
 		
 		TEST_METHOD(testCreatemap_sq1) // Square Horizontal
 		{
-			const auto result = create_map(3, 3, 1);
+			const auto result = create_map(2, 2, 1);
 			const std::map <std::pair<int, int>, std::pair<int, int>> map1 = { 
-				{{0,0} , {2,0}}, {{0,1} , {2,1}}, {{0,2} , {2,2}}, {{1,0} , {1,0}},  {{1,1} , {1,1}}, {{1,2} , {1,2}}, {{2,0} , {0,0}}, {{2,1} , {0,1}}, {{2,2} , {0,2}}
+				{{0, 0} , {1, 0}}, {{1, 0} , {0, 0}}, {{0, 1} , {1, 1}}, {{1, 1} , {0, 1} }
 			};
 			Assert::AreEqual(map1, result);
 		}
 		
 		TEST_METHOD(testCreatemap_sq2) // Square Diagonal 1
 		{
-			const auto result = create_map(3, 3, 2);
+			const auto result = create_map(2, 2, 2);
 			const std::map <std::pair<int, int>, std::pair<int, int>> map2 = {
-				{{0, 0}, {0, 0}}, {{0, 1}, {1, 0}}, {{0, 2} , {2, 0}}, {{1, 0} , {0, 1}}, {{1, 1}, {1, 1}}, {{1, 2} , {2, 1}}, {{2, 0} , {0, 2}}, {{2, 1} , {1, 2}}, {{2, 2} , {2, 2}},
+				{{0, 0} , {0, 0}}, {{1, 0} , {0, 1}}, {{0, 1} , {1, 0}}, {{1, 1} , {1, 1} }
 			};
 			Assert::AreEqual(map2, result);
 		}
@@ -75,7 +75,7 @@ namespace Tests
 		{
 			const auto result = create_map(2, 2, 3);
 			const std::map <std::pair<int, int>, std::pair<int, int>> map3 = {
-				{{0, 0} , {1, 1}}, {{0, 1} , {0, 1}}, {{1, 0} , {1, 0}}, {{1, 1} , {0, 0}}
+				{{0, 0}, {1, 1}}, {{1, 0}, {1, 0}}, {{0, 1}, {0, 1}}, {{1, 1}, {0, 0} }
 			};
 			Assert::AreEqual(map3, result);
 		}
@@ -84,7 +84,7 @@ namespace Tests
 		{
 			const auto result = create_map(2, 3, 1);
 			const std::map <std::pair<int, int>, std::pair<int, int>> map4 = {
-				{{0, 0}, {0, 1}}, {{0, 1}, {0, 0}}, {{1, 0}, {1, 1}}, {{1, 1}, {1, 0}}, {{2, 0}, {2, 1}}, {{2, 1}, {2, 0}}
+				{{0, 0} , {0, 2}}, {{1, 0} , {1, 2}}, {{0, 1} , {0, 1}}, {{1, 1} , {1, 1}}, {{0, 2} , {0, 0}}, {{1, 2} , {1, 0} }
 			};
 			Assert::AreEqual(map4, result);
 		}
@@ -93,12 +93,7 @@ namespace Tests
 		{
 			const auto result = create_map(3, 2, 0);
 			const std::map <std::pair<int, int>, std::pair<int, int>> map5 = {
-				{{0, 0} , {1, 0}},
-				{{0, 1}, {1, 1}},
-				{{0, 2}, {1, 2}},
-				{{1, 0}, {0, 0}},
-				{{1, 1}, {0, 1}},
-				{{1, 2} , {0, 2}}
+				{{0, 0} , {1, 0}}, {{1, 0} , {0, 0}}, {{0, 1} , {1, 1}}, {{1, 1} , {0, 1}}, {{0, 2} , {1, 2}}, {{1, 2} , {0, 2} }
 			};
 			Assert::AreEqual(map5, result);
 		}
@@ -106,12 +101,7 @@ namespace Tests
 		{
 			const auto result = create_map(3, 2, 0);
 			const std::map <std::pair<int, int>, std::pair<int, int>> map6 = {
-				{{0, 0}, {0, 0}},
-				{{0, 1}, {1, 0}},
-				{{0, 2} , {2, 0}},
-				{{1, 0} , {0, 1}},
-				{{1, 1}, {1, 1}},
-				{{1, 2}, {2, 1}}
+				{{0, 0} , {0, 0}}, {{1, 0} , {0, 1}}, {{0, 1} , {1, 0}}, {{1, 1} , {1, 1}}, {{0, 2} , {2, 0}}, {{1, 2} , {2, 1} }
 			};
 			Assert::AreEqual(map6, result);
 		}
@@ -119,12 +109,7 @@ namespace Tests
 		{
 			const auto result = create_map(3, 2, 0);
 			const std::map <std::pair<int, int>, std::pair<int, int>> map7 = {
-				{{0, 0} , {1, 2}},
-				{{0, 1}, {0, 2}},
-				{{0, 2}, {-1, 2}},
-				{{1, 0}, {1, 1}},
-				{{1, 1}, {0, 1}},
-				{{1, 2}, {-1, 1}}
+				{{0, 0}, {1, 2}}, {{1, 0}, {1, 1}}, {{0, 1}, {0, 2}}, {{1, 1}, {0, 1}}, {{0, 2}, {-1, 2}}, {{1, 2}, {-1, 1} }
 			};
 			Assert::AreEqual(map7, result);
 		}
