@@ -1,7 +1,6 @@
-#include <map>
 #include "pch.h"
 #include "C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Auxiliary\VS\UnitTest\include\CppUnitTest.h"
-
+#include <map>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -48,52 +47,52 @@ namespace Tests
 		TEST_METHOD(testCreateMap_sq0) // Square Vertical
 		{
 			const auto result = create_map(2, 2, 0);
-			const std::map <std::pair<int, int>, std::pair<int, int>> my_map = {
+			const std::map <std::pair<int, int>, std::pair<int, int>> map0 = {
 				{{0, 0} , {0, 1}}, {{0, 1} , {0, 0}}, {{1, 0} , {1, 1}}, {{1, 1} , {1, 0}},
 			};
-			Assert::AreEqual(my_map, result);
+			Assert::AreEqual(map0, result);
 		}
 		
 		TEST_METHOD(testCreatemap_sq1) // Square Horizontal
 		{
 			const auto result = create_map(3, 3, 1);
-			const std::map <std::pair<int, int>, std::pair<int, int>> map = { 
+			const std::map <std::pair<int, int>, std::pair<int, int>> map1 = { 
 				{{0,0} , {2,0}}, {{0,1} , {2,1}}, {{0,2} , {2,2}}, {{1,0} , {1,0}},  {{1,1} , {1,1}}, {{1,2} , {1,2}}, {{2,0} , {0,0}}, {{2,1} , {0,1}}, {{2,2} , {0,2}}
 			};
-			Assert::AreEqual(map, result);
+			Assert::AreEqual(map1, result);
 		}
 		
 		TEST_METHOD(testCreatemap_sq2) // Square Diagonal 1
 		{
 			const auto result = create_map(3, 3, 2);
-			const std::map <std::pair<int, int>, std::pair<int, int>> map = {
-				{{0, 0} , {0, 0}}, {{0, 1} , {1, 0}}, {{0, 2} , {2, 0}}, {{1, 0} , {0, 1}}, {{1, 1} , {1, 1}}, {{1, 2} , {2, 1}}, {{2, 0} , {0, 2}}, {{2, 1} , {1, 2}}, {{2, 2} , {2, 2}}
+			const std::map <std::pair<int, int>, std::pair<int, int>> map2 = {
+				{{0, 0}, {0, 0}}, {{0, 1}, {1, 0}}, {{0, 2} , {2, 0}}, {{1, 0} , {0, 1}}, {{1, 1}, {1, 1}}, {{1, 2} , {2, 1}}, {{2, 0} , {0, 2}}, {{2, 1} , {1, 2}}, {{2, 2} , {2, 2}},
 			};
-			Assert::AreEqual(map, result);
+			Assert::AreEqual(map2, result);
 		}
 		
 		TEST_METHOD(testCreatemap_sq3) // Square Diagonal 2
 		{
 			const auto result = create_map(2, 2, 3);
-			const std::map <std::pair<int, int>, std::pair<int, int>> map = {
+			const std::map <std::pair<int, int>, std::pair<int, int>> map3 = {
 				{{0, 0} , {1, 1}}, {{0, 1} , {0, 1}}, {{1, 0} , {1, 0}}, {{1, 1} , {0, 0}}
 			};
-			Assert::AreEqual(map, result);
+			Assert::AreEqual(map3, result);
 		}
 		
 		TEST_METHOD(testCreatemap_rect0) // Rectangle Vertical
 		{
 			const auto result = create_map(2, 3, 1);
-			const std::map <std::pair<int, int>, std::pair<int, int>> map = {
+			const std::map <std::pair<int, int>, std::pair<int, int>> map4 = {
 				{{0, 0}, {0, 1}}, {{0, 1}, {0, 0}}, {{1, 0}, {1, 1}}, {{1, 1}, {1, 0}}, {{2, 0}, {2, 1}}, {{2, 1}, {2, 0}}
 			};
-			Assert::AreEqual(map, result);
+			Assert::AreEqual(map4, result);
 		}
 		
 		TEST_METHOD(testCreatemap_rect1) /// Rectangle Horizontal
 		{
 			const auto result = create_map(3, 2, 0);
-			const std::map <std::pair<int, int>, std::pair<int, int>> map = {
+			const std::map <std::pair<int, int>, std::pair<int, int>> map5 = {
 				{{0, 0} , {1, 0}},
 				{{0, 1}, {1, 1}},
 				{{0, 2}, {1, 2}},
@@ -101,12 +100,12 @@ namespace Tests
 				{{1, 1}, {0, 1}},
 				{{1, 2} , {0, 2}}
 			};
-			Assert::AreEqual(map, result);
+			Assert::AreEqual(map5, result);
 		}
 		TEST_METHOD(testCreatemap_rect2) // Rectangle Diagonal 1
 		{
 			const auto result = create_map(3, 2, 0);
-			const std::map <std::pair<int, int>, std::pair<int, int>> map = {
+			const std::map <std::pair<int, int>, std::pair<int, int>> map6 = {
 				{{0, 0}, {0, 0}},
 				{{0, 1}, {1, 0}},
 				{{0, 2} , {2, 0}},
@@ -114,12 +113,12 @@ namespace Tests
 				{{1, 1}, {1, 1}},
 				{{1, 2}, {2, 1}}
 			};
-			Assert::AreEqual(map, result);
+			Assert::AreEqual(map6, result);
 		}
 		TEST_METHOD(testCreatemap_rect3) // Rectangle Diagonal 2
 		{
 			const auto result = create_map(3, 2, 0);
-			const std::map <std::pair<int, int>, std::pair<int, int>> map = {
+			const std::map <std::pair<int, int>, std::pair<int, int>> map7 = {
 				{{0, 0} , {1, 2}},
 				{{0, 1}, {0, 2}},
 				{{0, 2}, {-1, 2}},
@@ -127,7 +126,7 @@ namespace Tests
 				{{1, 1}, {0, 1}},
 				{{1, 2}, {-1, 1}}
 			};
-			Assert::AreEqual(map, result);
+			Assert::AreEqual(map7, result);
 		}
 
 	};

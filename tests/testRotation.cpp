@@ -30,14 +30,14 @@ std::map <std::pair<int, int>, std::pair<int, int>> create_map(int height, int w
 				switch (angle)
 				{
 				case 90:
-					y_n += (width - 1);
+					y_n += width - 1;
 					break;
 				case 180:
-					x_n += (width - 1);
-					y_n += (height - 1);
+					x_n += width - 1;
+					y_n += height - 1;
 					break;
 				case 270:
-					x_n += (height - 1);
+					x_n += height - 1;
 					break;
 				default:
 					break;
