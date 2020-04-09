@@ -1,9 +1,9 @@
 ﻿#include "rotation.h"
 #include <cmath>
 
-std::map <std::pair<int, int>, std::pair<int, int>> Rotation::create_map(int angle)
+std::map <std::pair<int, int>, std::pair<int, int>> Rotation::create_map(int angle, int height, int width)
 {
-	this->newImage->resize(this->oldImage->height, this->oldImage->width);
+	std::map <std::pair<int, int>, std::pair<int, int>> map;
 	if (angle % 90 != 0)
 	{
 		throw std::exception("Angle has to be a multiple of 90 degrees");
@@ -13,14 +13,14 @@ std::map <std::pair<int, int>, std::pair<int, int>> Rotation::create_map(int ang
 		int multiple = angle / 360;
 		angle = angle - multiple * 360;
 	}
-	if (angle != 360 || angle != 0)
+	if (angle != 360 && angle != 0)
 	{
 		const auto pi = std::acos(-1);
 		double deg = angle * pi / 180;
 
-		for (int i = 0; i < this->oldImage->height; i++)
+		for (int i = 0; i < height; i++)
 		{
-			for (int j = 0; j < this->oldImage->width; j++)
+			for (int j = 0; j < width; j++)
 			{
 				// rotation matrix
 				double x_n = j * std::cos(-deg) - i * std::sin(-deg);
@@ -29,14 +29,14 @@ std::map <std::pair<int, int>, std::pair<int, int>> Rotation::create_map(int ang
 				switch (angle)
 				{
 				case 90:
-					y_n += (this->oldImage->width - 1);
+					y_n += width - 1;
 					break;
 				case 180:
-					x_n += (this->oldImage->width - 1);
-					y_n += (this->oldImage->height - 1);
+					x_n += width - 1;
+					y_n += height - 1;
 					break;
 				case 270:
-					x_n += (this->oldImage->height - 1);
+					x_n += height - 1;
 					break;
 				default:
 					break;
@@ -46,15 +46,16 @@ std::map <std::pair<int, int>, std::pair<int, int>> Rotation::create_map(int ang
 			}
 		}
 	}
-	return this->map;
+	return map;
 };
 
 void Rotation::processImage(int angle)
 {
-	this->angle = angle;
-	this->create_map(this->angle);
+	this->newImage->resize(this->oldImage->height, this->oldImage->width);
 
-	for (const auto& pair : this->map)
+	auto map = this->create_map(angle, this->oldImage->height, this->oldImage->width);
+
+	for (const auto& pair : map)
 	{
 		const auto old_x = pair.first.first;
 		const auto old_y = pair.first.second;
