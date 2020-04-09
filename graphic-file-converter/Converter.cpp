@@ -19,7 +19,7 @@ void Converter::loadImage(const Image* image)
 	this->newImage = new Image(*image);
 }
 
-Converter::Converter(const Image* base_image): oldImage(base_image)
+Converter::Converter(const Image* base_image) : oldImage(base_image)
 {
 	newImage = new Image(*base_image);
 }

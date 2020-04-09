@@ -4,12 +4,9 @@
 
 class Rotation: public Converter
 {
-    private:
-    std::map <std::pair<int, int>, std::pair<int, int>> map;
-    void createMap();
+public:
+    static std::map <std::pair<int, int>, std::pair<int, int>> create_map(int angle, int height, int width);
 
-    
-    public:
     using Converter::Converter;
 	void processImage(int angle) override;
     int angle;

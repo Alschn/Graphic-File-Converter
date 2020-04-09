@@ -4,13 +4,10 @@
 
 class Reflection: public Converter
 {
-    private:
-    std::map <std::pair<int, int>, std::pair<int, int>> map;
-    void createMap();
+public:
+    static std::map <std::pair<int, int>, std::pair<int, int>> create_map(int num, int height, int width);
 
-
-    public:
     using Converter::Converter;
     void processImage(int reflect_num) override;
-    int reflect_num;
+
 };
