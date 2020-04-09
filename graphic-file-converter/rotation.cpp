@@ -23,8 +23,8 @@ std::map <std::pair<int, int>, std::pair<int, int>> Rotation::create_map(int ang
 			for (int j = 0; j < width; j++)
 			{
 				// rotation matrix
-				double x_n = j * std::cos(-deg) - i * std::sin(-deg);
-				double y_n = j * std::sin(-deg) + i * std::cos(-deg);
+				auto x_n = j * std::cos(-deg) - i * std::sin(-deg);
+				auto y_n = j * std::sin(-deg) + i * std::cos(-deg);
 				// translation vector
 				switch (angle)
 				{
