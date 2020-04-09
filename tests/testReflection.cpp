@@ -23,7 +23,7 @@ namespace Tests
 	public:
 		static bool compareMaps(std::map <std::pair<int, int>, std::pair<int, int>> map_1, std::map <std::pair<int, int>, std::pair<int, int>> map_2)
 		{
-			if(map_1 == map_2)
+			if (map_1 == map_2)
 			{
 				return true;
 			}
@@ -35,20 +35,20 @@ namespace Tests
 			auto result = Reflection::create_map(2, 2, 0);
 			const std::map <std::pair<int, int>, std::pair<int, int>> map0 = {
 				{{0, 0} , {1, 0}}, {{1, 0} , {0, 0}}, {{0, 1} , {1, 1}}, {{1, 1} , {0, 1} }
-		};
+			};
 			Assert::IsTrue(compareMaps(map0, result));
 		}
-		
+
 		TEST_METHOD(testCreatemap_sq1) // Square Horizontal
 		{
 			auto result = Reflection::create_map(2, 2, 1);
 			const std::map <std::pair<int, int>, std::pair<int, int>> map1 = {
 				{{0, 0} , {0, 1}}, {{1, 0} , {1, 1}}, {{0, 1} , {0, 0}}, {{1, 1} , {1, 0}}
-				
+
 			};
 			Assert::IsTrue(compareMaps(map1, result));
 		}
-		
+
 		TEST_METHOD(testCreatemap_sq2) // Square Diagonal 1
 		{
 			auto result = Reflection::create_map(2, 2, 2);
@@ -57,7 +57,7 @@ namespace Tests
 			};
 			Assert::IsTrue(compareMaps(map2, result));
 		}
-		
+
 		TEST_METHOD(testCreatemap_sq3) // Square Diagonal 2
 		{
 			auto result = Reflection::create_map(2, 2, 3);
@@ -66,7 +66,7 @@ namespace Tests
 			};
 			Assert::IsTrue(compareMaps(map3, result));
 		}
-		
+
 		TEST_METHOD(testCreatemap_rect0) // Rectangle Vertical
 		{
 			auto result = Reflection::create_map(3, 2, 0);
@@ -75,13 +75,13 @@ namespace Tests
 			};
 			Assert::IsTrue(compareMaps(map4, result));
 		}
-		
+
 		TEST_METHOD(testCreatemap_rect1) /// Rectangle Horizontal
 		{
 			auto result = Reflection::create_map(3, 2, 1);
 			const std::map <std::pair<int, int>, std::pair<int, int>> map5 = {
 				{{0, 0} , {0, 2}}, {{1, 0} , {1, 2}}, {{0, 1} , {0, 1}}, {{1, 1} , {1, 1}}, {{0, 2} , {0, 0}}, {{1, 2} , {1, 0} }
-				
+
 			};
 			Assert::IsTrue(compareMaps(map5, result));
 		}
