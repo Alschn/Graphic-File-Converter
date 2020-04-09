@@ -1,14 +1,15 @@
 ﻿#include "rotation.h"
 #include <cmath>
 
-std::map <std::pair<int, int>, std::pair<int, int>> Rotation::create_map(int angle, int height, int width)
+std::map <std::pair<int, int>, std::pair<int, int>> Rotation::create_map(int height, int width, int angle)
 {
 	std::map <std::pair<int, int>, std::pair<int, int>> map;
 	if (angle % 90 != 0)
 	{
 		throw std::exception("Angle has to be a multiple of 90 degrees");
 	}
-
+	int multiple = angle / 360;
+	angle = angle - multiple * 360;
 	const auto pi = std::acos(-1);
 	double deg = angle * pi / 180;
 
@@ -52,7 +53,7 @@ void Rotation::processImage(int angle)
 			this->newImage->resize(this->oldImage->height, this->oldImage->width);
 		}
 
-		auto map = this->create_map(angle, this->oldImage->height, this->oldImage->width);
+		auto map = this->create_map(this->oldImage->height, this->oldImage->width, angle);
 
 		for (const auto& pair : map)
 		{

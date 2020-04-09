@@ -18,14 +18,17 @@ namespace Tests
 			{
 				return true;
 			}
-			return false;
+			else
+			{
+				return false;
+			}
 		};
 
 		TEST_METHOD(testCreatemap_rot90sq) // rotate square by 90 deg
 		{
 			auto result = Rotation::create_map(2, 2, 90);
 			const std::map <std::pair<int, int>, std::pair<int, int>> map0 = {
-				{{0, 0} , {0, 1}}, {{1, 0} , {0, 0}}, {{0, 1} , {1, 1}}, {{1, 1} , {1, 0} }
+				{{0, 0} , {0, 1}}, {{1, 0} , {0, 0}}, {{0, 1} , {1, 1}}, {{1, 1} , {1, 0}}
 			};
 			Assert::IsTrue(compareMaps(map0, result));
 		}
@@ -34,25 +37,26 @@ namespace Tests
 		{
 			auto result = Rotation::create_map(2, 2, 180);
 			const std::map <std::pair<int, int>, std::pair<int, int>> map1 = {
-				{{0, 0} , {1, 1}}, {{1, 0} , {0, 0}}, {{0, 1} , {1, 0}}, {{1, 1} , {0, 0} }
+				{{0, 0} , {1, 0}}, {{1, 0} , {0, 1}}, {{0, 1} , {0, 0}}, {{1, 1} , {0, 0}}
 			};
 			Assert::IsTrue(compareMaps(map1, result));
 		}
 
-		TEST_METHOD(testCreatemap_270sq) // rotate square by 270 deg
+		TEST_METHOD(testCreatemap_rot270sq) // rotate square by 270 deg
 		{
 			auto result = Rotation::create_map(2, 2, 270);
 			const std::map <std::pair<int, int>, std::pair<int, int>> map2 = {
-				{{0, 0} , {1, 0}}, {{1, 0} , {0, 1}}, {{0, 1} , {0, 0}}, {{1, 1} , {0, 0} }
+				{{0, 0} , {1, 1}}, {{1, 0} , {0, 0}}, {{0, 1} , {1, 0}}, {{1, 1} , {0, 0}}
+				
 			};
 			Assert::IsTrue(compareMaps(map2, result));
 		}
 
-		TEST_METHOD(testCreatemap_360sq) // rotate square by 360 deg
+		TEST_METHOD(testCreatemap_rot360sq) // rotate square by 360 deg
 		{
 			auto result = Rotation::create_map(2, 2, 360);
 			const std::map <std::pair<int, int>, std::pair<int, int>> map3 = {
-				{{0, 0}, {0, 0}}, {{1, 0}, {1, 0}}, {{0, 1}, {0, 1}}, {{1, 1}, {1, 1} }
+				{{0, 0}, {0, 0}}, {{1, 0}, {1, 0}}, {{0, 1}, {0, 1}}, {{1, 1}, {1, 1}}
 			};
 			Assert::IsTrue(compareMaps(map3, result));
 		}
@@ -64,7 +68,7 @@ namespace Tests
 		{
 			auto result = Rotation::create_map(2, 2, 450);
 			const std::map <std::pair<int, int>, std::pair<int, int>> map4 = {
-				{{0, 0} , {0, 1}}, {{1, 0} , {0, 0}}, {{0, 1} , {1, 1}}, {{1, 1} , {1, 0} }
+				{{0, 0} , {0, 1}}, {{1, 0} , {0, 0}}, {{0, 1} , {1, 1}}, {{1, 1} , {1, 0}}
 			};
 			Assert::IsTrue(compareMaps(map4, result));
 		}
