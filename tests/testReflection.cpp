@@ -34,7 +34,10 @@ namespace Tests
 		{
 			auto result = Reflection::createMap(2, 2, 0);
 			const std::map <std::pair<int, int>, std::pair<int, int>> map0 = {
-				{{0, 0} , {1, 0}}, {{1, 0} , {0, 0}}, {{0, 1} , {1, 1}}, {{1, 1} , {0, 1} }
+				{{0, 0}, {1, 0}},
+				{{1, 0}, {0, 0}},
+				{{0, 1}, {1, 1}},
+				{{1, 1}, {0, 1}}
 			};
 			Assert::IsTrue(compareMaps(map0, result));
 		}
@@ -43,7 +46,10 @@ namespace Tests
 		{
 			auto result = Reflection::createMap(2, 2, 1);
 			const std::map <std::pair<int, int>, std::pair<int, int>> map1 = {
-				{{0, 0} , {0, 1}}, {{1, 0} , {1, 1}}, {{0, 1} , {0, 0}}, {{1, 1} , {1, 0}}
+				{{0, 0}, {0, 1}},
+				{{1, 0}, {1, 1}},
+				{{0, 1}, {0, 0}},
+				{{1, 1}, {1, 0}}
 
 			};
 			Assert::IsTrue(compareMaps(map1, result));
@@ -53,7 +59,10 @@ namespace Tests
 		{
 			auto result = Reflection::createMap(2, 2, 2);
 			const std::map <std::pair<int, int>, std::pair<int, int>> map2 = {
-				{{0, 0} , {0, 0}}, {{1, 0} , {0, 1}}, {{0, 1} , {1, 0}}, {{1, 1} , {1, 1} }
+				{{0, 0}, {0, 0}},
+				{{1, 0}, {0, 1}},
+				{{0, 1}, {1, 0}},
+				{{1, 1}, {1, 1}}
 			};
 			Assert::IsTrue(compareMaps(map2, result));
 		}
@@ -62,7 +71,10 @@ namespace Tests
 		{
 			auto result = Reflection::createMap(2, 2, 3);
 			const std::map <std::pair<int, int>, std::pair<int, int>> map3 = {
-				{{0, 0}, {1, 1}}, {{1, 0}, {1, 0}}, {{0, 1}, {0, 1}}, {{1, 1}, {0, 0} }
+				{{0, 0}, {1, 1}},
+				{{1, 0}, {1, 0}},
+				{{0, 1}, {0, 1}},
+				{{1, 1}, {0, 0}}
 			};
 			Assert::IsTrue(compareMaps(map3, result));
 		}
@@ -71,7 +83,12 @@ namespace Tests
 		{
 			auto result = Reflection::createMap(3, 2, 0);
 			const std::map <std::pair<int, int>, std::pair<int, int>> map4 = {
-				{{0, 0} , {1, 0}}, {{1, 0} , {0, 0}}, {{0, 1} , {1, 1}}, {{1, 1} , {0, 1}}, {{0, 2} , {1, 2}}, {{1, 2} , {0, 2} }
+				{{0, 0}, {1, 0}},
+				{{1, 0}, {0, 0}},
+				{{0, 1}, {1, 1}},
+				{{1, 1}, {0, 1}},
+				{{0, 2}, {1, 2}},
+				{{1, 2}, {0, 2}}
 			};
 			Assert::IsTrue(compareMaps(map4, result));
 		}
@@ -80,7 +97,12 @@ namespace Tests
 		{
 			auto result = Reflection::createMap(3, 2, 1);
 			const std::map <std::pair<int, int>, std::pair<int, int>> map5 = {
-				{{0, 0} , {0, 2}}, {{1, 0} , {1, 2}}, {{0, 1} , {0, 1}}, {{1, 1} , {1, 1}}, {{0, 2} , {0, 0}}, {{1, 2} , {1, 0} }
+				{{0, 0}, {0, 2}},
+				{{1, 0}, {1, 2}},
+				{{0, 1}, {0, 1}},
+				{{1, 1}, {1, 1}},
+				{{0, 2}, {0, 0}},
+				{{1, 2}, {1, 0}}
 
 			};
 			Assert::IsTrue(compareMaps(map5, result));
@@ -89,7 +111,12 @@ namespace Tests
 		{
 			auto result = Reflection::createMap(3, 2, 2);
 			std::map <std::pair<int, int>, std::pair<int, int>> map6 = {
-				{{0, 0} , {0, 0}}, {{1, 0} , {0, 1}}, {{0, 1} , {1, 0}}, {{1, 1} , {1, 1}}, {{0, 2} , {2, 0}}, {{1, 2} , {2, 1} }
+				{{0, 0}, {0, 0}},
+				{{1, 0}, {0, 1}},
+				{{0, 1}, {1, 0}},
+				{{1, 1}, {1, 1}},
+				{{0, 2}, {2, 0}},
+				{{1, 2}, {2, 1}}
 			};
 			Assert::IsTrue(compareMaps(map6, result));
 		}
@@ -97,7 +124,12 @@ namespace Tests
 		{
 			auto result = Reflection::createMap(3, 2, 3);
 			std::map <std::pair<int, int>, std::pair<int, int>> map7 = {
-				{{0, 0}, {1, 2}}, {{1, 0}, {1, 1}}, {{0, 1}, {0, 2}}, {{1, 1}, {0, 1}}, {{0, 2}, {-1, 2}}, {{1, 2}, {-1, 1} }
+				{{0, 0}, {1, 2}},
+				{{1, 0}, {1, 1}},
+				{{0, 1}, {0, 2}},
+				{{1, 1}, {0, 1}},
+				{{0, 2}, {-1, 2}},
+				{{1, 2}, {-1, 1}}
 			};
 			Assert::IsTrue(compareMaps(map7, result));
 		}
