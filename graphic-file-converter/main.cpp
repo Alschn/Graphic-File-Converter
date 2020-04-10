@@ -3,15 +3,16 @@
 #include "rotation.h"
 #include "user_interface.h"
 // #include "image.h"
-
+#include "reflection.h"
+#include "display_parameter.h"
 
 using namespace std;
 
 int main()
 {
-//#ifdef _DEBUG
+	//#ifdef _DEBUG
 	//std::cout << "In DEBUG mode." << std::endl;
-//#endif
+	//#endif
 
 	// std::cout << im;
 	//std::cout << endl;
@@ -32,11 +33,13 @@ int main()
 
 	UserInterface Desktop;
 	Rotation conversion;
-	Desktop.registerAction("rotation", "rotates picture by n degrees", &conversion, regex(R"###(^converter +rotation +\d\d +(('|")[^']\S+[^']('|")) *('\S+[^']')? *$)###"), 1);
+	DisplayParameter display;
+	Reflection conversion2;
+	Desktop.registerParameter("-d", &display);
+	Desktop.registerAction("rotation", "rotates picture by n degrees", &conversion,regex(R"###(^converter +rotation +\d\d +(('|")[^'][^"]\S+[^'][^"]('|")) *(('|")[^'][^"]\S+[^'][^"]('|"))? *(-\w)? *$)###"), 1);
+	Desktop.registerAction("reflection", "reflects picture over selected axis", &conversion2, regex(R"###(^converter +reflection +\d\d +(('|")[^'][^"]\S+[^'][^"]('|")) *(('|")[^'][^"]\S+[^'][^"]('|"))? *(-\w)? *$)###"), 1);
+
 	Desktop.display();
 
 	//im.save(R"(..\sample_bmps\10x1011121.bmp)");
 }
-
-
-

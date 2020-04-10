@@ -45,7 +45,6 @@ public:
 	ColorDepth depth;
 
 
-
 	/*
 	 * Offsets for BMP HEADER (windows header type)
 	 */
@@ -149,7 +148,7 @@ private:
 	 * \brief Reads information from .bmp header in windows format (54 bytes) and saves it into class' memory (not all but certain parameters)
 	 * \param header header as byte buffer from .bmp file
 	 */
-	void readHeader(const std::vector<int> &header);
+	void readHeader(const std::vector<int>& header);
 
 	/**
 	 * \brief Generates .bmp header in windows standard (54 bytes) from variables present in class scope
@@ -157,13 +156,13 @@ private:
 	 * \return 
 	 */
 	void generateHeader(const uint8_t (&input)[]);
-	
+
 public:
 	Image(const std::string& path, const bool expect_saving, const ImageMode& m,
 	      const ColorDepth& depth = ColorDepth::bpp24);
 
 	Image(const Image& other);
-	
+
 	Image();
 
 	~Image();

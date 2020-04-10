@@ -198,7 +198,7 @@ void Image::load()
 }
 
 
-void Image::generateHeader(const uint8_t(& input)[])
+void Image::generateHeader(const uint8_t (& input)[])
 {
 	// to be implemented
 }
@@ -253,5 +253,4 @@ std::ostream& operator<<(std::ostream& os, const Image& im)
 
 Image::Image()
 {
-
 }
