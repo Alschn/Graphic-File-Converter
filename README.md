@@ -14,6 +14,7 @@ Optymalizacja pamięci pod względem przechowywanego obrazu.
 ### Wstępna funkcjonalność:
 * Wczytywanie obrazu do pamięci z pliku .bmp (24bpp).
 * Obracanie obrazu o kąt całkowitej wielokrotności 90 stopni.
+* Odbijanie obrazu względem przekątnej oraz względem środka w pionie jak i w poziomie.
 * Dynamiczny CLI
 
 ### Uruchamianie programu
@@ -30,7 +31,8 @@ Optymalizacja pamięci pod względem przechowywanego obrazu.
 #### Aktualny podział pracy:
 * Klasa `Image` odpowiadająca za przechowywanie zdjęcia w pamięci jak i zamianę go na tekst - Gustaw Daczkowski
 * Klasa `UserInterface` odpowiedzialna za dynamiczny CLI - Wojciech Nowicki
-* Klasa `Rotate` dziedzicząca z `Converter` w celu konwersji zdjęcia - obrotu - Adam Lischin.  
+* Klasa `Rotate` dziedzicząca z `Converter` w celu konwersji zdjęcia - obrotu - Adam Lisichin.  
+* Klasa `Reflection` dziedzicząca z `Converter` w celu konwersji - odbicia lustrzanego - Adam Lisichin/
 
 #### Aktualna funkcjonalnośc programu:
 * CLI reaguje na komendę --help i wyświetla pomoc dla użytkownika, przy każdej źle wpisanej komendzie  
