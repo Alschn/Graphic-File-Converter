@@ -4,16 +4,28 @@
 #include "reflection.h"
 // #include "user_interface.h"
 // #include "image.h"
-
+#include "reflection.h"
+#include "display_parameter.h"
 
 using namespace std;
 
 int main()
 {
+	//#ifdef _DEBUG
+	//std::cout << "In DEBUG mode." << std::endl;
+	//#endif
 
-	Image im(R"(..\sample_bmps\10x10.bmp)", true, ImageMode::ReadFromBMP);
-	std::cout << im;
-	std::cout << endl;
+	// std::cout << im;
+	//std::cout << endl;
+
+
+	//std::map<std::string, Converter*> conversions;
+	// Converter* conv = new Rotation(&im);
+
+	//conversions.try_emplace("rotate", new Rotation());
+
+
+	//Image im(R"(..\sample_bmps\10x10.bmp)", true, ImageMode::ReadFromBMP);
 
 
 	//Image im2(im);
@@ -23,12 +35,15 @@ int main()
 	conv->processImage(2);
 	conv->saveImage(R"(..\sample_bmps\output.bmp)");
 
-	// UserInterface Desktop;
+	UserInterface Desktop;
+	Rotation conversion;
+	DisplayParameter display;
+	Reflection conversion2;
+	Desktop.registerParameter("-d", &display);
+	Desktop.registerAction("rotation", "rotates picture by n degrees", &conversion,regex(R"###(^converter +rotation +\d\d +(('|")[^'][^"]\S+[^'][^"]('|")) *(('|")[^'][^"]\S+[^'][^"]('|"))? *(-\w)? *$)###"), 1);
+	Desktop.registerAction("reflection", "reflects picture over selected axis", &conversion2, regex(R"###(^converter +reflection +\d +(('|")[^'][^"]\S+[^'][^"]('|")) *(('|")[^'][^"]\S+[^'][^"]('|"))? *(-\w)? *$)###"), 1);
 
-	
-	// Desktop.registerHelp("--rotation", "rotates picture by n degrees");
-	// Desktop.registerHelp("--contrast", "changes colours intensification");
-	// Desktop.display();
+	Desktop.display();
 
 	// im.save(R"(..\sample_bmps\10x1011121.bmp)");
 	

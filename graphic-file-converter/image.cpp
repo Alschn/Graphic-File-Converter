@@ -4,18 +4,16 @@
 #include <ios>
 #include <iostream>
 #include <vector>
+#include "utils.h"
+#include <sys/stat.h>
 
-void Image::replacePixel(int x, int y, const char pixel[3])
-{
-}
-
-void Image::getPixel(int x, int y, unsigned char (&output)[3], PixelMode mode) const
+void Image::getPixel(int x, int y, unsigned char output[], PixelMode mode) const
 {
 	if (mode == PixelMode::RGB)
 	{
 		for (int i = 0; i < 3; ++i)
 		{
-			auto index = this->calculatePixelIndex(x, y, i);
+			const auto index = this->calculatePixelIndex(x, y, i);
 			output[i] = this->content[index];
 		}
 	}
@@ -23,13 +21,16 @@ void Image::getPixel(int x, int y, unsigned char (&output)[3], PixelMode mode) c
 	{
 		for (int i = 0; i < 3; ++i)
 		{
-			auto index = this->calculatePixelIndex(x, y, i);
+			const auto index = this->calculatePixelIndex(x, y, i);
 			output[2 - i] = this->content[index];
 		}
 	}
+	else if (mode == PixelMode::MONOBW)
+	{
+	}
 }
 
-void Image::putPixel(int x, int y, unsigned char (& input)[3])
+void Image::putPixel(int x, int y, unsigned char input[], PixelMode mode)
 {
 	for (int i = 0; i < 3; ++i)
 	{
@@ -38,27 +39,38 @@ void Image::putPixel(int x, int y, unsigned char (& input)[3])
 	}
 }
 
+
+/*
+ *This method is for 1bpp mode. Cannot be used with another modes. 
+ */
+void Image::putPixel(int x, int y, bool output)
+{
+}
+
+
 void Image::resize(int width, int height)
 {
 	this->width = width;
 	this->height = height;
-	this->setBufferSize();
+	this->buffer_size = Image::bufferSize(this->BYTES_PER_PIXEL, this->width, this->height);
 	this->content = new unsigned char[this->buffer_size];
-	this->calculateRowSize();
+	this->row_size = Image::rowSize(this->width, this->BYTES_PER_PIXEL);
 }
 
-void Image::setBufferSize()
+size_t Image::bufferSize(const unsigned bytes_per_pixel, const unsigned width, const unsigned height)
 {
-	this->buffer_size = this->BYTES_PER_PIXEL * this->width * this->height;
+	return bytes_per_pixel * width * height;
 }
 
-
-
-unsigned Image::calculateRowSize()
+unsigned Image::rowSize(const unsigned width, const unsigned bytes_per_pixel)
 {
-	const int bytes_per_pixel = 3;
-	this->row_size = (this->width * bytes_per_pixel + 3) & ~3;
-	return this->row_size;
+	return (width * bytes_per_pixel + 3) & ~3;
+}
+
+unsigned Image::rowPadding(const unsigned width, const unsigned bytes_per_pixel)
+{
+	const auto row_size = Image::rowSize(width, bytes_per_pixel);
+	return row_size - width * bytes_per_pixel;
 }
 
 int Image::calculatePixelIndex(int x, int y, int color) const
@@ -92,12 +104,12 @@ void Image::save(const std::string& path)
 			unsigned char px[3];
 			this->getPixel(i, j, px, PixelMode::BGR);
 
-			for (auto c:px)
+			for (auto c : px)
 			{
-				output.push_back(c);
+				output.emplace_back(c);
 			}
 		}
-		for(int i = 0; i< (this->row_size-this->width*this->BYTES_PER_PIXEL); ++i)
+		for (int i = 0; i < (this->row_size - this->width * this->BYTES_PER_PIXEL); ++i)
 		{
 			output.push_back(0);
 		}
@@ -135,6 +147,12 @@ std::string Image::toStr() const
 	return output;
 }
 
+bool Image::fileExists(const std::string& path)
+{
+	struct stat buffer;
+	return stat(path.c_str(), &buffer) == 0;
+}
+
 void Image::load()
 {
 	std::ifstream infile(this->path, std::ios_base::binary);
@@ -162,9 +180,8 @@ void Image::load()
 	}
 
 	const auto offset = Utils::fourCharsToInt(buffer, PIXEL_ARRAY_OFFSET);
-	this->calculateRowSize();
-	this->setBufferSize();
-	
+	this->row_size = Image::rowSize(this->width, this->BYTES_PER_PIXEL);
+	this->buffer_size = Image::bufferSize(this->BYTES_PER_PIXEL, this->width, this->height);
 
 	this->content = new unsigned char[this->buffer_size];
 
@@ -175,41 +192,65 @@ void Image::load()
 			const unsigned int bmp_real_offset = i * 3 + offset + j * this->row_size;
 			this->content[this->calculatePixelIndex(i, j, 0)] = buffer.at(bmp_real_offset + 2); // save R
 			this->content[this->calculatePixelIndex(i, j, 1)] = buffer.at(bmp_real_offset + 1); // save G
-			this->content[this->calculatePixelIndex(i, j, 2)] = buffer.at(bmp_real_offset);				  // save B
+			this->content[this->calculatePixelIndex(i, j, 2)] = buffer.at(bmp_real_offset); // save B
 		}
 	}
 }
 
-Image::Image(const std::string& path, const bool expect_saving, const ImageMode& m,
-             const ColorDepth& depth): path(path), mode(m), depth(depth), save_header(expect_saving)
+
+void Image::generateHeader(const uint8_t (& input)[])
 {
+	// to be implemented
+}
+
+Image::Image(const std::string& path, const bool expect_saving, const ImageMode& m,
+             const ColorDepth& depth) : path(path), mode(m), depth(depth), save_header(expect_saving)
+{
+	if (!Image::fileExists(path))
+	{
+		throw std::exception("Image with specified input path does not exist!");
+	}
+
 	if (this->save_header)
 	{
 		this->header = new unsigned char[this->HEADER_SIZE];
 	}
 
-
 	this->load();
 }
 
-Image::Image(const Image& other): mode(other.mode), depth(other.depth)
+Image::Image(const Image& other) : mode(other.mode), depth(other.depth)
 {
+#ifdef _DEBUG
+	std::cout << "Inside copy constructor of class Image" << std::endl;
+#endif
+
+
 	this->width = other.width;
 	this->height = other.height;
 	this->buffer_size = other.buffer_size;
 	this->row_size = other.row_size;
 
-	
+
 	this->save_header = other.save_header;
 	this->file_size = other.file_size;
 	this->header = new unsigned char[other.HEADER_SIZE];
-	memcpy(this->header, other.header, this->HEADER_SIZE);
+	memcpy(this->header, other.header, this->HEADER_SIZE * 1);
 	this->content = new unsigned char[other.buffer_size];
+}
 
+Image::~Image()
+{
+	delete[] this->header;
+	delete[] this->content;
 }
 
 std::ostream& operator<<(std::ostream& os, const Image& im)
 {
 	os << im.toStr();
 	return os;
+}
+
+Image::Image()
+{
 }

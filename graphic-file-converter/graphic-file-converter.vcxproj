@@ -157,12 +157,16 @@
     <ClCompile Include="image.cpp" />
     <ClCompile Include="reflection.cpp" />
     <ClCompile Include="rotation.cpp" />
+    <ClCompile Include="parameter.cpp" />
+    <ClCompile Include="display_parameter.cpp" />
     <ClCompile Include="user_interface.cpp" />
     <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="contrast.h" />
     <ClInclude Include="converter.h" />
+    <ClInclude Include="display_parameter.h" />
+    <ClInclude Include="parameter.h" />
     <ClInclude Include="image.h" />
     <ClInclude Include="reflection.h" />
     <ClInclude Include="rotation.h" />

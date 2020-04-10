@@ -2,7 +2,6 @@
 
 #include "converter.h"
 
-class Contrast: public Converter
+class Contrast : public Converter
 {
-
 };
