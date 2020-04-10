@@ -190,10 +190,12 @@ void UserInterface::display()
 					no_function++;
 				}
 			}
-			if(no_function=conversions_map.size())
+			if (no_function = conversions_map.size())
 			{
 				std::cout << std::endl;
-				std::cout << "There is no such command or you made spelling mistake! Try again or type \"converter help\"" << std::endl;
+				std::cout <<
+					"There is no such command or you made spelling mistake! Try again or type \"converter help\"" << std
+					::endl;
 			}
 		}
 	}
