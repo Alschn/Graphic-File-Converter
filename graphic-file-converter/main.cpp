@@ -1,7 +1,8 @@
 #include <iostream>
 
 #include "rotation.h"
-#include "user_interface.h"
+#include "reflection.h"
+// #include "user_interface.h"
 // #include "image.h"
 #include "reflection.h"
 #include "display_parameter.h"
@@ -27,9 +28,12 @@ int main()
 	//Image im(R"(..\sample_bmps\10x10.bmp)", true, ImageMode::ReadFromBMP);
 
 
-	// conv->processImage(90);
-	// conv->saveImage(R"(..\sample_bmps\10x1110_rotated.bmp)");
+	//Image im2(im);
+	//im2.resize(im.height, im.width);
 
+	Converter  *conv = new Reflection(&im);
+	conv->processImage(2);
+	conv->saveImage(R"(..\sample_bmps\output.bmp)");
 
 	UserInterface Desktop;
 	Rotation conversion;
@@ -41,5 +45,6 @@ int main()
 
 	Desktop.display();
 
-	//im.save(R"(..\sample_bmps\10x1011121.bmp)");
+	// im.save(R"(..\sample_bmps\10x1011121.bmp)");
+	
 }
