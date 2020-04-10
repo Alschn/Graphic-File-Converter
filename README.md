@@ -29,10 +29,12 @@ Optymalizacja pamięci pod względem przechowywanego obrazu.
 
 
 #### Aktualny podział pracy:
-* Klasa `Image` odpowiadająca za przechowywanie zdjęcia w pamięci jak i zamianę go na tekst - Gustaw Daczkowski
 * Klasa `UserInterface` odpowiedzialna za dynamiczny CLI - Wojciech Nowicki
-* Klasa `Rotate` dziedzicząca z `Converter` w celu konwersji zdjęcia - obrotu - Adam Lisichin.  
-* Klasa `Reflection` dziedzicząca z `Converter` w celu konwersji - odbicia lustrzanego - Adam Lisichin/
+* Klasa `Image` odpowiadająca za przechowywanie zdjęcia w pamięci jak i zamianę go na tekst - Gustaw Daczkowski
+* Klasa `Converter` klasa główna odpowiedzialna za konwersję, z wirtualnymi metodami - Gustaw Daczkowski
+* Klasa `Rotate` dziedzicząca z `Converter` w celu konwersji zdjęcia - obrotu - Adam Lisichin
+* Klasa `Reflection` dziedzicząca z `Converter` w celu konwersji - odbicia lustrzanego - Adam Lisichin
+* Klasa `Utils`- bardzo mała, znajdują się w niej statyczne metody do obsługi operacji bitowych oraz bajtowych - Gustaw Daczkowski
 
 
 #### Testy jednostkowe:
