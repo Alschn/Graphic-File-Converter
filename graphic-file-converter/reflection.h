@@ -2,15 +2,24 @@
 #include "converter.h"
 #include <map>
 
-class Reflection: public Converter
+class Reflection : public Converter
 {
-    private:
-    std::map <std::pair<int, int>, std::pair<int, int>> map;
-    std::map <std::pair<int, int>, std::pair<int, int>> create_map(int num);
+public:
+	/**
+	 * \brief Creates map which stores old and new coordinates calculated using self-written algorithm
+	 * \param height Old Image's height
+	 * \param width Old Image's width
+	 * \param num Reflection type: 0 - vertical, 1 - horizontal, 2 - diagonal y=x, 3 - diagonal y=height-x
+	 * \return Map with converted coordinates
+	 */
+	static std::map <std::pair<int, int>, std::pair<int, int>> createMap(int height, int width, int num);
 
+	using Converter::Converter;
 
-    public:
-    using Converter::Converter;
-    void processImage(int reflect_num) override;
-    int reflect_num;
+	/**
+	 * \brief Using converted map, puts old pixels onto new Image in correct spots. Forbids using diagonal reflection on non-squares
+	 * \param reflect_num Reflection type: 0 - vertical, 1 - horizontal, 2 - diagonal y=x, 3 - diagonal y=height-x
+	 */
+	void processImage(int reflect_num) override;
+
 };

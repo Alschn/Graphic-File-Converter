@@ -1,12 +1,13 @@
 #include "reflection.h"
 
-std::map <std::pair<int, int>, std::pair<int, int>> Reflection::create_map(int num)
+std::map <std::pair<int, int>, std::pair<int, int>> Reflection::createMap(int height, int width, int num)
 {
+	std::map <std::pair<int, int>, std::pair<int, int>> map;
 	// vertical and horizontal reflection allowed for all bmp files
 	// diagonal reflection allowed only for square ones
-	for (int i = 0; i < this->oldImage->height; i++)
+	for (int i = 0; i < height; i++)
 	{
-		for (int j = 0; j < this->oldImage->width; j++)
+		for (int j = 0; j < width; j++)
 		{
 			int x_n = j;
 			int y_n = i;
@@ -14,11 +15,11 @@ std::map <std::pair<int, int>, std::pair<int, int>> Reflection::create_map(int n
 			{
 			case 0:
 				// vertical mirror reflection
-				x_n = this->oldImage->width - j - 1;
+				x_n = width - j - 1;
 				break;
 			case 1:
 				// horizontal mirror reflection
-				y_n = this->oldImage->height - i - 1;
+				y_n = height - i - 1;
 				break;
 			case 2:
 				// diagonal mirror reflection y = x ONLY FOR SQUARES
@@ -27,8 +28,8 @@ std::map <std::pair<int, int>, std::pair<int, int>> Reflection::create_map(int n
 				break;
 			case 3:
 				// diagonal mirror reflection y = -x+height ONLY FOR SQUARES
-				x_n = this->oldImage->width - i - 1;
-				y_n = this->oldImage->height - j - 1;
+				x_n = width - i - 1;
+				y_n = height - j - 1;
 				break;
 			default:
 				break;
@@ -37,20 +38,21 @@ std::map <std::pair<int, int>, std::pair<int, int>> Reflection::create_map(int n
 			map.emplace(std::make_pair(std::make_pair(j, i), std::make_pair(x_n, y_n)));
 		}
 	}
-	return this->map;
+	return map;
 };
 
 
 void Reflection::processImage(int reflect_num)
 {
+	// diagonal reflection allowed only for squares
 	if (this->oldImage->width != this->oldImage->height && (reflect_num == 2 || reflect_num == 3))
 	{
 		throw std::exception("Diagonal reflection is not allowed for non-square bmp files");
 	}
-	this->reflect_num = reflect_num;
-	this->create_map(this->reflect_num);
 
-	for (const auto& pair : this->map)
+	auto map = this->createMap(this->oldImage->height, this->oldImage->width, reflect_num);
+
+	for (const auto& pair : map)
 	{
 		const auto old_x = pair.first.first;
 		const auto old_y = pair.first.second;
