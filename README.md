@@ -61,9 +61,9 @@ Wypisywane są litery R|G|B w zależności od tego, który z kolorów w danym pi
 Podanie opcjonalnego parametru `-d` powoduje wyświetlenie zdjęcia na ekranie konsoli.
 * `converter reflection 2 "../sample_bmps/10x10.bmp" "../sample_bmps/output.bmp"` odbicie symetryczne względem prostej y=x i zapis do pliku output.bmp.
 
-*Szczegółowe objaśnienia komend znajdują się w #11.
-*Szczegółowe objaśnienia funkcjonalności klasy `Image` znajduje się w #10.
-*Szczegółowe objaśnienia trybów konwersji znajdują się w #9.
+* Szczegółowe objaśnienia komend znajdują się w #11.
+* Szczegółowe objaśnienia funkcjonalności klasy `Image` znajduje się w #10.
+* Szczegółowe objaśnienia trybów konwersji znajdują się w #9.
 
 
 
