@@ -161,7 +161,7 @@ void UserInterface::display()
 					splitted[3].erase(splitted[3].end() - 1, splitted[3].end());
 					std::string input_path = splitted[3];
 					std::string output_path;
-					if (splitted.size() > 4)
+					if (splitted[4].size() > 2)
 					{
 						splitted[4].erase(splitted[4].begin());
 						splitted[4].erase(splitted[4].end() - 1, splitted[4].end());
@@ -176,7 +176,7 @@ void UserInterface::display()
 								output_path = input_path;
 								output_path = output_path.insert(i, "_out");
 								break;
-							}							
+							}
 						}
 					}
 					for (auto param : parameters_map)
@@ -192,14 +192,13 @@ void UserInterface::display()
 						}
 					}
 					std::cout << "Action executed!" << std::endl;
-					break;
 				}
 				else
 				{
 					no_function++;
 				}
 			}
-			if (no_function = conversions_map.size())
+			if (no_function == conversions_map.size())
 			{
 				std::cout << std::endl;
 				std::cout <<
