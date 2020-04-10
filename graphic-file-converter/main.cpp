@@ -19,12 +19,12 @@ int main()
 	//im2.resize(im.height, im.width);
 
 	Converter* convv = new Rotation(&im);
-	convv->processImage(0);
-	convv->saveImage(R"(..\sample_bmps\rotated360.bmp)");
+	convv->processImage(180);
+	convv->saveImage(R"(..\sample_bmps\output.bmp)");
 
-	Converter* conv = new Reflection(&im);
+	/*Converter* conv = new Reflection(&im);
 	conv->processImage(2);
-	conv->saveImage(R"(..\sample_bmps\reflected2.bmp)");
+	conv->saveImage(R"(..\sample_bmps\reflected2.bmp)");*/
 
 	// UserInterface Desktop;
 

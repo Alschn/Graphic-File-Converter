@@ -45,7 +45,10 @@ namespace Tests
 		{
 			auto result = Rotation::createMap(2, 2, 270);
 			const std::map <std::pair<int, int>, std::pair<int, int>> map2 = {
-				{{0, 0} , {1, 1}}, {{0, 1} , {0, 0}}, {{1, 0} , {1, 0}}, {{1, 1} , {0, 1}}
+				{{0, 0}, {1, 0}},
+				{{0, 1}, {0, 0}},
+				{{1, 0}, {1, 1}},
+				{{1, 1}, {0, 1}}
 			};
 			Assert::IsTrue(compareMaps(map2, result));
 		}
@@ -54,14 +57,14 @@ namespace Tests
 		{
 			auto result = Rotation::createMap(2, 2, 360);
 			const std::map <std::pair<int, int>, std::pair<int, int>> map3 = {
-				{{0, 0}, {0, 0}}, {{1, 0}, {1, 0}}, {{0, 1}, {0, 1}}, {{1, 1}, {1, 1}}
+				{{0, 0}, {0, 0}},
+				{{1, 0}, {1, 0}},
+				{{0, 1}, {0, 1}},
+				{{1, 1}, {1, 1}}
 			};
 			Assert::IsTrue(compareMaps(map3, result));
 		}
-		//TEST_METHOD(testCreatemap_randang) // rotate square by angle which is not multiple of 90
-		//{
-		//	// tutaj oczekiwanie wyjatku
-		//}
+
 		TEST_METHOD(testCreatemap_largeang) // rotate square by angle greater than 360
 		{
 			auto result = Rotation::createMap(2, 2, 450);
@@ -74,7 +77,12 @@ namespace Tests
 		{
 			auto result = Rotation::createMap(3, 2, 90);
 			const std::map <std::pair<int, int>, std::pair<int, int>> map5 = {
-				{{0, 0} , {0, 1}}, {{1, 0} , {0, 0}}, {{0, 1} , {1, 1}}, {{1, 1} , {1, 0}}, {{0, 2} , {2, 1}}, {{1, 2} , {2, 0}}
+				{{0, 0} , {0, 1}},
+				{{1, 0} , {0, 0}},
+				{{0, 1} , {1, 1}},
+				{{1, 1} , {1, 0}},
+				{{0, 2} , {2, 1}},
+				{{1, 2} , {2, 0}}
 			};
 			Assert::IsTrue(compareMaps(map5, result));
 		}
@@ -83,7 +91,12 @@ namespace Tests
 		{
 			auto result = Rotation::createMap(3, 2, 180);
 			const std::map <std::pair<int, int>, std::pair<int, int>> map6 = {
-				{{0, 0} , {1, 2}}, {{1, 0} , {0, 1}}, {{0, 1} , {1, 1}}, {{1, 1} , {0, 0}}, {{0, 2} , {1, 0}}, {{1, 2} , {0, 0}}
+				{{0, 0}, {1, 2}},
+				{{0, 1}, {1, 1}},
+				{{0, 2}, {1, 0}},
+				{{1, 0}, {0, 2}},
+				{{1, 1}, {0, 1}},
+				{{1, 2}, {0, 0}}
 			};
 			Assert::IsTrue(compareMaps(map6, result));
 		}
@@ -92,7 +105,12 @@ namespace Tests
 		{
 			auto result = Rotation::createMap(3, 2, 270);
 			const std::map <std::pair<int, int>, std::pair<int, int>> map7 = {
-				{{0, 0} , {2, 0}}, {{1, 0} , {1, 1}}, {{0, 1} , {1, 0}}, {{1, 1} , {0, 0}}, {{0, 2} , {0, 0}}, {{1, 2} , {0, 0}}
+				{{0, 0}, {2, 0}},
+				{{0, 1}, {1, 0}},
+				{{0, 2}, {0, 0}},
+				{{1, 0}, {2, 1}},
+				{{1, 1}, {1, 1}},
+				{{1, 2}, {0, 1}}
 			};
 			Assert::IsTrue(compareMaps(map7, result));
 		}
@@ -101,7 +119,12 @@ namespace Tests
 		{
 			auto result = Rotation::createMap(3, 2, 360);
 			const std::map <std::pair<int, int>, std::pair<int, int>> map8 = {
-				{{0, 0}, {0, 0}}, {{1, 0}, {1, 0}}, {{0, 1}, {0, 1}}, {{1, 1}, {1, 1}}, {{0, 2}, {0, 2}}, {{1, 2}, {1, 2}}
+				{{0, 0}, {0, 0}},
+				{{1, 0}, {1, 0}},
+				{{0, 1}, {0, 1}},
+				{{1, 1}, {1, 1}},
+				{{0, 2}, {0, 2}},
+				{{1, 2}, {1, 2}}
 			};
 			Assert::IsTrue(compareMaps(map8, result));
 		}

@@ -18,25 +18,25 @@ std::map <std::pair<int, int>, std::pair<int, int>> Rotation::createMap(int heig
 		for (int j = 0; j < width; j++)
 		{
 			// rotation matrix
-			auto x_n = j * std::cos(-deg) - i * std::sin(-deg);
-			auto y_n = j * std::sin(-deg) + i * std::cos(-deg);
+			auto x_n = int(round(j * std::cos(-deg) - i * std::sin(-deg)));
+			auto y_n = int(round(j * std::sin(-deg) + i * std::cos(-deg)));
 			// translation vector
 			switch (angle)
 			{
 			case 90:
-				y_n += double(width) - 1;
+				y_n += width - 1;
 				break;
 			case 180:
-				x_n += double(width) - 1;
-				y_n += double(height) - 1;
+				x_n += width - 1;
+				y_n += height - 1;
 				break;
 			case 270:
-				x_n += double(height) - 1;
+				x_n += height - 1;
 				break;
 			default:
 				break;
 			}
-			map.emplace(std::make_pair(std::make_pair(j, i), std::make_pair(int(round(x_n)), int(round(y_n)))));
+			map.emplace(std::make_pair(std::make_pair(j, i), std::make_pair(x_n, y_n)));
 		}
 	}
 	return map;
