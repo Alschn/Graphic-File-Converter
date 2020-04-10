@@ -1,4 +1,6 @@
 #include "image.h"
+
+#include <algorithm>
 #include <fstream>
 #include <iomanip>
 #include <ios>
@@ -115,15 +117,17 @@ std::string Image::toStr() const
 			{
 				unsigned char arr[3];
 				getPixel(j, i, arr, PixelMode::rgb);
-				if (arr[0] > 0)
+				auto highest_value_index = std::distance(arr, std::max_element(arr, arr + 3));
+				
+				if (highest_value_index == 0)
 				{
 					output.append("R");
 				}
-				else if (arr[1] > 0)
+				else if (highest_value_index == 1)
 				{
 					output.append("G");
 				}
-				if (arr[2] > 0)
+				else if (highest_value_index == 2)
 				{
 					output.append("B");
 				}

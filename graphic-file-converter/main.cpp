@@ -1,12 +1,8 @@
 #include <iostream>
-#include "utils.h"
+#include <fstream>
 #include "rotation.h"
 #include "reflection.h"
 #include "arialDig32x24.h"
-#include <fstream>
-// #include "user_interface.h"
-// #include "image.h"
-#include "reflection.h"
 #include "display_parameter.h"
 #include "user_interface.h"
 
@@ -23,14 +19,13 @@ int main()
 	 * Simply uncomment lines below and set number constant. The number will be displayed on the console and save to from_arial.bmp file.
 	 * Attention: `FromMemory` mode doesn't work with converter. Converter can only convert images from .bmp files.
 	 */
-	 // const int number = 9;
-	 // const Image im(const_cast<unsigned char*>(ArialDig32x24), 32, 23, 23 * number);
-	 // std::cout << std::endl << im << std::endl;
-	 // im.save(R"(..\sample_bmps\from_arial.bmp)");
-	 /*
+	// const int number = 9;
+	// const Image im(const_cast<unsigned char*>(ArialDig32x24), 32, 23, 23 * number);
+	// std::cout << std::endl << im << std::endl;
+	// im.save(R"(..\sample_bmps\from_arial.bmp)");
+	/*
 	  * End of example
 	  */
-
 
 	/*
 	 * Initialize all variables and objects needed to use user interface.
@@ -40,7 +35,13 @@ int main()
 	DisplayParameter display;
 	Reflection conversion2;
 	Desktop.registerParameter("-d", &display);
-	Desktop.registerAction("rotation", "rotates picture by n degrees", &conversion,regex(R"###(^converter +rotation +\d\d +(('|")[^'][^"]\S+[^'][^"]('|")) *(('|")[^'][^"]\S+[^'][^"]('|"))? *(-\w)? *$)###"), 1);
-	Desktop.registerAction("reflection", "reflects picture over selected axis", &conversion2, regex(R"###(^converter +reflection +\d +(('|")[^'][^"]\S+[^'][^"]('|")) *(('|")[^'][^"]\S+[^'][^"]('|"))? *(-\w)? *$)###"), 1);
+	Desktop.registerAction("rotation", "rotates picture by n degrees", &conversion,
+	                       regex(
+		                       R"###(^converter +rotation +\d\d +(('|")[^'][^"]\S+[^'][^"]('|")) *(('|")[^'][^"]\S+[^'][^"]('|"))? *(-\w)? *$)###"),
+	                       1);
+	Desktop.registerAction("reflection", "reflects picture over selected axis", &conversion2,
+	                       regex(
+		                       R"###(^converter +reflection +\d +(('|")[^'][^"]\S+[^'][^"]('|")) *(('|")[^'][^"]\S+[^'][^"]('|"))? *(-\w)? *$)###"),
+	                       1);
 	Desktop.display();
 }
