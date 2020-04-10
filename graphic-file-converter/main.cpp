@@ -10,9 +10,9 @@ using namespace std;
 
 int main()
 {
-#ifdef _DEBUG
-	std::cout << "In DEBUG mode." << std::endl;
-#endif
+//#ifdef _DEBUG
+//	std::cout << "In DEBUG mode." << std::endl;
+//#endif
 
 	/*
 	 *Here is an example how to use Image class with `from memory` mode.

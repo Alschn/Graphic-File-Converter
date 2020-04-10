@@ -173,7 +173,8 @@ void UserInterface::display()
 						{
 							if(input_path[i]=='.')
 							{
-								output_path = input_path.insert(i - 1, "_out");
+								output_path = input_path;
+								output_path = output_path.insert(i, "_out");
 								break;
 							}							
 						}
