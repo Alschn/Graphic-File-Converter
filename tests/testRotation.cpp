@@ -25,7 +25,7 @@ namespace Tests
 		};
 		TEST_METHOD(testCreatemap_rot90sq) // rotate square by 90 deg
 		{
-			auto result = Rotation::create_map(2, 2, 90);
+			auto result = Rotation::createMap(2, 2, 90);
 			const std::map <std::pair<int, int>, std::pair<int, int>> map0 = {
 				{{0, 0} , {0, 1}}, {{1, 0} , {0, 0}}, {{0, 1} , {1, 1}}, {{1, 1} , {1, 0}}
 			};
@@ -34,7 +34,7 @@ namespace Tests
 
 		TEST_METHOD(testCreatemap_rot180sq) // rotate square by 180 deg
 		{
-			auto result = Rotation::create_map(2, 2, 180);
+			auto result = Rotation::createMap(2, 2, 180);
 			const std::map <std::pair<int, int>, std::pair<int, int>> map1 = {
 				{{0, 0} , {1, 1}}, {{1, 0} , {0, 1}}, {{0, 1} , {1, 0}}, {{1, 1} , {0, 0}}
 			};
@@ -43,16 +43,16 @@ namespace Tests
 
 		TEST_METHOD(testCreatemap_rot270sq) // rotate square by 270 deg
 		{
-			auto result = Rotation::create_map(2, 2, 270);
+			auto result = Rotation::createMap(2, 2, 270);
 			const std::map <std::pair<int, int>, std::pair<int, int>> map2 = {
-				{{0, 0} , {1, 1}}, {{1, 0} , {0, 1}}, {{0, 1} , {1, 0}}, {{1, 1} , {0, 0}}
+				{{0, 0} , {1, 1}}, {{0, 1} , {0, 0}}, {{1, 0} , {1, 0}}, {{1, 1} , {0, 1}}
 			};
 			Assert::IsTrue(compareMaps(map2, result));
 		}
 
 		TEST_METHOD(testCreatemap_rot360sq) // rotate square by 360 deg
 		{
-			auto result = Rotation::create_map(2, 2, 360);
+			auto result = Rotation::createMap(2, 2, 360);
 			const std::map <std::pair<int, int>, std::pair<int, int>> map3 = {
 				{{0, 0}, {0, 0}}, {{1, 0}, {1, 0}}, {{0, 1}, {0, 1}}, {{1, 1}, {1, 1}}
 			};
@@ -64,7 +64,7 @@ namespace Tests
 		//}
 		TEST_METHOD(testCreatemap_largeang) // rotate square by angle greater than 360
 		{
-			auto result = Rotation::create_map(2, 2, 450);
+			auto result = Rotation::createMap(2, 2, 450);
 			const std::map <std::pair<int, int>, std::pair<int, int>> map4 = {
 				{{0, 0} , {0, 1}}, {{1, 0} , {0, 0}}, {{0, 1} , {1, 1}}, {{1, 1} , {1, 0}}
 			};
@@ -72,7 +72,7 @@ namespace Tests
 		}
 		TEST_METHOD(testCreatemap_rot90rect) // rotate rectangle by 90 deg
 		{
-			auto result = Rotation::create_map(3, 2, 90);
+			auto result = Rotation::createMap(3, 2, 90);
 			const std::map <std::pair<int, int>, std::pair<int, int>> map5 = {
 				{{0, 0} , {0, 1}}, {{1, 0} , {0, 0}}, {{0, 1} , {1, 1}}, {{1, 1} , {1, 0}}, {{0, 2} , {2, 1}}, {{1, 2} , {2, 0}}
 			};
@@ -81,7 +81,7 @@ namespace Tests
 
 		TEST_METHOD(testCreatemap_rot180rect) // rotate rectangle by 180 deg
 		{
-			auto result = Rotation::create_map(3, 2, 180);
+			auto result = Rotation::createMap(3, 2, 180);
 			const std::map <std::pair<int, int>, std::pair<int, int>> map6 = {
 				{{0, 0} , {1, 2}}, {{1, 0} , {0, 1}}, {{0, 1} , {1, 1}}, {{1, 1} , {0, 0}}, {{0, 2} , {1, 0}}, {{1, 2} , {0, 0}}
 			};
@@ -90,7 +90,7 @@ namespace Tests
 
 		TEST_METHOD(testCreatemap_rot270rect) // rotate rectangle by 270 deg
 		{
-			auto result = Rotation::create_map(3, 2, 270);
+			auto result = Rotation::createMap(3, 2, 270);
 			const std::map <std::pair<int, int>, std::pair<int, int>> map7 = {
 				{{0, 0} , {2, 0}}, {{1, 0} , {1, 1}}, {{0, 1} , {1, 0}}, {{1, 1} , {0, 0}}, {{0, 2} , {0, 0}}, {{1, 2} , {0, 0}}
 			};
@@ -99,7 +99,7 @@ namespace Tests
 
 		TEST_METHOD(testCreatemap_rot360rect) // rotate rectangle by 360 deg
 		{
-			auto result = Rotation::create_map(3, 2, 360);
+			auto result = Rotation::createMap(3, 2, 360);
 			const std::map <std::pair<int, int>, std::pair<int, int>> map8 = {
 				{{0, 0}, {0, 0}}, {{1, 0}, {1, 0}}, {{0, 1}, {0, 1}}, {{1, 1}, {1, 1}}, {{0, 2}, {0, 2}}, {{1, 2}, {1, 2}}
 			};

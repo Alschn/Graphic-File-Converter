@@ -1,7 +1,7 @@
 ﻿#include "rotation.h"
 #include <cmath>
 
-std::map <std::pair<int, int>, std::pair<int, int>> Rotation::create_map(int height, int width, int angle)
+std::map <std::pair<int, int>, std::pair<int, int>> Rotation::createMap(int height, int width, int angle)
 {
 	std::map <std::pair<int, int>, std::pair<int, int>> map;
 	if (angle % 90 != 0)
@@ -53,7 +53,7 @@ void Rotation::processImage(int angle)
 			this->newImage->resize(this->oldImage->height, this->oldImage->width);
 		}
 
-		auto map = this->create_map(this->oldImage->height, this->oldImage->width, angle);
+		auto map = this->createMap(this->oldImage->height, this->oldImage->width, angle);
 
 		for (const auto& pair : map)
 		{
