@@ -24,3 +24,8 @@ void Utils::writeIntToCharBufffer(char* input, unsigned int value, const unsigne
 {
 	memcpy(input + offset, &value, sizeof(value));
 }
+
+bool Utils::isBitSet(const char input, unsigned position)
+{
+	return (input & (1 << position));
+}

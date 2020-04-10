@@ -11,6 +11,7 @@ public:
 	static unsigned int fourCharsToInt(const std::vector<unsigned char>& input, const int offset);
 	static unsigned int fourCharsToInt(const char *input, const int offset);
 	static void writeIntToCharBufffer(char* input, const unsigned int value, const unsigned int offset);
+	static bool isBitSet(const char input, unsigned int position);
 };
 
 #endif

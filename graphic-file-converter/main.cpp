@@ -1,16 +1,9 @@
 #include <iostream>
-
+#include "utils.h"
 #include "rotation.h"
 #include "reflection.h"
-// #include "user_interface.h"
-// #include "image.h"
-
-#include <chrono>
+#include "arialDig32x24.h"
 #include <fstream>
-using namespace std;
-
-
-
 
 int main()
 {
@@ -18,37 +11,16 @@ int main()
 	std::cout << "In DEBUG mode." << std::endl;
 #endif
 
-
-
-
-	// std::map<std::string, Converter*> conversions;
-
-
-	// conversions.try_emplace("rotate", new Rotation());
-
-
-	// Image im(R"(..\sample_bmps\10x10.bmp)", true, ImageMode::ReadFromBMP);
-	Image im=Image();
-
-	std::ifstream file(R"(..\sample_bmps\10x10.bmp)", std::ios_base::binary);
-
-	file >> im;
-
-	im.save(R"(..\sample_bmps\saved_test.bmp)");
-	// im.save(R"(..\sample_bmps\test_save.bmp)");
-	Converter* conv = new Rotation(&im);
-	auto start = chrono::steady_clock::now();
-	conv->processImage(90);
-	conv->saveImage(R"(..\sample_bmps\11222.bmp)");
-	// auto end = chrono::steady_clock::now();
-	// cout << "Elapsed time in milliseconds : "
-	// 	<< chrono::duration_cast<chrono::milliseconds>(end - start).count()
-	// 	<< " ms" << endl;
-
-	// UserInterface Desktop;
-	// Desktop.registerHelp("--rotation", "rotates picture by n degrees");
-	// Desktop.registerHelp("--contrast", "changes colours intensification");
-	// Desktop.display();
-
-	im.save(R"(..\sample_bmps\10x1011121.bmp)");
+	/*
+	 *Here is an example how to use Image class with `from memory` mode.
+	 * Simply uncomment lines below and set number constant. The number will be displayed on the console and save to from_arial.bmp file.
+	 * Attention: `FromMemory` mode doesn't work with converter. Converter can only convert images from .bmp files.
+	 */
+	// const int number = 9;
+	// const Image im(const_cast<unsigned char*>(ArialDig32x24), 32, 23, 23 * number);
+	// std::cout << std::endl << im << std::endl;
+	// im.save(R"(..\sample_bmps\from_arial.bmp)");
+	/*
+	 * End of example
+	 */
 }

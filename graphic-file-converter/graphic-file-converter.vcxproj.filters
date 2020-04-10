@@ -24,9 +24,6 @@
     <ClCompile Include="user_interface.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="contrast.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="rotation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -53,13 +50,13 @@
     <ClInclude Include="user_interface.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="contrast.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="rotation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="reflection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="arialDig32x24.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

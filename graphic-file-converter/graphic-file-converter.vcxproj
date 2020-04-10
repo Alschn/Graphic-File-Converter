@@ -151,7 +151,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="contrast.cpp" />
     <ClCompile Include="converter.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="image.cpp" />
@@ -161,7 +160,7 @@
     <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="contrast.h" />
+    <ClInclude Include="arialDig32x24.h" />
     <ClInclude Include="converter.h" />
     <ClInclude Include="image.h" />
     <ClInclude Include="reflection.h" />
