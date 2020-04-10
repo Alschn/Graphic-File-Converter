@@ -18,10 +18,10 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="testReflection.cpp">
+    <ClCompile Include="testImage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="testRotation.cpp">
+    <ClCompile Include="testUtils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
