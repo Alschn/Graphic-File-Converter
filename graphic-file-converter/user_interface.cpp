@@ -52,7 +52,7 @@ void UserInterface::display()
 			splitted[2].erase(splitted[2].begin());
 			splitted[2].erase(splitted[2].end() - 1, splitted[2].end());
 			std::string input_path = splitted[2];
-			Image image(input_path, 1, ImageMode::ReadFromBMP);
+			Image image(input_path, 1, ImageMode::read_from_bmp);
 		ASK_LOOP:
 			std::cout << "What do you want to do? (type one name of following functions)" << std::endl;
 			for (auto a : help_map)
@@ -204,7 +204,7 @@ void UserInterface::display()
 Image UserInterface::executeAction(const std::string& command, const std::string& path, const std::string& out_path,
                                    int argument)
 {
-	Image image(path, 1, ImageMode::ReadFromBMP, ColorDepth::bpp24);
+	Image image(path, 1, ImageMode::read_from_bmp, ColorDepth::bpp24);
 	Converter* conversion = conversions_map[command];
 	conversion->loadImage(&image);
 	conversion->processImage(argument);
