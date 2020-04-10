@@ -10,9 +10,9 @@ using namespace std;
 
 int main()
 {
-#ifdef _DEBUG
-	std::cout << "In DEBUG mode." << std::endl;
-#endif
+//#ifdef _DEBUG
+//	std::cout << "In DEBUG mode." << std::endl;
+//#endif
 
 	/*
 	 *Here is an example how to use Image class with `from memory` mode.
@@ -37,7 +37,7 @@ int main()
 	Desktop.registerParameter("-d", &display);
 	Desktop.registerAction("rotation", "rotates picture by n degrees", &conversion,
 	                       regex(
-		                       R"###(^converter +rotation +\d\d +(('|")[^'][^"]\S+[^'][^"]('|")) *(('|")[^'][^"]\S+[^'][^"]('|"))? *(-\w)? *$)###"),
+		                       R"###(^converter +rotation +\d+ +(('|")[^'][^"]\S+[^'][^"]('|")) *(('|")[^'][^"]\S+[^'][^"]('|"))? *(-\w)? *$)###"),
 	                       1);
 	Desktop.registerAction("reflection", "reflects picture over selected axis", &conversion2,
 	                       regex(

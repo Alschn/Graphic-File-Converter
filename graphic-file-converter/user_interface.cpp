@@ -169,7 +169,15 @@ void UserInterface::display()
 					}
 					else
 					{
-						output_path = "CONVERTED" + input_path;
+						for(int i = input_path.size()-1; i>0;i--)
+						{
+							if(input_path[i]=='.')
+							{
+								output_path = input_path;
+								output_path = output_path.insert(i, "_out");
+								break;
+							}							
+						}
 					}
 					for (auto param : parameters_map)
 					{
@@ -184,6 +192,7 @@ void UserInterface::display()
 						}
 					}
 					std::cout << "Action executed!" << std::endl;
+					break;
 				}
 				else
 				{
