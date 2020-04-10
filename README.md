@@ -34,6 +34,11 @@ Optymalizacja pamięci pod względem przechowywanego obrazu.
 * Klasa `Rotate` dziedzicząca z `Converter` w celu konwersji zdjęcia - obrotu - Adam Lisichin.  
 * Klasa `Reflection` dziedzicząca z `Converter` w celu konwersji - odbicia lustrzanego - Adam Lisichin/
 
+
+#### Testy jednostkowe:
+* Do testowania został użyty `MicrosoftCppUnitTestFramework`. Wszystkie testy znajdują się w oddzielnym projekcie `tests`.
+* Każda z wymienionych wyżej klas jest testowana jednostkowo. 
+
 #### Aktualna funkcjonalnośc programu:
 * CLI reaguje na komendę --help i wyświetla pomoc dla użytkownika, przy każdej źle wpisanej komendzie  
 również wyśtwietla pomoc, CLI jest gotowy do rejestracji kolejnych funckjonalności programu
