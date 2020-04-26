@@ -25,7 +25,10 @@ void Rescaler::scaleImage(double scale_x, double scale_y)
 			auto gyi = static_cast<int>(gy);
 
 			// space for operation on pixels and their colors
-			// to be implemented
+
+			// unsigned char pixels[3];
+			// this->oldImage->getPixel(old_x, old_y, pixels);
+			// this->newImage->putPixel(new_x, new_y, pixels);
 			//
 		}
 	}
