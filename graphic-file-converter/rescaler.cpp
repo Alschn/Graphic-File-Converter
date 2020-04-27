@@ -27,26 +27,25 @@ void Rescaler::scaleImage(double scale_x, double scale_y)
 			unsigned char c00[3];
 			this->oldImage->getPixel(gxi, gyi, c00);
 
-			unsigned char c01[3];
-			this->oldImage->getPixel(gxi + 1, gyi, c01);
-
 			unsigned char c10[3];
-			this->oldImage->getPixel(gxi, gyi + 1, c10);
+			this->oldImage->getPixel(gxi + 1, gyi, c10);
+
+			unsigned char c01[3];
+			this->oldImage->getPixel(gxi, gyi + 1, c01);
 
 			unsigned char c11[3];
 			this->oldImage->getPixel(gxi + 1, gyi + 1, c11);
 
-			auto red = static_cast<unsigned char>(bilinearInterpolation(c00[0], c10[0], c01[0], c11[0], gx - gxi, gy - gyi));
-			auto green = static_cast<unsigned char>(bilinearInterpolation(c00[1], c10[1], c01[1], c11[1], gx - gxi, gy - gyi));
-			auto blue = static_cast<unsigned char>(bilinearInterpolation(c00[2], c10[2], c01[2], c11[2], gx - gxi, gy - gyi));
+			const auto red = static_cast<unsigned char>(bilinearInterpolation(c00[0], c10[0], c01[0], c11[0], gx - gxi, gy - gyi));
+			const auto green = static_cast<unsigned char>(bilinearInterpolation(c00[1], c10[1], c01[1], c11[1], gx - gxi, gy - gyi));
+			const auto blue = static_cast<unsigned char>(bilinearInterpolation(c00[2], c10[2], c01[2], c11[2], gx - gxi, gy - gyi));
 
 			unsigned char rgb[3] = { red, green, blue };
 			this->newImage->putPixel(x, y, rgb);
-
-			// unsigned char pixels[3];
-			// this->oldImage->getPixel(old_x, old_y, pixels);
-			// this->newImage->putPixel(new_x, new_y, pixels);
-			//
 		}
 	}
 }
+
+// unsigned char pixels[3];
+// this->oldImage->getPixel(old_x, old_y, pixels);
+// this->newImage->putPixel(new_x, new_y, pixels);

@@ -30,3 +30,7 @@ Converter::~Converter()
 	delete this->newImage;
 }
 
+void Converter::scaleImage(double scale_x, double scale_y)
+{
+	std::cout << "Inside converter";
+}

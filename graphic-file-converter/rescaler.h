@@ -23,13 +23,14 @@ class Rescaler : public Converter
 	 * \return Value after bilinear interpolation
 	 */
 	static double bilinearInterpolation(double c00, double c10, double c01, double c11, double tx, double ty);
-
+	using Converter::Converter;
 	/**
 	 * \brief Scaling function implementation
 	 * \param scale_x New width is equal to old width multiplied by this constant
 	 * \param scale_y New height is equal to old width multiplied by this constant
 	 */
-	void scaleImage(double scale_x, double scale_y);
+public:
+	void scaleImage(double scale_x, double scale_y) override;
 
-	using Converter::Converter;
+
 };

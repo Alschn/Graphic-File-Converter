@@ -5,6 +5,7 @@
 #include "arialDig32x24.h"
 #include "display_parameter.h"
 #include "user_interface.h"
+#include "rescaler.h"
 
 using namespace std;
 
@@ -26,6 +27,10 @@ int main()
 	/*
 	  * End of example
 	  */
+	Image im(R"(..\sample_bmps\8x48.bmp)", true, ImageMode::read_from_bmp);
+	Converter* conv = new Rescaler(&im);
+	conv->scaleImage(0.5, 0.5);
+	conv->saveImage(R"(..\sample_bmps\output_rect2.bmp)");
 
 	/*
 	 * Initialize all variables and objects needed to use user interface.

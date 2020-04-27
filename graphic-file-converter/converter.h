@@ -13,8 +13,10 @@ protected:
 
 public:
 	virtual void processImage(int angle);
+	virtual void scaleImage(double scale_x, double scale_y);
 	void saveImage(const std::string& path) const;
 	void loadImage(const Image* image);
+	
 
 
 	Converter() = default;
