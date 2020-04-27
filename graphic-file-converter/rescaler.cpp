@@ -40,12 +40,8 @@ void Rescaler::scaleImage(double scale_x, double scale_y)
 			const auto green = static_cast<unsigned char>(bilinearInterpolation(c00[1], c10[1], c01[1], c11[1], gx - gxi, gy - gyi));
 			const auto blue = static_cast<unsigned char>(bilinearInterpolation(c00[2], c10[2], c01[2], c11[2], gx - gxi, gy - gyi));
 
-			unsigned char rgb[3] = { red, green, blue };
+			unsigned char rgb[3] = {red, green, blue};
 			this->newImage->putPixel(x, y, rgb);
 		}
 	}
 }
-
-// unsigned char pixels[3];
-// this->oldImage->getPixel(old_x, old_y, pixels);
-// this->newImage->putPixel(new_x, new_y, pixels);
