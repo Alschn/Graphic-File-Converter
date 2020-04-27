@@ -27,10 +27,10 @@ int main()
 	/*
 	  * End of example
 	  */
-	Image im(R"(..\sample_bmps\8x48.bmp)", true, ImageMode::read_from_bmp);
+	Image im(R"(..\sample_bmps\big_square.bmp)", true, ImageMode::read_from_bmp);
 	Converter* conv = new Rescaler(&im);
-	conv->scaleImage(0.5, 0.5);
-	conv->saveImage(R"(..\sample_bmps\output_rect2.bmp)");
+	conv->scaleImage(1.25, 0.5);
+	conv->saveImage(R"(..\sample_bmps\result.bmp)");
 
 	/*
 	 * Initialize all variables and objects needed to use user interface.

@@ -19,10 +19,10 @@ void Rescaler::scaleImage(double scale_x, double scale_y)
 	for (int x = 0; x < newImage->width; x++) {
 		for (int y = 0; y < newImage->height; y++)
 		{
-			auto gx = static_cast<double>(x) / newImage->width * (oldImage->width - 1);
-			auto gy = static_cast<double>(y) / newImage->height * (oldImage->height - 1);
-			auto gxi = static_cast<int>(gx);
-			auto gyi = static_cast<int>(gy);
+			const auto gx = static_cast<double>(x) / newImage->width * (oldImage->width - 1);
+			const auto gy = static_cast<double>(y) / newImage->height * (oldImage->height - 1);
+			const auto gxi = static_cast<int>(gx);
+			const auto gyi = static_cast<int>(gy);
 
 			unsigned char c00[3];
 			this->oldImage->getPixel(gxi, gyi, c00);
