@@ -1,0 +1,29 @@
+#include "image_content.h"
+
+#include <stdexcept>
+
+void ImageContent::resize(unsigned new_width, unsigned new_height)
+{
+	this->width = new_width;
+	this->height = new_height;
+	this->buffer_size = this->calculateBufferSize();
+	this->buffer = new uint8_t[this->buffer_size];
+}
+
+unsigned ImageContent::getWidth()
+{
+	return this->width;
+}
+
+unsigned ImageContent::getHeight()
+{
+	return this->height;
+}
+
+void ImageContent::verifyAccess(unsigned x, unsigned y)
+{
+	if (x > this->width - 1 || y > this->height - 1)
+	{
+		throw std::runtime_error("Requested pixel coordinates are out of range!");
+	}
+}

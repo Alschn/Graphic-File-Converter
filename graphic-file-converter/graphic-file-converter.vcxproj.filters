@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\ImageContent">
+      <UniqueIdentifier>{75447c09-5bd7-4425-ae93-2185488d9da8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ImageContent">
+      <UniqueIdentifier>{5e3105f9-cc5c-445b-8621-1d3eb9c3871c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="image.cpp">
@@ -36,6 +42,12 @@
     <ClCompile Include="reflection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="image_content.cpp">
+      <Filter>Source Files\ImageContent</Filter>
+    </ClCompile>
+    <ClCompile Include="bpp24.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="image.h">
@@ -57,6 +69,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="arialDig32x24.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="image_content.h">
+      <Filter>Header Files\ImageContent</Filter>
+    </ClInclude>
+    <ClInclude Include="bpp24.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

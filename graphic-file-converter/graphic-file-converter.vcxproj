@@ -151,7 +151,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="bpp24.cpp" />
     <ClCompile Include="converter.cpp" />
+    <ClCompile Include="image_content.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="image.cpp" />
     <ClCompile Include="reflection.cpp" />
@@ -161,8 +163,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="arialDig32x24.h" />
+    <ClInclude Include="bpp24.h" />
     <ClInclude Include="converter.h" />
     <ClInclude Include="image.h" />
+    <ClInclude Include="image_content.h" />
     <ClInclude Include="reflection.h" />
     <ClInclude Include="rotation.h" />
     <ClInclude Include="user_interface.h" />
