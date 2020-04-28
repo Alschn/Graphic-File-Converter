@@ -1,6 +1,7 @@
 #pragma once
 #include "image_content.h"
-class Bpp24 :public ImageContent
+class Bpp16 :
+	public ImageContent
 {
 public:
 	const unsigned int distinct_colors = 3;
@@ -10,7 +11,7 @@ public:
 	size_t calculateBufferSize() override;
 
 	using ImageContent::ImageContent;
-	Bpp24(unsigned int width, unsigned int height);
-	~Bpp24();
+	Bpp16(unsigned int width, unsigned int height);
+	~Bpp16();
 };
 

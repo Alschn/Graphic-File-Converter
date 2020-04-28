@@ -48,6 +48,12 @@
     <ClCompile Include="bpp24.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="bpp16.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="bpp1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="image.h">
@@ -75,6 +81,12 @@
       <Filter>Header Files\ImageContent</Filter>
     </ClInclude>
     <ClInclude Include="bpp24.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="bpp16.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="bpp1.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -41,14 +41,6 @@ void Image::putPixel(int x, int y, unsigned char input[], PixelMode mode)
 }
 
 
-/*
- *This method is for 1bpp mode. Cannot be used with another modes. 
- */
-void Image::putPixel(int x, int y, bool output)
-{
-	//to be implemented
-}
-
 
 void Image::resize(int width, int height)
 {

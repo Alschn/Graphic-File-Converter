@@ -19,10 +19,8 @@ public:
 	virtual void resize(unsigned int new_width, unsigned int new_height);
 	virtual unsigned int getWidth();
 	virtual unsigned int getHeight();
+	ImageContent();
 
-
-
-	
 protected:
 	virtual size_t calculateBufferSize() = 0;
 	virtual void verifyAccess(unsigned int x, unsigned int y);

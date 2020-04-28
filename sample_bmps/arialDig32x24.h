@@ -1,7 +1,10 @@
 #ifndef _ARIALDIG32x24_H_
-
-// Font Arial BW (1bpp) 32x24  cyfry 0-9
-
+/*
+ * WARNING: Do not change lines below.
+ * RES: BPP1
+ * WIDTH: 32
+ * HEIGHT: 23
+ */
 static const uint8_t ArialDig32x24[] = {
   0x00, 0x1f, 0xf8, 0x00,
   0x01, 0xff, 0xff, 0x80,

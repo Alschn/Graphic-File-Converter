@@ -20,6 +20,13 @@ unsigned ImageContent::getHeight()
 	return this->height;
 }
 
+ImageContent::ImageContent()
+{
+	this->width = 0;
+	this->height = 0;
+	this->buffer_size = 0;
+}
+
 void ImageContent::verifyAccess(unsigned x, unsigned y)
 {
 	if (x > this->width - 1 || y > this->height - 1)

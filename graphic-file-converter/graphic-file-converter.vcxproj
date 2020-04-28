@@ -151,6 +151,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="bpp1.cpp" />
+    <ClCompile Include="bpp16.cpp" />
     <ClCompile Include="bpp24.cpp" />
     <ClCompile Include="converter.cpp" />
     <ClCompile Include="image_content.cpp" />
@@ -163,6 +165,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="arialDig32x24.h" />
+    <ClInclude Include="bpp1.h" />
+    <ClInclude Include="bpp16.h" />
     <ClInclude Include="bpp24.h" />
     <ClInclude Include="converter.h" />
     <ClInclude Include="image.h" />
