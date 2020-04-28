@@ -1,11 +1,12 @@
 #ifndef _ARIALDIG32x24_H_
 /*
- * WARNING: Do not change lines below.
- * RES: BPP1
+ * WARNING: Do not change lines below!
+ * RES: Bpp1
  * WIDTH: 32
  * HEIGHT: 23
+ * TYPE: FONT
  */
-static const uint8_t ArialDig32x24[] = {
+static const uint8_t ArialDig32x23[] = {
   0x00, 0x1f, 0xf8, 0x00,
   0x01, 0xff, 0xff, 0x80,
   0x07, 0xff, 0xff, 0xE0,

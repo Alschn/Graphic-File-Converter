@@ -6,6 +6,8 @@
 #include <fstream>
 #include "image_content.h"
 #include "bpp24.h"
+#include "header_file.h"
+
 int main()
 {
 #ifdef _DEBUG
@@ -22,9 +24,8 @@ int main()
 
 
 	// unsigned char  c00[3];
-		
-		
-		
+
+
 	// im.getPixel(gxy, gyi, c00);
 	// char  c10[3] = self.GetPixel(gxi + 1, gyi);
 	// char  c01[3] = self.GetPixel(gxi, gyi + 1);
@@ -35,14 +36,18 @@ int main()
 	// unsigned char blue = (int)Blerp(c00.B, c10.B, c01.B, c11.B, gx - gxi, gy - gyi);
 	// Color rgb = Color.FromArgb(red, green, blue);
 
-	
+
 	// unsigned char a[3] = { 100, 200, 213};
 	// im.putPixel(222, 200, a);
 
-	ImageContent* content = new Bpp24(20, 20);
-	content->resize(30, 30);
-	unsigned char x[] = { 1,2,3 };
-	content->putPixel(500, 500,x );
+	// ImageContent* content = new Bpp24(20, 20);
+	// content->resize(30, 30);
+	// unsigned char x[] = {1, 2, 3};
+	// content->putPixel(500, 500, x);
+
+
+	File *header= new HeaderFile();
+	header->loadForContent("../sample_bmps/arialDig32x24.h_2");
 	
 	// std::cout << std::endl << im << std::endl;
 	// im.save(R"(..\sample_bmps\from_arial.bmp)");

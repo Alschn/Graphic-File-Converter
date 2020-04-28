@@ -1,5 +1,8 @@
 #pragma once
 #include <cstdint>
+#include <map>
+#include <string>
+
 
 #ifndef  ImageContentClass
 #define ImageContentClass
@@ -17,10 +20,12 @@ public:
 	virtual void getPixel(unsigned int x, unsigned int y, uint8_t* output) = 0;
 	virtual void putPixel(unsigned int x, unsigned int y, uint8_t* input) = 0;
 	virtual void resize(unsigned int new_width, unsigned int new_height);
+	virtual void putByte(uint8_t input, unsigned int index);
 	virtual unsigned int getWidth();
 	virtual unsigned int getHeight();
 	ImageContent();
 
+	
 protected:
 	virtual size_t calculateBufferSize() = 0;
 	virtual void verifyAccess(unsigned int x, unsigned int y);

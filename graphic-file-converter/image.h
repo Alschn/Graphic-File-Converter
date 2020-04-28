@@ -2,6 +2,8 @@
 #include <string>
 #include <vector>
 
+#include "image_content.h"
+
 enum class ImageMode
 {
 	read_from_bmp,
@@ -206,6 +208,8 @@ public:
 
 	Image(const std::string& path, const bool expect_saving, const ImageMode& m,
 	      const ColorDepth& depth = ColorDepth::bpp24);
+
+	static std::map<std::string, ImageContent*> type_map;
 
 
 	Image(const Image& other);

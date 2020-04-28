@@ -29,4 +29,3 @@ Converter::~Converter()
 	delete this->oldImage;
 	delete this->newImage;
 }
-

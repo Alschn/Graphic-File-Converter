@@ -1,5 +1,6 @@
 #pragma once
 #include "image_content.h"
+
 class Bpp16 :
 	public ImageContent
 {
@@ -14,4 +15,3 @@ public:
 	Bpp16(unsigned int width, unsigned int height);
 	~Bpp16();
 };
-

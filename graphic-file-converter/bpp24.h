@@ -1,6 +1,7 @@
 #pragma once
 #include "image_content.h"
-class Bpp24 :public ImageContent
+
+class Bpp24 : public ImageContent
 {
 public:
 	const unsigned int distinct_colors = 3;
@@ -13,4 +14,3 @@ public:
 	Bpp24(unsigned int width, unsigned int height);
 	~Bpp24();
 };
-

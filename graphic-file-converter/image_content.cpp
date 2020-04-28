@@ -10,6 +10,12 @@ void ImageContent::resize(unsigned new_width, unsigned new_height)
 	this->buffer = new uint8_t[this->buffer_size];
 }
 
+void ImageContent::putByte(uint8_t input, unsigned index)
+{
+	this->buffer[index] = input;
+}
+
+
 unsigned ImageContent::getWidth()
 {
 	return this->width;

@@ -7,6 +7,8 @@
 #include "utils.h"
 #include <sys/stat.h>
 
+#include "bpp1.h"
+
 void Image::getPixel(int x, int y, unsigned char output[], PixelMode mode) const
 {
 	if (mode == PixelMode::rgb)
@@ -39,7 +41,6 @@ void Image::putPixel(int x, int y, unsigned char input[], PixelMode mode)
 		this->content[index] = input[i];
 	}
 }
-
 
 
 void Image::resize(int width, int height)
@@ -180,7 +181,7 @@ std::vector<char> Image::generateContentToSave() const
 		}
 	case ColorDepth::bpp1:
 		{
-			auto*buf = new unsigned char[this->HEADER_SIZE+8];
+			auto* buf = new unsigned char[this->HEADER_SIZE + 8];
 
 			char color_table[8] = {0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00};
 			this->generateHeader(reinterpret_cast<char*>(buf), 1, color_table, 8);
@@ -376,3 +377,5 @@ std::istream& operator>>(std::istream& is, Image& im)
 
 	return is;
 }
+
+std::map<std::string, ImageContent*> Image::type_map = { {"Bpp1", new Bpp1()} };

@@ -1,9 +1,9 @@
 ﻿#include "rotation.h"
 #include <cmath>
 
-std::map <std::pair<int, int>, std::pair<int, int>> Rotation::create_map(int angle, int height, int width)
+std::map<std::pair<int, int>, std::pair<int, int>> Rotation::create_map(int angle, int height, int width)
 {
-	std::map <std::pair<int, int>, std::pair<int, int>> map;
+	std::map<std::pair<int, int>, std::pair<int, int>> map;
 	if (angle % 90 != 0)
 	{
 		throw std::exception("Angle has to be a multiple of 90 degrees");

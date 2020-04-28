@@ -1,8 +1,8 @@
 #include "reflection.h"
 
-std::map <std::pair<int, int>, std::pair<int, int>> Reflection::create_map(int num, int height, int width)
+std::map<std::pair<int, int>, std::pair<int, int>> Reflection::create_map(int num, int height, int width)
 {
-	std::map <std::pair<int, int>, std::pair<int, int>> map;
+	std::map<std::pair<int, int>, std::pair<int, int>> map;
 	// vertical and horizontal reflection allowed for all bmp files
 	// diagonal reflection allowed only for square ones
 	for (int i = 0; i < height; i++)

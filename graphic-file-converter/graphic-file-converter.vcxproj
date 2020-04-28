@@ -155,6 +155,8 @@
     <ClCompile Include="bpp16.cpp" />
     <ClCompile Include="bpp24.cpp" />
     <ClCompile Include="converter.cpp" />
+    <ClCompile Include="File.cpp" />
+    <ClCompile Include="header_file.cpp" />
     <ClCompile Include="image_content.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="image.cpp" />
@@ -169,6 +171,8 @@
     <ClInclude Include="bpp16.h" />
     <ClInclude Include="bpp24.h" />
     <ClInclude Include="converter.h" />
+    <ClInclude Include="file.h" />
+    <ClInclude Include="header_file.h" />
     <ClInclude Include="image.h" />
     <ClInclude Include="image_content.h" />
     <ClInclude Include="reflection.h" />
