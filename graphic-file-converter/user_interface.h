@@ -16,10 +16,13 @@ public:
 
 	void registerAction(const std::string& command_name, const std::string& command_explanation, Converter* conversion,
 	                    std::regex command_regex, int number_of_arguments);
-	void display();
+	void display(const std::string& command);
 	Image executeAction(const std::string& command, const std::string& path, const std::string& out_path, int argument);
 	void showHelp();
 	void registerHelp(const std::string& command_name, const std::string& explanation);
 	void displayImage(Image image);
 	void registerParameter(const std::string name, Parameter* action);
 };
+
+std::string argv_to_string(char *arg[], int number_of_arg);
+bool check_regex_if_empty(std::regex reg, const std::string& command);

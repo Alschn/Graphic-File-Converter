@@ -8,40 +8,28 @@
 
 using namespace std;
 
-int main()
+int main(int argc, char *argv[])
 {
-//#ifdef _DEBUG
-//	std::cout << "In DEBUG mode." << std::endl;
-//#endif
-
-	/*
-	 *Here is an example how to use Image class with `from memory` mode.
-	 * Simply uncomment lines below and set number constant. The number will be displayed on the console and save to from_arial.bmp file.
-	 * Attention: `FromMemory` mode doesn't work with converter. Converter can only convert images from .bmp files.
-	 */
-	// const int number = 9;
-	// const Image im(const_cast<unsigned char*>(ArialDig32x24), 32, 23, 23 * number);
-	// std::cout << std::endl << im << std::endl;
-	// im.save(R"(..\sample_bmps\from_arial.bmp)");
-	/*
-	  * End of example
-	  */
-
-	/*
-	 * Initialize all variables and objects needed to use user interface.
-	 */
 	UserInterface Desktop;
 	Rotation conversion;
 	DisplayParameter display;
 	Reflection conversion2;
 	Desktop.registerParameter("-d", &display);
 	Desktop.registerAction("rotation", "rotates picture by n degrees", &conversion,
-	                       regex(
-		                       R"###(^converter +rotation +\d+ +(('|")[^'][^"]\S+[^'][^"]('|")) *(('|")[^'][^"]\S+[^'][^"]('|"))? *(-\w)? *$)###"),
-	                       1);
+		regex(
+			R"###(^converter +rotation +\d+ +(('|")[^'][^"]\S+[^'][^"]('|")) *(('|")[^'][^"]\S+[^'][^"]('|"))? *(-\w)? *$)###"),
+		1);
 	Desktop.registerAction("reflection", "reflects picture over selected axis", &conversion2,
-	                       regex(
-		                       R"###(^converter +reflection +\d +(('|")[^'][^"]\S+[^'][^"]('|")) *(('|")[^'][^"]\S+[^'][^"]('|"))? *(-\w)? *$)###"),
-	                       1);
-	Desktop.display();
+		regex(
+			R"###(^converter +reflection +\d +(('|")[^'][^"]\S+[^'][^"]('|")) *(('|")[^'][^"]\S+[^'][^"]('|"))? *(-\w)? *$)###"),
+		1);
+	if (argc > 1)
+	{	
+		Desktop.display(argv_to_string(argv, argc));
+	}
+	else
+	{
+		std::cout << "No command typed! Try again!" << std::endl;
+		Desktop.showHelp();
+	}
 }
