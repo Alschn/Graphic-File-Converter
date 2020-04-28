@@ -4,16 +4,16 @@
 class Rescaler : public Converter
 {
 	/**
-	 * \brief 
-	 * \param s 
-	 * \param e 
-	 * \param t 
-	 * \return Interpolated value
+	 * \brief Linear interpolation implementation
+	 * \param s First input
+	 * \param e Second input
+	 * \param t Parameter in the closed unit interval [0, 1]
+	 * \return Interpolated value of two input values
 	 */
 	static double linearInterpolation(double s, double e, double t);
 
 	/**
-	 * \brief Takes 4 points and uses the linear interpolation on them for more accurate calculations
+	 * \brief Takes 4 points and uses the linear interpolation on them for more accurate calculations (2D interpolation)
 	 * \param c00 color of the first pixel
 	 * \param c10 color of the second pixel
 	 * \param c01 color of the third pixel
