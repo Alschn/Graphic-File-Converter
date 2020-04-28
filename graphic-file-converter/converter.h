@@ -16,7 +16,7 @@ public:
 	virtual void scaleImage(double scale_x, double scale_y);
 	void saveImage(const std::string& path) const;
 	void loadImage(const Image* image);
-	
+	virtual void scaleBinImage(double scale_x, double scale_y);
 
 
 	Converter() = default;

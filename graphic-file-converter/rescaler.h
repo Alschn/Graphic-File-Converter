@@ -32,6 +32,6 @@ class Rescaler : public Converter
 	 * \param scale_y New height is equal to old width multiplied by this constant
 	 */
 	void scaleImage(double scale_x, double scale_y) override;
-
+	void scaleBinImage(double scale_x, double scale_y) override;
 
 };
