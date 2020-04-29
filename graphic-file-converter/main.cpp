@@ -45,9 +45,8 @@ int main()
 	// unsigned char x[] = {1, 2, 3};
 	// content->putPixel(500, 500, x);
 
-
-	File *header= new HeaderFile();
-	header->loadForContent("../sample_bmps/arialDig32x24.h_2");
+	auto im = new Image("../sample_bmps/arialDig32x24.h_9");
+	std::cout << *im;
 	
 	// std::cout << std::endl << im << std::endl;
 	// im.save(R"(..\sample_bmps\from_arial.bmp)");

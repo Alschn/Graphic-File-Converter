@@ -47,7 +47,6 @@ ImageContent* HeaderFile::loadForContent(const std::string& filename)
 			}
 		}
 	}
-	
 	return content; 
 }
 

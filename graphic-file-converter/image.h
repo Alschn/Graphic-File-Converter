@@ -30,10 +30,11 @@ class Image
 {
 private:
 	std::string path; //path to the input .bmp
-	unsigned char* content; //pixel array
+	// unsigned char* content; //pixel array
 	size_t buffer_size{}; //internal buffer size in bytes
 	unsigned int pixel_array_offset{}; //pixel array offset in BMP file
 	unsigned int start_index = 0; //start index for read from memory mode
+	ImageContent* content1;
 
 public:
 	unsigned int width{}; // width in pixels
@@ -69,7 +70,7 @@ public:
 	 * \param output empty char array for output
 	 * \param mode for color space if the color space has more than one color.
 	 */
-	void getPixel(int x, int y, unsigned char output[], PixelMode mode = PixelMode::rgb) const;
+	void getPixel(int x, int y, unsigned char output[]) const;
 	/**
 	 * \brief Puts pixel into memory by given coordinates. This function is meant to be used for 24bit color space.
 	 * \param x x coordinate
@@ -204,6 +205,8 @@ private:
 public:
 	Image() = default;
 
+	Image(const std::string & path);
+	
 	Image(unsigned char* content, const unsigned int width, const unsigned height, const unsigned int start_index = 0);
 
 	Image(const std::string& path, const bool expect_saving, const ImageMode& m,

@@ -26,6 +26,15 @@ unsigned ImageContent::getHeight()
 	return this->height;
 }
 
+ImageContent::ImageContent(const ImageContent& other)
+{
+	this->width = other.width;
+	this->height = other.height;
+	this->buffer_size = other.buffer_size;
+	this->buffer = new uint8_t[this->buffer_size];
+	memcpy(this->buffer, other.buffer, this->buffer_size);
+}
+
 ImageContent::ImageContent()
 {
 	this->width = 0;
@@ -40,3 +49,9 @@ void ImageContent::verifyAccess(unsigned x, unsigned y)
 		throw std::runtime_error("Requested pixel coordinates are out of range!");
 	}
 }
+
+// std::ostream& operator<<(std::ostream& os, const ImageContent& ic) 
+// {
+// 	os << const_cast<ImageContent&>(ic).toString();
+// 	return os;
+// }

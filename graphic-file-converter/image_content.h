@@ -23,7 +23,12 @@ public:
 	virtual void putByte(uint8_t input, unsigned int index);
 	virtual unsigned int getWidth();
 	virtual unsigned int getHeight();
+	ImageContent(const ImageContent& other);
 	ImageContent();
+	virtual ImageContent* clone() = 0;
+	// friend std::ostream& operator<<(std::ostream& os, const ImageContent& ic);
+	virtual std::string toString()=0;
+	// virtual ~ImageContent() = 0;
 
 	
 protected:

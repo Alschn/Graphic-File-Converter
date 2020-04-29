@@ -30,11 +30,42 @@ size_t Bpp1::calculateBufferSize()
 	return size / 8;
 }
 
+std::string Bpp1::toString() 
+{
+	std::string output;
+	output.reserve(this->width * this->height + this->height);
+	for (int j = this->height - 1; j >= 0; j--)
+	{
+		for (auto i = 0; i < this->width; ++i)
+		{
+			uint8_t data = 4;
+			this->getPixel(i, j, &data);
+			output.push_back(this->symbols[data]);
+		}
+		output.push_back('\n');
+	}
+	return output;
+}
+
+ImageContent* Bpp1::clone()
+{
+	return new Bpp1(*this);
+}
+
 void Bpp1::calculatePixelIndex(unsigned int x, unsigned int y, unsigned int& byte_n, unsigned int& bit_n) const
 {
 	unsigned index = this->width * y + x;
 	byte_n = index / 8;
 	bit_n = index % 8;
+}
+
+Bpp1::Bpp1(const Bpp1& other)
+{
+	this->width = other.width;
+	this->height = other.height;
+	this->buffer_size = other.buffer_size;
+	this->buffer = new uint8_t[this->buffer_size];
+	memcpy(this->buffer, other.buffer, this->buffer_size);
 }
 
 Bpp1::Bpp1()
@@ -53,3 +84,6 @@ Bpp1::~Bpp1()
 {
 	delete[] this->buffer;
 }
+
+
+
