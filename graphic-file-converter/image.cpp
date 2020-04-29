@@ -1,54 +1,22 @@
 #include "image.h"
-
-#include <algorithm>
 #include <fstream>
 #include <iomanip>
 #include <ios>
 #include <iostream>
 #include <vector>
 #include "utils.h"
+#include "header_file.h"
 #include <sys/stat.h>
+#include "bpp1.h"
 
-void Image::getPixel(int x, int y, unsigned char output[], PixelMode mode) const
+void Image::getPixel(int x, int y, unsigned char output[]) const
 {
-	if (mode == PixelMode::rgb)
-	{
-		for (int i = 0; i < 3; ++i)
-		{
-			const auto index = this->calculatePixelIndex(x, y, i);
-			output[i] = this->content[index];
-		}
-	}
-	else if (mode == PixelMode::bgr)
-	{
-		for (int i = 0; i < 3; ++i)
-		{
-			const auto index = this->calculatePixelIndex(x, y, i);
-			output[2 - i] = this->content[index];
-		}
-	}
-	else if (mode == PixelMode::mono_bw)
-	{
-		//to be implemented
-	}
+	this->content1->getPixel(x, y, output);
 }
 
 void Image::putPixel(int x, int y, unsigned char input[], PixelMode mode)
 {
-	for (int i = 0; i < 3; ++i)
-	{
-		auto index = this->calculatePixelIndex(x, y, i);
-		this->content[index] = input[i];
-	}
-}
-
-
-/*
- *This method is for 1bpp mode. Cannot be used with another modes. 
- */
-void Image::putPixel(int x, int y, bool output)
-{
-	//to be implemented
+	this->content1->putPixel(x, y, input);
 }
 
 
@@ -56,9 +24,7 @@ void Image::resize(int width, int height)
 {
 	this->width = width;
 	this->height = height;
-	this->buffer_size = Image::bufferSize(this->BYTES_PER_PIXEL, this->width, this->height);
-	this->content = new unsigned char[this->buffer_size];
-	this->row_size = Image::rowSize(this->width, this->depth);
+	this->content1->resize(width, height);
 }
 
 size_t Image::bufferSize(const unsigned bytes_per_pixel, const unsigned width, const unsigned height)
@@ -108,111 +74,65 @@ void Image::save(const std::string& path) const
 
 std::string Image::toStr() const
 {
-	std::string output;
-	if (this->depth == ColorDepth::bpp24)
-	{
-		for (int i = height - 1; i > 0; --i)
-		{
-			for (int j = 0; j < width; j++)
-			{
-				unsigned char arr[3];
-				getPixel(j, i, arr, PixelMode::rgb);
-				auto highest_value_index = std::distance(arr, std::max_element(arr, arr + 3));
-				
-				if (highest_value_index == 0)
-				{
-					output.append("R");
-				}
-				else if (highest_value_index == 1)
-				{
-					output.append("G");
-				}
-				else if (highest_value_index == 2)
-				{
-					output.append("B");
-				}
-			}
-			output.append("\n");
-		}
-	}
-	else if (this->depth == ColorDepth::bpp1)
-	{
-		for (int k = 0 + this->start_index; k < this->height + this->start_index; ++k)
-		{
-			for (int i = 0; i < 4; i++)
-			{
-				for (int j = 7; j >= 0; j--)
-				{
-					if (Utils::isBitSet(this->content[i + k * this->row_size], j))
-					{
-						output.push_back('*');
-					}
-					else
-					{
-						output.push_back(' ');
-					}
-				}
-			}
-			output.push_back('\n');
-		}
-	}
-	return output;
+	return this->content1->toString();
 }
 
 std::vector<char> Image::generateContentToSave() const
 {
 	std::vector<char> output;
-	switch (this->depth)
-	{
-	case ColorDepth::bpp24:
-		{
-			char buf[54];
-			this->generateHeader(buf);
+	// switch (this->depth)
+	// {
+	// case ColorDepth::bpp24:
+	// 	{
+	// 		char buf[54];
+	// 		this->generateHeader(buf);
+	//
+	// 		output.reserve(this->HEADER_SIZE + this->row_size * this->height);
+	// 		output.insert(output.end(), buf, buf + this->HEADER_SIZE);
+	// 		for (int j = 0; j < this->height; ++j)
+	// 		{
+	// 			for (int i = 0; i < this->width; ++i)
+	// 			{
+	// 				unsigned char px[3];
+	// 				this->getPixel(i, j, px, PixelMode::bgr);
+	//
+	// 				for (auto c : px)
+	// 				{
+	// 					output.emplace_back(c);
+	// 				}
+	// 			}
+	// 			for (int i = 0; i < (Image::rowPadding(this->width, this->depth)); ++i)
+	// 			{
+	// 				output.push_back(0);
+	// 			}
+	// 		}
+	// 		break;
+	// 	}
+	// case ColorDepth::bpp1:
+	// 	{
+	// 		auto* buf = new unsigned char[this->HEADER_SIZE + 8];
+	//
+	// 		char color_table[8] = {0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00};
+	// 		this->generateHeader(reinterpret_cast<char*>(buf), 1, color_table, 8);
+	//
+	// 		output.reserve(this->file_size);
+	// 		output.insert(output.end(), buf, buf + this->HEADER_SIZE + 8);
+	//
+	// 		delete[] buf;
+	// 		for (int k = this->height - 1 + this->start_index; k >= 0 + this->start_index; --k)
+	// 		{
+	// 			for (int i = 0; i < 4; i++)
+	// 			{
+	// 				output.emplace_back(static_cast<char>(this->content[k * this->row_size + i]));
+	// 			}
+	// 		}
+	// 		break;
+	// 	}
+	// default:
+	// 	break;
+	// }
+	// return output;
 
-			output.reserve(this->HEADER_SIZE + this->row_size * this->height);
-			output.insert(output.end(), buf, buf + this->HEADER_SIZE);
-			for (int j = 0; j < this->height; ++j)
-			{
-				for (int i = 0; i < this->width; ++i)
-				{
-					unsigned char px[3];
-					this->getPixel(i, j, px, PixelMode::bgr);
-
-					for (auto c : px)
-					{
-						output.emplace_back(c);
-					}
-				}
-				for (int i = 0; i < (Image::rowPadding(this->width, this->depth)); ++i)
-				{
-					output.push_back(0);
-				}
-			}
-			break;
-		}
-	case ColorDepth::bpp1:
-		{
-			auto*buf = new unsigned char[this->HEADER_SIZE+8];
-
-			char color_table[8] = {0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00};
-			this->generateHeader(reinterpret_cast<char*>(buf), 1, color_table, 8);
-
-			output.reserve(this->file_size);
-			output.insert(output.end(), buf, buf + this->HEADER_SIZE + 8);
-
-			delete[] buf;
-			for (int k = this->height - 1 + this->start_index; k >= 0 + this->start_index; --k)
-			{
-				for (int i = 0; i < 4; i++)
-				{
-					output.emplace_back(static_cast<char>(this->content[k * this->row_size + i]));
-				}
-			}
-			break;
-		}
-	default:
-		break;
-	}
 	return output;
 }
 
@@ -234,25 +154,6 @@ void Image::loadFromFile()
 	                                              this->pixel_array_offset);
 	this->readPixelArray(pixel_array_buffer);
 	delete[] pixel_array_buffer;
-}
-
-void Image::loadFromMemory(unsigned char* input, unsigned int width, unsigned height, unsigned start_index,
-                           ColorDepth cd)
-{
-	this->width = width;
-	this->height = height;
-	this->content = (input);
-	switch (cd)
-	{
-	case ColorDepth::bpp1:
-		this->row_size = this->rowSize(width, ColorDepth::bpp1);
-		this->file_size = this->HEADER_SIZE + 8 + this->row_size * height;
-		this->pixel_array_offset = this->HEADER_SIZE + 8;
-		break;
-
-	default:
-		break;
-	}
 }
 
 void Image::readHeader(const char* buffer)
@@ -308,26 +209,35 @@ char* Image::readBytesFromFile(const std::string& file_path, char* buffer, size_
 
 void Image::readPixelArray(const char* buffer)
 {
-	this->content = new unsigned char[this->buffer_size];
-	for (int j = 0; j < this->height; ++j)
-	{
-		for (int i = 0; i < this->width; ++i)
-		{
-			const unsigned int offset = i * 3 + j * this->row_size;
-			this->content[this->calculatePixelIndex(i, j, 0)] = buffer[offset + 2]; // save R
-			this->content[this->calculatePixelIndex(i, j, 1)] = buffer[offset + 1]; // save G
-			this->content[this->calculatePixelIndex(i, j, 2)] = buffer[offset]; // save B
-		}
-	}
+	// this->content = new unsigned char[this->buffer_size];
+	// for (int j = 0; j < this->height; ++j)
+	// {
+		// for (int i = 0; i < this->width; ++i)
+		// {
+			// const unsigned int offset = i * 3 + j * this->row_size;
+			// this->content[this->calculatePixelIndex(i, j, 0)] = buffer[offset + 2]; // save R
+			// this->content[this->calculatePixelIndex(i, j, 1)] = buffer[offset + 1]; // save G
+			// this->content[this->calculatePixelIndex(i, j, 2)] = buffer[offset]; // save B
+		// }
+	// }
 }
 
 
-Image::Image(unsigned char* content, const unsigned width, const unsigned height, const unsigned start_index)
+Image::Image(const std::string& path)
 {
-	this->depth = ColorDepth::bpp1;
-	this->start_index = start_index;
-	this->loadFromMemory(content, width, height, start_index, ColorDepth::bpp1);
+	this->path = path;
+	auto fm = new HeaderFile();
+	this->content1 = fm->loadForContent(this->path);
+	this->width = this->content1->getWidth();
+	this->height = this->content1->getHeight();
 }
+
+// Image::Image(unsigned char* content, const unsigned width, const unsigned height, const unsigned start_index)
+// {
+// 	this->depth = ColorDepth::bpp1;
+// 	this->start_index = start_index;
+// 	this->loadFromMemory(content, width, height, start_index, ColorDepth::bpp1);
+// }
 
 
 Image::Image(const std::string& path, const bool expect_saving, const ImageMode& m,
@@ -356,14 +266,13 @@ Image::Image(const Image& other) : mode(other.mode), depth(other.depth)
 	this->vertical_resolution = other.vertical_resolution;
 	this->file_size = other.file_size;
 	this->depth = other.depth;
-	this->content = new unsigned char[other.buffer_size];
-	memcpy(this->content, other.content, other.buffer_size);
+	this->content1 = other.content1->clone();
 }
 
 Image::~Image()
 {
 	if (this->depth != ColorDepth::bpp1)
-		delete[] this->content;
+		delete[] this->content1;
 }
 
 std::ostream& operator<<(std::ostream& os, const Image& im)
@@ -388,3 +297,5 @@ std::istream& operator>>(std::istream& is, Image& im)
 
 	return is;
 }
+
+std::map<std::string, ImageContent*> Image::type_map = { {"Bpp1", new Bpp1()} };

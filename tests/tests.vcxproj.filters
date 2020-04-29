@@ -24,13 +24,7 @@
     <ClCompile Include="testUtils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="testReflection.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="testRotation.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="testUserInterface.cpp">
+    <ClCompile Include="testHeaderFile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
