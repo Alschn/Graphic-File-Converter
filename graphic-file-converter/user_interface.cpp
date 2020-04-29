@@ -13,16 +13,16 @@
 std::map<const std::string, Converter*> UserInterface::conversions_map;
 std::map<const std::string, const std::string> UserInterface::help_map;
 std::map<const std::string, std::regex> UserInterface::regex_map;
-std::map<const std::string, int> UserInterface::number_of_command_arguments_map;
+std::map<const std::string, Arguments*> UserInterface::arguments_map;
 std::map<const std::string, Parameter*> UserInterface::parameters_map;
 
 void UserInterface::registerAction(const std::string& command_name, const std::string& command_explanation,
-                                   Converter* conversion, std::regex command_regex, int number_of_arguments)
+                                   Converter* conversion, std::regex command_regex, Arguments* arguments)
 {
 	conversions_map.emplace(command_name, conversion);
 	help_map.emplace(command_name, command_explanation);
 	regex_map.emplace(command_name, command_regex);
-	number_of_command_arguments_map.emplace(command_name, number_of_arguments);
+	arguments_map.emplace(command_name, arguments);
 }
 
 
@@ -122,9 +122,7 @@ void UserInterface::display(const std::string& command)
 		int no_function = 0;
 		for (auto command_name : regex_map)
 		{
-			std::smatch command_match;
-			std::regex_search(command, command_match, command_name.second);
-			if (!command_match.empty())
+			if (!check_regex_if_empty(command_name.second, command))
 			{
 				std::stringstream command_ss(command);
 				std::vector<std::string> splitted;
@@ -133,12 +131,14 @@ void UserInterface::display(const std::string& command)
 				{
 					splitted.push_back(buf_string);
 				}
+				std::vector <int> args;
 				int argument;
 				for (auto m : splitted)
 				{
 					try
 					{
 						argument = std::stoi(m);
+						args.push_back(argument);
 					}
 					catch (...)
 					{

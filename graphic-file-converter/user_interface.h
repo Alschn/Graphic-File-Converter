@@ -4,6 +4,7 @@
 #include <regex>
 #include "converter.h"
 #include "parameter.h"
+#include "arguments.h"
 
 class UserInterface
 {
@@ -11,11 +12,11 @@ public:
 	static std::map<const std::string, Converter*> conversions_map;
 	static std::map<const std::string, const std::string> help_map;
 	static std::map<const std::string, std::regex> regex_map;
-	static std::map<const std::string, int> number_of_command_arguments_map;
+	static std::map<const std::string, Arguments*> arguments_map;
 	static std::map<const std::string, Parameter*> parameters_map;
 
-	void registerAction(const std::string& command_name, const std::string& command_explanation, Converter* conversion,
-	                    std::regex command_regex, int number_of_arguments);
+	void registerAction(const std::string& command_name, const std::string& command_explanation,
+		Converter* conversion, std::regex command_regex, Arguments* arguments);
 	void display(const std::string& command);
 	Image executeAction(const std::string& command, const std::string& path, const std::string& out_path, int argument);
 	void showHelp();

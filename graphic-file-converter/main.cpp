@@ -15,14 +15,14 @@ int main(int argc, char *argv[])
 	DisplayParameter display;
 	Reflection conversion2;
 	Desktop.registerParameter("-d", &display);
-	Desktop.registerAction("rotation", "rotates picture by n degrees", &conversion,
-		regex(
-			R"###(^converter +rotation +\d+ +(('|")[^'][^"]\S+[^'][^"]('|")) *(('|")[^'][^"]\S+[^'][^"]('|"))? *(-\w)? *$)###"),
-		1);
-	Desktop.registerAction("reflection", "reflects picture over selected axis", &conversion2,
-		regex(
-			R"###(^converter +reflection +\d +(('|")[^'][^"]\S+[^'][^"]('|")) *(('|")[^'][^"]\S+[^'][^"]('|"))? *(-\w)? *$)###"),
-		1);
+	//Desktop.registerAction("rotation", "rotates picture by n degrees", &conversion,
+		//regex(
+			//R"###(^converter +rotation +\d+ +(('|")[^'][^"]\S+[^'][^"]('|")) *(('|")[^'][^"]\S+[^'][^"]('|"))? *(-\w)? *$)###"),
+		//1);
+	//Desktop.registerAction("reflection", "reflects picture over selected axis", &conversion2,
+		//regex(
+			//R"###(^converter +reflection +\d +(('|")[^'][^"]\S+[^'][^"]('|")) *(('|")[^'][^"]\S+[^'][^"]('|"))? *(-\w)? *$)###"),
+		//1);
 	if (argc > 1)
 	{	
 		Desktop.display(argv_to_string(argv, argc));
