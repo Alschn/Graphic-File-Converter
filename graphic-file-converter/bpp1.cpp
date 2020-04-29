@@ -15,7 +15,10 @@ void Bpp1::putPixel(unsigned x, unsigned y, uint8_t* input)
 	unsigned int byte_n = 0;
 	unsigned int bit_n = 0;
 	this->calculatePixelIndex(x, y, byte_n, bit_n);
-	this->buffer[byte_n] |= input[0] << bit_n;
+	if(input[0])
+		this->buffer[byte_n] |= 1 << 7-bit_n;
+	else
+		this->buffer[byte_n] &= ~(1 << 7 - bit_n);
 }
 
 

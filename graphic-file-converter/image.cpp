@@ -14,7 +14,7 @@ void Image::getPixel(int x, int y, unsigned char output[]) const
 	this->content1->getPixel(x, y, output);
 }
 
-void Image::putPixel(int x, int y, unsigned char input[], PixelMode mode)
+void Image::putPixel(int x, int y, unsigned char input[])
 {
 	this->content1->putPixel(x, y, input);
 }

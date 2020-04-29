@@ -77,14 +77,14 @@ public:
 	 * \param y y coordinate
 	 * \param input char array of RGB or BGR depending on specified mode
 	 */
-	void putPixel(int x, int y, unsigned char input[], PixelMode mode = PixelMode::rgb);
+	void putPixel(int x, int y, unsigned char input[]);
 	/**
 	 * \brief Puts pixel into memory by given coordinates. This function is meant to be used for 1bpp color space.
 	 * \param x x coordinate
 	 * \param y y coordinate
 	 * \param input bool for B/W pixel where True is White, False is Black
 	 */
-	void putPixel(int x, int y, bool output);
+
 
 	/**
 	 * \brief Resizes image and memory for new dimensions. Clears content buffer.
