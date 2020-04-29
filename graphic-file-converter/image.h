@@ -1,7 +1,14 @@
 #pragma once
 #include <string>
 #include <vector>
-
+#include <fstream>
+#include "utils.h"
+#include <iomanip>
+#include <ios>
+#include <iostream>
+#include <vector>
+#include "header_file.h"
+#include "bpp1.h"
 #include "image_content.h"
 
 enum class ImageMode
@@ -34,7 +41,7 @@ private:
 	size_t buffer_size{}; //internal buffer size in bytes
 	unsigned int pixel_array_offset{}; //pixel array offset in BMP file
 	unsigned int start_index = 0; //start index for read from memory mode
-	ImageContent* content1;
+	ImageContent* content;
 
 public:
 	unsigned int width{}; // width in pixels
@@ -42,7 +49,9 @@ public:
 	unsigned int row_size{}; // row size in bytes 
 	unsigned int horizontal_resolution = 3200; //experimental constants
 	unsigned int vertical_resolution = 2300;
+	std::string content_type;
 
+	
 	size_t file_size{}; //bmp file size
 
 	/*Specified modes*/
@@ -99,7 +108,7 @@ public:
 	 * \param height height in pixels
 	 * \return buffer size for pixel array of given image represented as size_t.
 	 */
-	static size_t bufferSize(const unsigned int bytes_per_pixel, const unsigned int width, const unsigned int height);
+	// static size_t bufferSize(const unsigned int bytes_per_pixel, const unsigned int width, const unsigned int height);
 
 	/**
 	 * \brief Calculates row size for specified width and bytes per pixel
@@ -143,7 +152,7 @@ public:
 	* \param path file path
 	* \return True or False
 	*/
-	static bool fileExists(const std::string& path);
+	// static bool fileExists(const std::string& path);
 
 
 	/**
@@ -191,6 +200,8 @@ private:
 	*/
 	void loadFromFile();
 
+public:
+	static std::string getExtension(const std::string& path);
 	/**
 	 * \brief Loads data from .header file
 	 * \param input input buffer
@@ -213,6 +224,7 @@ public:
 	      const ColorDepth& depth = ColorDepth::bpp24);
 
 	static std::map<std::string, ImageContent*> type_map;
+	static std::map<std::string, File*> file_type_map;
 
 
 	Image(const Image& other);

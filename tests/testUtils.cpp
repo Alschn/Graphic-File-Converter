@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "CppUnitTest.h"
 #include "../graphic-file-converter/utils.h"
-// #include "../graphic-file-converter/utils.cpp"
+#include "../graphic-file-converter/utils.cpp"
 
 
 

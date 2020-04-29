@@ -2,7 +2,6 @@
 #include "utils.h"
 #include "rotation.h"
 #include "reflection.h"
-#include "arialDig32x24.h"
 #include <fstream>
 #include "image_content.h"
 #include "bpp24.h"
@@ -48,7 +47,12 @@ int main()
 	auto im = new Image("../sample_bmps/arialDig32x24.h_9");
 	std::cout << *im;
 	
-	// std::cout << std::endl << im << std::endl;
+
+	auto result = Image::getExtension("abc.h_333");
+	auto resul2t = Image::getExtension("abc.bmp");
+	// auto resul2t = Image::getExtension("abc.bmp");
+	
+	// std::cout << std::endl << *im2 << std::endl;
 	// im.save(R"(..\sample_bmps\from_arial.bmp)");
 	/*
 	 * End of example
