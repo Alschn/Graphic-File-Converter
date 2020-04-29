@@ -73,7 +73,7 @@ void Rescaler::scaleBinImage(double scale_x, double scale_y)
 			this->oldImage->getPixel(gxi + 1, gyi + 1, c11);
 
 			const auto c = static_cast<unsigned char>(round(bilinearInterpolation(c00[0], c10[0], c01[0], c11[0], gx - gxi, gy - gyi)));
-	
+
 			unsigned char color[1] = {c};
 			this->newImage->putPixel(x, y, color);
 		}

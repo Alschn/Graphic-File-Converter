@@ -31,10 +31,9 @@ int main()
 	// unsigned char x[] = {1, 2, 3};
 	// content->putPixel(500, 500, x);
 
-	auto im = new Image("../sample_bmps/arialDig32x24.h_1");
+	auto im = new Image("../sample_bmps/arialDig32x24.h_9");
 	Converter *conv = new Rescaler(im);
-	conv->scaleBinImage(1, 1);
-
+	conv->scaleBinImage(2, 2);
 	std::cout << *conv->newImage;
 	
 	// std::cout << std::endl << im << std::endl;
