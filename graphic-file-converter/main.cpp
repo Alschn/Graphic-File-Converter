@@ -7,6 +7,7 @@
 #include "image_content.h"
 #include "bpp24.h"
 #include "header_file.h"
+#include "rescaler.h"
 
 int main()
 {
@@ -22,21 +23,6 @@ int main()
 	const int number = 9;
 	// Image im(const_cast<unsigned char*>(ArialDig32x24), 32, 23, 23 * number);
 
-
-	// unsigned char  c00[3];
-
-
-	// im.getPixel(gxy, gyi, c00);
-	// char  c10[3] = self.GetPixel(gxi + 1, gyi);
-	// char  c01[3] = self.GetPixel(gxi, gyi + 1);
-	// char c11[3] = self.GetPixel(gxi + 1, gyi + 1);
-
-	// unsigned char  red = (int)Blerp(c00[0], c10[0], c01[0], c11.R, gx - gxi, gy - gyi);
-	// unsigned char green = (int)Blerp(c00.G, c10.G, c01.G, c11.G, gx - gxi, gy - gyi);
-	// unsigned char blue = (int)Blerp(c00.B, c10.B, c01.B, c11.B, gx - gxi, gy - gyi);
-	// Color rgb = Color.FromArgb(red, green, blue);
-
-
 	// unsigned char a[3] = { 100, 200, 213};
 	// im.putPixel(222, 200, a);
 
@@ -45,8 +31,11 @@ int main()
 	// unsigned char x[] = {1, 2, 3};
 	// content->putPixel(500, 500, x);
 
-	auto im = new Image("../sample_bmps/arialDig32x24.h_9");
-	std::cout << *im;
+	auto im = new Image("../sample_bmps/arialDig32x24.h_1");
+	Converter *conv = new Rescaler(im);
+	conv->scaleBinImage(1, 1);
+
+	std::cout << *conv->newImage;
 	
 	// std::cout << std::endl << im << std::endl;
 	// im.save(R"(..\sample_bmps\from_arial.bmp)");

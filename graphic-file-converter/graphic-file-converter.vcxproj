@@ -161,6 +161,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="image.cpp" />
     <ClCompile Include="reflection.cpp" />
+    <ClCompile Include="rescaler.cpp" />
     <ClCompile Include="rotation.cpp" />
     <ClCompile Include="user_interface.cpp" />
     <ClCompile Include="utils.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="image.h" />
     <ClInclude Include="image_content.h" />
     <ClInclude Include="reflection.h" />
+    <ClInclude Include="rescaler.h" />
     <ClInclude Include="rotation.h" />
     <ClInclude Include="user_interface.h" />
     <ClInclude Include="utils.h" />

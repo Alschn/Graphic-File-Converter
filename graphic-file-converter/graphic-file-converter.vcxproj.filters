@@ -60,6 +60,9 @@
     <ClCompile Include="header_file.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="rescaler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="image.h">
@@ -99,6 +102,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="header_file.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rescaler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

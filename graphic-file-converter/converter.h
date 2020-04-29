@@ -7,7 +7,7 @@
 
 class Converter
 {
-protected:
+public:
 	const Image* oldImage{};
 	Image* newImage{};
 
