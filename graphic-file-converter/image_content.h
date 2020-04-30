@@ -21,14 +21,17 @@ public:
 	virtual void putPixel(unsigned int x, unsigned int y, uint8_t* input) = 0;
 	virtual void resize(unsigned int new_width, unsigned int new_height);
 	virtual void putByte(uint8_t input, unsigned int index);
+	virtual uint8_t getByte(unsigned int index);
+	virtual int rowSize() = 0;
 	virtual unsigned int getWidth();
 	virtual unsigned int getHeight();
+	virtual std::string getType() = 0;
+	size_t bufferSize() const;
 	ImageContent(const ImageContent& other);
 	ImageContent();
 	virtual ImageContent* clone() = 0;
-	// friend std::ostream& operator<<(std::ostream& os, const ImageContent& ic);
 	virtual std::string toString()=0;
-	// virtual ~ImageContent() = 0;
+	virtual ~ImageContent(){};
 
 	
 protected:

@@ -1,22 +1,14 @@
 #include "image.h"
-#include <fstream>
-#include <iomanip>
-#include <ios>
-#include <iostream>
-#include <vector>
-#include "utils.h"
-#include "header_file.h"
-#include <sys/stat.h>
-#include "bpp1.h"
+
 
 void Image::getPixel(int x, int y, unsigned char output[]) const
 {
-	this->content1->getPixel(x, y, output);
+	this->content->getPixel(x, y, output);
 }
 
 void Image::putPixel(int x, int y, unsigned char input[])
 {
-	this->content1->putPixel(x, y, input);
+	this->content->putPixel(x, y, input);
 }
 
 
@@ -24,13 +16,9 @@ void Image::resize(int width, int height)
 {
 	this->width = width;
 	this->height = height;
-	this->content1->resize(width, height);
+	this->content->resize(width, height);
 }
 
-size_t Image::bufferSize(const unsigned bytes_per_pixel, const unsigned width, const unsigned height)
-{
-	return bytes_per_pixel * width * height;
-}
 
 unsigned Image::rowSize(const unsigned width, const ColorDepth& depth)
 {
@@ -74,7 +62,7 @@ void Image::save(const std::string& path) const
 
 std::string Image::toStr() const
 {
-	return this->content1->toString();
+	return this->content->toString();
 }
 
 std::vector<char> Image::generateContentToSave() const
@@ -136,24 +124,33 @@ std::vector<char> Image::generateContentToSave() const
 	return output;
 }
 
-bool Image::fileExists(const std::string& path)
-{
-	struct stat buffer{};
-	return stat(path.c_str(), &buffer) == 0;
-}
 
 void Image::loadFromFile()
 {
-	char* header_buffer = new char [this->HEADER_SIZE];
-	header_buffer = Image::readBytesFromFile(this->path, header_buffer, this->HEADER_SIZE);
-	this->readHeader(header_buffer);
-	delete[] header_buffer;
+	// char* header_buffer = new char [this->HEADER_SIZE];
+	// header_buffer = Image::readBytesFromFile(this->path, header_buffer, this->HEADER_SIZE);
+	// this->readHeader(header_buffer);
+	// delete[] header_buffer;
+	//
+	// char* pixel_array_buffer = new char[this->file_size - this->HEADER_SIZE];
+	// pixel_array_buffer = Image::readBytesFromFile(this->path, pixel_array_buffer, this->file_size - this->HEADER_SIZE,
+	//                                               this->pixel_array_offset);
+	// this->readPixelArray(pixel_array_buffer);
+	// delete[] pixel_array_buffer;
+}
 
-	char* pixel_array_buffer = new char[this->file_size - this->HEADER_SIZE];
-	pixel_array_buffer = Image::readBytesFromFile(this->path, pixel_array_buffer, this->file_size - this->HEADER_SIZE,
-	                                              this->pixel_array_offset);
-	this->readPixelArray(pixel_array_buffer);
-	delete[] pixel_array_buffer;
+std::string Image::getExtension(const std::string& path)
+{
+	const auto pos = path.rfind('.');
+	if (pos == std::string::npos)
+		throw std::runtime_error("Provided path is invalid!");
+
+	const auto end_of_extension = path.rfind('_');
+	if (end_of_extension != std::string::npos)
+	{
+		return path.substr(pos, end_of_extension - pos);
+	}
+	return path.substr(pos);
 }
 
 void Image::readHeader(const char* buffer)
@@ -172,7 +169,7 @@ void Image::readHeader(const char* buffer)
 	this->horizontal_resolution = Utils::fourCharsToInt(buffer, this->HORIZONTAL_RESOLUTION_OFFSET);
 	this->vertical_resolution = Utils::fourCharsToInt(buffer, this->VERTICAL_RESOLUTION_OFFSET);
 	this->row_size = Image::rowSize(this->width, this->depth);
-	this->buffer_size = Image::bufferSize(this->BYTES_PER_PIXEL, this->width, this->height);
+	// this->buffer_size = Image::bufferSize(this->BYTES_PER_PIXEL, this->width, this->height);
 }
 
 void Image::generateHeader(char* input, uint8_t bpp, char* color_table, size_t color_table_size) const
@@ -212,13 +209,13 @@ void Image::readPixelArray(const char* buffer)
 	// this->content = new unsigned char[this->buffer_size];
 	// for (int j = 0; j < this->height; ++j)
 	// {
-		// for (int i = 0; i < this->width; ++i)
-		// {
-			// const unsigned int offset = i * 3 + j * this->row_size;
-			// this->content[this->calculatePixelIndex(i, j, 0)] = buffer[offset + 2]; // save R
-			// this->content[this->calculatePixelIndex(i, j, 1)] = buffer[offset + 1]; // save G
-			// this->content[this->calculatePixelIndex(i, j, 2)] = buffer[offset]; // save B
-		// }
+	// for (int i = 0; i < this->width; ++i)
+	// {
+	// const unsigned int offset = i * 3 + j * this->row_size;
+	// this->content[this->calculatePixelIndex(i, j, 0)] = buffer[offset + 2]; // save R
+	// this->content[this->calculatePixelIndex(i, j, 1)] = buffer[offset + 1]; // save G
+	// this->content[this->calculatePixelIndex(i, j, 2)] = buffer[offset]; // save B
+	// }
 	// }
 }
 
@@ -226,10 +223,15 @@ void Image::readPixelArray(const char* buffer)
 Image::Image(const std::string& path)
 {
 	this->path = path;
-	auto fm = new HeaderFile();
-	this->content1 = fm->loadForContent(this->path);
-	this->width = this->content1->getWidth();
-	this->height = this->content1->getHeight();
+	const auto extension = this->getExtension(this->path);
+	auto file = this->file_type_map[extension];
+
+	this->content = file->loadForContent(this->path);
+	this->content_type = this->content->getType();
+	this->width = this->content->getWidth();
+	this->height = this->content->getHeight();
+
+	file->save(this->content, "../sample_bmps/arial_9.h");
 }
 
 // Image::Image(unsigned char* content, const unsigned width, const unsigned height, const unsigned start_index)
@@ -243,10 +245,10 @@ Image::Image(const std::string& path)
 Image::Image(const std::string& path, const bool expect_saving, const ImageMode& m,
              const ColorDepth& depth) : path(path), mode(m), depth(depth)
 {
-	if (!Image::fileExists(path))
-	{
-		throw std::exception("Image with specified input path does not exist!");
-	}
+	// if (!Image::fileExists(path))
+	// {
+	// 	throw std::exception("Image with specified input path does not exist!");
+	// }
 
 	this->loadFromFile(); // to be changed
 }
@@ -266,13 +268,13 @@ Image::Image(const Image& other) : mode(other.mode), depth(other.depth)
 	this->vertical_resolution = other.vertical_resolution;
 	this->file_size = other.file_size;
 	this->depth = other.depth;
-	this->content1 = other.content1->clone();
+	this->content = other.content->clone();
 }
 
 Image::~Image()
 {
 	if (this->depth != ColorDepth::bpp1)
-		delete[] this->content1;
+		delete[] this->content;
 }
 
 std::ostream& operator<<(std::ostream& os, const Image& im)
@@ -283,19 +285,20 @@ std::ostream& operator<<(std::ostream& os, const Image& im)
 
 std::istream& operator>>(std::istream& is, Image& im)
 {
-	char* header = new char[im.HEADER_SIZE];
-	is.read(header, im.HEADER_SIZE);
-	im.readHeader(header);
-	delete[] header;
-
-	is.seekg(im.HEADER_SIZE);
-
-	char* pixel_array_buffer = new char[im.file_size - im.HEADER_SIZE];
-	is.read(pixel_array_buffer, im.file_size - im.HEADER_SIZE);
-	im.readPixelArray(pixel_array_buffer);
-	delete[] pixel_array_buffer;
-
+	// char* header = new char[im.HEADER_SIZE];
+	// is.read(header, im.HEADER_SIZE);
+	// im.readHeader(header);
+	// delete[] header;
+	//
+	// is.seekg(im.HEADER_SIZE);
+	//
+	// char* pixel_array_buffer = new char[im.file_size - im.HEADER_SIZE];
+	// is.read(pixel_array_buffer, im.file_size - im.HEADER_SIZE);
+	// im.readPixelArray(pixel_array_buffer);
+	// delete[] pixel_array_buffer;
+	//
 	return is;
 }
 
-std::map<std::string, ImageContent*> Image::type_map = { {"Bpp1", new Bpp1()} };
+std::map<std::string, ImageContent*> Image::type_map = {{"Bpp1", new Bpp1()}};
+std::map<std::string, File*> Image::file_type_map = {{".h", new HeaderFile()}};

@@ -15,6 +15,8 @@ public:
 	size_t calculateBufferSize() override;
 	std::string toString() override;
 	ImageContent* clone() override;
+	std::string getType() override;
+	int rowSize() override;
 
 private:
 	void calculatePixelIndex(unsigned int x, unsigned int y, unsigned int& byte_n, unsigned int& bit_n) const;
