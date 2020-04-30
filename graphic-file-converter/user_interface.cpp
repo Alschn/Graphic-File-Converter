@@ -37,9 +37,9 @@ void UserInterface::display(const std::string& command)
 		{
 			splitted.push_back(buf_string);
 		}
-		splitted[2].erase(splitted[2].begin());
-		splitted[2].erase(splitted[2].end() - 1, splitted[2].end());
-		std::string input_path = splitted[2];
+		splitted[1].erase(splitted[1].begin());
+		splitted[1].erase(splitted[1].end() - 1, splitted[1].end());
+		std::string input_path = splitted[1];
 		Image image(input_path, 1, ImageMode::read_from_bmp);
 	ASK_LOOP:
 		std::cout << "What do you want to do? (type one name of following functions)" << std::endl;
@@ -145,15 +145,15 @@ void UserInterface::display(const std::string& command)
 						;
 					}
 				}
-				splitted[3].erase(splitted[3].begin());
-				splitted[3].erase(splitted[3].end() - 1, splitted[3].end());
-				std::string input_path = splitted[3];
+				splitted[args.size()+1].erase(splitted[args.size() + 1].begin());
+				splitted[args.size() + 1].erase(splitted[args.size() + 1].end() - 1, splitted[args.size() + 1].end());
+				std::string input_path = splitted[args.size() + 1];
 				std::string output_path;
-				if (splitted[4].size() > 2)
+				if (splitted[args.size() + 2].size() > 2)
 				{
-					splitted[4].erase(splitted[4].begin());
-					splitted[4].erase(splitted[4].end() - 1, splitted[4].end());
-					output_path = splitted[4];
+					splitted[args.size() + 2].erase(splitted[args.size() + 2].begin());
+					splitted[args.size() + 2].erase(splitted[args.size() + 2].end() - 1, splitted[args.size() + 2].end());
+					output_path = splitted[args.size() + 2];
 				}
 				else
 				{
@@ -215,7 +215,7 @@ void UserInterface::registerHelp(const std::string& command_name, const std::str
 void UserInterface::showHelp()
 {
 	std::cout << "Command structure:" << std::endl;
-	std::cout << "converter [command_name] [argument] ['in_path'] {'out_path'} {-parameter}" << std::endl;
+	std::cout << "graphic-file-converter.exe [command_name] [argument] ['in_path'] {'out_path'} {-parameter}" << std::endl;
 	std::cout << "( {} - possible )" << std::endl;
 	for (int i = 0; i < 90; i++)
 	{

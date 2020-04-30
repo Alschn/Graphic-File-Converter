@@ -9,5 +9,4 @@ public:
 	void set_arguments(std::vector<double> args) override;
 	const int number_of_arguments = 1;
 	int reflection_number;
-	ReflectionArguments(const int reflection_number);
 };
