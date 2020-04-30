@@ -42,25 +42,22 @@
     <ClCompile Include="reflection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="image_content.cpp">
-      <Filter>Source Files\ImageContent</Filter>
-    </ClCompile>
-    <ClCompile Include="bpp24.cpp">
+    <ClCompile Include="parameter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="bpp16.cpp">
+    <ClCompile Include="display_parameter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="bpp1.cpp">
+    <ClCompile Include="arguments.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="File.cpp">
+    <ClCompile Include="rotation_arguments.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="header_file.cpp">
+    <ClCompile Include="reflection_arguments.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="rescaler.cpp">
+    <ClCompile Include="scale_arguments.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -86,29 +83,23 @@
     <ClInclude Include="arialDig32x24.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="image_content.h">
-      <Filter>Header Files\ImageContent</Filter>
-    </ClInclude>
-    <ClInclude Include="bpp24.h">
+    <ClInclude Include="display_parameter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="bpp16.h">
+    <ClInclude Include="parameter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="bpp1.h">
+    <ClInclude Include="arguments.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="file.h">
+    <ClInclude Include="reflection_arguments.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header_file.h">
+    <ClInclude Include="rotation_arguments.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="rescaler.h">
+    <ClInclude Include="scale_arguments.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>
