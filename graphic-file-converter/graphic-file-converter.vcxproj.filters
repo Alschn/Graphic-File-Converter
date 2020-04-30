@@ -42,22 +42,25 @@
     <ClCompile Include="reflection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="parameter.cpp">
+    <ClCompile Include="image_content.cpp">
+      <Filter>Source Files\ImageContent</Filter>
+    </ClCompile>
+    <ClCompile Include="bpp24.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="display_parameter.cpp">
+    <ClCompile Include="bpp16.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="arguments.cpp">
+    <ClCompile Include="bpp1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="rotation_arguments.cpp">
+    <ClCompile Include="File.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="reflection_arguments.cpp">
+    <ClCompile Include="header_file.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="scale_arguments.cpp">
+    <ClCompile Include="rescaler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -83,23 +86,29 @@
     <ClInclude Include="arialDig32x24.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="display_parameter.h">
+    <ClInclude Include="image_content.h">
+      <Filter>Header Files\ImageContent</Filter>
+    </ClInclude>
+    <ClInclude Include="bpp24.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="parameter.h">
+    <ClInclude Include="bpp16.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="arguments.h">
+    <ClInclude Include="bpp1.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="reflection_arguments.h">
+    <ClInclude Include="file.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="rotation_arguments.h">
+    <ClInclude Include="header_file.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="scale_arguments.h">
+    <ClInclude Include="rescaler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>
