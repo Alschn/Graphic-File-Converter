@@ -4,7 +4,6 @@
 #include "../graphic-file-converter/utils.cpp"
 
 
-
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace Tests
@@ -20,18 +19,21 @@ namespace Tests
 			Assert::AreEqual((char)255, buf[2]);
 			Assert::AreEqual((char)255, buf[3]);
 		}
+
 		TEST_METHOD(isBitSet0)
 		{
 			char input = 0x00;
 			auto result = Utils::isBitSet(input, 0);
 			Assert::IsFalse(result);
 		}
+
 		TEST_METHOD(isBitSet1)
 		{
 			char input = 0x01;
 			auto result = Utils::isBitSet(input, 0);
 			Assert::IsTrue(result);
 		}
+
 		TEST_METHOD(isBitSet2)
 		{
 			char input = 0x80;

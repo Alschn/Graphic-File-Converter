@@ -1,19 +1,29 @@
 #pragma once
 
 #include <map>
-
+#include <regex>
 #include "converter.h"
-
+#include "parameter.h"
+#include "arguments.h"
 
 class UserInterface
 {
 public:
-	static std::map<std::string, Converter*> conversions_map;
-	static std::map<std::string, std::string> help_map;
+	static std::map<const std::string, Converter*> conversions_map;
+	static std::map<const std::string, const std::string> help_map;
+	static std::map<const std::string, std::regex> regex_map;
+	static std::map<const std::string, Arguments*> arguments_map;
+	static std::map<const std::string, Parameter*> parameters_map;
 
-	void registerAction(const std::string command_name, Converter* conversion);
-	void display();
-	void executeAction(const std::string& command);
+	void registerAction(const std::string& command_name, const std::string& command_explanation,
+		Converter* conversion, std::regex command_regex, Arguments* arguments);
+	void display(const std::string& command);
+	Image executeAction(const std::string& command, const std::string& path, const std::string& out_path, int argument);
 	void showHelp();
-	void registerHelp(std::string command, std::string command_explanation);
+	void registerHelp(const std::string& command_name, const std::string& explanation);
+	void displayImage(Image image);
+	void registerParameter(const std::string name, Parameter* action);
 };
+
+std::string argv_to_string(char *arg[], int number_of_arg);
+bool check_regex_if_empty(std::regex reg, const std::string& command);

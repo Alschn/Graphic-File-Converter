@@ -1,8 +1,8 @@
 #include "reflection.h"
 
-std::map<std::pair<int, int>, std::pair<int, int>> Reflection::create_map(int num, int height, int width)
+std::map <std::pair<int, int>, std::pair<int, int>> Reflection::createMap(int height, int width, int num)
 {
-	std::map<std::pair<int, int>, std::pair<int, int>> map;
+	std::map <std::pair<int, int>, std::pair<int, int>> map;
 	// vertical and horizontal reflection allowed for all bmp files
 	// diagonal reflection allowed only for square ones
 	for (int i = 0; i < height; i++)
@@ -44,12 +44,13 @@ std::map<std::pair<int, int>, std::pair<int, int>> Reflection::create_map(int nu
 
 void Reflection::processImage(int reflect_num)
 {
+	// diagonal reflection allowed only for squares
 	if (this->oldImage->width != this->oldImage->height && (reflect_num == 2 || reflect_num == 3))
 	{
 		throw std::exception("Diagonal reflection is not allowed for non-square bmp files");
 	}
 
-	auto map = this->create_map(reflect_num, this->oldImage->height, this->oldImage->width);
+	auto map = this->createMap(this->oldImage->height, this->oldImage->width, reflect_num);
 
 	for (const auto& pair : map)
 	{

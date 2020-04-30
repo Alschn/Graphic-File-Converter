@@ -1,49 +1,42 @@
 ﻿#include "rotation.h"
 #include <cmath>
 
-std::map<std::pair<int, int>, std::pair<int, int>> Rotation::create_map(int angle, int height, int width)
+std::map <std::pair<int, int>, std::pair<int, int>> Rotation::createMap(int height, int width, int angle)
 {
-	std::map<std::pair<int, int>, std::pair<int, int>> map;
+	std::map <std::pair<int, int>, std::pair<int, int>> map;
 	if (angle % 90 != 0)
 	{
 		throw std::exception("Angle has to be a multiple of 90 degrees");
 	}
-	if (angle > 360)
-	{
-		int multiple = angle / 360;
-		angle = angle - multiple * 360;
-	}
-	if (angle != 360 && angle != 0)
-	{
-		const auto pi = std::acos(-1);
-		double deg = angle * pi / 180;
+	int multiple = angle / 360;
+	angle = angle - multiple * 360;
+	const auto pi = std::acos(-1);
+	double deg = angle * pi / 180;
 
-		for (int i = 0; i < height; i++)
+	for (int i = 0; i < height; i++)
+	{
+		for (int j = 0; j < width; j++)
 		{
-			for (int j = 0; j < width; j++)
+			// rotation matrix
+			auto x_n = int(round(j * std::cos(-deg) - i * std::sin(-deg)));
+			auto y_n = int(round(j * std::sin(-deg) + i * std::cos(-deg)));
+			// translation vector
+			switch (angle)
 			{
-				// rotation matrix
-				auto x_n = j * std::cos(-deg) - i * std::sin(-deg);
-				auto y_n = j * std::sin(-deg) + i * std::cos(-deg);
-				// translation vector
-				switch (angle)
-				{
-				case 90:
-					y_n += double(width) - 1;
-					break;
-				case 180:
-					x_n += double(width) - 1;
-					y_n += double(height) - 1;
-					break;
-				case 270:
-					x_n += double(height) - 1;
-					break;
-				default:
-					break;
-				}
-
-				map.emplace(std::make_pair(std::make_pair(j, i), std::make_pair(int(round(x_n)), int(round(y_n)))));
+			case 90:
+				y_n += width - 1;
+				break;
+			case 180:
+				x_n += width - 1;
+				y_n += height - 1;
+				break;
+			case 270:
+				x_n += height - 1;
+				break;
+			default:
+				break;
 			}
+			map.emplace(std::make_pair(std::make_pair(j, i), std::make_pair(x_n, y_n)));
 		}
 	}
 	return map;
@@ -51,20 +44,28 @@ std::map<std::pair<int, int>, std::pair<int, int>> Rotation::create_map(int angl
 
 void Rotation::processImage(int angle)
 {
-	this->newImage->resize(this->oldImage->height, this->oldImage->width);
-
-	auto map = this->create_map(angle, this->oldImage->height, this->oldImage->width);
-
-	for (const auto& pair : map)
+	int multiple = angle / 360;
+	angle = angle - multiple * 360;
+	if (!(angle == 360 || angle == 0))
 	{
-		const auto old_x = pair.first.first;
-		const auto old_y = pair.first.second;
-		const auto new_x = pair.second.first;
-		const auto new_y = pair.second.second;
+		if (angle != 180)
+		{
+			this->newImage->resize(this->oldImage->height, this->oldImage->width);
+		}
 
-		unsigned char pixels[3];
+		auto map = this->createMap(this->oldImage->height, this->oldImage->width, angle);
 
-		this->oldImage->getPixel(old_x, old_y, pixels);
-		this->newImage->putPixel(new_x, new_y, pixels);
+		for (const auto& pair : map)
+		{
+			const auto old_x = pair.first.first;
+			const auto old_y = pair.first.second;
+			const auto new_x = pair.second.first;
+			const auto new_y = pair.second.second;
+
+			unsigned char pixels[3];
+
+			this->oldImage->getPixel(old_x, old_y, pixels);
+			this->newImage->putPixel(new_x, new_y, pixels);
+		}
 	}
 }
