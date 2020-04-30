@@ -20,7 +20,7 @@ Optymalizacja pamięci pod względem przechowywanego obrazu.
 ### Uruchamianie programu
 * Program będzie uruchamiany z wiersza poleceń poprzez podanie odpowiednich argumentów
 * W przypadku niepodania argumentów program będzie działał w trybie pilotażowym (wprowadzanie opcji po kolei)
-* Program będzie wyświetlał dynamicznie formułowaną pomoc
+* Program będzie wyświetlał dynamicznie formułowaną pomoc.
 
 
 ### Literatura
@@ -30,6 +30,7 @@ Optymalizacja pamięci pod względem przechowywanego obrazu.
 
 #### Aktualny podział pracy:
 * Klasa `UserInterface` odpowiedzialna za dynamiczny CLI - Wojciech Nowicki
+* Klasy `Parameter` oraz dziedziczące z nich - odpowiadają za opcjonalne parametry CLI - Wojciech Nowicki
 * Klasa `Image` odpowiadająca za przechowywanie zdjęcia w pamięci jak i zamianę go na tekst - Gustaw Daczkowski
 * Klasa `Converter` klasa główna odpowiedzialna za konwersję, z wirtualnymi metodami - Gustaw Daczkowski
 * Klasa `Rotate` dziedzicząca z `Converter` w celu konwersji zdjęcia - obrotu - Adam Lisichin
@@ -39,9 +40,30 @@ Optymalizacja pamięci pod względem przechowywanego obrazu.
 
 #### Testy jednostkowe:
 * Do testowania został użyty `MicrosoftCppUnitTestFramework`. Wszystkie testy znajdują się w oddzielnym projekcie `tests`.
-* Każda z wymienionych wyżej klas jest testowana jednostkowo. 
+* Klasy `Image`, `Reflection`, `Rotation` oraz `UserInterface` są testowane jednostkowo.
 
-#### Aktualna funkcjonalnośc programu:
+#### Aktualna funkcjonalność programu:
 * CLI reaguje na komendę --help i wyświetla pomoc dla użytkownika, przy każdej źle wpisanej komendzie  
-również wyśtwietla pomoc, CLI jest gotowy do rejestracji kolejnych funckjonalności programu
+również wyśtwietla pomoc, CLI jest gotowy do rejestracji kolejnych funckjonalności programu.
+* CLI obsługuje dwie komendy konwersji zdjęć:
+    1. **Obrót o zadany kąt:** converter rotation kąt "scieżka wejściowa" ["scieżka wyjściowa"] [-d]
+    2. **Odbicie lustrzane:** converter reflection tryb "scieżka wejściowa" ["ścieżka wyjściowa"] [-d]
+* Klasa `Image` obsługuje wczytywanie obrazu z pamięci, natomiast owa funkcjonalność nie jest zaimplementowana w CLI.
+Aby przetestować ten tryb należy odkomentować odpowiednie linijki w `main.cpp` - jest to zaznaczone w komentarzu na początku funkcji `main()`.
+* Ponadto klasa `Image` ma zaimplementowane operatory `<<` oraz `>>` służące do wypisywania treści zdjęcia oraz ładowania treści do zdjęcia z pliku (bajty).
+* W obecnym momencie tryb wypisywania na ekranie zdjęcia realizowany przez klasę `Image` uwzględnia wypisywanie 1px - 1litera. 
+Wypisywane są litery R|G|B w zależności od tego, który z kolorów w danym pikselu jest najbardziej dominujący.
+
+
+
+### Przykładowe użycie programu:
+* `converter rotation 90 "../sample_bmps/10x10.bmp" -d` - obrót zdjęcia 10x10.bmp o 90 stopni w prawo.
+Podanie opcjonalnego parametru `-d` powoduje wyświetlenie zdjęcia na ekranie konsoli.
+* `converter reflection 2 "../sample_bmps/10x10.bmp" "../sample_bmps/output.bmp"` odbicie symetryczne względem prostej y=x i zapis do pliku output.bmp.
+
+Szczegółowe objaśnienia komend znajdują się w #11.  
+Szczegółowe objaśnienia funkcjonalności klasy `Image` znajduje się w #10.  
+Szczegółowe objaśnienia trybów konwersji znajdują się w #9.
+
+
 

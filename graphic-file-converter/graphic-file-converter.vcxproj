@@ -151,10 +151,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="bpp1.cpp" />
+    <ClCompile Include="bpp16.cpp" />
+    <ClCompile Include="bpp24.cpp" />
     <ClCompile Include="converter.cpp" />
+    <ClCompile Include="File.cpp" />
+    <ClCompile Include="header_file.cpp" />
+    <ClCompile Include="image_content.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="image.cpp" />
     <ClCompile Include="reflection.cpp" />
+    <ClCompile Include="rescaler.cpp" />
     <ClCompile Include="rotation.cpp" />
     <ClCompile Include="parameter.cpp" />
     <ClCompile Include="display_parameter.cpp" />
@@ -167,6 +174,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="arialDig32x24.h" />
+    <ClInclude Include="bpp1.h" />
+    <ClInclude Include="bpp16.h" />
+    <ClInclude Include="bpp24.h" />
     <ClInclude Include="converter.h" />
     <ClInclude Include="display_parameter.h" />
     <ClInclude Include="arguments.h" />
@@ -175,10 +185,15 @@
     <ClInclude Include="reflection_arguments.h" />
     <ClInclude Include="parameter.h" />
     <ClInclude Include="image.h" />
+    <ClInclude Include="image_content.h" />
     <ClInclude Include="reflection.h" />
+    <ClInclude Include="rescaler.h" />
     <ClInclude Include="rotation.h" />
     <ClInclude Include="user_interface.h" />
     <ClInclude Include="utils.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,5 +1,5 @@
 #include <iostream>
-#include <fstream>
+#include "utils.h"
 #include "rotation.h"
 #include "reflection.h"
 #include "arialDig32x24.h"
