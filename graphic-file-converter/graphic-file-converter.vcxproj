@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="bmp_file.cpp" />
     <ClCompile Include="bpp1.cpp" />
     <ClCompile Include="bpp16.cpp" />
     <ClCompile Include="bpp24.cpp" />
@@ -166,6 +167,7 @@
     <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="bmp_file.h" />
     <ClInclude Include="bpp1.h" />
     <ClInclude Include="bpp16.h" />
     <ClInclude Include="bpp24.h" />

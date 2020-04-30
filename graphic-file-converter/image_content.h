@@ -31,7 +31,7 @@ public:
 	ImageContent();
 	virtual ImageContent* clone() = 0;
 	virtual std::string toString()=0;
-	// virtual ~ImageContent() = 0;
+	virtual ~ImageContent(){};
 
 	
 protected:

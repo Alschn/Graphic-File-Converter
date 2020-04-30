@@ -36,7 +36,6 @@ std::string HeaderFile::generateFileContent() const
 	if (row_size == -1)
 		row_size = this->bytes_per_row;
 
-	unsigned int byte_counter = 0;
 
 	for (int j = this->content->getHeight()-1; j>=0;--j)
 	{
@@ -48,7 +47,6 @@ std::string HeaderFile::generateFileContent() const
 			sprintf_s(hex_string, "%02X",byte);
 			output += hex_string;
 			output += ", ";
-			byte_counter++;
 		}
 		output.pop_back();
 		output.push_back('\n');
@@ -126,7 +124,9 @@ void HeaderFile::save(ImageContent* content, const std::string& path)
 	this->content = content;
 	auto file = this->generateFileInfo();
 	file += this->generateFileContent();
-	std::cout << file;
+	std::ofstream out(path);
+	out << file;
+	out.close();
 }
 
 std::vector<std::string> HeaderFile::fileToLines(const std::string& filename)
@@ -164,4 +164,9 @@ int HeaderFile::getLetterIndexFromFName(std::string& name)
 		return to_ret - '0';
 	}
 	return 0;
+}
+
+HeaderFile::~HeaderFile()
+{
+	delete this->content;
 }

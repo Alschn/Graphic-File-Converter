@@ -127,16 +127,16 @@ std::vector<char> Image::generateContentToSave() const
 
 void Image::loadFromFile()
 {
-	char* header_buffer = new char [this->HEADER_SIZE];
-	header_buffer = Image::readBytesFromFile(this->path, header_buffer, this->HEADER_SIZE);
-	this->readHeader(header_buffer);
-	delete[] header_buffer;
-
-	char* pixel_array_buffer = new char[this->file_size - this->HEADER_SIZE];
-	pixel_array_buffer = Image::readBytesFromFile(this->path, pixel_array_buffer, this->file_size - this->HEADER_SIZE,
-	                                              this->pixel_array_offset);
-	this->readPixelArray(pixel_array_buffer);
-	delete[] pixel_array_buffer;
+	// char* header_buffer = new char [this->HEADER_SIZE];
+	// header_buffer = Image::readBytesFromFile(this->path, header_buffer, this->HEADER_SIZE);
+	// this->readHeader(header_buffer);
+	// delete[] header_buffer;
+	//
+	// char* pixel_array_buffer = new char[this->file_size - this->HEADER_SIZE];
+	// pixel_array_buffer = Image::readBytesFromFile(this->path, pixel_array_buffer, this->file_size - this->HEADER_SIZE,
+	//                                               this->pixel_array_offset);
+	// this->readPixelArray(pixel_array_buffer);
+	// delete[] pixel_array_buffer;
 }
 
 std::string Image::getExtension(const std::string& path)
@@ -231,7 +231,7 @@ Image::Image(const std::string& path)
 	this->width = this->content->getWidth();
 	this->height = this->content->getHeight();
 
-	file->save(this->content, "xdd/abc.h");
+	file->save(this->content, "../sample_bmps/arial_9.h");
 }
 
 // Image::Image(unsigned char* content, const unsigned width, const unsigned height, const unsigned start_index)
@@ -285,18 +285,18 @@ std::ostream& operator<<(std::ostream& os, const Image& im)
 
 std::istream& operator>>(std::istream& is, Image& im)
 {
-	char* header = new char[im.HEADER_SIZE];
-	is.read(header, im.HEADER_SIZE);
-	im.readHeader(header);
-	delete[] header;
-
-	is.seekg(im.HEADER_SIZE);
-
-	char* pixel_array_buffer = new char[im.file_size - im.HEADER_SIZE];
-	is.read(pixel_array_buffer, im.file_size - im.HEADER_SIZE);
-	im.readPixelArray(pixel_array_buffer);
-	delete[] pixel_array_buffer;
-
+	// char* header = new char[im.HEADER_SIZE];
+	// is.read(header, im.HEADER_SIZE);
+	// im.readHeader(header);
+	// delete[] header;
+	//
+	// is.seekg(im.HEADER_SIZE);
+	//
+	// char* pixel_array_buffer = new char[im.file_size - im.HEADER_SIZE];
+	// is.read(pixel_array_buffer, im.file_size - im.HEADER_SIZE);
+	// im.readPixelArray(pixel_array_buffer);
+	// delete[] pixel_array_buffer;
+	//
 	return is;
 }
 

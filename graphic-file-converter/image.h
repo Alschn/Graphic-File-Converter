@@ -61,7 +61,6 @@ public:
 	/*
 	 * Offsets for BMP HEADER (windows header type)
 	 */
-	const size_t HEADER_SIZE = 54; // can be changed in future versions
 	const int FILE_SIZE_OFFSET = 2;
 	const int WIDTH_OFFSET = 18;
 	const int HEIGHT_OFFSET = 22;

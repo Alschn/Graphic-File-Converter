@@ -27,5 +27,6 @@ public:
 	static std::vector<std::string> fileToLines(const std::string& filename);
 	static int getLetterIndexFromFName(std::string &name);
 
+	~HeaderFile();
 	
 };
