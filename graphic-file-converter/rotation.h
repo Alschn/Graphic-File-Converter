@@ -20,5 +20,4 @@ public:
 	 * \param angle Angle to rotate the image by (90/180/270/360 and multiples of those angles)
 	 */
 	void processImage(int angle) override;
-	int angle;
 };
