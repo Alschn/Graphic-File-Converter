@@ -42,19 +42,6 @@ int main(int argc, char* argv[])
 	auto im = new Image("../sample_bmps/test.bmp");
 	// std::cout << *im;
 	Rescaler* conv = new Rescaler(im);
-
-
-	if (im->channels == 1)
-	{
-		conv->scaleBinImage(2, 2);
-		// std::cout << *conv->newImage;
-		conv->newImage->save("../sample_bmps/10x101xxx1.bmp");
-	}
-	else
-	{
-		conv->scaleImage(2, 2);
-		// std::cout << *conv->newImage;
-		conv->newImage->save("../sample_bmps/10x101xxx3.bmp");
-	}
+	//conv->newImage->save("../sample_bmps/10x101xxx3.bmp");
 
 }

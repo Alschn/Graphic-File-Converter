@@ -16,8 +16,6 @@ public:
 	virtual void processImage(Arguments* args);
 	void saveImage(const std::string& path) const;
 	void loadImage(const Image* image);
-	virtual void scaleBinImage(double scale_x, double scale_y);
-
 
 	Converter() = default;
 
