@@ -1,6 +1,5 @@
 #pragma once
 #include <vector>
-
 #include "image_content.h"
 
 class Bpp24 : public ImageContent
@@ -20,8 +19,6 @@ public:
 	void readFromBmpMemory(uint8_t* buffer) override;
 	ContentTypes getContentType() override;
 	std::vector<uint8_t> bmpContent() override;
-	// unsigned bmpPadding() override;
-
 	
 	using ImageContent::ImageContent;
 	Bpp24(unsigned int width, unsigned int height);

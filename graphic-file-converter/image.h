@@ -102,39 +102,7 @@ public:
 	 * \param height height in pixels
 	 */
 	void resize(int width, int height);
-	/**
-	 * \brief Calculates internal buffersize for specified bytes per pixel, width [px] and height [px]
-	 * \param bytes_per_pixel 
-	 * \param width width in pixels
-	 * \param height height in pixels
-	 * \return buffer size for pixel array of given image represented as size_t.
-	 */
-	// static size_t bufferSize(const unsigned int bytes_per_pixel, const unsigned int width, const unsigned int height);
 
-	/**
-	 * \brief Calculates row size for specified width and bytes per pixel
-	 * \param width width in pixels
-	 * \param depth	depth mode: 24bpp, 16bpp, 8bpp, or 1bpp
-	 * \return row size as an integer
-	 */
-	static unsigned int rowSize(const unsigned int width, const ColorDepth& depth);
-
-	/**
-	 * \brief  Calculates padding for given width in pixels and bytes per pixel
-	 * \param width width in pixels
-	  * \param depth	depth mode: 24bpp, 16bpp, 8bpp, or 1bpp
-	 * \return padding as an integer
-	 */
-	static unsigned int rowPadding(const unsigned int width, const ColorDepth& depth);
-
-	/**
-	 * \brief Used for RGB mode
-	 * \param x x coordinate of a pixel
-	 * \param y y coordinate of a pixel
-	 * \param color 0 - red | 1 - green | 2 - blue
-	 * \return correct index of a byte for pixel with corresponding color specified in color parameter
-	 */
-	int calculatePixelIndex(int x, int y, int color = 0) const;
 
 	/**
 	 * \brief Saves bmp into .bmp file from memory
