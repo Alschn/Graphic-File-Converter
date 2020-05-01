@@ -42,15 +42,17 @@ std::map <std::pair<int, int>, std::pair<int, int>> Reflection::createMap(int he
 };
 
 
-void Reflection::processImage(int reflect_num)
+void Reflection::processImage(Arguments* args)
 {
+	ReflectionArguments* ref_args = dynamic_cast<ReflectionArguments*>(args);
+	ref_args->reflection_number = static_cast<int>(ref_args->reflection_number);
 	// diagonal reflection allowed only for squares
-	if (this->oldImage->width != this->oldImage->height && (reflect_num == 2 || reflect_num == 3))
+	if (this->oldImage->width != this->oldImage->height && ref_args->reflection_number || ref_args->reflection_number == 3)
 	{
 		throw std::exception("Diagonal reflection is not allowed for non-square bmp files");
 	}
 
-	auto map = this->createMap(this->oldImage->height, this->oldImage->width, reflect_num);
+	auto map = this->createMap(this->oldImage->height, this->oldImage->width, ref_args->reflection_number);
 
 	for (const auto& pair : map)
 	{

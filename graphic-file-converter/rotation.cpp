@@ -1,5 +1,6 @@
 ﻿#include "rotation.h"
 #include <cmath>
+#include "rotation_arguments.h"
 
 std::map <std::pair<int, int>, std::pair<int, int>> Rotation::createMap(int height, int width, int angle)
 {
@@ -42,18 +43,20 @@ std::map <std::pair<int, int>, std::pair<int, int>> Rotation::createMap(int heig
 	return map;
 };
 
-void Rotation::processImage(int angle)
+void Rotation::processImage(Arguments* args)
 {
-	int multiple = angle / 360;
-	angle = angle - multiple * 360;
-	if (!(angle == 360 || angle == 0))
+	RotationArguments* rot_args = dynamic_cast<RotationArguments*>(args);
+	rot_args->degrees = static_cast<int>(rot_args->degrees);
+	int multiple = rot_args->degrees / 360;
+	rot_args->degrees = rot_args->degrees - multiple * 360;
+	if (!(rot_args->degrees == 360 || rot_args->degrees == 0))
 	{
-		if (angle != 180)
+		if (rot_args->degrees != 180)
 		{
 			this->newImage->resize(this->oldImage->height, this->oldImage->width);
 		}
 
-		auto map = this->createMap(this->oldImage->height, this->oldImage->width, angle);
+		auto map = this->createMap(this->oldImage->height, this->oldImage->width, rot_args->degrees);
 
 		for (const auto& pair : map)
 		{

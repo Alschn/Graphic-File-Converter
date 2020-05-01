@@ -73,14 +73,14 @@ void UserInterface::display(const std::string& command)
 				if (parameter == "-")
 				{
 					conversions_map[choose_command]->loadImage(&image);
-					conversions_map[choose_command]->processImage(argument);
+					//conversions_map[choose_command]->processImage(argument);
 				}
 				for (auto a : parameters_map)
 				{
 					if (a.first == parameter)
 					{
 						conversions_map[choose_command]->loadImage(&image);
-						conversions_map[choose_command]->processImage(argument);
+						//conversions_map[choose_command]->processImage(argument);
 						parameters_map[parameter]->executeParam(image);
 					}
 					else
@@ -119,11 +119,13 @@ void UserInterface::display(const std::string& command)
 	}
 	else
 	{
+		std::string command_fullname;
 		int no_function = 0;
 		for (auto command_name : regex_map)
 		{
 			if (!check_regex_if_empty(command_name.second, command))
 			{
+				command_fullname = command_name.first;
 				std::stringstream command_ss(command);
 				std::vector<std::string> splitted;
 				std::string buf_string;
@@ -131,13 +133,13 @@ void UserInterface::display(const std::string& command)
 				{
 					splitted.push_back(buf_string);
 				}
-				std::vector <int> args;
-				int argument;
+				std::vector <double> args;
+				double argument;
 				for (auto m : splitted)
 				{
 					try
 					{
-						argument = std::stoi(m);
+						argument = std::stod(m);
 						args.push_back(argument);
 					}
 					catch (...)
@@ -145,11 +147,12 @@ void UserInterface::display(const std::string& command)
 						;
 					}
 				}
+				arguments_map[command_fullname]->set_arguments(args);
 				splitted[args.size()+1].erase(splitted[args.size() + 1].begin());
 				splitted[args.size() + 1].erase(splitted[args.size() + 1].end() - 1, splitted[args.size() + 1].end());
 				std::string input_path = splitted[args.size() + 1];
 				std::string output_path;
-				if (splitted[args.size() + 2].size() > 2)
+				if (splitted.size()==args.size()+3 && splitted[args.size()+2].size()>2)
 				{
 					splitted[args.size() + 2].erase(splitted[args.size() + 2].begin());
 					splitted[args.size() + 2].erase(splitted[args.size() + 2].end() - 1, splitted[args.size() + 2].end());
@@ -172,11 +175,11 @@ void UserInterface::display(const std::string& command)
 					if (std::find(splitted.begin(), splitted.end(), param.first) != splitted.end())
 					{
 						param.second->executeParam(
-							executeAction(command_name.first, input_path, output_path, argument));
+							executeAction(command_name.first, input_path, output_path, arguments_map[command_fullname]));
 					}
 					else
 					{
-						executeAction(command_name.first, input_path, output_path, argument);
+						executeAction(command_name.first, input_path, output_path, arguments_map[command_fullname]);
 					}
 				}
 				std::cout << "Action executed!" << std::endl;
@@ -197,12 +200,12 @@ void UserInterface::display(const std::string& command)
 }
 
 Image UserInterface::executeAction(const std::string& command, const std::string& path, const std::string& out_path,
-                                   int argument)
+                                   Arguments* args)
 {
 	Image image(path, 1, ImageMode::read_from_bmp, ColorDepth::bpp24);
 	Converter* conversion = conversions_map[command];
 	conversion->loadImage(&image);
-	conversion->processImage(argument);
+	conversion->processImage(args);
 	conversion->saveImage(out_path);
 	return image;
 }

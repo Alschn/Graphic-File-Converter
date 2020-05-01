@@ -1,4 +1,5 @@
 #include "rescaler.h"
+#include "scale_arguments.h"
 
 double Rescaler::linearInterpolation(double s, double e, double t)
 {
@@ -10,10 +11,11 @@ double Rescaler::bilinearInterpolation(double c00, double c10, double c01, doubl
 	return linearInterpolation(linearInterpolation(c00, c10, tx), linearInterpolation(c01, c11, tx), ty);
 }
 
-void Rescaler::scaleImage(double scale_x, double scale_y)
+void Rescaler::processImage(Arguments* args)
 {
-	const auto new_width = static_cast<int>(oldImage->width * scale_x);
-	const auto new_height = static_cast<int>(oldImage->height * scale_y);
+	ScaleArguments* scale_args = dynamic_cast<ScaleArguments*>(args);
+	const auto new_width = static_cast<int>(oldImage->width * scale_args->x);
+	const auto new_height = static_cast<int>(oldImage->height * scale_args->y);
 	this->newImage->resize(new_width, new_height);
 
 	for (int x = 0; x < newImage->width; x++) {

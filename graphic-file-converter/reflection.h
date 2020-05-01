@@ -1,6 +1,7 @@
 #pragma once
 #include "converter.h"
 #include <map>
+#include "reflection_arguments.h"
 
 class Reflection : public Converter
 {
@@ -20,6 +21,6 @@ public:
 	 * \brief Using converted map, puts old pixels onto new Image in correct spots. Forbids using diagonal reflection on non-squares
 	 * \param reflect_num Reflection type: 0 - vertical, 1 - horizontal, 2 - diagonal y=x, 3 - diagonal y=height-x
 	 */
-	void processImage(int reflect_num) override;
+	void processImage(Arguments* args) override;
 
 };
