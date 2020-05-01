@@ -1,11 +1,18 @@
 #pragma once
 #include <cstdint>
-#include <map>
 #include <string>
-
+#include<vector>
 
 #ifndef  ImageContentClass
 #define ImageContentClass
+
+enum class ContentTypes
+{
+	Bpp1 = 1,
+	Bpp8 = 8,
+	Bpp16 = 16,
+	Bpp24 = 24
+};
 
 class ImageContent
 {
@@ -15,6 +22,9 @@ protected:
 	size_t buffer_size = 0;
 	uint8_t* buffer = nullptr;
 	const unsigned int distinct_colors = 0;
+
+	unsigned int channels = 0;
+
 
 public:
 	virtual void getPixel(unsigned int x, unsigned int y, uint8_t* output) = 0;
@@ -26,14 +36,23 @@ public:
 	virtual unsigned int getWidth();
 	virtual unsigned int getHeight();
 	virtual std::string getType() = 0;
-	size_t bufferSize() const;
+	virtual ContentTypes getContentType() = 0;
+	virtual ImageContent* clone() = 0;
+	virtual std::string toString() =0;
+	virtual unsigned int bmpPadding();
+	virtual unsigned int bmpRowSize() = 0;
+	virtual void readFromBmpMemory(uint8_t* buffer) = 0;
+	virtual unsigned int colorPaletteSize();
+	virtual std::vector<uint8_t> colorPalette();
+	virtual std::vector<uint8_t> bmpContent() = 0;
+	virtual unsigned int getChannels();
+
 	ImageContent(const ImageContent& other);
 	ImageContent();
-	virtual ImageContent* clone() = 0;
-	virtual std::string toString()=0;
-	virtual ~ImageContent(){};
+	virtual ~ImageContent() = default;;
+	size_t bufferSize() const;
 
-	
+
 protected:
 	virtual size_t calculateBufferSize() = 0;
 	virtual void verifyAccess(unsigned int x, unsigned int y);

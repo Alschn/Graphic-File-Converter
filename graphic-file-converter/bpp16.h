@@ -6,6 +6,7 @@ class Bpp16 :
 {
 public:
 	const unsigned int distinct_colors = 3;
+	 unsigned int channels = 3;
 
 	void getPixel(unsigned x, unsigned y, uint8_t* output) override;
 	void putPixel(unsigned x, unsigned y, uint8_t* input) override;
