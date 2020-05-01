@@ -196,6 +196,7 @@ private:
 	*/
 	std::vector<char> generateContentToSave() const;
 
+	void loadFromPath(const std::string &path);
 
 public:
 	static std::string getExtension(const std::string& path);
@@ -207,8 +208,8 @@ public:
 	 * \param start_index starting index for buffer
 	 * \param cd Color depth - default 1bpp
 	 */
-	void loadFromMemory(unsigned char* input, const unsigned int width, const unsigned int height,
-	                    unsigned int start_index = 0, ColorDepth cd = ColorDepth::bpp1);
+
+	
 
 public:
 	Image() = default;
