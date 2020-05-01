@@ -4,7 +4,7 @@
 class Enhancer : public Converter
 {
 public:
-    static double truncate(double value);
+    static double checkColorRange(double value);
     void negativeOfImage();
     void adjustBrightness(int brightness);
     void adjustContrast(int contrast);
