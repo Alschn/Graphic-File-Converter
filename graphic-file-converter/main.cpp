@@ -7,6 +7,7 @@
 #include "user_interface.h"
 #include "reflection_arguments.h"
 #include "rotation_arguments.h"
+#include "enhancer.h"
 
 using namespace std;
 
@@ -41,7 +42,9 @@ int main(int argc, char* argv[])
 	// auto im = Image("../sample_bmps/arialDig32x24.h_8");
 	auto im = new Image("../sample_bmps/test.bmp");
 	// std::cout << *im;
-	Rescaler* conv = new Rescaler(im);
-	//conv->newImage->save("../sample_bmps/10x101xxx3.bmp");
+
+	/*Enhancer* conv = new Enhancer(im);
+	conv->adjustIntensity(0, 0, 0);
+	conv->newImage->save("../sample_bmps/test_blue+100.bmp");*/
 
 }

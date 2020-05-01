@@ -156,6 +156,7 @@
     <ClCompile Include="bpp16.cpp" />
     <ClCompile Include="bpp24.cpp" />
     <ClCompile Include="converter.cpp" />
+    <ClCompile Include="enhancer.cpp" />
     <ClCompile Include="File.cpp" />
     <ClCompile Include="header_file.cpp" />
     <ClCompile Include="image_content.cpp" />
@@ -181,6 +182,7 @@
     <ClInclude Include="converter.h" />
     <ClInclude Include="display_parameter.h" />
     <ClInclude Include="arguments.h" />
+    <ClInclude Include="enhancer.h" />
     <ClInclude Include="file.h" />
     <ClInclude Include="header_file.h" />
     <ClInclude Include="scale_arguments.h" />

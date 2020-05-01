@@ -84,6 +84,9 @@
     <ClCompile Include="rescaler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="enhancer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="image.h">
@@ -144,6 +147,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="header_file.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="enhancer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
