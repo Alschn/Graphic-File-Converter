@@ -12,6 +12,7 @@ std::string HeaderFile::generateFileInfo() const
 	for (auto& c : new_name) c = toupper(c);
 	output += "#ifndef ";
 	output += "_" + new_name + "_\n";
+	output += "#define"+'_' + new_name + "_\n";
 	output += "/*\n* RES: ";
 	output += this->content->getType();
 	output += "\n";

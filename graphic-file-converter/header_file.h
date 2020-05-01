@@ -16,7 +16,6 @@ private:
 	std::string generateFileContent() const;
 	static std::string pathToVariableName(const std::string path);
 	ImageContent* content;
-
 	const int bytes_per_row = 12;
 	
 	
