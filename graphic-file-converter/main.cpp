@@ -2,7 +2,7 @@
 #include "utils.h"
 #include "rotation.h"
 #include "reflection.h"
-#include "arialDig32x24.h"
+//#include "arialDig32x24.h"
 #include "display_parameter.h"
 #include "user_interface.h"
 #include "reflection_arguments.h"
