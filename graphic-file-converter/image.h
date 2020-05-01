@@ -7,6 +7,7 @@
 #include <ios>
 #include <iostream>
 #include <vector>
+#include <map>
 #include "header_file.h"
 #include "bpp1.h"
 #include "image_content.h"
@@ -50,7 +51,8 @@ public:
 	unsigned int horizontal_resolution = 3200; //experimental constants
 	unsigned int vertical_resolution = 2300;
 	std::string content_type;
-
+	ContentTypes content_type1;
+	unsigned int channels = 0;
 	
 	size_t file_size{}; //bmp file size
 
@@ -194,10 +196,6 @@ private:
 	*/
 	std::vector<char> generateContentToSave() const;
 
-	/**
-	* \brief Helper method that loads image from .bmp file into memory
-	*/
-	void loadFromFile();
 
 public:
 	static std::string getExtension(const std::string& path);

@@ -28,6 +28,16 @@ void Utils::writeIntToCharBufffer(char* input, unsigned int value, const unsigne
 	memcpy(input + offset, &value, sizeof(value));
 }
 
+void Utils::writeIntToCharBufffer(uint8_t* input, const unsigned value, const unsigned offset)
+{
+	memcpy(input + offset, &value, sizeof(value));
+}
+
+void Utils::writeIntToCharBufffer(std::vector<uint8_t> &input, const unsigned value, const unsigned offset)
+{
+	memcpy(input.data() + offset, &value, sizeof(value));
+}
+
 bool Utils::isBitSet(const char input, unsigned position)
 {
 	return (input & (1 << position));
@@ -57,3 +67,7 @@ std::vector<std::string> Utils::splitString(const std::string& str, char delimit
 	return output;
 }
 
+unsigned Utils::closestFourMultiple(const unsigned input)
+{
+	return (input + 3) & ~3;
+}

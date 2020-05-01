@@ -1,6 +1,6 @@
 #include "image_content.h"
 #include <stdexcept>
-
+#include "utils.h"
 void ImageContent::resize(const unsigned new_width, const unsigned new_height)
 {
 	this->width = new_width;
@@ -19,7 +19,6 @@ uint8_t ImageContent::getByte(unsigned index)
 	return this->buffer[index];
 }
 
-
 unsigned ImageContent::getWidth()
 {
 	return this->width;
@@ -33,6 +32,27 @@ unsigned ImageContent::getHeight()
 size_t ImageContent::bufferSize() const
 {
 	return this->buffer_size;
+}
+
+unsigned ImageContent::bmpPadding()
+{
+		auto row_size = this->bmpRowSize();
+		return Utils::closestFourMultiple(row_size) - row_size;
+}
+
+unsigned ImageContent::colorPaletteSize()
+{
+	return 0;
+}
+
+std::vector<uint8_t> ImageContent::colorPalette()
+{
+	return std::vector<uint8_t>();
+}
+
+unsigned ImageContent::getChannels() 
+{
+	return this->channels;
 }
 
 ImageContent::ImageContent(const ImageContent& other)

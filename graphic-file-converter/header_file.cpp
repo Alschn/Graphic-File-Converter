@@ -119,7 +119,6 @@ ImageContent* HeaderFile::loadForContent(const std::string& filename)
 
 void HeaderFile::save(ImageContent* content, const std::string& path)
 {
-	auto row_size = content->rowSize();
 	this->variable_name = this->pathToVariableName(path);
 	this->content = content;
 	auto file = this->generateFileInfo();

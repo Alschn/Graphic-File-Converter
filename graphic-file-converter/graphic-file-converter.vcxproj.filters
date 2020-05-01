@@ -63,6 +63,27 @@
     <ClCompile Include="bmp_file.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="bpp1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="bpp16.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="bpp24.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="File.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="header_file.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="image_content.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rescaler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="image.h">
@@ -81,9 +102,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="reflection.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="arialDig32x24.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="display_parameter.h">
@@ -107,5 +125,29 @@
     <ClInclude Include="bmp_file.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="bpp1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="bpp16.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="bpp24.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="image_content.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rescaler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="file.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header_file.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

@@ -181,6 +181,8 @@
     <ClInclude Include="converter.h" />
     <ClInclude Include="display_parameter.h" />
     <ClInclude Include="arguments.h" />
+    <ClInclude Include="file.h" />
+    <ClInclude Include="header_file.h" />
     <ClInclude Include="scale_arguments.h" />
     <ClInclude Include="rotation_arguments.h" />
     <ClInclude Include="reflection_arguments.h" />
