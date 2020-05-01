@@ -33,65 +33,19 @@ std::string Image::toStr() const
 	return this->content->toString();
 }
 
-std::vector<char> Image::generateContentToSave() const
+void Image::loadFromPath(const std::string &path)
 {
-	std::vector<char> output;
-	// switch (this->depth)
-	// {
-	// case ColorDepth::bpp24:
-	// 	{
-	// 		char buf[54];
-	// 		this->generateHeader(buf);
-	//
-	// 		output.reserve(this->HEADER_SIZE + this->row_size * this->height);
-	// 		output.insert(output.end(), buf, buf + this->HEADER_SIZE);
-	// 		for (int j = 0; j < this->height; ++j)
-	// 		{
-	// 			for (int i = 0; i < this->width; ++i)
-	// 			{
-	// 				unsigned char px[3];
-	// 				this->getPixel(i, j, px, PixelMode::bgr);
-	//
-	// 				for (auto c : px)
-	// 				{
-	// 					output.emplace_back(c);
-	// 				}
-	// 			}
-	// 			for (int i = 0; i < (Image::rowPadding(this->width, this->depth)); ++i)
-	// 			{
-	// 				output.push_back(0);
-	// 			}
-	// 		}
-	// 		break;
-	// 	}
-	// case ColorDepth::bpp1:
-	// 	{
-	// 		auto* buf = new unsigned char[this->HEADER_SIZE + 8];
-	//
-	// 		char color_table[8] = {0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00};
-	// 		this->generateHeader(reinterpret_cast<char*>(buf), 1, color_table, 8);
-	//
-	// 		output.reserve(this->file_size);
-	// 		output.insert(output.end(), buf, buf + this->HEADER_SIZE + 8);
-	//
-	// 		delete[] buf;
-	// 		for (int k = this->height - 1 + this->start_index; k >= 0 + this->start_index; --k)
-	// 		{
-	// 			for (int i = 0; i < 4; i++)
-	// 			{
-	// 				output.emplace_back(static_cast<char>(this->content[k * this->row_size + i]));
-	// 			}
-	// 		}
-	// 		break;
-	// 	}
-	// default:
-	// 	break;
-	// }
-	// return output;
+	this->path = path;
+	const auto extension = this->getExtension(this->path);
 
-	return output;
+	auto file = Image::file_type_map[extension];
+	this->content = file->loadForContent(this->path);
+
+	this->content_type = this->content->getType();
+	this->width = this->content->getWidth();
+	this->height = this->content->getHeight();
+	this->channels = this->content->getChannels();
 }
-
 
 std::string Image::getExtension(const std::string& path)
 {
@@ -108,47 +62,16 @@ std::string Image::getExtension(const std::string& path)
 }
 
 
-char* Image::readBytesFromFile(const std::string& file_path, char* buffer, size_t size, const unsigned int offset)
-{
-	std::ifstream file(file_path, std::ios_base::binary);
-	file.seekg(offset);
-	file.read(buffer, size);
-	file.close();
-	return buffer;
-}
-
 Image::Image(const std::string& path)
 {
-	this->path = path;
-	const auto extension = this->getExtension(this->path);
-
-	auto file = Image::file_type_map[extension];
-	this->content = file->loadForContent(this->path);
-
-	this->content_type = this->content->getType();
-	this->width = this->content->getWidth();
-	this->height = this->content->getHeight();
-	this->channels = this->content->getChannels();
-
-	
+	this->loadFromPath(path);
 }
-
-// Image::Image(unsigned char* content, const unsigned width, const unsigned height, const unsigned start_index)
-// {
-// 	this->depth = ColorDepth::bpp1;
-// 	this->start_index = start_index;
-// 	this->loadFromMemory(content, width, height, start_index, ColorDepth::bpp1);
-// }
 
 
 Image::Image(const std::string& path, const bool expect_saving, const ImageMode& m,
              const ColorDepth& depth) : path(path), mode(m), depth(depth)
 {
-	// if (!Image::fileExists(path))
-	// {
-	// 	throw std::exception("Image with specified input path does not exist!");
-	// }
-
+	this->loadFromPath(path);
 }
 
 Image::Image(const Image& other) : mode(other.mode), depth(other.depth)
