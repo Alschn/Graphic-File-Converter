@@ -5,5 +5,5 @@ class DisplayParameter: public Parameter
 {
 public:
 	using Parameter::Parameter;
-	void executeParam(Image image) override;
+	void executeParam(Image* image) override;
 };
