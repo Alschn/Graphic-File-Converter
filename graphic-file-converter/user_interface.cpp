@@ -152,7 +152,7 @@ void UserInterface::display(const std::string& command)
 				splitted[args.size() + 1].erase(splitted[args.size() + 1].end() - 1, splitted[args.size() + 1].end());
 				std::string input_path = splitted[args.size() + 1];
 				std::string output_path;
-				if (splitted.size()==args.size()+3 && splitted[args.size()+2].size()>2)
+				if (splitted[args.size()+2].size()>2)
 				{
 					splitted[args.size() + 2].erase(splitted[args.size() + 2].begin());
 					splitted[args.size() + 2].erase(splitted[args.size() + 2].end() - 1, splitted[args.size() + 2].end());
@@ -207,7 +207,7 @@ Image* UserInterface::executeAction(const std::string& command, const std::strin
 	conversion->loadImage(img_pointer);
 	conversion->processImage(args);
 	conversion->saveImage(out_path);
-	return img_pointer;
+	return conversion->newImage;
 }
 
 void UserInterface::registerHelp(const std::string& command_name, const std::string& explanation)
