@@ -9,8 +9,7 @@ std::map <std::pair<int, int>, std::pair<int, int>> Rotation::createMap(int heig
 	{
 		throw std::exception("Angle has to be a multiple of 90 degrees");
 	}
-	int multiple = angle / 360;
-	angle = angle - multiple * 360;
+
 	const auto pi = std::acos(-1);
 	double deg = angle * pi / 180;
 
@@ -47,7 +46,7 @@ void Rotation::processImage(Arguments* args)
 {
 	RotationArguments* rot_args = dynamic_cast<RotationArguments*>(args);
 	rot_args->degrees = static_cast<int>(rot_args->degrees);
-	int multiple = rot_args->degrees / 360;
+	const int multiple = rot_args->degrees / 360;
 	rot_args->degrees = rot_args->degrees - multiple * 360;
 	if (!(rot_args->degrees == 360 || rot_args->degrees == 0))
 	{
