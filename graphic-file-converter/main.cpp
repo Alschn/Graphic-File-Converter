@@ -8,6 +8,8 @@
 #include "reflection_arguments.h"
 #include "rotation_arguments.h"
 #include "enhancer.h"
+#include "rescaler.h"
+#include "scale_arguments.h"
 
 using namespace std;
 
@@ -19,6 +21,8 @@ int main(int argc, char* argv[])
 	 Reflection conversion2;
 	 ReflectionArguments ref_args;
 	 RotationArguments rot_args;
+	 Rescaler conversion3;
+	 ScaleArguments scale_args;
 	 Desktop.registerParameter("-d", &display);
 	 Desktop.registerAction("rotate", "rotates picture by n degrees", &conversion,
 	 	regex(
@@ -28,7 +32,8 @@ int main(int argc, char* argv[])
 	 	regex(
 	 		R"###(^reflect +\d+ +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"),
 	 	&ref_args);
-	 if (argc > 1)
+	 Desktop.registerAction("scale", "scales picture to selected values", &conversion3, regex(R"###(^scale +(\d+|\d+.\d+) +(\d+|\d+.\d+) +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"), &scale_args);
+	if (argc > 1)
 	 {	
 	 	Desktop.display(argv_to_string(argv, argc));
 	 }
@@ -40,7 +45,7 @@ int main(int argc, char* argv[])
 	
 
 	// auto im = Image("../sample_bmps/arialDig32x24.h_8");
-	auto im = new Image("../sample_bmps/test.bmp");
+	//auto im = new Image("../sample_bmps/test.bmp");
 	// std::cout << *im;
 
 	/*Enhancer* conv = new Enhancer(im);
