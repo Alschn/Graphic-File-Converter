@@ -112,7 +112,7 @@ void UserInterface::display(const std::string& command)
 			}
 		}
 	}
-	else if (!check_regex_if_empty(std::regex(R"(^converter +help *$)"),command))
+	else if (!check_regex_if_empty(std::regex(R"(^help *$)"),command))
 	{
 		std::cout << std::endl;
 		showHelp();
@@ -193,7 +193,7 @@ void UserInterface::display(const std::string& command)
 		{
 			std::cout << std::endl;
 			std::cout <<
-				"There is no such command or you made spelling mistake! Try again or type \"converter help\"" << std
+				"There is no such command or you made spelling mistake! Try again or type \"help\"" << std
 				::endl;
 		}
 	}
