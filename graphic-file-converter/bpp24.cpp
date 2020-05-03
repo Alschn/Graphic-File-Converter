@@ -58,9 +58,9 @@ ImageContent* Bpp24::clone()
 	return new Bpp24(*this);
 }
 
-std::string Bpp24::getType()
+ContentTypes Bpp24::getType()
 {
-	return "Bpp24";
+	return ContentTypes::Bpp24;
 }
 
 int Bpp24::rowSize()

@@ -51,9 +51,8 @@ void BmpFile::readHeader(char* buffer)
 
 	this->pixel_array_offset = Utils::fourCharsToInt(buffer, this->PIXEL_ARRAY_OFFSET);
 	const auto bpp = buffer[this->BPP_OFFSET];
-	const std::string bpp_type = "Bpp" + std::to_string(bpp);
 
-	this->content = Image::type_map[bpp_type];
+	this->content = Image::content_type_map[static_cast<ContentTypes>(bpp)]();
 	this->content->resize(width, height);
 }
 

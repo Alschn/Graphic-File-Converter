@@ -35,7 +35,7 @@ public:
 	virtual int rowSize() = 0;
 	virtual unsigned int getWidth();
 	virtual unsigned int getHeight();
-	virtual std::string getType() = 0;
+	virtual ContentTypes getType() = 0;
 	virtual ContentTypes getContentType() = 0;
 	virtual ImageContent* clone() = 0;
 	virtual std::string toString() =0;

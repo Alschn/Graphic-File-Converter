@@ -13,7 +13,7 @@ public:
 	size_t calculateBufferSize() override;
 	std::string toString() override;
 	ImageContent* clone() override;
-	std::string getType() override;
+	ContentTypes getType() override;
 	int rowSize() override;
 	unsigned bmpRowSize() override;
 	void readFromBmpMemory(uint8_t* buffer) override;

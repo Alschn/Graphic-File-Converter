@@ -47,9 +47,9 @@ ImageContent* Bpp1::clone()
 	return new Bpp1(*this);
 }
 
-std::string Bpp1::getType()
+ContentTypes Bpp1::getType()
 {
-	return "Bpp1";
+	return ContentTypes::Bpp1;
 }
 
 int Bpp1::rowSize()
@@ -158,6 +158,7 @@ std::vector<uint8_t> Bpp1::bmpContent()
 			{
 				output.push_back(0);
 			}
+			delete[]bytes_to_write;
 		}
 	}
 	return output;

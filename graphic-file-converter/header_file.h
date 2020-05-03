@@ -8,14 +8,14 @@
 class HeaderFile :public File
 {
 private:
-	const std::regex image_content_type = std::regex(R"(RES:\s*(\w{3}\d{1,2}))");
+	const std::regex image_content_type = std::regex(R"(RES:\s*\w{3}(\d{1,2}))");
 	const std::regex image_content_width = std::regex(R"(WIDTH:\s*(\d*))");
 	const std::regex image_content_height = std::regex(R"(HEIGHT:\s*(\d*))");
 	std::string variable_name;
 	std::string generateFileInfo() const;
 	std::string generateFileContent() const;
 	static std::string pathToVariableName(const std::string path);
-	ImageContent* content;
+	ImageContent* content = nullptr;
 	const int bytes_per_row = 12;
 	
 	

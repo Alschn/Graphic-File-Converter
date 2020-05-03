@@ -14,7 +14,7 @@ public:
 	size_t calculateBufferSize() override;
 
 	std::string toString() override;
-	std::string getType() override;
+	ContentTypes getType() override;
 	ContentTypes getContentType() override;
 
 	int rowSize() override;
