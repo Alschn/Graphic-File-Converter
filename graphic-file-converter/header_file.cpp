@@ -101,7 +101,7 @@ ImageContent* HeaderFile::loadForContent(const std::string& filename)
 	auto start_index = counter + hght * letter_index + hght;
 	int bytes_write_index = 0;
 
-	for (int i = 0; i < hght; ++i)
+	for (unsigned i = 0; i < hght; ++i)
 	{
 		auto line = lines.at(start_index - i);
 		auto words = Utils::splitString(line, ',');

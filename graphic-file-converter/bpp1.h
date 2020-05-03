@@ -3,8 +3,7 @@
 #ifndef _BPP1_
 #define _BPP1_
 
-class Bpp1 :
-	public ImageContent
+class Bpp1 :public ImageContent
 {
 public:
 	const unsigned int distinct_colors = 2;
@@ -33,7 +32,6 @@ public:
 	Bpp1(const Bpp1& other);
 	ImageContent* clone() override;
 	Bpp1();
-	Bpp1(unsigned int width, unsigned int height);
 	~Bpp1();
 };
 #endif

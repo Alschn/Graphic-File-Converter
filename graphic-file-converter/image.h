@@ -168,18 +168,7 @@ private:
 
 public:
 	static std::string getExtension(const std::string& path);
-	/**
-	 * \brief Loads data from .header file
-	 * \param input input buffer
-	 * \param width width in pixels
-	 * \param height height in pixels
-	 * \param start_index starting index for buffer
-	 * \param cd Color depth - default 1bpp
-	 */
 
-	
-
-public:
 	Image() = default;
 
 	Image(const std::string & path);
@@ -198,5 +187,4 @@ public:
 	~Image();
 
 	friend std::ostream& operator<<(std::ostream& os, const Image& im);
-	friend std::istream& operator>>(std::istream& is, Image& im);
 };

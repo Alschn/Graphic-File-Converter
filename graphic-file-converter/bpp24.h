@@ -21,7 +21,6 @@ public:
 	std::vector<uint8_t> bmpContent() override;
 	
 	using ImageContent::ImageContent;
-	Bpp24(unsigned int width, unsigned int height);
 	Bpp24();
 	Bpp24(const Bpp24& other);
 	~Bpp24();

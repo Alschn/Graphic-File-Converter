@@ -117,17 +117,12 @@ std::vector<uint8_t> Bpp24::bmpContent()
 			}
 			source_index += 3;
 		}
-		for (int x = 0; x < padding; ++x)
+		for (unsigned x = 0; x < padding; ++x)
 		{
 			output.emplace_back(0);
 		}
 	}
 	return output;
-}
-
-Bpp24::Bpp24(const unsigned width, const unsigned height)
-{
-	this->ImageContent::resize(width, height);
 }
 
 Bpp24::Bpp24()

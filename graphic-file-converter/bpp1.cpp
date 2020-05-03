@@ -196,10 +196,6 @@ Bpp1::Bpp1()
 	this->channels = 1;
 }
 
-Bpp1::Bpp1(unsigned width, unsigned height)
-{
-	this->ImageContent::resize(width, height);
-}
 
 Bpp1::~Bpp1()
 {

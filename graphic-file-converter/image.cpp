@@ -104,22 +104,7 @@ std::ostream& operator<<(std::ostream& os, const Image& im)
 	return os;
 }
 
-std::istream& operator>>(std::istream& is, Image& im)
-{
-	// char* header = new char[im.HEADER_SIZE];
-	// is.read(header, im.HEADER_SIZE);
-	// im.readHeader(header);
-	// delete[] header;
-	//
-	// is.seekg(im.HEADER_SIZE);
-	//
-	// char* pixel_array_buffer = new char[im.file_size - im.HEADER_SIZE];
-	// is.read(pixel_array_buffer, im.file_size - im.HEADER_SIZE);
-	// im.readPixelArray(pixel_array_buffer);
-	// delete[] pixel_array_buffer;
-	//
-	return is;
-}
+
 
 std::map<std::string, ImageContent*> Image::type_map = { {"Bpp1", new Bpp1()}, {"Bpp24", new Bpp24()} };
 std::map<std::string, File*> Image::file_type_map = {{".h", new HeaderFile()}, {".bmp", new BmpFile()}};
