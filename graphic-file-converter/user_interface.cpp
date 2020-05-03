@@ -81,7 +81,7 @@ void UserInterface::display(const std::string& command)
 					{
 						conversions_map[choose_command]->loadImage(&image);
 						//conversions_map[choose_command]->processImage(argument);
-						parameters_map[parameter]->executeParam(image);
+						//parameters_map[parameter]->executeParam(image);
 					}
 					else
 					{
@@ -152,7 +152,7 @@ void UserInterface::display(const std::string& command)
 				splitted[args.size() + 1].erase(splitted[args.size() + 1].end() - 1, splitted[args.size() + 1].end());
 				std::string input_path = splitted[args.size() + 1];
 				std::string output_path;
-				if (splitted.size()==args.size()+3 && splitted[args.size()+2].size()>2)
+				if (splitted[args.size()+2].size()>2)
 				{
 					splitted[args.size() + 2].erase(splitted[args.size() + 2].begin());
 					splitted[args.size() + 2].erase(splitted[args.size() + 2].end() - 1, splitted[args.size() + 2].end());
@@ -199,15 +199,15 @@ void UserInterface::display(const std::string& command)
 	}
 }
 
-Image UserInterface::executeAction(const std::string& command, const std::string& path, const std::string& out_path,
+Image* UserInterface::executeAction(const std::string& command, const std::string& path, const std::string& out_path,
                                    Arguments* args)
 {
-	Image image(path, 1, ImageMode::read_from_bmp, ColorDepth::bpp24);
+	Image* img_pointer = new Image(path, 1, ImageMode::read_from_bmp, ColorDepth::bpp24);
 	Converter* conversion = conversions_map[command];
-	conversion->loadImage(&image);
+	conversion->loadImage(img_pointer);
 	conversion->processImage(args);
 	conversion->saveImage(out_path);
-	return image;
+	return conversion->newImage;
 }
 
 void UserInterface::registerHelp(const std::string& command_name, const std::string& explanation)

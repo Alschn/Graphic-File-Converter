@@ -4,5 +4,5 @@
 class Parameter
 {
 public:
-	virtual void executeParam(Image image);
+	virtual void executeParam(Image* image);
 };

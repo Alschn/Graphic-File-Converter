@@ -28,8 +28,7 @@ class Rescaler : public Converter
 
 	/**
 	 * \brief Scaling function implementation
-	 * \param scale_x New width is equal to old width multiplied by this constant
-	 * \param scale_y New height is equal to old width multiplied by this constant
+	 * \param args New width, height are equal to old ones multiplied by this constant
 	 */
 	void processImage(Arguments* args) override;
 
