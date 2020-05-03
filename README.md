@@ -67,8 +67,11 @@ Szczegółowe objaśnienia funkcjonalności klasy `ImageContent`, `File` oraz po
 Szczegółowe objaśnienia trybów konwersji znajdują się w #9, #13.
 
 
-### Diagramy klas:
-![xxd](https://gitlab-stud.elka.pw.edu.pl/proi.20l/graphic-file-converter/-/blob/master/class_diagrams/ClassDiagramAdam.png)
-![abc](https://gitlab-stud.elka.pw.edu.pl/proi.20l/graphic-file-converter/-/blob/master/class_diagrams/class_diag_wojtek.png)
+## Diagramy klas:
+### Converter i pochodne:
+![Converter](class_diagrams/ClassDiagramAdam.png)
+
+### User Interface, Arguments oraz Parameters i pochodne:
+![ui](class_diagrams/class_diag_wojtek.png)
 
 
