@@ -19,5 +19,5 @@ public:
 	 * \brief Resizes Image if angle is k*90 or k*270. Using converted map puts old pixels onto new Image in correct spots.
 	 * \param angle Angle to rotate the image by (90/180/270/360 and multiples of those angles)
 	 */
-	void processImage(int angle) override;
+	void processImage(Arguments* args) override;
 };
