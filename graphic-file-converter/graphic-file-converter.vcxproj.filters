@@ -141,4 +141,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="image_content_diag.cd" />
+    <None Include="file_diag.cd" />
+    <None Include="main_diag.cd" />
+  </ItemGroup>
 </Project>

@@ -29,9 +29,9 @@ size_t Bpp24::calculateBufferSize()
 std::string Bpp24::toString()
 {
 	std::string output;
-	for (int i = this->height - 1; i >= 0; --i)
+	for (auto i = this->height - 1; i >= 0; --i)
 	{
-		for (int j = 0; j < this->width; j++)
+		for (auto j = 0; j < this->width; j++)
 		{
 			unsigned char arr[3];
 			this->getPixel(j, i, arr);
@@ -69,11 +69,11 @@ void Bpp24::readFromBmpMemory(uint8_t* buffer)
 	unsigned int dest_index = 0;
 	auto padding = this->bmpPadding();
 
-	for (int j = 0; j < this->height; ++j)
+	for (auto j = 0; j < this->height; ++j)
 	{
-		for (int i = 0; i < this->width; ++i)
+		for (auto i = 0; i < this->width; ++i)
 		{
-			for (int k = 0; k < 3; ++k)
+			for (auto k = 0; k < 3; ++k)
 			{
 				this->buffer[dest_index + k] = buffer[source_index + 2 - k];
 			}

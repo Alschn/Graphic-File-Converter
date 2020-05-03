@@ -195,6 +195,11 @@
     <ClInclude Include="user_interface.h" />
     <ClInclude Include="utils.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="main_diag.cd" />
+    <None Include="file_diag.cd" />
+    <None Include="image_content_diag.cd" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
