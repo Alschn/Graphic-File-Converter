@@ -29,7 +29,7 @@ std::string Bpp1::toString()
 {
 	std::string output;
 	output.reserve(this->width * this->height + this->height);
-	for (int j = this->height-1; j >= 0; j--)
+	for (int j = this->height - 1; j >= 0; j--)
 	{
 		for (auto i = 0; i < this->width; ++i)
 		{
@@ -176,6 +176,7 @@ Bpp1::Bpp1(const Bpp1& other)
 	this->buffer = new uint8_t[this->buffer_size];
 	memcpy(this->buffer, other.buffer, this->buffer_size);
 	this->type = other.type;
+	this->channels = other.channels;
 }
 
 Bpp1::Bpp1()

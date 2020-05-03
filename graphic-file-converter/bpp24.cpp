@@ -29,9 +29,9 @@ size_t Bpp24::calculateBufferSize()
 std::string Bpp24::toString()
 {
 	std::string output;
-	for (auto i = this->height - 1; i >= 0; --i)
+	for (int i = this->height - 1; i >= 0; --i)
 	{
-		for (auto j = 0; j < this->width; j++)
+		for (int j = 0; j < this->width; j++)
 		{
 			unsigned char arr[3];
 			this->getPixel(j, i, arr);
@@ -69,11 +69,11 @@ void Bpp24::readFromBmpMemory(uint8_t* buffer)
 	unsigned int dest_index = 0;
 	auto padding = this->bmpPadding();
 
-	for (auto j = 0; j < this->height; ++j)
+	for (int j = 0; j < this->height; ++j)
 	{
-		for (auto i = 0; i < this->width; ++i)
+		for (int i = 0; i < this->width; ++i)
 		{
-			for (auto k = 0; k < 3; ++k)
+			for (int k = 0; k < 3; ++k)
 			{
 				this->buffer[dest_index + k] = buffer[source_index + 2 - k];
 			}
@@ -92,17 +92,17 @@ std::vector<uint8_t> Bpp24::bmpContent()
 
 	unsigned source_index = 0;
 
-	for (auto j = 0; j < this->height; ++j)
+	for (int j = 0; j < this->height; ++j)
 	{
-		for (auto i = 0; i < this->width; ++i)
+		for (int i = 0; i < this->width; ++i)
 		{
-			for (auto k = 0; k < 3; ++k)
+			for (int k = 0; k < 3; ++k)
 			{
 				output.emplace_back(this->buffer[source_index + 2 - k]);
 			}
 			source_index += 3;
 		}
-		for (unsigned x = 0; x < padding; ++x)
+		for (int x = 0; x < padding; ++x)
 		{
 			output.emplace_back(0);
 		}
