@@ -8,8 +8,6 @@
 #include "../graphic-file-converter/bmp_file.cpp"
 #include "../graphic-file-converter/image_content.h"
 #include "../graphic-file-converter/image_content.cpp"
-#include "../graphic-file-converter/Bpp1.h"
-#include "../graphic-file-converter/Bpp1.cpp"
 #include "../graphic-file-converter/Bpp24.h"
 #include "../graphic-file-converter/Bpp24.cpp"
 #include<conio.h>
@@ -19,7 +17,7 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace Tests
 {
-	TEST_CLASS(testHeaderFile)
+	TEST_CLASS(testFile)
 	{
 	public:
 

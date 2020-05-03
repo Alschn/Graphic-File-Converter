@@ -39,11 +39,6 @@ size_t ImageContent::getBufferSize() const
 	return this->buffer_size;
 }
 
-// size_t ImageContent::calculateBufferSize()
-// {
-// 	return this->width * this->height * this->channels;
-// }
-
 unsigned ImageContent::bmpPadding()
 {
 		auto row_size = this->memRowSize();

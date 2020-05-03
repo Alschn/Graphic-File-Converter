@@ -29,7 +29,7 @@ std::string Bpp1::toString()
 {
 	std::string output;
 	output.reserve(this->width * this->height + this->height);
-	for (int j = this->height - 1; j >= 0; j--)
+	for (int j = this->height-1; j >= 0; j--)
 	{
 		for (auto i = 0; i < this->width; ++i)
 		{
@@ -50,14 +50,16 @@ ImageContent* Bpp1::clone()
 
 int Bpp1::memRowSize()
 {
-	if (this->width % 8 == 0)
-		return this->width / 8;
-	return -1;
+	return Bpp1::eightDivisor(this->width);
 }
 
 unsigned Bpp1::bmpRowSize()
 {
-	return -1; //TODO to be implemented
+	if (this->memRowSize() == -1)
+	{
+		return this->width / 8 + 1;
+	}
+	return this->memRowSize() + this->bmpPadding();
 }
 
 void Bpp1::readFromBmpMemory(uint8_t* buffer)
@@ -67,7 +69,7 @@ void Bpp1::readFromBmpMemory(uint8_t* buffer)
 	unsigned int dest_counter = 0;
 	const auto padding = this->bmpPadding();
 
-	if (internal_row_size > -1)
+	if (this->width % 8 == 0)
 	{
 		for (int j = 0; j < this->height; ++j)
 		{
@@ -86,8 +88,8 @@ void Bpp1::readFromBmpMemory(uint8_t* buffer)
 		{
 			for (int i = 0; i < this->width; ++i)
 			{
-				uint8_t pixel =  0;
-				pixel= (buffer[j*(this->width/8+1 + this->bmpPadding()) + i/8] >> (7-i%8)) & 1;
+				uint8_t pixel = 0;
+				pixel = (buffer[j * (this->width / 8 + 1 + this->bmpPadding()) + i / 8] >> (7 - i % 8)) & 1;
 				this->putPixel(i, j, &pixel);
 			}
 		}
@@ -105,12 +107,13 @@ std::vector<uint8_t> Bpp1::bmpContent()
 {
 	std::vector<uint8_t> output;
 	const auto internal_row_size = this->memRowSize();
-	unsigned int source_counter = 0;
 	const auto padding = this->bmpPadding();
+	const auto bmp_row_size = this->bmpRowSize();
+	unsigned int source_counter = 0;
+	output.reserve(bmp_row_size * this->height);
 
-	if (internal_row_size > -1)
+	if (this->width % 8 == 0)
 	{
-		output.reserve(this->bmpRowSize() * this->height);
 		for (int j = 0; j < this->height; ++j)
 		{
 			for (int i = 0; i < internal_row_size; ++i)
@@ -126,18 +129,16 @@ std::vector<uint8_t> Bpp1::bmpContent()
 	}
 	else
 	{
-		const auto bytes_in_row = this->width / 8 + 1;
-		output.reserve((bytes_in_row + padding) * this->height);
 		for (int j = 0; j < this->height; ++j)
 		{
-			uint8_t* bytes_to_write = new uint8_t[bytes_in_row];
+			auto bytes_to_write = new uint8_t[internal_row_size];
 			for (int i = 0; i < this->width; ++i)
 			{
 				uint8_t pixel[1] = {0};
 				this->getPixel(i, j, pixel);
 				bytes_to_write[i / 8] = (bytes_to_write[i / 8] & ~(1UL << 7 - i % 8)) | (pixel[0] << 7 - i % 8);
 			}
-			for (int b =  0; b< bytes_in_row;++b)
+			for (int b = 0; b < internal_row_size; ++b)
 			{
 				output.push_back(bytes_to_write[b]);
 			}
