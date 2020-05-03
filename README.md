@@ -74,4 +74,13 @@ Szczegółowe objaśnienia trybów konwersji znajdują się w #9, #13.
 ### User Interface, Arguments oraz Parameters i pochodne:
 ![ui](class_diagrams/class_diag_wojtek.png)
 
+### File i pochodne:
+![file](class_diagrams/file_diag.png)
+
+### ImageContent i pochodne:
+![content](class_diagrams/image_content_diag.png)
+
+## Hierarchia nadrzędna 
+(romby oznaczają kompozycję, a zamalowane strzałki oznaczają relację nadrzędności ale bez dziedziczenia)
+![main](class_diagrams/main_diag_corr.png)
 
