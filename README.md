@@ -68,5 +68,7 @@ Szczegółowe objaśnienia trybów konwersji znajdują się w #9, #13.
 
 
 ### Diagramy klas:
+![](https://gitlab-stud.elka.pw.edu.pl/proi.20l/graphic-file-converter/-/blob/master/class_diagrams/ClassDiagramAdam.png)
+![](https://gitlab-stud.elka.pw.edu.pl/proi.20l/graphic-file-converter/-/blob/master/class_diagrams/class_diag_wojtek.png)
 
 
