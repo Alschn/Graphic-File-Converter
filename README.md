@@ -71,7 +71,7 @@ Szczegółowe objaśnienia trybów konwersji znajdują się w #9, #13.
 ### Converter i pochodne:
 ![Converter](class_diagrams/ClassDiagramAdam.png)
 
-### User Interface, Arguments oraz Parameters i pochodne:
+### Arguments oraz Parameters i pochodne:
 ![ui](class_diagrams/class_diag_wojtek.png)
 
 ### File i pochodne:
