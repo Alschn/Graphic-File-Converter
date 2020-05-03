@@ -3,6 +3,7 @@
 #include "bpp1.h"
 #include "image.h"
 #include "utils.h"
+#include <fstream>
 
 std::vector<uint8_t> BmpFile::generateHeader(ImageContent* content) const
 {
@@ -24,7 +25,7 @@ std::vector<uint8_t> BmpFile::generateHeader(ImageContent* content) const
 	Utils::writeIntToCharBufffer(header, content->getWidth(), 18); // image's height
 	Utils::writeIntToCharBufffer(header, content->getHeight(), 22); // image's width
 	Utils::writeIntToCharBufffer(header, 1, 26); //planes - has to be exactly one
-	Utils::writeIntToCharBufffer(header, static_cast<int>(content->getContentType()), 28); //bpp
+	Utils::writeIntToCharBufffer(header, static_cast<int>(content->getType()), 28); //bpp
 	Utils::writeIntToCharBufffer(header, 0, 30); //compression - not important and not used
 	Utils::writeIntToCharBufffer(header, 0, 34); //real size for compression - same as above
 	Utils::writeIntToCharBufffer(header, this->H_RES, 38); //horizontal res (pixel per inch) - not really important

@@ -17,7 +17,6 @@ public:
 	int rowSize() override;
 	unsigned bmpRowSize() override;
 	void readFromBmpMemory(uint8_t* buffer) override;
-	ContentTypes getContentType() override;
 	std::vector<uint8_t> bmpContent() override;
 	
 	using ImageContent::ImageContent;

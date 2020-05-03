@@ -6,7 +6,6 @@
 class Bpp1 :public ImageContent
 {
 public:
-	const unsigned int distinct_colors = 2;
 	const char symbols[2] = {' ', '*'};
 
 	void getPixel(unsigned x, unsigned y, uint8_t* output) override;
@@ -15,7 +14,6 @@ public:
 
 	std::string toString() override;
 	ContentTypes getType() override;
-	ContentTypes getContentType() override;
 
 	int rowSize() override;
 	unsigned bmpRowSize() override;

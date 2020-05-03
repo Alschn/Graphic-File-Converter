@@ -36,7 +36,6 @@ public:
 	virtual unsigned int getWidth();
 	virtual unsigned int getHeight();
 	virtual ContentTypes getType() = 0;
-	virtual ContentTypes getContentType() = 0;
 	virtual ImageContent* clone() = 0;
 	virtual std::string toString() =0;
 	virtual unsigned int bmpPadding();
@@ -51,7 +50,6 @@ public:
 	ImageContent();
 	virtual ~ImageContent() = default;;
 	size_t bufferSize() const;
-
 
 protected:
 	virtual size_t calculateBufferSize() = 0;

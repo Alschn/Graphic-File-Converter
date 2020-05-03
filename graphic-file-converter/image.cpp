@@ -5,7 +5,6 @@
 #include "bpp1.h"
 #include "bpp24.h"
 
-
 void Image::getPixel(int x, int y, unsigned char output[]) const
 {
 	this->content->getPixel(x, y, output);
@@ -38,11 +37,11 @@ std::string Image::toStr() const
 void Image::loadFromPath(const std::string& path)
 {
 	this->path = path;
-	const auto extension = this->getExtension(this->path);
+	const auto extension = Image::getExtension(this->path);
 
 	auto file = Image::file_type_map[extension]();
 	this->content = file->loadForContent(this->path);
-	this->content_type1 = this->content->getType();
+	this->content_type = this->content->getType();
 	this->width = this->content->getWidth();
 	this->height = this->content->getHeight();
 	this->channels = this->content->getChannels();
@@ -63,12 +62,6 @@ std::string Image::getExtension(const std::string& path)
 }
 
 Image::Image(const std::string& path)
-{
-	this->loadFromPath(path);
-}
-
-Image::Image(const std::string& path, const bool expect_saving, const ImageMode& m,
-             const ColorDepth& depth) : path(path)
 {
 	this->loadFromPath(path);
 }

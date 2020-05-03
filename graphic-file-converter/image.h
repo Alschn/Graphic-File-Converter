@@ -1,33 +1,9 @@
 #pragma once
 #include <string>
-#include <fstream>
 #include <map>
 #include "header_file.h"
 #include "image_content.h"
 #include <functional>
-
-
-enum class ImageMode
-{
-	read_from_bmp,
-	read_from_header_file,
-};
-
-enum class ColorDepth
-{
-	bpp24,
-	bpp16,
-	bpp8,
-	bpp1,
-};
-
-enum class PixelMode
-{
-	rgb,
-	bgr,
-	mono_bw
-};
-
 
 class Image
 {
@@ -38,7 +14,7 @@ private:
 public:
 	unsigned int width{}; // width in pixels
 	unsigned int height{}; // height in pixels
-	ContentTypes content_type1;
+	ContentTypes content_type;
 	unsigned int channels = 0;
 	
 	/**
@@ -57,12 +33,6 @@ public:
 	 * \param input char array of RGB or BGR depending on specified mode
 	 */
 	void putPixel(int x, int y, unsigned char input[]);
-	/**
-	 * \brief Puts pixel into memory by given coordinates. This function is meant to be used for 1bpp color space.
-	 * \param x x coordinate
-	 * \param y y coordinate
-	 * \param input bool for B/W pixel where True is White, False is Black
-	 */
 
 	/**
 	 * \brief Resizes image and memory for new dimensions.
@@ -86,18 +56,14 @@ private:
 	void loadFromPath(const std::string &path);
 
 public:
+	static std::map<ContentTypes, std::function<ImageContent* ()>> content_type_map;
+	static std::map<std::string, std::function<File* ()>> file_type_map;
 	static std::string getExtension(const std::string& path);
 
 	Image() = default;
 
 	Image(const std::string & path);
 	
-	Image(const std::string& path, const bool expect_saving, const ImageMode& m,
-	      const ColorDepth& depth = ColorDepth::bpp24);
-
-	static std::map<ContentTypes, std::function<ImageContent* ()>> content_type_map;
-	static std::map<std::string, std::function<File* ()>> file_type_map;
-
 	Image(const Image& other);
 
 	~Image();

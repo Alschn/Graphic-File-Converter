@@ -94,11 +94,6 @@ void Bpp24::readFromBmpMemory(uint8_t* buffer)
 	}
 }
 
-ContentTypes Bpp24::getContentType()
-{
-	return ContentTypes::Bpp24;
-}
-
 std::vector<uint8_t> Bpp24::bmpContent()
 {
 	std::vector<uint8_t> output;

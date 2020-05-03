@@ -98,11 +98,6 @@ void Bpp1::readFromBmpMemory(uint8_t* buffer)
 	}
 }
 
-ContentTypes Bpp1::getContentType()
-{
-	return ContentTypes::Bpp1;
-}
-
 std::vector<uint8_t> Bpp1::colorPalette()
 {
 	auto to_ret = std::vector<uint8_t>{0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00};
@@ -175,7 +170,7 @@ unsigned Bpp1::eightDivisor(const unsigned input)
 
 void Bpp1::calculatePixelIndex(unsigned int x, unsigned int y, unsigned int& byte_n, unsigned int& bit_n) const
 {
-	unsigned index = this->width * y + x;
+	const unsigned index = this->width * y + x;
 	byte_n = index / 8;
 	bit_n = index % 8;
 }
