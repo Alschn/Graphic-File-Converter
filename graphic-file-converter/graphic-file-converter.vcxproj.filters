@@ -155,5 +155,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagramWojtek.cd" />
   </ItemGroup>
 </Project>

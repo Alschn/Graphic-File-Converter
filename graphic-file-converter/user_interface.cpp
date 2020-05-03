@@ -10,6 +10,9 @@
 #include <algorithm>
 #include "parameter.h"
 
+/*
+	Each map contains info about all types of conversions.
+//*/
 std::map<const std::string, Converter*> UserInterface::conversions_map;
 std::map<const std::string, const std::string> UserInterface::help_map;
 std::map<const std::string, std::regex> UserInterface::regex_map;
@@ -19,6 +22,9 @@ std::map<const std::string, Parameter*> UserInterface::parameters_map;
 void UserInterface::registerAction(const std::string& command_name, const std::string& command_explanation,
                                    Converter* conversion, std::regex command_regex, Arguments* arguments)
 {
+	/*
+		Function registers new functionality.
+	//*/
 	conversions_map.emplace(command_name, conversion);
 	help_map.emplace(command_name, command_explanation);
 	regex_map.emplace(command_name, command_regex);
@@ -27,9 +33,16 @@ void UserInterface::registerAction(const std::string& command_name, const std::s
 
 
 void UserInterface::display(const std::string& command)
-{	
+{
+	/*
+	 Main function of UserInterface - responsible for
+	 detecting command and choosing action to execute.
+	//*/
 	if (!check_regex_if_empty(std::regex(R"###(^converter +load +(('|")[^']\S+[^']('|")) ?$)###"), command))
 	{
+		/*
+		 Step-by-step method - still in progress.
+		//*/
 		std::stringstream command_ss(command);
 		std::vector<std::string> splitted;
 		std::string buf_string;
@@ -112,19 +125,29 @@ void UserInterface::display(const std::string& command)
 			}
 		}
 	}
-	else if (!check_regex_if_empty(std::regex(R"(^help *$)"),command))
+	else if (!check_regex_if_empty(std::regex(R"(^help *$)"), command))
 	{
+		/*
+			Help display.
+		//*/
 		std::cout << std::endl;
 		showHelp();
 	}
 	else
 	{
+		/*
+			Fully correct command inserted in cmd executes here.
+		//*/
 		std::string command_fullname;
 		int no_function = 0;
 		for (auto command_name : regex_map)
 		{
 			if (!check_regex_if_empty(command_name.second, command))
 			{
+				/*
+					Pulling out arguments from command and storing them
+					in vector.
+				//*/
 				command_fullname = command_name.first;
 				std::stringstream command_ss(command);
 				std::vector<std::string> splitted;
@@ -133,7 +156,7 @@ void UserInterface::display(const std::string& command)
 				{
 					splitted.push_back(buf_string);
 				}
-				std::vector <double> args;
+				std::vector<double> args;
 				double argument;
 				for (auto m : splitted)
 				{
@@ -148,18 +171,28 @@ void UserInterface::display(const std::string& command)
 					}
 				}
 				arguments_map[command_fullname]->set_arguments(args);
-				splitted[args.size()+1].erase(splitted[args.size() + 1].begin());
+				/*
+					Stripping input path from quotation marks (').
+				//*/
+				splitted[args.size() + 1].erase(splitted[args.size() + 1].begin());
 				splitted[args.size() + 1].erase(splitted[args.size() + 1].end() - 1, splitted[args.size() + 1].end());
 				std::string input_path = splitted[args.size() + 1];
 				std::string output_path;
-				if (splitted[args.size()+2].size()>2)
+				if (splitted[args.size() + 2].size() > 2)
 				{
+					/*
+						Stripping output path from quotation marks (') (if given).
+					//*/
 					splitted[args.size() + 2].erase(splitted[args.size() + 2].begin());
-					splitted[args.size() + 2].erase(splitted[args.size() + 2].end() - 1, splitted[args.size() + 2].end());
+					splitted[args.size() + 2].erase(splitted[args.size() + 2].end() - 1,
+					                                splitted[args.size() + 2].end());
 					output_path = splitted[args.size() + 2];
 				}
 				else
 				{
+					/*
+						Creating output path if it was not given.
+					//*/
 					for (int i = input_path.size() - 1; i > 0; i--)
 					{
 						if (input_path[i] == '.')
@@ -172,10 +205,14 @@ void UserInterface::display(const std::string& command)
 				}
 				for (auto param : parameters_map)
 				{
+					/*
+						Checking if any parameter was given.
+					//*/
 					if (std::find(splitted.begin(), splitted.end(), param.first) != splitted.end())
 					{
 						param.second->executeParam(
-							executeAction(command_name.first, input_path, output_path, arguments_map[command_fullname]));
+							executeAction(command_name.first, input_path, output_path,
+							              arguments_map[command_fullname]));
 					}
 					else
 					{
@@ -200,7 +237,7 @@ void UserInterface::display(const std::string& command)
 }
 
 Image* UserInterface::executeAction(const std::string& command, const std::string& path, const std::string& out_path,
-                                   Arguments* args)
+                                    Arguments* args)
 {
 	Image* img_pointer = new Image(path, 1, ImageMode::read_from_bmp, ColorDepth::bpp24);
 	Converter* conversion = conversions_map[command];
@@ -217,8 +254,12 @@ void UserInterface::registerHelp(const std::string& command_name, const std::str
 
 void UserInterface::showHelp()
 {
+	/*
+		Displays help.
+	//*/
 	std::cout << "Command structure:" << std::endl;
-	std::cout << "graphic-file-converter.exe [command_name] [argument] ['in_path'] {'out_path'} {-parameter}" << std::endl;
+	std::cout << "graphic-file-converter.exe [command_name] [argument] ['in_path'] {'out_path'} {-parameter}" << std::
+		endl;
 	std::cout << "( {} - possible )" << std::endl;
 	for (int i = 0; i < 90; i++)
 	{
@@ -234,10 +275,6 @@ void UserInterface::showHelp()
 	std::cout << std::endl;
 }
 
-void UserInterface::displayImage(Image image)
-{
-	std::cout << image;
-}
 
 void UserInterface::registerParameter(const std::string name, Parameter* action)
 {
@@ -246,6 +283,9 @@ void UserInterface::registerParameter(const std::string name, Parameter* action)
 
 std::string argv_to_string(char* arg[], int number_of_arg)
 {
+	/*
+		Function forms one string from argvs to be checked by regex.
+	//*/
 	std::string command;
 	std::vector<std::string> argList(arg + 1, arg + number_of_arg);
 	for (int i = 0; i < argList.size(); i++)
@@ -262,7 +302,7 @@ std::string argv_to_string(char* arg[], int number_of_arg)
 	return command;
 }
 
-bool check_regex_if_empty(std::regex reg, const std::string &command)
+bool check_regex_if_empty(std::regex reg, const std::string& command)
 {
 	std::smatch matches;
 	std::regex_search(command, matches, reg);
