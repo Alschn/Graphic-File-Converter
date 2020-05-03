@@ -13,7 +13,6 @@ public:
 	size_t calculateBufferSize() override;
 
 	std::string toString() override;
-
 	int memRowSize() override;
 	unsigned bmpRowSize() override;
 	void readFromBmpMemory(uint8_t* buffer) override;
