@@ -78,7 +78,7 @@ namespace Tests
 			auto b = Bpp1();
 			b.resize(10, 10);
 			auto res = b.memRowSize();
-			Assert::AreEqual(-1, res);
+			Assert::AreEqual(2, res);
 		}
 		TEST_METHOD(testmemRowSize1)
 		{
