@@ -21,7 +21,6 @@ public:
 	Image* executeAction(const std::string& command, const std::string& path, const std::string& out_path, Arguments* args);
 	void showHelp();
 	void registerHelp(const std::string& command_name, const std::string& explanation);
-	void displayImage(Image image);
 	void registerParameter(const std::string name, Parameter* action);
 };
 
