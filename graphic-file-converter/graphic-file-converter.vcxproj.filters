@@ -66,9 +66,6 @@
     <ClCompile Include="bpp24.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="File.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="header_file.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -76,6 +73,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="rescaler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="file.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

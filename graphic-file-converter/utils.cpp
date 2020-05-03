@@ -23,17 +23,17 @@ unsigned Utils::fourCharsToInt(const char* input, const int offset)
 	return out;
 }
 
-void Utils::writeIntToCharBufffer(char* input, unsigned int value, const unsigned int offset)
+void Utils::writeIntToCharBuffer(char* input, unsigned int value, const unsigned int offset)
 {
 	memcpy(input + offset, &value, sizeof(value));
 }
 
-void Utils::writeIntToCharBufffer(uint8_t* input, const unsigned value, const unsigned offset)
+void Utils::writeIntToCharBuffer(uint8_t* input, const unsigned value, const unsigned offset)
 {
 	memcpy(input + offset, &value, sizeof(value));
 }
 
-void Utils::writeIntToCharBufffer(std::vector<uint8_t> &input, const unsigned value, const unsigned offset)
+void Utils::writeIntToCharBuffer(std::vector<uint8_t> &input, const unsigned value, const unsigned offset)
 {
 	memcpy(input.data() + offset, &value, sizeof(value));
 }

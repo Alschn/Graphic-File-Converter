@@ -71,17 +71,6 @@ namespace Tests
 			Assert::IsTrue(compareMaps(map3, result));
 		}
 
-		TEST_METHOD(testCreatemap_largeang) // rotate square by angle greater than 360
-		{
-			auto result = Rotation::createMap(2, 2, 450);
-			const std::map <std::pair<int, int>, std::pair<int, int>> map4 = {
-				{{0, 0}, {0, 1}},
-				{{1, 0}, {0, 0}},
-				{{0, 1}, {1, 1}},
-				{{1, 1}, {1, 0}}
-			};
-			Assert::IsTrue(compareMaps(map4, result));
-		}
 		TEST_METHOD(testCreatemap_rot90rect) // rotate rectangle by 90 deg
 		{
 			auto result = Rotation::createMap(3, 2, 90);

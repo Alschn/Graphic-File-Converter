@@ -42,7 +42,7 @@ namespace Tests
 		TEST_METHOD(testWriteIntToCharBuffer0)
 		{
 			char buf[10];
-			Utils::writeIntToCharBufffer(buf, 65535, 2);
+			Utils::writeIntToCharBuffer(buf, 65535, 2);
 			Assert::AreEqual(static_cast<char>(255), buf[2]);
 			Assert::AreEqual(static_cast<char>(255), buf[3]);
 		}
@@ -50,14 +50,14 @@ namespace Tests
 		{
 			std::vector<uint8_t> buf;
 			buf.resize(4);
-			Utils::writeIntToCharBufffer(buf, 255, 0);
+			Utils::writeIntToCharBuffer(buf, 255, 0);
 			Assert::AreEqual(static_cast<uint8_t>(255), buf[0]);
 			Assert::AreEqual(static_cast<uint8_t>(0), buf[1]);
 		}
 		TEST_METHOD(testWriteIntToCharBuffer2)
 		{
 			uint8_t buf[4];
-			Utils::writeIntToCharBufffer(buf, 2882399982, 0);
+			Utils::writeIntToCharBuffer(buf, 2882399982, 0);
 			Assert::AreEqual(static_cast<uint8_t>(0xEE), buf[0]);
 			Assert::AreEqual(static_cast<uint8_t>(0xEE), buf[1]);
 			Assert::AreEqual(static_cast<uint8_t>(0xCD), buf[2]);

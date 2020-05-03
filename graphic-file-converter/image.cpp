@@ -75,6 +75,7 @@ Image::Image(const Image& other)
 	this->width = other.width;
 	this->height = other.height;
 	this->content = other.content->clone();
+	this->content_type = other.content_type;
 }
 
 Image::~Image()

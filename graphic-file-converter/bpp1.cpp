@@ -47,12 +47,8 @@ ImageContent* Bpp1::clone()
 	return new Bpp1(*this);
 }
 
-ContentTypes Bpp1::getType()
-{
-	return ContentTypes::Bpp1;
-}
 
-int Bpp1::rowSize()
+int Bpp1::memRowSize()
 {
 	if (this->width % 8 == 0)
 		return this->width / 8;
@@ -61,12 +57,12 @@ int Bpp1::rowSize()
 
 unsigned Bpp1::bmpRowSize()
 {
-	return Bpp1::eightDivisor(this->width);
+	return -1; //TODO to be implemented
 }
 
 void Bpp1::readFromBmpMemory(uint8_t* buffer)
 {
-	const auto internal_row_size = this->rowSize();
+	const auto internal_row_size = this->memRowSize();
 	unsigned int source_counter = 0;
 	unsigned int dest_counter = 0;
 	const auto padding = this->bmpPadding();
@@ -104,21 +100,17 @@ std::vector<uint8_t> Bpp1::colorPalette()
 	return to_ret;
 }
 
-unsigned Bpp1::colorPaletteSize()
-{
-	return 8;
-}
 
 std::vector<uint8_t> Bpp1::bmpContent()
 {
 	std::vector<uint8_t> output;
-	const auto internal_row_size = this->rowSize();
+	const auto internal_row_size = this->memRowSize();
 	unsigned int source_counter = 0;
 	const auto padding = this->bmpPadding();
 
 	if (internal_row_size > -1)
 	{
-		output.reserve((internal_row_size + padding) * this->height);
+		output.reserve(this->bmpRowSize() * this->height);
 		for (int j = 0; j < this->height; ++j)
 		{
 			for (int i = 0; i < internal_row_size; ++i)
@@ -182,6 +174,7 @@ Bpp1::Bpp1(const Bpp1& other)
 	this->buffer_size = other.buffer_size;
 	this->buffer = new uint8_t[this->buffer_size];
 	memcpy(this->buffer, other.buffer, this->buffer_size);
+	this->type = other.type;
 }
 
 Bpp1::Bpp1()
@@ -190,6 +183,7 @@ Bpp1::Bpp1()
 	this->height = 0;
 	this->buffer_size = 0;
 	this->channels = 1;
+	this->type = ContentTypes::Bpp1;
 }
 
 

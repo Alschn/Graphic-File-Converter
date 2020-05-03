@@ -156,7 +156,7 @@
     <ClCompile Include="bpp16.cpp" />
     <ClCompile Include="bpp24.cpp" />
     <ClCompile Include="converter.cpp" />
-    <ClCompile Include="File.cpp" />
+    <ClCompile Include="file.cpp" />
     <ClCompile Include="header_file.cpp" />
     <ClCompile Include="image_content.cpp" />
     <ClCompile Include="main.cpp" />

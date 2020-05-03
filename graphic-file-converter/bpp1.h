@@ -13,15 +13,12 @@ public:
 	size_t calculateBufferSize() override;
 
 	std::string toString() override;
-	ContentTypes getType() override;
 
-	int rowSize() override;
+	int memRowSize() override;
 	unsigned bmpRowSize() override;
 	void readFromBmpMemory(uint8_t* buffer) override;
 	std::vector<uint8_t> colorPalette() override;
-	unsigned colorPaletteSize() override;
 	std::vector<uint8_t> bmpContent() override;
-
 	static unsigned int eightDivisor(const unsigned int input);
 
 private:

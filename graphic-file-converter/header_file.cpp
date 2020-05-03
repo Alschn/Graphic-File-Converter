@@ -35,7 +35,7 @@ std::string HeaderFile::generateFileInfo() const
 std::string HeaderFile::generateFileContent() const
 {
 	std::string output;
-	auto row_size = this->content->rowSize();
+	auto row_size = this->content->memRowSize();
 	if (row_size == -1)
 		row_size = this->bytes_per_row;
 

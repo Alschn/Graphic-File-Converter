@@ -7,33 +7,32 @@
 
 std::vector<uint8_t> BmpFile::generateHeader(ImageContent* content) const
 {
-	const auto color_table_size = content->colorPaletteSize();
+	const auto color_table = content->colorPalette();
+	const auto color_table_size = color_table.size();
 	const auto content_size = content->getHeight() * (content->bmpRowSize() + content->bmpPadding());
 	const auto buffer_size = this->HEADER_SIZE + color_table_size;
-	const auto color_table = content->colorPalette();
 
-	
 	std::vector<uint8_t> header;
 	header.resize(this->HEADER_SIZE);
-	header[0]='B';
-	header[1]='M';
+	header[0]='B'; //signature
+	header[1]='M'; //signature
 
-	Utils::writeIntToCharBufffer(header, this->HEADER_SIZE + color_table_size + content_size, 2);
-	Utils::writeIntToCharBufffer(header, 0, 6); //not used space
-	Utils::writeIntToCharBufffer(header, this->HEADER_SIZE + color_table_size, 10);//pixel content offset
-	Utils::writeIntToCharBufffer(header, this->WINDOWS_HEADER_SIZE, 14); //header size
-	Utils::writeIntToCharBufffer(header, content->getWidth(), 18); // image's height
-	Utils::writeIntToCharBufffer(header, content->getHeight(), 22); // image's width
-	Utils::writeIntToCharBufffer(header, 1, 26); //planes - has to be exactly one
-	Utils::writeIntToCharBufffer(header, static_cast<int>(content->getType()), 28); //bpp
-	Utils::writeIntToCharBufffer(header, 0, 30); //compression - not important and not used
-	Utils::writeIntToCharBufffer(header, 0, 34); //real size for compression - same as above
-	Utils::writeIntToCharBufffer(header, this->H_RES, 38); //horizontal res (pixel per inch) - not really important
-	Utils::writeIntToCharBufffer(header, this->V_RES, 42); // vertical res (pixel per inch)
-	Utils::writeIntToCharBufffer(header, 0, 46); //color palette
-	Utils::writeIntToCharBufffer(header, 0, 50); //important colors
+	Utils::writeIntToCharBuffer(header, this->HEADER_SIZE + color_table_size + content_size, 2);
+	Utils::writeIntToCharBuffer(header, 0, 6); //not used space
+	Utils::writeIntToCharBuffer(header, this->HEADER_SIZE + color_table_size, 10);//pixel content offset
+	Utils::writeIntToCharBuffer(header, this->WINDOWS_HEADER_SIZE, 14); //header size
+	Utils::writeIntToCharBuffer(header, content->getWidth(), 18); // image's height
+	Utils::writeIntToCharBuffer(header, content->getHeight(), 22); // image's width
+	Utils::writeIntToCharBuffer(header, 1, 26); //planes - has to be exactly one
+	Utils::writeIntToCharBuffer(header, static_cast<int>(content->getType()), 28); //bpp
+	Utils::writeIntToCharBuffer(header, 0, 30); //compression - not important and not used
+	Utils::writeIntToCharBuffer(header, 0, 34); //real size for compression - same as above
+	Utils::writeIntToCharBuffer(header, this->H_RES, 38); //horizontal res (pixel per inch) - not really important
+	Utils::writeIntToCharBuffer(header, this->V_RES, 42); // vertical res (pixel per inch)
+	Utils::writeIntToCharBuffer(header, 0, 46); //color palette
+	Utils::writeIntToCharBuffer(header, 0, 50); //important colors
 
-	 if (color_table_size != 0)
+	 if (color_table_size != 0) //color table
 		header.insert(header.end(), color_table.data(), color_table.data() + color_table_size);
 	return header;
 }
@@ -66,15 +65,11 @@ ImageContent* BmpFile::loadForContent(const std::string& filename)
 {
 	char* header_buffer = new char[this->HEADER_SIZE];
 	header_buffer = File::readBytesFromFile(filename, header_buffer, this->HEADER_SIZE);
-	std::vector<char> input;
-	input.resize(54);
-	memcpy(input.data(), header_buffer, 54);
 	this->readHeader(header_buffer);
 	delete[] header_buffer;
 
 	char* pixel_array_buffer = new char[this->file_size - this->HEADER_SIZE];
-	pixel_array_buffer = BmpFile::readBytesFromFile(filename, pixel_array_buffer, this->file_size - this->HEADER_SIZE,
-	                                                this->pixel_array_offset);
+	pixel_array_buffer = File::readBytesFromFile(filename, pixel_array_buffer, this->file_size - this->HEADER_SIZE, this->pixel_array_offset);
 	this->readPixelArray(pixel_array_buffer);
 	delete[] pixel_array_buffer;
 
