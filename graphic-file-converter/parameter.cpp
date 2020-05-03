@@ -2,7 +2,7 @@
 #include <iostream>
 #include "image.h"
 
-void Parameter::executeParam(Image image)
+void Parameter::executeParam(Image* image)
 {
 	;
 }
