@@ -11,12 +11,6 @@ Wyświetlanie obrazów w formie tekstowej (ASCII).
 Optymalizacja pamięci pod względem przechowywanego obrazu.
 
 
-### Wstępna funkcjonalność:
-* Wczytywanie obrazu do pamięci z pliku .bmp (24bpp).
-* Obracanie obrazu o kąt całkowitej wielokrotności 90 stopni.
-* Odbijanie obrazu względem przekątnej oraz względem środka w pionie jak i w poziomie.
-* Dynamiczny CLI
-
 ### Uruchamianie programu
 * Program będzie uruchamiany z wiersza poleceń poprzez podanie odpowiednich argumentów
 * W przypadku niepodania argumentów program będzie działał w trybie pilotażowym (wprowadzanie opcji po kolei)
@@ -31,39 +25,48 @@ Optymalizacja pamięci pod względem przechowywanego obrazu.
 #### Aktualny podział pracy:
 * Klasa `UserInterface` odpowiedzialna za dynamiczny CLI - Wojciech Nowicki
 * Klasy `Parameter` oraz dziedziczące z nich - odpowiadają za opcjonalne parametry CLI - Wojciech Nowicki
-* Klasa `Image` odpowiadająca za przechowywanie zdjęcia w pamięci jak i zamianę go na tekst - Gustaw Daczkowski
-* Klasa `Converter` klasa główna odpowiedzialna za konwersję, z wirtualnymi metodami - Gustaw Daczkowski
-* Klasa `Rotate` dziedzicząca z `Converter` w celu konwersji zdjęcia - obrotu - Adam Lisichin
-* Klasa `Reflection` dziedzicząca z `Converter` w celu konwersji - odbicia lustrzanego - Adam Lisichin
+* Klasa `Argument` oraz dziedziące z niej - odpowiadają za przekazywanie argumentów konwersji z CLI do `Converter` - Wojciech Nowicki
+* Klasa `Image` odpowiadająca za zarządzanie zdjęciami jako interfejs dla innych klas (nadrzędna) - Gustaw Daczkowski
+* Klasa `Converter` klasa główna odpowiedzialna za konwersję, z wirtualnymi metodami (plus wszystkie konwersje z niej dziedziczące) - Adam Lisichin
 * Klasa `Utils`- bardzo mała, znajdują się w niej statyczne metody do obsługi operacji bitowych oraz bajtowych - Gustaw Daczkowski
+* Klasa `File` - odpowiedzialna za pracę nad plikami (plus dziedziczące z niej) - Gustaw Daczkowski
+* Klasa `ImageContent` - odpowiedzialna za zarządzanie pamięcią (plus dziedziczące z niej) - Gustaw Daczkowski
 
 
 #### Testy jednostkowe:
 * Do testowania został użyty `MicrosoftCppUnitTestFramework`. Wszystkie testy znajdują się w oddzielnym projekcie `tests`.
-* Klasy `Image`, `Reflection`, `Rotation` oraz `UserInterface` są testowane jednostkowo.
+* Jednostkowo są wybrane metody z wybranych klas (to co się da, choć jeszcze nie wszystko)
 
 #### Aktualna funkcjonalność programu:
 * CLI reaguje na komendę --help i wyświetla pomoc dla użytkownika, przy każdej źle wpisanej komendzie  
 również wyśtwietla pomoc, CLI jest gotowy do rejestracji kolejnych funckjonalności programu.
 * CLI obsługuje dwie komendy konwersji zdjęć:
-    1. **Obrót o zadany kąt:** converter rotation kąt "scieżka wejściowa" ["scieżka wyjściowa"] [-d]
-    2. **Odbicie lustrzane:** converter reflection tryb "scieżka wejściowa" ["ścieżka wyjściowa"] [-d]
-* Klasa `Image` obsługuje wczytywanie obrazu z pamięci, natomiast owa funkcjonalność nie jest zaimplementowana w CLI.
-Aby przetestować ten tryb należy odkomentować odpowiednie linijki w `main.cpp` - jest to zaznaczone w komentarzu na początku funkcji `main()`.
-* Ponadto klasa `Image` ma zaimplementowane operatory `<<` oraz `>>` służące do wypisywania treści zdjęcia oraz ładowania treści do zdjęcia z pliku (bajty).
-* W obecnym momencie tryb wypisywania na ekranie zdjęcia realizowany przez klasę `Image` uwzględnia wypisywanie 1px - 1litera. 
-Wypisywane są litery R|G|B w zależności od tego, który z kolorów w danym pikselu jest najbardziej dominujący.
+    1. **Obrót o zadany kąt:** rotation kat "scieżka wejściowa" ["scieżka wyjściowa"] [-d]
+    2. **Odbicie lustrzane:**  reflection ytyb "scieżka wejściowa" ["ścieżka wyjściowa"] [-d]
+    3. **Rescaler - skalowanie obrazu** rescaler xskala yskala "sciezka wejsciowa" ["sciezka wyjsciowa"] [-d] 
+* Oprócz tego jest klasa `Enhancer` - nieobsługiwana z CLI, opsiana w #13 z przykładami.
+    
 
+* Obecnie obsługiwane jest odczytywanie i pisanie do plików .bmp w wersji 24 oraz 1 bpp, podobnie w przypadku pliku nagłowkowego .h. Zaimplementowane są również konwersje między nimi.
+Tj. można przekonwertować znak z fontu .h do .bmp oraz odwrotnie plik .h z dowolnego .bmp. Konwersja wszystkich znaków z fontu do .bmp nie jest zaimplementowana.
+* Odczyt fontu z pliku .h następuje poprzez podanie ścieżki z dopiskiem `_x` gdzie x to znak odpowiadający znakowi z fontu. Np. `arialdig_0.h` - wczytanie cyfry `0` z fontu Arial.
 
 
 ### Przykładowe użycie programu:
-* `converter rotation 90 "../sample_bmps/10x10.bmp" -d` - obrót zdjęcia 10x10.bmp o 90 stopni w prawo.
+* `graphic-file-converter.exe 90 "../sample_bmps/10x10.bmp" -d` - obrót zdjęcia 10x10.bmp o 90 stopni w prawo.
 Podanie opcjonalnego parametru `-d` powoduje wyświetlenie zdjęcia na ekranie konsoli.
-* `converter reflection 2 "../sample_bmps/10x10.bmp" "../sample_bmps/output.bmp"` odbicie symetryczne względem prostej y=x i zapis do pliku output.bmp.
+* `graphic-file-converter.exe reflect 2 "../sample_bmps/10x10.bmp" "../sample_bmps/output.bmp"` odbicie symetryczne względem prostej y=x i zapis do pliku output.bmp.
+* `graphic-file-converter.exe help` wyświetlenie pomocy
+* `graphic-file-converter.exe scale 2 2 "../sample_bmps/10x10.bmp" "../sample_bmps/out.bmp" -d` przeskalowanie obrazu x2 w osi X i Y wraz z wyświetleniem go w konsoli
+* `graphic-file-converter.exe scale 2 2 "../sample_bmps/arialDig32x24_0.h" "../sample_bmps/out.bmp" -d` przeskalowanie obrazu tj. cyfry 0 z fontu Arial x2 w osi X i Y i zapis do pliku .bmp wraz z wyświetleniem go
+w konsoli
 
-Szczegółowe objaśnienia komend znajdują się w #11.  
-Szczegółowe objaśnienia funkcjonalności klasy `Image` znajduje się w #10.  
-Szczegółowe objaśnienia trybów konwersji znajdują się w #9.
+Szczegółowe objaśnienia komend znajdują się w #11, #15.  
+Szczegółowe objaśnienia funkcjonalności klasy `Image` znajdują się w #10.
+Szczegółowe objaśnienia funkcjonalności klasy `ImageContent`, `File` oraz pochodnych znajdują się w #13.  
+Szczegółowe objaśnienia trybów konwersji znajdują się w #9, #13.
 
+
+### Diagramy klas:
 
 
