@@ -13,12 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\ImageContent">
-      <UniqueIdentifier>{75447c09-5bd7-4425-ae93-2185488d9da8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\ImageContent">
-      <UniqueIdentifier>{5e3105f9-cc5c-445b-8621-1d3eb9c3871c}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="image.cpp">
@@ -72,9 +66,6 @@
     <ClCompile Include="bpp24.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="File.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="header_file.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -84,7 +75,7 @@
     <ClCompile Include="rescaler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="enhancer.cpp">
+    <ClCompile Include="file.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -149,12 +140,10 @@
     <ClInclude Include="header_file.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="enhancer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram.cd" />
-    <None Include="ClassDiagramWojtek.cd" />
+    <None Include="image_content_diag.cd" />
+    <None Include="file_diag.cd" />
+    <None Include="main_diag.cd" />
   </ItemGroup>
 </Project>

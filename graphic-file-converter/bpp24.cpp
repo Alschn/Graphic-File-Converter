@@ -29,9 +29,9 @@ size_t Bpp24::calculateBufferSize()
 std::string Bpp24::toString()
 {
 	std::string output;
-	for (int i = this->height - 1; i >= 0; --i)
+	for (auto i = this->height - 1; i >= 0; --i)
 	{
-		for (int j = 0; j < this->width; j++)
+		for (auto j = 0; j < this->width; j++)
 		{
 			unsigned char arr[3];
 			this->getPixel(j, i, arr);
@@ -58,19 +58,9 @@ ImageContent* Bpp24::clone()
 	return new Bpp24(*this);
 }
 
-std::string Bpp24::getType()
-{
-	return "Bpp24";
-}
-
-int Bpp24::rowSize()
+int Bpp24::memRowSize()
 {
 	return this->width * 3;
-}
-
-unsigned Bpp24::bmpRowSize()
-{
-	return this->rowSize();
 }
 
 void Bpp24::readFromBmpMemory(uint8_t* buffer)
@@ -79,11 +69,11 @@ void Bpp24::readFromBmpMemory(uint8_t* buffer)
 	unsigned int dest_index = 0;
 	auto padding = this->bmpPadding();
 
-	for (int j = 0; j < this->height; ++j)
+	for (auto j = 0; j < this->height; ++j)
 	{
-		for (int i = 0; i < this->width; ++i)
+		for (auto i = 0; i < this->width; ++i)
 		{
-			for (int k = 0; k < 3; ++k)
+			for (auto k = 0; k < 3; ++k)
 			{
 				this->buffer[dest_index + k] = buffer[source_index + 2 - k];
 			}
@@ -94,30 +84,25 @@ void Bpp24::readFromBmpMemory(uint8_t* buffer)
 	}
 }
 
-ContentTypes Bpp24::getContentType()
-{
-	return ContentTypes::Bpp24;
-}
-
 std::vector<uint8_t> Bpp24::bmpContent()
 {
 	std::vector<uint8_t> output;
 	const auto padding = this->bmpPadding();
-	output.reserve(this->height * (this->width * 3 + padding));
+	output.reserve(this->height * this->bmpRowSize());
 
 	unsigned source_index = 0;
 
-	for (int j = 0; j < this->height; ++j)
+	for (auto j = 0; j < this->height; ++j)
 	{
-		for (int i = 0; i < this->width; ++i)
+		for (auto i = 0; i < this->width; ++i)
 		{
-			for (int k = 0; k < 3; ++k)
+			for (auto k = 0; k < 3; ++k)
 			{
 				output.emplace_back(this->buffer[source_index + 2 - k]);
 			}
 			source_index += 3;
 		}
-		for (int x = 0; x < padding; ++x)
+		for (unsigned x = 0; x < padding; ++x)
 		{
 			output.emplace_back(0);
 		}
@@ -125,16 +110,12 @@ std::vector<uint8_t> Bpp24::bmpContent()
 	return output;
 }
 
-Bpp24::Bpp24(const unsigned width, const unsigned height)
-{
-	this->ImageContent::resize(width, height);
-}
-
 Bpp24::Bpp24()
 {
 	this->width = 0;
 	this->height = 0;
 	this->buffer_size = 0;
+	this->type = ContentTypes::Bpp24;
 }
 
 Bpp24::Bpp24(const Bpp24& other)
@@ -144,6 +125,7 @@ Bpp24::Bpp24(const Bpp24& other)
 	this->buffer_size = other.buffer_size;
 	this->buffer = new uint8_t[this->buffer_size];
 	memcpy(this->buffer, other.buffer, this->buffer_size);
+	this->type = other.type;
 }
 
 Bpp24::~Bpp24()

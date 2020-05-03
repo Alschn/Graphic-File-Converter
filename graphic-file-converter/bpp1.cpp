@@ -47,12 +47,8 @@ ImageContent* Bpp1::clone()
 	return new Bpp1(*this);
 }
 
-std::string Bpp1::getType()
-{
-	return "Bpp1";
-}
 
-int Bpp1::rowSize()
+int Bpp1::memRowSize()
 {
 	if (this->width % 8 == 0)
 		return this->width / 8;
@@ -61,12 +57,12 @@ int Bpp1::rowSize()
 
 unsigned Bpp1::bmpRowSize()
 {
-	return Bpp1::eightDivisor(this->width);
+	return -1; //TODO to be implemented
 }
 
 void Bpp1::readFromBmpMemory(uint8_t* buffer)
 {
-	const auto internal_row_size = this->rowSize();
+	const auto internal_row_size = this->memRowSize();
 	unsigned int source_counter = 0;
 	unsigned int dest_counter = 0;
 	const auto padding = this->bmpPadding();
@@ -98,32 +94,23 @@ void Bpp1::readFromBmpMemory(uint8_t* buffer)
 	}
 }
 
-ContentTypes Bpp1::getContentType()
-{
-	return ContentTypes::Bpp1;
-}
-
 std::vector<uint8_t> Bpp1::colorPalette()
 {
 	auto to_ret = std::vector<uint8_t>{0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00};
 	return to_ret;
 }
 
-unsigned Bpp1::colorPaletteSize()
-{
-	return 8;
-}
 
 std::vector<uint8_t> Bpp1::bmpContent()
 {
 	std::vector<uint8_t> output;
-	const auto internal_row_size = this->rowSize();
+	const auto internal_row_size = this->memRowSize();
 	unsigned int source_counter = 0;
 	const auto padding = this->bmpPadding();
 
 	if (internal_row_size > -1)
 	{
-		output.reserve((internal_row_size + padding) * this->height);
+		output.reserve(this->bmpRowSize() * this->height);
 		for (int j = 0; j < this->height; ++j)
 		{
 			for (int i = 0; i < internal_row_size; ++i)
@@ -158,6 +145,7 @@ std::vector<uint8_t> Bpp1::bmpContent()
 			{
 				output.push_back(0);
 			}
+			delete[]bytes_to_write;
 		}
 	}
 	return output;
@@ -174,7 +162,7 @@ unsigned Bpp1::eightDivisor(const unsigned input)
 
 void Bpp1::calculatePixelIndex(unsigned int x, unsigned int y, unsigned int& byte_n, unsigned int& bit_n) const
 {
-	unsigned index = this->width * y + x;
+	const unsigned index = this->width * y + x;
 	byte_n = index / 8;
 	bit_n = index % 8;
 }
@@ -186,6 +174,7 @@ Bpp1::Bpp1(const Bpp1& other)
 	this->buffer_size = other.buffer_size;
 	this->buffer = new uint8_t[this->buffer_size];
 	memcpy(this->buffer, other.buffer, this->buffer_size);
+	this->type = other.type;
 }
 
 Bpp1::Bpp1()
@@ -194,12 +183,9 @@ Bpp1::Bpp1()
 	this->height = 0;
 	this->buffer_size = 0;
 	this->channels = 1;
+	this->type = ContentTypes::Bpp1;
 }
 
-Bpp1::Bpp1(unsigned width, unsigned height)
-{
-	this->ImageContent::resize(width, height);
-}
 
 Bpp1::~Bpp1()
 {

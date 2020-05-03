@@ -1,8 +1,9 @@
 #include "image.h"
+#include <iostream>
 #include <map>
 #include "bmp_file.h"
+#include "bpp1.h"
 #include "bpp24.h"
-
 
 void Image::getPixel(int x, int y, unsigned char output[]) const
 {
@@ -24,7 +25,7 @@ void Image::resize(int width, int height)
 void Image::save(const std::string& path) const
 {
 	const auto extension = this->getExtension(path);
-	auto file = Image::file_type_map[extension];
+	auto file = Image::file_type_map[extension]();
 	file->save(this->content, path);
 }
 
@@ -33,14 +34,13 @@ std::string Image::toStr() const
 	return this->content->toString();
 }
 
-void Image::loadFromPath(const std::string &path)
+void Image::loadFromPath(const std::string& path)
 {
 	this->path = path;
-	const auto extension = this->getExtension(this->path);
+	const auto extension = Image::getExtension(this->path);
 
-	auto file = Image::file_type_map[extension];
+	auto file = Image::file_type_map[extension]();
 	this->content = file->loadForContent(this->path);
-
 	this->content_type = this->content->getType();
 	this->width = this->content->getWidth();
 	this->height = this->content->getHeight();
@@ -61,20 +61,12 @@ std::string Image::getExtension(const std::string& path)
 	return path.substr(pos);
 }
 
-
 Image::Image(const std::string& path)
 {
 	this->loadFromPath(path);
 }
 
-
-Image::Image(const std::string& path, const bool expect_saving, const ImageMode& m,
-             const ColorDepth& depth) : path(path), mode(m), depth(depth)
-{
-	this->loadFromPath(path);
-}
-
-Image::Image(const Image& other) : mode(other.mode), depth(other.depth)
+Image::Image(const Image& other)
 {
 #ifdef _DEBUG
 	std::cout << "Inside copy constructor of class Image" << std::endl;
@@ -82,20 +74,13 @@ Image::Image(const Image& other) : mode(other.mode), depth(other.depth)
 
 	this->width = other.width;
 	this->height = other.height;
-	this->buffer_size = other.buffer_size;
-	this->row_size = other.row_size;
-	this->pixel_array_offset = other.pixel_array_offset;
-	this->horizontal_resolution = other.horizontal_resolution;
-	this->vertical_resolution = other.vertical_resolution;
-	this->file_size = other.file_size;
-	this->depth = other.depth;
 	this->content = other.content->clone();
+	this->content_type = other.content_type;
 }
 
 Image::~Image()
 {
-	if (this->depth != ColorDepth::bpp1)
-		delete[] this->content;
+	delete[] this->content;
 }
 
 std::ostream& operator<<(std::ostream& os, const Image& im)
@@ -104,22 +89,12 @@ std::ostream& operator<<(std::ostream& os, const Image& im)
 	return os;
 }
 
-std::istream& operator>>(std::istream& is, Image& im)
-{
-	// char* header = new char[im.HEADER_SIZE];
-	// is.read(header, im.HEADER_SIZE);
-	// im.readHeader(header);
-	// delete[] header;
-	//
-	// is.seekg(im.HEADER_SIZE);
-	//
-	// char* pixel_array_buffer = new char[im.file_size - im.HEADER_SIZE];
-	// is.read(pixel_array_buffer, im.file_size - im.HEADER_SIZE);
-	// im.readPixelArray(pixel_array_buffer);
-	// delete[] pixel_array_buffer;
-	//
-	return is;
-}
+std::map<ContentTypes, std::function<ImageContent*()>> Image::content_type_map = {
+	{ContentTypes::Bpp1, []() -> ImageContent* { return new Bpp1(); }},
+	{ContentTypes::Bpp24, []() -> ImageContent* { return new Bpp24(); }}
+};
 
-std::map<std::string, ImageContent*> Image::type_map = { {"Bpp1", new Bpp1()}, {"Bpp24", new Bpp24()} };
-std::map<std::string, File*> Image::file_type_map = {{".h", new HeaderFile()}, {".bmp", new BmpFile()}};
+std::map<std::string, std::function<File*()>> Image::file_type_map = {
+	{".h", []() -> File* { return new HeaderFile(); }},
+	{".bmp", []() -> File* { return new BmpFile(); }}
+};

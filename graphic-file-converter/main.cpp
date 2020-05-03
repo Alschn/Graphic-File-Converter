@@ -48,8 +48,9 @@ int main(int argc, char* argv[])
 
 
 	// auto im = Image("../sample_bmps/arialDig32x24.h_8");
-	//auto im = new Image("../sample_bmps/test.bmp");
+	// auto im = new Image("../sample_bmps/10x101xxx.bmp");
 	// std::cout << *im;
+	// im->save("../sample_bmps/10x11xxx2.bmp");
 
 	/*Enhancer* conv = new Enhancer(im);
 	conv->adjustIntensity(0, 0, 0);

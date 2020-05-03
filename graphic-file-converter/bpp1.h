@@ -3,11 +3,9 @@
 #ifndef _BPP1_
 #define _BPP1_
 
-class Bpp1 :
-	public ImageContent
+class Bpp1 :public ImageContent
 {
 public:
-	const unsigned int distinct_colors = 2;
 	const char symbols[2] = {' ', '*'};
 
 	void getPixel(unsigned x, unsigned y, uint8_t* output) override;
@@ -15,16 +13,12 @@ public:
 	size_t calculateBufferSize() override;
 
 	std::string toString() override;
-	std::string getType() override;
-	ContentTypes getContentType() override;
 
-	int rowSize() override;
+	int memRowSize() override;
 	unsigned bmpRowSize() override;
 	void readFromBmpMemory(uint8_t* buffer) override;
 	std::vector<uint8_t> colorPalette() override;
-	unsigned colorPaletteSize() override;
 	std::vector<uint8_t> bmpContent() override;
-
 	static unsigned int eightDivisor(const unsigned int input);
 
 private:
@@ -33,7 +27,6 @@ public:
 	Bpp1(const Bpp1& other);
 	ImageContent* clone() override;
 	Bpp1();
-	Bpp1(unsigned int width, unsigned int height);
 	~Bpp1();
 };
 #endif

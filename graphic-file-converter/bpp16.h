@@ -13,6 +13,5 @@ public:
 	size_t calculateBufferSize() override;
 
 	using ImageContent::ImageContent;
-	Bpp16(unsigned int width, unsigned int height);
 	~Bpp16();
 };

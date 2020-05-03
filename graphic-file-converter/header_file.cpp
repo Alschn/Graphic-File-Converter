@@ -4,6 +4,7 @@
 #include "bpp1.h"
 #include "utils.h"
 #include <sstream>
+#include <string>
 
 std::string HeaderFile::generateFileInfo() const
 {
@@ -12,8 +13,10 @@ std::string HeaderFile::generateFileInfo() const
 	for (auto& c : new_name) c = toupper(c);
 	output += "#ifndef ";
 	output += "_" + new_name + "_\n";
+	output += "#define"+'_' + new_name + "_\n";
 	output += "/*\n* RES: ";
-	output += this->content->getType();
+	output += "Bpp";
+	output += static_cast<int>(this->content->getType());
 	output += "\n";
 	output += "* WIDTH: ";
 	output += std::to_string(this->content->getWidth());
@@ -32,7 +35,7 @@ std::string HeaderFile::generateFileInfo() const
 std::string HeaderFile::generateFileContent() const
 {
 	std::string output;
-	auto row_size = this->content->rowSize();
+	auto row_size = this->content->memRowSize();
 	if (row_size == -1)
 		row_size = this->bytes_per_row;
 
@@ -93,14 +96,14 @@ ImageContent* HeaderFile::loadForContent(const std::string& filename)
 	const unsigned int wdth = std::atoi(width.c_str());
 	const unsigned int hght = std::atoi(height.c_str());
 
-	ImageContent* content = Image::type_map[content_type];
+	ImageContent* content = Image::content_type_map[static_cast<ContentTypes>(std::stoi(content_type))]();
 	content->resize(wdth, hght);
 
 
 	auto start_index = counter + hght * letter_index + hght;
 	int bytes_write_index = 0;
 
-	for (int i = 0; i < hght; ++i)
+	for (unsigned i = 0; i < hght; ++i)
 	{
 		auto line = lines.at(start_index - i);
 		auto words = Utils::splitString(line, ',');

@@ -29,20 +29,30 @@ unsigned ImageContent::getHeight()
 	return this->height;
 }
 
-size_t ImageContent::bufferSize() const
+ContentTypes ImageContent::getType()
+{
+	return this->type;
+}
+
+size_t ImageContent::getBufferSize() const
 {
 	return this->buffer_size;
 }
 
+// size_t ImageContent::calculateBufferSize()
+// {
+// 	return this->width * this->height * this->channels;
+// }
+
 unsigned ImageContent::bmpPadding()
 {
-		auto row_size = this->bmpRowSize();
+		auto row_size = this->memRowSize();
 		return Utils::closestFourMultiple(row_size) - row_size;
 }
 
-unsigned ImageContent::colorPaletteSize()
+unsigned ImageContent::bmpRowSize()
 {
-	return 0;
+	return Utils::closestFourMultiple(this->memRowSize());
 }
 
 std::vector<uint8_t> ImageContent::colorPalette()

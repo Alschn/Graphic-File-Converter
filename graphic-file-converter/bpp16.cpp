@@ -25,11 +25,6 @@ size_t Bpp16::calculateBufferSize()
 	return this->width * this->height * 2;
 }
 
-Bpp16::Bpp16(const unsigned width, const unsigned height)
-{
-	this->ImageContent::resize(width, height);
-}
-
 Bpp16::~Bpp16()
 {
 	delete[] this->buffer;
