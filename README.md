@@ -62,8 +62,8 @@ Podanie opcjonalnego parametru `-d` powoduje wyświetlenie zdjęcia na ekranie k
 w konsoli
 
 Szczegółowe objaśnienia komend znajdują się w #11, #15.  
-Szczegółowe objaśnienia funkcjonalności klasy `Image` znajdują się w #10.
-Szczegółowe objaśnienia funkcjonalności klasy `ImageContent`, `File` oraz pochodnych znajdują się w #13.  
+Szczegółowe objaśnienia funkcjonalności klasy `Image` znajdują się w #10.  
+Szczegółowe objaśnienia funkcjonalności klasy `ImageContent`, `File` oraz pochodnych znajdują się w #14.  
 Szczegółowe objaśnienia trybów konwersji znajdują się w #9, #13.
 
 
