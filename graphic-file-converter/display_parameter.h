@@ -1,3 +1,4 @@
+//Created by Wojciech Nowicki 
 #pragma once
 #include "parameter.h"
 

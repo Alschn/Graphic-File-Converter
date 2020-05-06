@@ -1,7 +1,8 @@
+//Created by Gustaw Daczkowski
 #pragma once
 #include <vector>
-
 #include "file.h"
+
 class BmpFile :public File
 {
 private:

@@ -1,4 +1,5 @@
-﻿#include "rotation.h"
+//Created by Adam Lisichin
+#include "rotation.h"
 #include <cmath>
 #include "rotation_arguments.h"
 

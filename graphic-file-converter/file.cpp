@@ -1,3 +1,4 @@
+//Created by Gustaw Daczkowski
 #include "file.h"
 #include <fstream>
 

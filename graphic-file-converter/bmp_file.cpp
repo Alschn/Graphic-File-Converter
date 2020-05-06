@@ -1,3 +1,4 @@
+//Created by Gustaw Daczkowski
 #include "bmp_file.h"
 #include <iostream>
 #include "bpp1.h"

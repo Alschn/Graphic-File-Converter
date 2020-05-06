@@ -1,3 +1,4 @@
+//Created by Wojciech Nowicki
 #include "parameter.h"
 #include <iostream>
 #include "image.h"

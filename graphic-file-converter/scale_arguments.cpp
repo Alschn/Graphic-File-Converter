@@ -1,3 +1,4 @@
+//Created by Wojciech Nowicki
 #include "scale_arguments.h"
 
 int ScaleArguments::get_number_of_arguments()

@@ -1,3 +1,4 @@
+//Created by Adam Lisichin
 #include "rescaler.h"
 #include "scale_arguments.h"
 

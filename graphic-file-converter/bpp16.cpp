@@ -1,3 +1,4 @@
+//Created by Gustaw Daczkowski
 #include "bpp16.h"
 
 void Bpp16::getPixel(unsigned x, unsigned y, uint8_t* output)

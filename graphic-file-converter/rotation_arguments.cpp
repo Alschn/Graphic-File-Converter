@@ -1,3 +1,4 @@
+//Created by Wojciech Nowicki
 #include "rotation_arguments.h"
 
 int RotationArguments::get_number_of_arguments()

@@ -1,3 +1,4 @@
+//Created by Adam Lisichin
 #include "reflection.h"
 
 std::map <std::pair<int, int>, std::pair<int, int>> Reflection::createMap(int height, int width, int num)

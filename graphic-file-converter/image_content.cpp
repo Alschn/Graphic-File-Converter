@@ -1,3 +1,4 @@
+//Created by Gustaw Daczkowski
 #include "image_content.h"
 #include <stdexcept>
 #include "utils.h"

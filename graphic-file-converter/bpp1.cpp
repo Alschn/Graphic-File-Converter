@@ -1,3 +1,4 @@
+//Created by Gustaw Daczkowski
 #include "bpp1.h"
 #include "utils.h"
 

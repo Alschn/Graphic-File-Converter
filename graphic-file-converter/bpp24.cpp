@@ -1,3 +1,4 @@
+//Created by Gustaw Daczkowski
 #include "bpp24.h"
 #include <vector>
 

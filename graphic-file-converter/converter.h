@@ -1,3 +1,4 @@
+//Created by Adam Lisichin
 #pragma once
 #include <iostream>
 #include "image.h"

@@ -1,3 +1,4 @@
+//Created by Gustaw Daczkowski
 #pragma once
 #include "image_content.h"
 #ifndef _BPP1_

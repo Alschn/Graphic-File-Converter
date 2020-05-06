@@ -1,3 +1,5 @@
+//Created by Adam Lisichin
+
 #include "converter.h"
 
 #include <iostream>

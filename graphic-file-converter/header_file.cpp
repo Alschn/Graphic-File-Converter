@@ -1,3 +1,4 @@
+//Created by Gustaw Daczkowski
 #include "header_file.h"
 #include <fstream>
 #include "image.h"

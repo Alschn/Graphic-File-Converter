@@ -1,3 +1,4 @@
+//Created by Wojciech Nowicki
 #include <iostream>
 #include  "display_parameter.h"
 

@@ -1,3 +1,4 @@
+//Created by Adam Lisichin
 #include "enhancer.h"
 #include <cmath>
 

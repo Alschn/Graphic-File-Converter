@@ -1,3 +1,4 @@
+//Created by Gustaw Daczkowski
 #include "image.h"
 #include <iostream>
 #include <map>

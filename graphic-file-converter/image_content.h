@@ -1,3 +1,4 @@
+//Created by Gustaw Daczkowski
 #pragma once
 #include <cstdint>
 #include <string>
