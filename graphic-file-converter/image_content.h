@@ -7,6 +7,8 @@
 #ifndef  ImageContentClass
 #define ImageContentClass
 
+// dodanie nowego formatu  zmusza do grzebania w tym pliku
+
 enum class ContentTypes
 {
 	Bpp1 = 1,
@@ -23,7 +25,7 @@ protected:
 	size_t buffer_size = 0;
 	uint8_t* buffer = nullptr;
 	const unsigned int distinct_colors = 0;
-	ContentTypes type;
+	ContentTypes type;   // trudno rozbudowywaæ
 
 	unsigned int channels = 0;
 

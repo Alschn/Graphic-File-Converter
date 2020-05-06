@@ -1,5 +1,6 @@
 //Created by Adam Lisichin
 #include "rotation.h"
+
 #include <cmath>
 #include "rotation_arguments.h"
 
@@ -11,8 +12,8 @@ std::map <std::pair<int, int>, std::pair<int, int>> Rotation::createMap(int heig
 		throw std::exception("Angle has to be a multiple of 90 degrees");
 	}
 
-	const auto pi = std::acos(-1);
-	double deg = angle * pi / 180;
+	const auto pi = std::acos(-1); // mo¿na dodaæ M_PI z pliku math.h
+	const double deg = angle * pi / 180;
 
 	for (int i = 0; i < height; i++)
 	{

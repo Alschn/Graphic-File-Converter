@@ -133,11 +133,13 @@ std::vector<uint8_t> Bpp1::bmpContent()
 		for (int j = 0; j < this->height; ++j)
 		{
 			auto bytes_to_write = new uint8_t[internal_row_size];
+			// niezainicjowana pamiêæ ^
 			for (int i = 0; i < this->width; ++i)
 			{
 				uint8_t pixel[1] = {0};
 				this->getPixel(i, j, pixel);
-				bytes_to_write[i / 8] = (bytes_to_write[i / 8] & ~(1UL << 7 - i % 8)) | (pixel[0] << 7 - i % 8);
+				//                        V odczyt z niezainicjalizowanej pamieci
+			   bytes_to_write[i / 8] = (bytes_to_write[i / 8] & ~(1UL << 7 - i % 8)) | (pixel[0] << 7 - i % 8);
 			}
 			for (int b = 0; b < internal_row_size; ++b)
 			{
@@ -181,8 +183,9 @@ Bpp1::Bpp1(const Bpp1& other)
 }
 
 Bpp1::Bpp1()
+
 {
-	this->width = 0;
+	this->width = 0;   // nadpisywanie wartoœci Imagecontet odpowiada za inicjalizacje
 	this->height = 0;
 	this->buffer_size = 0;
 	this->channels = 1;

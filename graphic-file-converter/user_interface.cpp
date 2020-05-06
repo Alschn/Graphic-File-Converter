@@ -21,7 +21,7 @@ std::map<const std::string, Arguments*> UserInterface::arguments_map;
 std::map<const std::string, Parameter*> UserInterface::parameters_map;
 
 void UserInterface::registerAction(const std::string& command_name, const std::string& command_explanation,
-                                   Converter* conversion, std::regex command_regex, Arguments* arguments)
+                                   Converter* conversion, const std::regex& command_regex, Arguments* arguments)
 {
 	/*
 		Function registers new functionality.
@@ -57,13 +57,13 @@ void UserInterface::display(const std::string& command)
 		Image image(input_path);
 	ASK_LOOP:
 		std::cout << "What do you want to do? (type one name of following functions)" << std::endl;
-		for (auto a : help_map)
+		for (const auto& a : help_map)
 		{
 			std::cout << a.first << std::endl;
 		}
 		std::string choose_command;
 		std::cin >> choose_command;
-		for (auto choosen_command : help_map)
+		for (const auto& choosen_command : help_map)
 		{
 			if (choosen_command.first == choose_command)
 			{
@@ -78,7 +78,7 @@ void UserInterface::display(const std::string& command)
 				}
 			PARAM_LOOP:
 				std::cout << "Any parameter? (if not type -)" << std::endl;
-				for (auto parameter : parameters_map)
+				for (const auto& parameter : parameters_map)
 				{
 					std::cout << parameter.first << std::endl;
 				}
@@ -89,7 +89,7 @@ void UserInterface::display(const std::string& command)
 					conversions_map[choose_command]->loadImage(&image);
 					//conversions_map[choose_command]->processImage(argument);
 				}
-				for (auto a : parameters_map)
+				for (const auto& a : parameters_map)
 				{
 					if (a.first == parameter)
 					{
@@ -141,7 +141,7 @@ void UserInterface::display(const std::string& command)
 		//*/
 		std::string command_fullname;
 		int no_function = 0;
-		for (auto command_name : regex_map)
+		for (const auto& command_name : regex_map)
 		{
 			if (!check_regex_if_empty(command_name.second, command))
 			{
@@ -159,7 +159,7 @@ void UserInterface::display(const std::string& command)
 				}
 				std::vector<double> args;
 				double argument;
-				for (auto m : splitted)
+				for (const auto& m : splitted)
 				{
 					try
 					{
@@ -269,7 +269,7 @@ void UserInterface::showHelp()
 	std::cout << std::endl;
 	std::cout << "Possible commands: " << std::endl;
 	std::cout << "load" << "   |   " << "step-by-step operations" << std::endl;
-	for (auto explanation : help_map)
+	for (const auto& explanation : help_map)
 	{
 		std::cout << explanation.first << "   |   " << explanation.second << std::endl;
 	}
@@ -289,7 +289,7 @@ std::string argv_to_string(char* arg[], int number_of_arg)
 	//*/
 	std::string command;
 	std::vector<std::string> argList(arg + 1, arg + number_of_arg);
-	for (int i = 0; i < argList.size(); i++)
+	for (size_t i = 0; i < argList.size(); i++) 
 	{
 		if (i == 0)
 		{

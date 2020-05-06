@@ -16,7 +16,7 @@ void Image::putPixel(int x, int y, unsigned char input[])
 	this->content->putPixel(x, y, input);
 }
 
-void Image::resize(int width, int height)
+void Image::resize(int width, int height) // int nie unsigned ?
 {
 	this->width = width;
 	this->height = height;

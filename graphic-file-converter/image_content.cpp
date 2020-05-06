@@ -4,6 +4,8 @@
 #include "utils.h"
 void ImageContent::resize(const unsigned new_width, const unsigned new_height)
 {
+	// co ze starym buforem?
+
 	this->width = new_width;
 	this->height = new_height;
 	this->buffer_size = this->calculateBufferSize();
@@ -71,11 +73,9 @@ ImageContent::ImageContent(const ImageContent& other)
 }
 
 ImageContent::ImageContent()
-{
-	this->width = 0;
-	this->height = 0;
-	this->buffer_size = 0;
-}
+	: width(0), height(0),	buffer_size(0)
+   //type??
+	{}
 
 void ImageContent::verifyAccess(const unsigned x, const unsigned y)
 {

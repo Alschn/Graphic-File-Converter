@@ -28,6 +28,18 @@ namespace Tests
 			auto result = b.calculateBufferSize();
 			Assert::AreEqual(static_cast<size_t>(8), result);
 		}
+
+		TEST_METHOD(test_putPixel_then_getPixel)
+		{
+			auto b = Bpp1();
+			uint8_t pix_in = 0xff;
+			uint8_t pix_out = 0;
+			b.resize(1, 1);
+			b.putPixel(0, 0, &pix_in);
+			b.getPixel(0, 0, &pix_out);
+			Assert::AreEqual<uint8_t>(pix_out, 0x01);
+		}
+
 		TEST_METHOD(testToString0)
 		{
 			auto b = Bpp1();
