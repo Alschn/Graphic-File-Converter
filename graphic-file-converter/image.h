@@ -2,8 +2,10 @@
 #pragma once
 #include <string>
 #include <map>
-#include "header_file.h"
-#include "image_content.h"
+
+#include "image_file_types/file.h"
+#include "image_file_types/header_file.h"
+#include "image_content/image_content.h"
 #include <functional>
 
 class Image

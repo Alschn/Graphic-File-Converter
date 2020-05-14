@@ -1,7 +1,7 @@
 //Created by Gustaw Daczkowski
 #include "image_content.h"
 #include <stdexcept>
-#include "utils.h"
+#include "../utils.h"
 void ImageContent::resize(const unsigned new_width, const unsigned new_height)
 {
 	delete[] this->buffer;

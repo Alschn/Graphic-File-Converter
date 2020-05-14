@@ -6,10 +6,10 @@
 #include <regex>
 #include <sstream>
 #include <vector>
-#include "image.h"
-#include "converter.h"
+#include "../image.h"
+#include "../conversions/converter.h"
 #include <algorithm>
-#include "parameter.h"
+#include "../parameters/parameter.h"
 
 /*
 	Each map contains info about all types of conversions.

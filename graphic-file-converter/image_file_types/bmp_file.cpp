@@ -1,9 +1,9 @@
 //Created by Gustaw Daczkowski
 #include "bmp_file.h"
 #include <iostream>
-#include "bpp1.h"
-#include "image.h"
-#include "utils.h"
+#include "../image_content/bpp1.h"
+#include "../image.h"
+#include "../utils.h"
 #include <fstream>
 
 std::vector<uint8_t> BmpFile::generateHeader(ImageContent* content) const

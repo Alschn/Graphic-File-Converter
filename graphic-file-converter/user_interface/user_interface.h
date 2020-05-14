@@ -3,9 +3,9 @@
 
 #include <map>
 #include <regex>
-#include "converter.h"
-#include "parameter.h"
-#include "arguments.h"
+#include "../conversions/converter.h"
+#include "../parameters/parameter.h"
+#include "../arguments/arguments.h"
 
 class UserInterface
 {

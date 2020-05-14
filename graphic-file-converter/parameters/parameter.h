@@ -1,6 +1,6 @@
 //Created by Wojciech Nowicki
 #pragma once
-#include "image.h"
+#include "../image.h"
 
 class Parameter
 {

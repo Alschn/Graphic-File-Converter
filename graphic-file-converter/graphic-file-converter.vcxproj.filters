@@ -15,135 +15,135 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <None Include="image_content_diag.cd" />
+    <None Include="file_diag.cd" />
+    <None Include="main_diag.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="arguments\arguments.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="arguments\reflection_arguments.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="arguments\rotation_arguments.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="arguments\scale_arguments.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="conversions\converter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="conversions\enhancer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="conversions\reflection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="conversions\rescaler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="conversions\rotation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="image_content\bpp1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="image_content\bpp16.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="image_content\bpp24.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="image_content\image_content.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="image_file_types\bmp_file.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="image_file_types\file.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="image_file_types\header_file.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="parameters\display_parameter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="parameters\parameter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="user_interface\user_interface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="user_interface\user_interface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="image.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="user_interface.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="rotation.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="converter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="reflection.cpp">
+    <ClCompile Include="parameters\display_parameter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="parameter.cpp">
+    <ClCompile Include="parameters\parameter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="display_parameter.cpp">
+    <ClCompile Include="image_file_types\bmp_file.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="arguments.cpp">
+    <ClCompile Include="image_file_types\file.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="rotation_arguments.cpp">
+    <ClCompile Include="image_file_types\header_file.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="reflection_arguments.cpp">
+    <ClCompile Include="image_content\bpp1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="scale_arguments.cpp">
+    <ClCompile Include="image_content\bpp16.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="bmp_file.cpp">
+    <ClCompile Include="image_content\bpp24.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="bpp1.cpp">
+    <ClCompile Include="conversions\converter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="bpp16.cpp">
+    <ClCompile Include="conversions\enhancer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="bpp24.cpp">
+    <ClCompile Include="conversions\reflection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="header_file.cpp">
+    <ClCompile Include="conversions\rescaler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="image_content.cpp">
+    <ClCompile Include="conversions\rotation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="rescaler.cpp">
+    <ClCompile Include="arguments\arguments.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="file.cpp">
+    <ClCompile Include="arguments\reflection_arguments.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="image.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="converter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="utils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="user_interface.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="rotation.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="reflection.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="display_parameter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="parameter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="arguments.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="reflection_arguments.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="rotation_arguments.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="scale_arguments.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="bmp_file.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="bpp1.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="bpp16.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="bpp24.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="image_content.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="rescaler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="file.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="header_file.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="image_content_diag.cd" />
-    <None Include="file_diag.cd" />
-    <None Include="main_diag.cd" />
+    <ClCompile Include="arguments\rotation_arguments.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="arguments\scale_arguments.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="image_content\image_content.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

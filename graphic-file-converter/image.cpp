@@ -2,9 +2,7 @@
 #include "image.h"
 #include <iostream>
 #include <map>
-#include "bmp_file.h"
-#include "bpp1.h"
-#include "bpp24.h"
+#include "image_file_types/bmp_file.h"
 
 void Image::getPixel(unsigned int x, unsigned int y, unsigned char output[]) const
 {

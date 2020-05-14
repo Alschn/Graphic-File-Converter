@@ -1,8 +1,8 @@
 //Created by Adam Lisichin
 #pragma once
 #include <iostream>
-#include "image.h"
-#include "arguments.h"
+#include "../image.h"
+#include "../arguments/arguments.h"
 
 #ifndef CONVERTER_CLASS
 #define CONVERTER_CLASS

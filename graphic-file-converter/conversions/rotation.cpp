@@ -2,7 +2,7 @@
 #include "rotation.h"
 
 #include <cmath>
-#include "rotation_arguments.h"
+#include "../arguments/rotation_arguments.h"
 
 std::map <std::pair<int, int>, std::pair<int, int>> Rotation::createMap(int height, int width, int angle)
 {

@@ -1,6 +1,6 @@
 //Created by Gustaw Daczkowski
 #pragma once
-#include "image_content.h"
+#include "./image_content.h"
 
 class Bpp16 :
 	public ImageContent

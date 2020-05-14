@@ -1,6 +1,6 @@
 //Created by Adam Lisichin
 #include "rescaler.h"
-#include "scale_arguments.h"
+#include "../arguments/scale_arguments.h"
 
 double Rescaler::linearInterpolation(double s, double e, double t)
 {

@@ -1,18 +1,18 @@
 #include <iostream>
-
-#include "bpp1.h"
-#include "bpp24.h"
+#include "image_content/image_content.h"
+#include "image_content/bpp1.h"
+#include "image_content/bpp24.h"
 #include "utils.h"
-#include "rotation.h"
-#include "rescaler.h"
-#include "reflection.h"
-#include "display_parameter.h"
-#include "user_interface.h"
-#include "reflection_arguments.h"
-#include "rotation_arguments.h"
-#include "enhancer.h"
-#include "rescaler.h"
-#include "scale_arguments.h"
+#include "conversions/rotation.h"
+#include "conversions/rescaler.h"
+#include "conversions/reflection.h"
+#include "parameters/display_parameter.h"
+#include "user_interface/user_interface.h"
+#include "arguments/reflection_arguments.h"
+#include "arguments/rotation_arguments.h"
+#include "conversions/enhancer.h"
+#include "conversions/rescaler.h"
+#include "arguments/scale_arguments.h"
 
 using namespace std;
 

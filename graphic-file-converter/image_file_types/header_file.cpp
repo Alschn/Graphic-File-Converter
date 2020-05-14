@@ -1,9 +1,9 @@
 //Created by Gustaw Daczkowski
 #include "header_file.h"
 #include <fstream>
-#include "image.h"
-#include "bpp1.h"
-#include "utils.h"
+#include "../image.h"
+#include "../image_content/bpp1.h"
+#include "../utils.h"
 #include <sstream>
 #include <string>
 

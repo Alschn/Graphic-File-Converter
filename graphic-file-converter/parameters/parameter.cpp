@@ -1,7 +1,7 @@
 //Created by Wojciech Nowicki
 #include "parameter.h"
 #include <iostream>
-#include "image.h"
+#include "../image.h"
 
 void Parameter::executeParam(Image* image)
 {

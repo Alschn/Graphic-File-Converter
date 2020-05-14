@@ -3,8 +3,8 @@
 #include <vector>
 #include <regex>
 #include "file.h"
-#include "utils.h"
-#include "image.h"
+#include "../utils.h"
+#include "../image.h"
 
 class HeaderFile :public File
 {
