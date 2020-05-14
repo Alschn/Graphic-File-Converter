@@ -178,7 +178,6 @@ Bpp1::Bpp1(const Bpp1& other)
 	this->buffer_size = other.buffer_size;
 	this->buffer = new uint8_t[this->buffer_size];
 	memcpy(this->buffer, other.buffer, this->buffer_size);
-	this->type = other.type;
 	this->channels = other.channels;
 }
 
@@ -189,7 +188,7 @@ Bpp1::Bpp1()
 	this->height = 0;
 	this->buffer_size = 0;
 	this->channels = 1;
-	this->type = ContentTypes::Bpp1;
+	this->type = 1;
 }
 
 

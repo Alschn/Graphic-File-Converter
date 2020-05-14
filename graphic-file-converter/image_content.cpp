@@ -4,8 +4,7 @@
 #include "utils.h"
 void ImageContent::resize(const unsigned new_width, const unsigned new_height)
 {
-	// co ze starym buforem?
-
+	delete[] this->buffer;
 	this->width = new_width;
 	this->height = new_height;
 	this->buffer_size = this->calculateBufferSize();
@@ -32,10 +31,10 @@ unsigned ImageContent::getHeight()
 	return this->height;
 }
 
-ContentTypes ImageContent::getType()
-{
-	return this->type;
-}
+// ContentTypes ImageContent::getType()
+// {
+// 	return this->type;
+// }
 
 size_t ImageContent::getBufferSize() const
 {
@@ -63,6 +62,11 @@ unsigned ImageContent::getChannels()
 	return this->channels;
 }
 
+unsigned ImageContent::getType()
+{
+	return this->type;
+}
+
 ImageContent::ImageContent(const ImageContent& other)
 {
 	this->width = other.width;
@@ -73,7 +77,7 @@ ImageContent::ImageContent(const ImageContent& other)
 }
 
 ImageContent::ImageContent()
-	: width(0), height(0),	buffer_size(0)
+	: width(0), height(0), buffer_size(0)
    //type??
 	{}
 

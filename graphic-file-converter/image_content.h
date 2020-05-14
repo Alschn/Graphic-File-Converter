@@ -7,15 +7,6 @@
 #ifndef  ImageContentClass
 #define ImageContentClass
 
-// dodanie nowego formatu  zmusza do grzebania w tym pliku
-
-enum class ContentTypes
-{
-	Bpp1 = 1,
-	Bpp8 = 8,
-	Bpp16 = 16,
-	Bpp24 = 24
-};
 
 class ImageContent
 {
@@ -25,10 +16,9 @@ protected:
 	size_t buffer_size = 0;
 	uint8_t* buffer = nullptr;
 	const unsigned int distinct_colors = 0;
-	ContentTypes type;   // trudno rozbudowywaæ
 
 	unsigned int channels = 0;
-
+	unsigned int type = 0;
 
 public:
 	virtual void getPixel(unsigned int x, unsigned int y, uint8_t* output) = 0;
@@ -39,7 +29,6 @@ public:
 	virtual int memRowSize() = 0;
 	virtual unsigned int getWidth();
 	virtual unsigned int getHeight();
-	virtual ContentTypes getType();
 	virtual ImageContent* clone() = 0;
 	virtual std::string toString() =0;
 	virtual unsigned int bmpPadding();
@@ -48,7 +37,8 @@ public:
 	virtual std::vector<uint8_t> colorPalette();
 	virtual std::vector<uint8_t> bmpContent() = 0;
 	virtual unsigned int getChannels();
-
+	virtual unsigned int getType();
+	
 	ImageContent(const ImageContent& other);
 	ImageContent();
 	virtual ~ImageContent() = default;;

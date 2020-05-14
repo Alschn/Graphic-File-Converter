@@ -97,7 +97,7 @@ ImageContent* HeaderFile::loadForContent(const std::string& filename)
 	const unsigned int wdth = std::atoi(width.c_str());
 	const unsigned int hght = std::atoi(height.c_str());
 
-	ImageContent* content = Image::content_type_map[static_cast<ContentTypes>(std::stoi(content_type))]();
+	ImageContent* content = Image::content_type_map[(std::stoi(content_type))]();
 	content->resize(wdth, hght);
 
 

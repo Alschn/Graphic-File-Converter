@@ -116,7 +116,7 @@ Bpp24::Bpp24()
 	this->width = 0;
 	this->height = 0;
 	this->buffer_size = 0;
-	this->type = ContentTypes::Bpp24;
+	this->type = 24;
 }
 
 Bpp24::Bpp24(const Bpp24& other)
@@ -126,7 +126,6 @@ Bpp24::Bpp24(const Bpp24& other)
 	this->buffer_size = other.buffer_size;
 	this->buffer = new uint8_t[this->buffer_size];
 	memcpy(this->buffer, other.buffer, this->buffer_size);
-	this->type = other.type;
 }
 
 Bpp24::~Bpp24()

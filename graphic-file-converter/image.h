@@ -15,9 +15,8 @@ private:
 public:
 	unsigned int width{}; // width in pixels
 	unsigned int height{}; // height in pixels
-	ContentTypes content_type;
 	unsigned int channels = 0;
-	
+	unsigned int type = 0;
 	/**
 	 * \brief Gets pixel on specified index given by coordinates (x, y). Default orientation is: (0, 0) at the bottom left corner. Empty char array has to be supplied for the return value.
 	 * For 24bit color spaces array has have 3 elements.
@@ -26,21 +25,21 @@ public:
 	 * \param output empty char array for output
 	 * \param mode for color space if the color space has more than one color.
 	 */
-	void getPixel(int x, int y, unsigned char output[]) const;
+	void getPixel(unsigned int x, unsigned int y, unsigned char output[]) const;
 	/**
 	 * \brief Puts pixel into memory by given coordinates. This function is meant to be used for 24bit color space.
 	 * \param x x coordinate
 	 * \param y y coordinate
 	 * \param input char array of RGB or BGR depending on specified mode
 	 */
-	void putPixel(int x, int y, unsigned char input[]);
+	void putPixel(unsigned int x, unsigned int y, unsigned char input[]);
 
 	/**
 	 * \brief Resizes image and memory for new dimensions.
 	 * \param width width in pixels
 	 * \param height height in pixels
 	 */
-	void resize(int width, int height);
+	void resize(unsigned int width,unsigned int height);
 
 	/**
 	 * \brief Saves file.
@@ -57,10 +56,12 @@ private:
 	void loadFromPath(const std::string &path);
 
 public:
-	static std::map<ContentTypes, std::function<ImageContent* ()>> content_type_map;
+	static std::map<unsigned int, std::function<ImageContent* ()>> content_type_map;
 	static std::map<std::string, std::function<File* ()>> file_type_map;
 	static std::string getExtension(const std::string& path);
 
+	static void registerImageContent(unsigned int bpp, std::function<ImageContent* ()> func);
+	
 	Image() = default;
 
 	Image(const std::string & path);

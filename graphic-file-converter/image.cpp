@@ -6,17 +6,17 @@
 #include "bpp1.h"
 #include "bpp24.h"
 
-void Image::getPixel(int x, int y, unsigned char output[]) const
+void Image::getPixel(unsigned int x, unsigned int y, unsigned char output[]) const
 {
 	this->content->getPixel(x, y, output);
 }
 
-void Image::putPixel(int x, int y, unsigned char input[])
+void Image::putPixel(unsigned int x, unsigned int y, unsigned char input[])
 {
 	this->content->putPixel(x, y, input);
 }
 
-void Image::resize(int width, int height) // int nie unsigned ?
+void Image::resize(unsigned int width,unsigned int height) 
 {
 	this->width = width;
 	this->height = height;
@@ -42,7 +42,7 @@ void Image::loadFromPath(const std::string& path)
 
 	auto file = Image::file_type_map[extension]();
 	this->content = file->loadForContent(this->path);
-	this->content_type = this->content->getType();
+	this->type = this->content->getType();
 	this->width = this->content->getWidth();
 	this->height = this->content->getHeight();
 	this->channels = this->content->getChannels();
@@ -62,6 +62,11 @@ std::string Image::getExtension(const std::string& path)
 	return path.substr(pos);
 }
 
+void Image::registerImageContent(unsigned bpp, std::function<ImageContent* ()> func)
+{
+	Image::content_type_map[bpp] = func;
+}
+
 Image::Image(const std::string& path)
 {
 	this->loadFromPath(path);
@@ -76,7 +81,6 @@ Image::Image(const Image& other)
 	this->width = other.width;
 	this->height = other.height;
 	this->content = other.content->clone();
-	this->content_type = other.content_type;
 	this->channels = other.channels;
 }
 
@@ -91,9 +95,9 @@ std::ostream& operator<<(std::ostream& os, const Image& im)
 	return os;
 }
 
-std::map<ContentTypes, std::function<ImageContent*()>> Image::content_type_map = {
-	{ContentTypes::Bpp1, []() -> ImageContent* { return new Bpp1(); }},
-	{ContentTypes::Bpp24, []() -> ImageContent* { return new Bpp24(); }}
+std::map<unsigned int, std::function<ImageContent*()>> Image::content_type_map = {
+	// {ContentTypes::Bpp1, []() -> ImageContent* { return new Bpp1(); }},
+	// {ContentTypes::Bpp24, []() -> ImageContent* { return new Bpp24(); }}
 };
 
 std::map<std::string, std::function<File*()>> Image::file_type_map = {

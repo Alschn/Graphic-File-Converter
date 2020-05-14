@@ -22,9 +22,11 @@ private:
 	unsigned int row_size = 0; // row size in bytes 
 	unsigned int pixel_array_offset = 0;
 
+	
 	std::vector<uint8_t> generateHeader(ImageContent* content) const;
 
 public:
+	
 	void readHeader(char* buffer);
 	void readPixelArray(char* pixel_array_buffer) const;
 	ImageContent* loadForContent(const std::string& filename) override;

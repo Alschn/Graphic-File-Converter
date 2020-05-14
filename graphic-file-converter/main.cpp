@@ -1,4 +1,7 @@
 #include <iostream>
+
+#include "bpp1.h"
+#include "bpp24.h"
 #include "utils.h"
 #include "rotation.h"
 #include "rescaler.h"
@@ -15,6 +18,8 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
+
+	
 	UserInterface Desktop;
 	Rotation conversion;
 	DisplayParameter display;
@@ -23,6 +28,11 @@ int main(int argc, char* argv[])
 	RotationArguments rot_args;
 	Rescaler conversion3;
 	ScaleArguments scale_args;
+
+	Image::registerImageContent(1, []() -> ImageContent* { return new Bpp1(); });
+	Image::registerImageContent(24, []() -> ImageContent* { return new Bpp24(); });
+
+	
 	Desktop.registerParameter("-d", &display);
 	Desktop.registerAction("rotate", "rotates picture by n degrees", &conversion,
 	                       regex(
