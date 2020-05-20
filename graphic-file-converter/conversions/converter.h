@@ -17,11 +17,14 @@ public:
 	virtual void processImage(Arguments* args);
 	void saveImage(const std::string& path) const;
 	void loadImage(const Image* image);
+	
 
 	Converter() = default;
 
 	Converter(const Image* base_image);;
 
-	~Converter();
+	virtual ~Converter();
+
+	static double checkColorRange(double value);
 };
 #endif
