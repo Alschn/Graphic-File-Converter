@@ -58,6 +58,13 @@ private:
 	void loadFromPath(const std::string &path);
 
 public:
+	//allow only image content
+	template<typename T, typename = std::enable_if<std::is_base_of<ImageContent, T>::value>>
+	static void registerImageContent(unsigned bpp)
+	{
+		Image::content_type_map[bpp] = []() -> ImageContent* { return new T(); };
+	}
+	
 	static std::map<unsigned int, std::function<ImageContent* ()>> content_type_map;
 	static std::map<std::string, std::function<File* ()>> file_type_map;
 	static std::string getExtension(const std::string& path);
