@@ -159,16 +159,33 @@ void UserInterface::display(const std::string& command)
 				}
 				std::vector<double> args;
 				double argument;
-				for (const auto& m : splitted)
+				for (auto& m : splitted)
 				{
-					try
+					if (m[0] == '-')
 					{
-						argument = std::stod(m);
-						args.push_back(argument);
+						m.erase(0, 1);
+						try
+						{
+							argument = std::stod(m);
+							argument = -argument;
+							args.push_back(argument);
+						}
+						catch (...)
+						{
+							m.insert(0, "-");
+						}
 					}
-					catch (...)
+					else
 					{
-						;
+						try
+						{
+							argument = std::stod(m);
+							args.push_back(argument);
+						}
+						catch (...)
+						{
+							;
+						}
 					}
 				}
 				arguments_map[command_fullname]->set_arguments(args);
@@ -179,15 +196,22 @@ void UserInterface::display(const std::string& command)
 				splitted[args.size() + 1].erase(splitted[args.size() + 1].end() - 1, splitted[args.size() + 1].end());
 				std::string input_path = splitted[args.size() + 1];
 				std::string output_path;
-				if (splitted[args.size() + 2].size() > 2)
+				if (splitted.size() > args.size() + 2)
 				{
-					/*
+					if (splitted[args.size() + 2].size() > 2)
+					{
+						/*
 						Stripping output path from quotation marks (') (if given).
-					//*/
-					splitted[args.size() + 2].erase(splitted[args.size() + 2].begin());
-					splitted[args.size() + 2].erase(splitted[args.size() + 2].end() - 1,
-					                                splitted[args.size() + 2].end());
-					output_path = splitted[args.size() + 2];
+						//*/
+						splitted[args.size() + 2].erase(splitted[args.size() + 2].begin());
+						splitted[args.size() + 2].erase(splitted[args.size() + 2].end() - 1,
+							splitted[args.size() + 2].end());
+						output_path = splitted[args.size() + 2];
+					}
+					else
+					{
+						;
+					}
 				}
 				else
 				{

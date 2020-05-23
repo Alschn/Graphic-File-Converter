@@ -1,9 +1,15 @@
 //Created by Adam Lisichin
 #include "color_intensity.h"
+#include "../arguments/color_intesity_arguments.h"
 
 void Intensity::processImage(Arguments* args)
 {
-	if ((args[0] > 255 || args[0] < -255) || (args[1] > 255 || args[1] < -255) || (args[2] > 255 || args[2] < -255))
+	ColorIntensityArguments* col_args = dynamic_cast<ColorIntensityArguments*>(args);
+	col_args->r = static_cast<int>(col_args->r);
+	col_args->g = static_cast<int>(col_args->g);
+	col_args->b = static_cast<int>(col_args->b);
+	
+	if ((col_args->r > 255 || col_args->r < -255) || (col_args->g > 255 || col_args->g < -255) || (col_args->b > 255 || col_args->b < -255))
 	{
 		throw std::exception("Color adjustment has to be in range [-255, 255]");
 	}
@@ -14,9 +20,9 @@ void Intensity::processImage(Arguments* args)
 			unsigned char pixels[3];
 			this->oldImage->getPixel(x, y, pixels);
 
-			pixels[0] = checkColorRange(pixels[0] + args[0]);
-			pixels[1] = checkColorRange(pixels[1] + args[1]);
-			pixels[2] = checkColorRange(pixels[2] + args[2]);
+			pixels[0] = checkColorRange(pixels[0] + col_args->r);
+			pixels[1] = checkColorRange(pixels[1] + col_args->g);
+			pixels[2] = checkColorRange(pixels[2] + col_args->b);
 
 			this->newImage->putPixel(x, y, pixels);
 		}

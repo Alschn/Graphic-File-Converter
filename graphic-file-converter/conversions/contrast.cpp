@@ -1,13 +1,16 @@
 //Created by Adam Lisichin
 #include "contrast.h"
+#include "../arguments/contrast_arguments.h"
 
 void Contrast::processImage(Arguments* args)
 {
-	if (args[0] > 255 || args[0] < -255)
+	ContrastArguments* contr_args = dynamic_cast<ContrastArguments*>(args);
+	contr_args->contrast_value = static_cast<int>(contr_args->contrast_value);
+	if (contr_args->contrast_value > 255 || contr_args->contrast_value < -255)
 	{
 		throw std::exception("Contrast has to be in range [-255, 255]");
 	}
-	const double factor = 259 * (args[0] + 255) / (255 * (259 - args[0]));
+	const double factor = 259 * (contr_args->contrast_value + 255) / (255 * (259 - contr_args->contrast_value));
 	for (int x = 0; x < newImage->width; x++) {
 		for (int y = 0; y < newImage->height; y++)
 		{
