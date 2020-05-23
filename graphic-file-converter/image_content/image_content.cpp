@@ -31,11 +31,6 @@ unsigned ImageContent::getHeight()
 	return this->height;
 }
 
-// ContentTypes ImageContent::getType()
-// {
-// 	return this->type;
-// }
-
 size_t ImageContent::getBufferSize() const
 {
 	return this->buffer_size;
@@ -67,7 +62,7 @@ unsigned ImageContent::getType()
 	return this->type;
 }
 
-ImageContent::ImageContent(const ImageContent& other)
+ImageContent::ImageContent(const ImageContent& other): distinct_colors(0)
 {
 	this->width = other.width;
 	this->height = other.height;
@@ -77,9 +72,10 @@ ImageContent::ImageContent(const ImageContent& other)
 }
 
 ImageContent::ImageContent()
-	: width(0), height(0), buffer_size(0)
-   //type??
-	{}
+	: width(0), height(0), buffer_size(0), type(0), distinct_colors(0)
+{
+	
+}
 
 void ImageContent::verifyAccess(const unsigned x, const unsigned y)
 {

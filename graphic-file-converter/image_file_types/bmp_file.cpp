@@ -25,7 +25,7 @@ std::vector<uint8_t> BmpFile::generateHeader(ImageContent* content) const
 	Utils::writeIntToCharBuffer(header, content->getWidth(), 18); // image's height
 	Utils::writeIntToCharBuffer(header, content->getHeight(), 22); // image's width
 	Utils::writeIntToCharBuffer(header, 1, 26); //planes - has to be exactly one
-	Utils::writeIntToCharBuffer(header, static_cast<int>(content->getType()), 28); //bpp
+	Utils::writeIntToCharBuffer(header, content->getType(), 28); //bpp
 	Utils::writeIntToCharBuffer(header, 0, 30); //compression - not important and not used
 	Utils::writeIntToCharBuffer(header, 0, 34); //real size for compression - same as above
 	Utils::writeIntToCharBuffer(header, this->H_RES, 38); //horizontal res (pixel per inch) - not really important

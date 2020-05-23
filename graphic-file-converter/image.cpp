@@ -14,6 +14,10 @@ void Image::putPixel(unsigned int x, unsigned int y, unsigned char input[])
 	this->content->putPixel(x, y, input);
 }
 
+
+
+
+
 void Image::resize(unsigned int width, unsigned int height)
 {
 	this->width = width;
@@ -60,6 +64,12 @@ std::string Image::getExtension(const std::string& path)
 	return path.substr(pos);
 }
 
+Image::Image(unsigned int content_type, unsigned int width, unsigned int height)
+{
+	delete this->content;
+	this->content = Image::content_type_map[content_type]();
+	this->content->resize(width, height);
+}
 
 Image::Image(const std::string& path)
 {
