@@ -7,7 +7,7 @@ class Contrast : public Converter
 	using Converter::Converter;
 	/**
 	 * \brief Adjusts contrast using formula
-	 * \param args Integer in range [-255, 255]
+	 * \param args Integer in range [0, 255]
 	 */
 	void processImage(Arguments* args) override;
 };

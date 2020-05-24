@@ -99,15 +99,15 @@ int main()
 	Image::registerImageContent<Bpp1>(1);
 	Image::registerImageContent<Bpp24>(24);
 
-	auto im = Image("../sample_bmps/10x10.bmp");
-	im.save("../sample_bmps/abc.bmp");
+	//auto im = Image("../sample_bmps/10x10.bmp");
+	//im.save("../sample_bmps/abc.bmp");
 
-	Converter* conv = new Rescaler(&im);
-	auto args = new ScaleArguments();
-	args->set_arguments({ 2, 2 });
-	conv->processImage(args);
-	std::cout << conv->oldImage->toStr()<<std::endl;
-	std::cout << conv->newImage->toStr();
-	
-	conv->newImage->save("../sample_bmps/test_blue+100.bmp");
+	//Converter* conv = new Rescaler(&im);
+	//auto args = new ScaleArguments();
+	//args->set_arguments({ 2, 2 });
+	//conv->processImage(args);
+	//std::cout << conv->oldImage->toStr()<<std::endl;
+	//std::cout << conv->newImage->toStr();
+	//
+	//conv->newImage->save("../sample_bmps/test_blue+100.bmp");
 }
