@@ -27,7 +27,7 @@ Optymalizacja pamięci pod względem przechowywanego obrazu.
 * Klasy `Parameter` oraz dziedziczące z nich - odpowiadają za opcjonalne parametry CLI - Wojciech Nowicki
 * Klasa `Argument` oraz dziedziące z niej - odpowiadają za przekazywanie argumentów konwersji z CLI do `Converter` - Wojciech Nowicki
 * Klasa `Image` odpowiadająca za zarządzanie zdjęciami jako interfejs dla innych klas (nadrzędna) - Gustaw Daczkowski
-* Klasa `Converter` klasa główna odpowiedzialna za konwersję, z wirtualnymi metodami (plus wszystkie konwersje: Reflection, Rotation, Enhancer, Rescaler) - Adam Lisichin
+* Klasa `Converter` klasa główna odpowiedzialna za konwersję, z wirtualnymi metodami (plus wszystkie konwersje: Reflection, Rotation, Rescaler, Negative, Brightness, Contrast, Intensity) - Adam Lisichin
 * Klasa `Utils`- bardzo mała, znajdują się w niej statyczne metody do obsługi operacji bitowych oraz bajtowych - Gustaw Daczkowski
 * Klasa `File` - odpowiedzialna za pracę nad plikami (plus dziedziczące z niej) - Gustaw Daczkowski
 * Klasa `ImageContent` - odpowiedzialna za zarządzanie pamięcią (plus dziedziczące z niej) - Gustaw Daczkowski
@@ -44,7 +44,7 @@ również wyśtwietla pomoc, CLI jest gotowy do rejestracji kolejnych funckjonal
     1. **Obrót o zadany kąt:** rotation kat "scieżka wejściowa" ["scieżka wyjściowa"] [-d]
     2. **Odbicie lustrzane:**  reflection ytyb "scieżka wejściowa" ["ścieżka wyjściowa"] [-d]
     3. **Rescaler - skalowanie obrazu** rescaler xskala yskala "sciezka wejsciowa" ["sciezka wyjsciowa"] [-d] 
-* Oprócz tego jest klasa `Enhancer` - nieobsługiwana z CLI, opsiana w #13 z przykładami.
+
     
 
 * Obecnie obsługiwane jest odczytywanie i pisanie do plików .bmp w wersji 24 oraz 1 bpp, podobnie w przypadku pliku nagłowkowego .h. Zaimplementowane są również konwersje między nimi.
@@ -65,6 +65,66 @@ Szczegółowe objaśnienia komend znajdują się w #11, #15.
 Szczegółowe objaśnienia funkcjonalności klasy `Image` znajdują się w #10.  
 Szczegółowe objaśnienia funkcjonalności klasy `ImageContent`, `File` oraz pochodnych znajdują się w #14.  
 Szczegółowe objaśnienia trybów konwersji znajdują się w #9, #13, #16.
+
+#### Konwersje - Adam Lisichin
+Klasa `Converter` jest klasą matką dla wszystkich niżej wymienionych konwersji.  
+Klasy odpowiedzialne za poszczególne konwersje dziedziczą po klasie `Converter`, wszystkie posiadają korzystają z metody wirtualnej processImage(args), której wywołanie powoduje dokonanie operacji na nowo utworzonym zdjęciu.  
+
+`Rotation` – odpowiedzialna za obsługę obrotu bitmapy o pewien kąt zgodnie z ruchem wskazówek zegara (można podać dowolną wielokrotność 90 stopni - podanie innej wartości poskutkuje wyrzuceniem błędu).  
+    Algorytm obsługuje zarówno zdjęcia 24bpp jak i 1bpp.  
+    Dostępne wywołania:  
+    - **90** - obrót o 90 stopni  
+    - **180** - obrót o 180 stopni  
+    - **270** - obrót o 270 stopni  
+    Dla **0** i **360** stopni (oraz całkowitych wielokrotności) zwracane jest domyślne zdjęcie.  
+
+`Reflection` – odpowiedzialna za obsługę lustrzanego odbicia.  
+    Algorytm obsługuje zarówno zdjęcia 24bpp jak i 1bpp.  
+    Dostępne wywołania:  
+    - **0** - odbicie lustrzane w pionie  
+    - **1** - odbicie lustrzane w poziomie    
+    *Tylko dla kwadratowych zdjęć:*  
+    - **2** - odbicie lustrzane względem przekątnej (y = x)  
+    - **3** - odbicie lustrzane względem drugiej przekątnej (y = height - x)    
+
+Klasy Rotation i Reflection powstały jako pierwsze. Dzielą ten sam mechanizm budowania mapy współrzędnych. Posiadają następujące metody:  
+    **createMap** - tworzy mapę par liczb całkowitych, która przechowuje pary koordynatów przed i po konwersji.  
+    Konwersja dokonywana jest w oparciu o algorytmy napisane i przetestowane ręcznie.  
+    Jego działanie potwierdzają testy jednostkowe i obrazy wygenerowane w wyniku konwersji.  
+    - w klasie `Rotation`: wykorzystana została macierz obrotu i translacja o wektor  
+    - w klasie `Reflection`: współrzędne obliczane są ze wzoru wynikającego z symetrii względem prostej (pionowej, poziomej, skośnej) a następnie dokonywana jest translacja o wektor  
+    **processImage** - inicjalizuje mapę konwersji i na jej podstawie wypełnia nowe zdjęcie starymi pixelami ale na odpowiednich współrzędnych.  
+    - w klasie `Rotation`: następuje zamiana wymiarów nowego zdjęcia dla kątów różnych od 180, dla 0 i 360 zdjęcie nie ulega zmianom.  
+    - w klasie `Reflection`: następuje sprawdzenie warunków. Nie dozwolone jest wykonanie symetrii względem przekątnych dla prostokątów nie będących kwadratem.  
+
+`Rescaler` - pozwala na skalowanie obrazu (zarówno w pionie jak i poziomie)  
+    **processImage** - przyjmuje dwa argumenty - scale_x i scale_y; jeżeli chcemy skalować tylko w jednej płaszczyźnie, to należy wpisać 1 przy drugiej.  
+    Skalowanie obrazu jest możliwe dzięki algorytmowi interpolacji bilinearnej - literatura w #13  
+    Klasa zawiera metody *linearInterpolation* i *bilinearInterpolation*, z użyciem których wyliczane są nowe współrzędne pixeli i przypadające im kolory.  
+    Algorytm obsługuje zarówno zdjęcia 24bpp jak i 1bpp.  
+
+`Brightness` - pozwala zmienić jasność zdjęcia (zwiększenie/zmniejszenie wszystkich składowych RGB).  
+    **processImage**  - przyjmuje liczbę całkowitą od -255 do 255, o którą zostanie zwiększona jasność zdjęcia (czyli wartość składowej R, G i B jednocześnie)  
+    Funkcja posiada ochronę przed wykroczeniem poza zakres [0, 255] - checkColorRange z Convertera.  
+    Konwersja działa tylko dla 24bpp.  
+
+`Contrast` - modyfikuje kontrast zdjęcia.  
+    **processImage**  - przyjmuje liczbę calkowitą od -255 do 255, dzięki której zmienimy wartość kontrastu (obliczanego ze wzoru na kontrast)  
+    Funkcja posiada ochronę przed wykroczeniem poza zakres [0, 255] - checkColorRange z Convertera.
+    Konwersja działa tylko dla 24bpp.  
+
+`Intensity` - pozwala zmienić wartości wybranych kanałów R G B.  
+    **processImage**  - przyjmuje trzy argumenty:    
+    R - zmiana intensywności składowej koloru czerwonego o podaną wartość  
+    G - zmiana intensywności składowej koloru zielonego o podaną wartość   
+    B - zmiana intensywności składowej koloru niebieskiego o podaną wartość  
+    Konwersja oczywiście działa tylko dla 24bpp.  
+    Funkcja posiada ochronę przed wykroczeniem poza zakres [0, 255] - checkColorRange z Convertera.  
+
+`Negative` - tworzy negatyw obrazu.  
+    **processImage**  - nie przyjmuje żadnych parametrów.  
+    Zamienia wartości składowych R G B na ich dopełnienie do 255.  
+    Funkcja posiada ochronę przed wykroczeniem poza zakres [0, 255] - checkColorRange z Convertera.  
 
 
 ## Diagramy klas:
