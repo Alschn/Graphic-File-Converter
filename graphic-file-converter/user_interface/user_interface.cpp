@@ -296,13 +296,28 @@ void UserInterface::display(const std::string& command)
 					//*/
 					if (std::find(splitted.begin(), splitted.end(), param.first) != splitted.end())
 					{
-						param.second->executeParam(
-							executeAction(command_name.first, input_path, output_path,
-							              arguments_map[command_fullname]));
+						try
+						{
+							param.second->executeParam(
+								executeAction(command_name.first, input_path, output_path, arguments_map[command_fullname]));
+						}
+						catch(const std::exception & ex)
+						{
+							std::cerr << ex.what() << std::endl;
+							exit(1);
+						}
 					}
 					else
 					{
-						executeAction(command_name.first, input_path, output_path, arguments_map[command_fullname]);
+						try
+						{
+							executeAction(command_name.first, input_path, output_path, arguments_map[command_fullname]);
+						}
+						catch (const std::exception& ex)
+						{
+							std::cerr << ex.what() << std::endl;
+							exit(1);
+						}
 					}
 				}
 				std::cout << "Action executed!" << std::endl;
