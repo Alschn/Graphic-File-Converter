@@ -125,6 +125,7 @@ Bpp24::Bpp24(const Bpp24& other)
 	this->height = other.height;
 	this->buffer_size = other.buffer_size;
 	this->buffer = new uint8_t[this->buffer_size];
+	this->type = other.type;
 	memcpy(this->buffer, other.buffer, this->buffer_size);
 }
 

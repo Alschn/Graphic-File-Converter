@@ -11,14 +11,14 @@
 class ImageContent
 {
 protected:
-	unsigned int width = 0;
-	unsigned int height = 0;
-	size_t buffer_size = 0;
+	unsigned int width;
+	unsigned int height;
+	size_t buffer_size;
 	uint8_t* buffer = nullptr;
 	const unsigned int distinct_colors = 0;
 
-	unsigned int channels = 0;
-	unsigned int type = 0;
+	unsigned int channels;
+	unsigned int type;
 
 public:
 	virtual void getPixel(unsigned int x, unsigned int y, uint8_t* output) = 0;

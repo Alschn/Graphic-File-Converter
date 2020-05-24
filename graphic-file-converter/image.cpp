@@ -14,7 +14,11 @@ void Image::putPixel(unsigned int x, unsigned int y, unsigned char input[])
 	this->content->putPixel(x, y, input);
 }
 
-void Image::resize(unsigned int width,unsigned int height) 
+
+
+
+
+void Image::resize(unsigned int width, unsigned int height)
 {
 	this->width = width;
 	this->height = height;
@@ -23,7 +27,7 @@ void Image::resize(unsigned int width,unsigned int height)
 
 void Image::save(const std::string& path) const
 {
-	const auto extension = this->getExtension(path);
+	const auto extension = Image::getExtension(path);
 	auto file = Image::file_type_map[extension]();
 	file->save(this->content, path);
 }
@@ -60,9 +64,11 @@ std::string Image::getExtension(const std::string& path)
 	return path.substr(pos);
 }
 
-void Image::registerImageContent(unsigned bpp, std::function<ImageContent* ()> func)
+Image::Image(unsigned int content_type, unsigned int width, unsigned int height)
 {
-	Image::content_type_map[bpp] = func;
+	delete this->content;
+	this->content = Image::content_type_map[content_type]();
+	this->content->resize(width, height);
 }
 
 Image::Image(const std::string& path)
@@ -93,10 +99,7 @@ std::ostream& operator<<(std::ostream& os, const Image& im)
 	return os;
 }
 
-std::map<unsigned int, std::function<ImageContent*()>> Image::content_type_map = {
-	// {ContentTypes::Bpp1, []() -> ImageContent* { return new Bpp1(); }},
-	// {ContentTypes::Bpp24, []() -> ImageContent* { return new Bpp24(); }}
-};
+std::map<unsigned int, std::function<ImageContent*()>> Image::content_type_map = {};
 
 std::map<std::string, std::function<File*()>> Image::file_type_map = {
 	{".h", []() -> File* { return new HeaderFile(); }},
