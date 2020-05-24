@@ -13,7 +13,6 @@ public:
 	const Image* oldImage{};
 	Image* newImage{};
 
-public:
 	virtual void processImage(Arguments* args);
 	void saveImage(const std::string& path) const;
 	void loadImage(const Image* image);
@@ -22,6 +21,6 @@ public:
 
 	Converter(const Image* base_image);;
 
-	~Converter();
+	virtual ~Converter();
 };
 #endif

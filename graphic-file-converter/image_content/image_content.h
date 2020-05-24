@@ -16,7 +16,7 @@ protected:
 	size_t buffer_size;
 	uint8_t* buffer = nullptr;
 	const unsigned int distinct_colors = 0;
-
+	unsigned int onePixelByteSize;
 	unsigned int channels;
 	unsigned int type;
 
@@ -38,6 +38,7 @@ public:
 	virtual std::vector<uint8_t> bmpContent() = 0;
 	virtual unsigned int getChannels();
 	virtual unsigned int getType();
+	virtual unsigned int getPixelByteSize();
 	
 	ImageContent(const ImageContent& other);
 	ImageContent();

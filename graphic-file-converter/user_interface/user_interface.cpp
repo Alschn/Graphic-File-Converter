@@ -9,6 +9,8 @@
 #include "../image.h"
 #include "../conversions/converter.h"
 #include <algorithm>
+
+#include "../image_scanner.h"
 #include "../parameters/parameter.h"
 
 /*
@@ -238,13 +240,15 @@ void UserInterface::display(const std::string& command)
 }
 
 Image* UserInterface::executeAction(const std::string& command, const std::string& path, const std::string& out_path,
-                                    Arguments* args)
+                                    Arguments* args) 
 {
 	Image* img_pointer = new Image(path);
 	Converter* conversion = conversions_map[command];
+	current_converter = conversion;
 	conversion->loadImage(img_pointer);
 	conversion->processImage(args);
 	conversion->saveImage(out_path);
+	
 	return conversion->newImage;
 }
 

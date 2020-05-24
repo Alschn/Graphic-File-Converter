@@ -165,6 +165,8 @@
     <ClInclude Include="conversions\reflection.h" />
     <ClInclude Include="conversions\rescaler.h" />
     <ClInclude Include="conversions\rotation.h" />
+    <ClInclude Include="font.h" />
+    <ClInclude Include="image.h" />
     <ClInclude Include="image_content\bpp1.h" />
     <ClInclude Include="image_content\bpp16.h" />
     <ClInclude Include="image_content\bpp24.h" />
@@ -172,9 +174,12 @@
     <ClInclude Include="image_file_types\bmp_file.h" />
     <ClInclude Include="image_file_types\file.h" />
     <ClInclude Include="image_file_types\header_file.h" />
+    <ClInclude Include="image_scanner.h" />
     <ClInclude Include="parameters\display_parameter.h" />
     <ClInclude Include="parameters\parameter.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="user_interface\user_interface.h" />
+    <ClInclude Include="utils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="arguments\arguments.cpp" />
@@ -186,6 +191,7 @@
     <ClCompile Include="conversions\reflection.cpp" />
     <ClCompile Include="conversions\rescaler.cpp" />
     <ClCompile Include="conversions\rotation.cpp" />
+    <ClCompile Include="font.cpp" />
     <ClCompile Include="image.cpp" />
     <ClCompile Include="image_content\bpp1.cpp" />
     <ClCompile Include="image_content\bpp16.cpp" />
@@ -194,11 +200,15 @@
     <ClCompile Include="image_file_types\bmp_file.cpp" />
     <ClCompile Include="image_file_types\file.cpp" />
     <ClCompile Include="image_file_types\header_file.cpp" />
+    <ClCompile Include="image_scanner.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="parameters\display_parameter.cpp" />
     <ClCompile Include="parameters\parameter.cpp" />
     <ClCompile Include="user_interface\user_interface.cpp" />
     <ClCompile Include="utils.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="graphic-file-converter.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

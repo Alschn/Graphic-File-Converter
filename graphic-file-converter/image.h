@@ -32,12 +32,26 @@ public:
 	 */
 	void getPixel(unsigned int x, unsigned int y, unsigned char output[]) const;
 
+	// in the normal case, just the identity
+	template<class T>
+	struct item_return { typedef T type; };
 
-	// template<ImageContent* T, typename F = bool>
-	// F getPixel(unsigned int x, unsigned int y, unsigned char output[] = 0)
+	template<class T>
+	typename item_return<T>::type getPixel1(unsigned int x, unsigned int y);
+
+	template<>
+	struct item_return<Bpp1> { typedef bool type; };
+	template<>
+	bool getPixel1<Bpp1>(unsigned int x, unsigned int y);
+
+	// template<>
+	// item_return<bool>::type getPixel1<float>(unsigned int x, unsigned int y) { }
+	//
+	// template<ImageContent* T>
+	// auto getPixel(unsigned int x, unsigned int y, unsigned char output[] = 0)
 	// {
 	// 	std::cout << "Bpp1";
-	// 	return false;
+	// 	return false
 	// }
 	// template <> bool getPixel<Bpp1>(unsigned int x, unsigned int y, unsigned char output[])
 	// {
@@ -86,13 +100,17 @@ public:
 	{
 		Image::content_type_map[bpp] = []() -> ImageContent* { return new T(); };
 	}
-	
+	template<typename T, typename = std::enable_if<std::is_base_of<File, T>::value>>
+	static void registerFileType(std::string extension)
+	{
+		Image::file_type_map[extension] = []() -> File* { return new T(); };
+	}
 	
 	static std::map<unsigned int, std::function<ImageContent* ()>> content_type_map;
 	static std::map<std::string, std::function<File* ()>> file_type_map;
 	static std::string getExtension(const std::string& path);
 
-	static void registerImageContent(unsigned int bpp, std::function<ImageContent* ()> func);
+	unsigned int onePixelByteSize() const;
 	
 	Image() = default;
 

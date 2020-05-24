@@ -62,6 +62,11 @@ unsigned ImageContent::getType()
 	return this->type;
 }
 
+unsigned ImageContent::getPixelByteSize()
+{
+	return this->onePixelByteSize;
+}
+
 ImageContent::ImageContent(const ImageContent& other): distinct_colors(0)
 {
 	this->width = other.width;
@@ -72,9 +77,8 @@ ImageContent::ImageContent(const ImageContent& other): distinct_colors(0)
 }
 
 ImageContent::ImageContent()
-	: width(0), height(0), buffer_size(0), type(0), distinct_colors(0)
+	: width(0), height(0), buffer_size(0), type(0), onePixelByteSize(0)
 {
-	
 }
 
 void ImageContent::verifyAccess(const unsigned x, const unsigned y)

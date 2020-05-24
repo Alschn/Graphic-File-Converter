@@ -4,6 +4,10 @@
 #include <map>
 #include "image_file_types/bmp_file.h"
 
+
+std::map<unsigned int, std::function<ImageContent*()>> Image::content_type_map = {};
+std::map<std::string, std::function<File*()>> Image::file_type_map = {};
+
 void Image::getPixel(unsigned int x, unsigned int y, unsigned char output[]) const
 {
 	this->content->getPixel(x, y, output);
@@ -13,9 +17,6 @@ void Image::putPixel(unsigned int x, unsigned int y, unsigned char input[])
 {
 	this->content->putPixel(x, y, input);
 }
-
-
-
 
 
 void Image::resize(unsigned int width, unsigned int height)
@@ -64,6 +65,11 @@ std::string Image::getExtension(const std::string& path)
 	return path.substr(pos);
 }
 
+unsigned Image::onePixelByteSize() const
+{
+	return this->content->getPixelByteSize();
+}
+
 Image::Image(unsigned int content_type, unsigned int width, unsigned int height)
 {
 	delete this->content;
@@ -90,6 +96,9 @@ Image::Image(const Image& other)
 
 Image::~Image()
 {
+#ifdef _DEBUG
+	std::cout << "~Image!";
+#endif
 	delete[] this->content;
 }
 
@@ -98,10 +107,3 @@ std::ostream& operator<<(std::ostream& os, const Image& im)
 	os << im.toStr();
 	return os;
 }
-
-std::map<unsigned int, std::function<ImageContent*()>> Image::content_type_map = {};
-
-std::map<std::string, std::function<File*()>> Image::file_type_map = {
-	{".h", []() -> File* { return new HeaderFile(); }},
-	{".bmp", []() -> File* { return new BmpFile(); }}
-};
