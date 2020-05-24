@@ -51,29 +51,29 @@ int main(int argc, char* argv[])
 	Desktop.registerAction("rotate", "rotates picture by n degrees", &rotation,
 	                       regex(
 		                       R"###(^rotate +\d+ +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"),
-	                       &rot_args);
+	                       &rot_args,1);
 	Desktop.registerAction("reflect", "reflects picture over selected axis", &reflection,
 	                       regex(
 		                       R"###(^reflect +\d+ +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"),
-	                       &ref_args);
+	                       &ref_args,1);
 	Desktop.registerAction("scale", "scales picture to selected values", &rescaler,
 	                       regex(
 		                       R"###(^scale +(\d+|\d+.\d+) +(\d+|\d+.\d+) +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"),
-	                       &scale_args);
+	                       &scale_args,2);
 	Desktop.registerAction("negate", "changes picture colors to their oppostie value", &negative, regex(
-		                       R"###(^negate +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"), &neg_args);
+		                       R"###(^negate +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"), &neg_args,0);
 	Desktop.registerAction("brighten", "adjust brightness level of picture", &brightness,
 	                       regex(
 		                       R"###(^brighten +(-?[0-9]\d*(\.\d+)?) +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"),
-	                       &bright_args);
+	                       &bright_args,1);
 	Desktop.registerAction("contrast", "adjust contrast of picture", &contrast,
 	                       regex(
 		                       R"###(^contrast +(-?[0-9]\d*(\.\d+)?) +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"),
-	                       &contr_args);
+	                       &contr_args,1);
 	Desktop.registerAction("intensify", "adjust R G B values of picture", &intensity,
 	                       regex(
 		                       R"###(^intensify +(-?[0-9]\d*(\.\d+)?) +(-?[0-9]\d*(\.\d+)?) +(-?[0-9]\d*(\.\d+)?) +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"),
-	                       &intens_args);
+	                       &intens_args,3);
 
 	if (argc > 1)
 	{
@@ -84,16 +84,4 @@ int main(int argc, char* argv[])
 		std::cout << "No command typed! Try again!" << std::endl;
 		Desktop.showHelp();
 	}
-	// auto im = Image("../sample_bmps/arialDig32x24.h_8");
-	// // std::cout << *im;
-	// // im->save("../sample_bmps/10x11xxx2.bmp");
-	//
-	// Converter* conv = new Rescaler(&im);
-	// auto args = new ScaleArguments();
-	// args->set_arguments({ 1, 1 });
-	// conv->processImage(args);
-	// std::cout << conv->oldImage->toStr()<<std::endl;
-	// std::cout << conv->newImage->toStr();
-	//
-	// // conv->newImage->save("../sample_bmps/test_blue+100.bmp");
 }
