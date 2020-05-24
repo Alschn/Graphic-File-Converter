@@ -14,6 +14,7 @@ private:
 	const std::regex image_content_height = std::regex(R"(HEIGHT:\s*(\d*))");
 	std::string variable_name;
 	std::string generateFileInfo() const;
+	std::string generateFileInfo(const std::string& font_name, int content_type, unsigned int width, unsigned int height, const std::string& variable_name) const;
 	std::string generateFileContent() const;
 	static std::string pathToVariableName(const std::string path);
 	ImageContent* content = nullptr;

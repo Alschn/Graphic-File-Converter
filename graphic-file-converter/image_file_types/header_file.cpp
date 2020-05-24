@@ -9,26 +9,31 @@
 
 std::string HeaderFile::generateFileInfo() const
 {
+	return this->generateFileInfo(this->variable_name, this->content->getType(), this->content->getWidth(), this->content->getHeight(), this->variable_name);
+}
+
+std::string HeaderFile::generateFileInfo(const std::string &font_name, int content_type, unsigned int width, unsigned int height, const std::string &variable_name) const
+{
 	std::string output;
-	auto new_name = this->variable_name;
+	auto new_name = font_name;
 	for (auto& c : new_name) c = toupper(c);
 	output += "#ifndef ";
 	output += "_" + new_name + "_\n";
 	output += "#define"+'_' + new_name + "_\n";
 	output += "/*\n* RES: ";
 	output += "Bpp";
-	output += static_cast<int>(this->content->getType());
+	output += content_type;
 	output += "\n";
 	output += "* WIDTH: ";
-	output += std::to_string(this->content->getWidth());
+	output += std::to_string(width);
 	output += "\n";
 	output += "* HEIGHT: ";
-	output += std::to_string(this->content->getHeight());
+	output += std::to_string(height);
 	output += '\n';
 	output += "* TYPE: FONT (to be implemented) \n*/";
 	output += "\n";
 	output += "static const uint8_t ";
-	output += this->variable_name;
+	output += variable_name;
 	output += "[] = {\n";
 	return output;
 }

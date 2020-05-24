@@ -38,7 +38,7 @@ void ImageScanner::generateNewImages(const std::vector<std::pair<int, int>>& coo
 		}
 		resultLetters.push_back(std::move(im));
 	}
-	this->font = new Font(resultLetters);
+	this->font = new Font(std::move(resultLetters));
 }
 
 void ImageScanner::loadImage(Image* im)
@@ -116,6 +116,4 @@ void ImageScanner::saveToBmp(std::string& path) const
 ImageScanner::~ImageScanner()
 {
 	delete this->font;
-	delete this->oldImage;
-	delete this->newImage;
 }
