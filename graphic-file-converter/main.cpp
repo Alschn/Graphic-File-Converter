@@ -61,7 +61,7 @@ int main(int argc, char* argv[])
 	                       regex(
 		                       R"###(^scale +(\d+|\d+.\d+) +(\d+|\d+.\d+) +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"),
 	                       &scale_args,2);
-	Desktop.registerAction("negate", "changes picture colors to their oppostie value", &negative, regex(
+	Desktop.registerAction("negate", "changes picture colors to their opposite value", &negative, regex(
 		                       R"###(^negate +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"), &neg_args,0);
 	Desktop.registerAction("brighten", "adjust brightness level of picture", &brightness,
 	                       regex(
