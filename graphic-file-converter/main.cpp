@@ -13,101 +13,75 @@
 #include "conversions/enhancer.h"
 #include "conversions/rescaler.h"
 #include "arguments/scale_arguments.h"
+#include "conversions/brightness.h"
+#include "conversions/color_intensity.h"
+#include "conversions/negative.h"
+#include "conversions/contrast.h"
+#include "arguments/brightness_arguments.h"
+#include "arguments/contrast_arguments.h"
+#include "arguments/color_intesity_arguments.h"
 
+using namespace std;
 
-// int main(int argc, char* argv[])
-int main()
+int main(int argc, char* argv[])
 {
-	// UserInterface Desktop;
-	// Rotation conversion;
-	// DisplayParameter display;
-	// Reflection conversion2;
-	// ReflectionArguments ref_args;
-	// RotationArguments rot_args;
-	// Rescaler conversion3;
-	// ScaleArguments scale_args;
+	UserInterface Desktop;
+	Rotation rotation;
+	Reflection reflection;
+	Rescaler rescaler;
+	Brightness brightness;
+	Intensity intensity;
+	Negative negative;
+	Contrast contrast;
+	ReflectionArguments ref_args;
+	RotationArguments rot_args;
+	ScaleArguments scale_args;
+	DisplayParameter display;
+	BrightnessArguments bright_args;
+	ContrastArguments contr_args;
+	ColorIntensityArguments intens_args;
+	Arguments neg_args;
+	// "fake" arguments to satisfy registerAction - negative does not use arguments so it does not have special class for them
 
-	//register content types
-
-	// bool found = false;
-	// int found_letter_index = 0;
-	// bool looking_for_black = true;
-	// bool black_pixel_found = false;
-	// for (int i = 0; i < im.width; ++i)
-	// {
-	// 	black_pixel_found = false;
-	// 	for (int j = 0; j < im.height; ++j)
-	// 	{
-	// 		uint8_t colors[3] = {0, 0, 0};
-	// 		im.getPixel(i, j, colors);
-	// 		for (auto c : colors)
-	// 		{
-	// 			if (c < 30)
-	// 			{
-	// 				black_pixel_found = true;
-	// 				if (looking_for_black) {
-	// 					std::cout << "Letter with index: " << found_letter_index << " found at X: " << i << " Y: " << j << std::endl;
-	// 					looking_for_black = false;
-	// 					found_letter_index++;
-	// 				}
-	// 			}
-	// 		}
-	// 	}
-	// 	if (black_pixel_found)
-	// 	{
-	// 		std::cout << "Inside Letter"<<std::endl;
-	// 	}
-	// 	else
-	// 	{
-	// 		std::cout << "Looking for letter... " << std::endl;
-	// 		looking_for_black = true;
-	// 	}
-	// }
+	Image::registerImageContent(1, []() -> ImageContent* { return new Bpp1(); });
+	Image::registerImageContent(24, []() -> ImageContent* { return new Bpp24(); });
 
 
-	std::cout << " Get";
-	// bool rest = im.getPixel<Bpp1>(1, 2);
-	// im.getPixel<Bpp24>(1, 2);
-	// im.getPixel<Bpp1>(1, 2);
+	Desktop.registerParameter("-d", &display);
+	Desktop.registerAction("rotate", "rotates picture by n degrees", &rotation,
+	                       regex(
+		                       R"###(^rotate +\d+ +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"),
+	                       &rot_args,1);
+	Desktop.registerAction("reflect", "reflects picture over selected axis", &reflection,
+	                       regex(
+		                       R"###(^reflect +\d+ +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"),
+	                       &ref_args,1);
+	Desktop.registerAction("scale", "scales picture to selected values", &rescaler,
+	                       regex(
+		                       R"###(^scale +(\d+|\d+.\d+) +(\d+|\d+.\d+) +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"),
+	                       &scale_args,2);
+	Desktop.registerAction("negate", "changes picture colors to their oppostie value", &negative, regex(
+		                       R"###(^negate +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"), &neg_args,0);
+	Desktop.registerAction("brighten", "adjust brightness level of picture", &brightness,
+	                       regex(
+		                       R"###(^brighten +(-?[0-9]\d*(\.\d+)?) +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"),
+	                       &bright_args,1);
+	Desktop.registerAction("contrast", "adjust contrast of picture", &contrast,
+	                       regex(
+		                       R"###(^contrast +(-?[0-9]\d*(\.\d+)?) +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"),
+	                       &contr_args,1);
+	Desktop.registerAction("intensify", "adjust R G B values of picture", &intensity,
+	                       regex(
+		                       R"###(^intensify +(-?[0-9]\d*(\.\d+)?) +(-?[0-9]\d*(\.\d+)?) +(-?[0-9]\d*(\.\d+)?) +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"),
+	                       &intens_args,3);
 
-	// Desktop.registerParameter("-d", &display);
-	// Desktop.registerAction("rotate", "rotates picture by n degrees", &conversion,
-	//                        std::regex(
-	// 	                       R"###(^rotate +\d+ +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"),
-	//                        &rot_args);
-	// Desktop.registerAction("reflect", "reflects picture over selected axis", &conversion2,
-	//                        std::regex(
-	// 	                       R"###(^reflect +\d+ +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"),
-	//                        &ref_args);
-	// Desktop.registerAction("scale", "scales picture to selected values", &conversion3,
-	//                        std::regex(
-	// 	                       R"###(^scale +(\d+|\d+.\d+) +(\d+|\d+.\d+) +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"),
-	//                        &scale_args);
-	// if (argc > 1)
-	// {
-	// 	Desktop.display(argv_to_string(argv, argc));
-	// }
-	// else
-	// {
-	// 	std::cout << "No command typed! Try again!" << std::endl;
-	// 	Desktop.showHelp();
-	// }
-
-
-	// std::cout << *im;
-	// im->save("../sample_bmps/10x11xxx2.bmp");
-	Image::registerImageContent<Bpp1>(1);
-	Image::registerImageContent<Bpp24>(24);
-
-	//auto im = Image("../sample_bmps/10x10.bmp");
-	//im.save("../sample_bmps/abc.bmp");
-
-	//Converter* conv = new Rescaler(&im);
-	//auto args = new ScaleArguments();
-	//args->set_arguments({ 2, 2 });
-	//conv->processImage(args);
-	//std::cout << conv->oldImage->toStr()<<std::endl;
-	//std::cout << conv->newImage->toStr();
-	//
-	//conv->newImage->save("../sample_bmps/test_blue+100.bmp");
+	if (argc > 1)
+	{
+		Desktop.display(argv_to_string(argv, argc));
+	}
+	else
+	{
+		std::cout << "No command typed! Try again!" << std::endl;
+		Desktop.showHelp();
+	}
 }

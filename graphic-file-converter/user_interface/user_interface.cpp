@@ -19,9 +19,11 @@ std::map<const std::string, const std::string> UserInterface::help_map;
 std::map<const std::string, std::regex> UserInterface::regex_map;
 std::map<const std::string, Arguments*> UserInterface::arguments_map;
 std::map<const std::string, Parameter*> UserInterface::parameters_map;
+std::map<const std::string, int> UserInterface::arguments_required_map;
+
 
 void UserInterface::registerAction(const std::string& command_name, const std::string& command_explanation,
-                                   Converter* conversion, const std::regex& command_regex, Arguments* arguments)
+                                   Converter* conversion, const std::regex& command_regex, Arguments* arguments, int arguments_required)
 {
 	/*
 		Function registers new functionality.
@@ -30,6 +32,7 @@ void UserInterface::registerAction(const std::string& command_name, const std::s
 	help_map.emplace(command_name, command_explanation);
 	regex_map.emplace(command_name, command_regex);
 	arguments_map.emplace(command_name, arguments);
+	arguments_required_map.emplace(command_name, arguments_required);
 }
 
 
@@ -39,7 +42,7 @@ void UserInterface::display(const std::string& command)
 	 Main function of UserInterface - responsible for
 	 detecting command and choosing action to execute.
 	//*/
-	if (!check_regex_if_empty(std::regex(R"###(^converter +load +(('|")[^']\S+[^']('|")) ?$)###"), command))
+	if (!check_regex_if_empty(std::regex(R"###(^load +(('|")[^']\S+[^']('|")) ?$)###"), command))
 	{
 		/*
 		 Step-by-step method - still in progress.
@@ -54,77 +57,134 @@ void UserInterface::display(const std::string& command)
 		splitted[1].erase(splitted[1].begin());
 		splitted[1].erase(splitted[1].end() - 1, splitted[1].end());
 		std::string input_path = splitted[1];
-		Image image(input_path);
-	ASK_LOOP:
-		std::cout << "What do you want to do? (type one name of following functions)" << std::endl;
-		for (const auto& a : help_map)
+		Image* img_pointer;
+		try
 		{
-			std::cout << a.first << std::endl;
+			img_pointer = new Image(input_path);
 		}
-		std::string choose_command;
-		std::cin >> choose_command;
-		for (const auto& choosen_command : help_map)
+		catch (std::bad_function_call)
 		{
-			if (choosen_command.first == choose_command)
+			throw std::exception("Wrong path!");
+		}
+		Converter* conversion;
+	ASK_LOOP:
+		std::cout << "What do you want to do ?" << std::endl;
+		for (const auto& explanation : help_map)
+		{
+			std::cout << explanation.first << "   |   " << explanation.second << std::endl;
+		}
+		std::string entered_command;
+		std::getline(std::cin, entered_command);
+		int command_flag = 0;
+		for (auto command_name : arguments_required_map)
+		{
+			if (entered_command == command_name.first)
 			{
-			ARGUMENT_LOOP:
-				int argument;
-				std::cout << "Enter argument:  ";
-				std::cin >> argument;
-				if (!argument)
+				conversion = conversions_map[entered_command];
+				conversion->loadImage(img_pointer);
+				std::vector<double> args;
+				while (command_name.second > args.size())
 				{
-					std::cout << "Your argument is invalid, try again!" << std::endl;
-					goto ARGUMENT_LOOP;
+					ARG_LOOP:
+					std::cout << "Enter argument " << args.size() + 1 << " :   " << std::endl;
+					std::string line;
+					std::getline(std::cin, line);
+					try
+					{
+						double arg = std::stod(line);
+						args.push_back(arg);
+					}
+					catch (...)
+					{
+						std::cout << "Argument inappropriate!" << std::endl;
+					}
 				}
-			PARAM_LOOP:
-				std::cout << "Any parameter? (if not type -)" << std::endl;
-				for (const auto& parameter : parameters_map)
+				arguments_map[entered_command]->set_arguments(args);
+				try
 				{
-					std::cout << parameter.first << std::endl;
+					conversion->processImage(arguments_map[entered_command]);
+				}
+				catch(...)
+				{
+					std::cout << "Argument inappropriate!" << std::endl;
+					args.clear();
+					goto ARG_LOOP;
 				}
 				std::string parameter;
-				std::cin >> parameter;
+				std::cout << "Enter parameter (if do not want any, type '-'): " << std::endl;
+				std::getline(std::cin, parameter);
 				if (parameter == "-")
-				{
-					conversions_map[choose_command]->loadImage(&image);
-					//conversions_map[choose_command]->processImage(argument);
-				}
-				for (const auto& a : parameters_map)
-				{
-					if (a.first == parameter)
-					{
-						conversions_map[choose_command]->loadImage(&image);
-						//conversions_map[choose_command]->processImage(argument);
-						//parameters_map[parameter]->executeParam(image);
-					}
-					else
-					{
-						std::cout << "Wrong parameter, try again!" << std::endl;
-						goto PARAM_LOOP;
-					}
-				}
-				std::cout << "Do you want to save file ? [y/n]" << std::endl;
-				std::string decision;
-				std::cin >> decision;
-
-				if (decision == "y")
-				{
-					std::cout << "Out path" << std::endl;
-					std::string out_path;
-					std::getline(std::cin, out_path);
-					conversions_map[choose_command]->saveImage(out_path);
-				}
-				else
 				{
 					;
 				}
+				else
+				{
+					for (auto par : parameters_map)
+					{
+						if (par.first == parameter)
+						{
+							parameters_map[parameter]->executeParam(conversion->newImage);
+						}
+					}
+
+				}
+				std::string save_answer;
+			SAVING:
+				std::cout << "Save file? [y/n]" << std::endl;
+				std::getline(std::cin, save_answer);
+				if (save_answer == "y")
+				{
+				SAVING_PATH:
+					std::string output_path;
+					std::cout << "Enter output path: " << std::endl;
+					std::getline(std::cin, output_path);
+					try
+					{
+						conversion->saveImage(output_path);
+					}
+					catch (...)
+					{
+						std::cout << "Your output path is invalid! Try again!" << std::endl;
+						goto SAVING_PATH;
+					}
+				}
+				else if (save_answer == "n")
+				{
+
+				}
+				else
+				{
+					std::cout << "Wrong letter entered!" << std::endl;
+					goto SAVING;
+				}
+				command_flag++;
+			}
+		}
+		if (command_flag == 1)
+		{
+		EXIT_ANSWER:
+			std::string exit_answer;
+			std::cout << "Exit? [y/n]" << std::endl;
+			std::getline(std::cin, exit_answer);
+			if (exit_answer == "y")
+			{
+				exit(0);
+			}
+			else if (exit_answer == "n")
+			{
+				goto ASK_LOOP;
 			}
 			else
 			{
-				std::cout << "You wrote command incorrectly, try again!" << std::endl;
-				goto ASK_LOOP;
+				goto EXIT_ANSWER;
 			}
 		}
+		else
+		{
+			std::cout << "Command not found try again!" << std::endl;
+			goto ASK_LOOP;
+		}
+
 	}
 	else if (!check_regex_if_empty(std::regex(R"(^help *$)"), command))
 	{
@@ -133,6 +193,7 @@ void UserInterface::display(const std::string& command)
 		//*/
 		std::cout << std::endl;
 		showHelp();
+		
 	}
 	else
 	{
@@ -159,16 +220,33 @@ void UserInterface::display(const std::string& command)
 				}
 				std::vector<double> args;
 				double argument;
-				for (const auto& m : splitted)
+				for (auto& command_element : splitted)
 				{
-					try
+					if (command_element[0] == '-')
 					{
-						argument = std::stod(m);
-						args.push_back(argument);
+						command_element.erase(0, 1);
+						try
+						{
+							argument = std::stod(command_element);
+							argument = -argument;
+							args.push_back(argument);
+						}
+						catch (...)
+						{
+							command_element.insert(0, "-");
+						}
 					}
-					catch (...)
+					else
 					{
-						;
+						try
+						{
+							argument = std::stod(command_element);
+							args.push_back(argument);
+						}
+						catch (...)
+						{
+							;
+						}
 					}
 				}
 				arguments_map[command_fullname]->set_arguments(args);
@@ -179,15 +257,22 @@ void UserInterface::display(const std::string& command)
 				splitted[args.size() + 1].erase(splitted[args.size() + 1].end() - 1, splitted[args.size() + 1].end());
 				std::string input_path = splitted[args.size() + 1];
 				std::string output_path;
-				if (splitted[args.size() + 2].size() > 2)
+				if (splitted.size() > args.size() + 2)
 				{
-					/*
+					if (splitted[args.size() + 2].size() > 2)
+					{
+						/*
 						Stripping output path from quotation marks (') (if given).
-					//*/
-					splitted[args.size() + 2].erase(splitted[args.size() + 2].begin());
-					splitted[args.size() + 2].erase(splitted[args.size() + 2].end() - 1,
-					                                splitted[args.size() + 2].end());
-					output_path = splitted[args.size() + 2];
+						//*/
+						splitted[args.size() + 2].erase(splitted[args.size() + 2].begin());
+						splitted[args.size() + 2].erase(splitted[args.size() + 2].end() - 1,
+							splitted[args.size() + 2].end());
+						output_path = splitted[args.size() + 2];
+					}
+					else
+					{
+						;
+					}
 				}
 				else
 				{
@@ -211,13 +296,28 @@ void UserInterface::display(const std::string& command)
 					//*/
 					if (std::find(splitted.begin(), splitted.end(), param.first) != splitted.end())
 					{
-						param.second->executeParam(
-							executeAction(command_name.first, input_path, output_path,
-							              arguments_map[command_fullname]));
+						try
+						{
+							param.second->executeParam(
+								executeAction(command_name.first, input_path, output_path, arguments_map[command_fullname]));
+						}
+						catch(const std::exception & ex)
+						{
+							std::cerr << ex.what() << std::endl;
+							exit(1);
+						}
 					}
 					else
 					{
-						executeAction(command_name.first, input_path, output_path, arguments_map[command_fullname]);
+						try
+						{
+							executeAction(command_name.first, input_path, output_path, arguments_map[command_fullname]);
+						}
+						catch (const std::exception& ex)
+						{
+							std::cerr << ex.what() << std::endl;
+							exit(1);
+						}
 					}
 				}
 				std::cout << "Action executed!" << std::endl;
@@ -244,7 +344,14 @@ Image* UserInterface::executeAction(const std::string& command, const std::strin
 	Converter* conversion = conversions_map[command];
 	conversion->loadImage(img_pointer);
 	conversion->processImage(args);
-	conversion->saveImage(out_path);
+	try
+	{
+		conversion->saveImage(out_path);
+	}
+	catch(...)
+	{
+		throw std::runtime_error("Wrong path!");
+	}
 	return conversion->newImage;
 }
 

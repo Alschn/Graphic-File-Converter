@@ -48,6 +48,10 @@ void Rotation::processImage(Arguments* args)
 {
 	RotationArguments* rot_args = dynamic_cast<RotationArguments*>(args);
 	rot_args->degrees = static_cast<int>(rot_args->degrees);
+	if(rot_args->degrees<0)
+	{
+		throw std::invalid_argument("Rotation degree has to be a positive number!");
+	}
 	const int multiple = rot_args->degrees / 360;
 	rot_args->degrees = rot_args->degrees - multiple * 360;
 	if (!(rot_args->degrees == 360 || rot_args->degrees == 0))

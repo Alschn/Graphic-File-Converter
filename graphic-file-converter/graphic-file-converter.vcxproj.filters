@@ -90,6 +90,15 @@
     <ClInclude Include="conversions\negative.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="arguments\contrast_arguments.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="arguments\brightness_arguments.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="arguments\color_intesity_arguments.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="user_interface\user_interface.cpp">
@@ -168,6 +177,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="conversions\negative.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="arguments\contrast_arguments.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="arguments\brightness_arguments.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="arguments\color_intensity_arguments.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
