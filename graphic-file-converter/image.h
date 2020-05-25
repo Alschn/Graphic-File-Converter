@@ -92,7 +92,7 @@ public:
 	static std::map<std::string, std::function<File* ()>> file_type_map;
 	static std::string getExtension(const std::string& path);
 
-	static void registerImageContent(unsigned int bpp, std::function<ImageContent* ()> func);
+	//static void registerImageContent(unsigned int bpp, std::function<ImageContent* ()> func);
 	
 	Image() = default;
 

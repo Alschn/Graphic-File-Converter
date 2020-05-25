@@ -43,8 +43,10 @@ int main(int argc, char* argv[])
 	Arguments neg_args;
 	// "fake" arguments to satisfy registerAction - negative does not use arguments so it does not have special class for them
 
-	Image::registerImageContent(1, []() -> ImageContent* { return new Bpp1(); });
-	Image::registerImageContent(24, []() -> ImageContent* { return new Bpp24(); });
+	Image::registerImageContent<Bpp1>(1);
+	Image::registerImageContent<Bpp24>(24);
+	// Image::registerFileType<BmpFile>(".bmp");
+	// Image::registerFileType<HeaderFile>(".gh");
 
 
 	Desktop.registerParameter("-d", &display);
