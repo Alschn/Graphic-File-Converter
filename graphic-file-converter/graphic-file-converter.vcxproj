@@ -173,6 +173,7 @@
     <ClInclude Include="conversions\reflection.h" />
     <ClInclude Include="conversions\rescaler.h" />
     <ClInclude Include="conversions\rotation.h" />
+    <ClInclude Include="image.h" />
     <ClInclude Include="image_content\bpp1.h" />
     <ClInclude Include="image_content\bpp16.h" />
     <ClInclude Include="image_content\bpp24.h" />
