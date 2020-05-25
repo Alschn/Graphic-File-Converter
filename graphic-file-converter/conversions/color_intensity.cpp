@@ -15,7 +15,7 @@ void Intensity::processImage(Arguments* args)
 	
 	if ((col_args->r > 255 || col_args->r < -255) || (col_args->g > 255 || col_args->g < -255) || (col_args->b > 255 || col_args->b < -255))
 	{
-		throw std::exception("Color adjustment has to be in range [-255, 255]");
+		throw std::invalid_argument("Color adjustment has to be in range [-255, 255]");
 	}
 
 	for (int x = 0; x < newImage->width; x++) {

@@ -12,7 +12,7 @@ void Contrast::processImage(Arguments* args)
 	contr_args->contrast_value = static_cast<int>(contr_args->contrast_value);
 	if (contr_args->contrast_value > 255 || contr_args->contrast_value < 0)
 	{
-		throw std::exception("Contrast has to be in range [-255, 255]");
+		throw std::invalid_argument("Contrast has to be in range [0, 255]");
 	}
 	const double factor = 259 * (contr_args->contrast_value + 255) / (255 * (259 - contr_args->contrast_value));
 	for (int x = 0; x < newImage->width; x++) {

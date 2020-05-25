@@ -12,7 +12,7 @@ void Brightness::processImage(Arguments* args)
 	bright_args->brightness_level = static_cast<int>(bright_args->brightness_level);
 	if (bright_args->brightness_level > 255 || bright_args->brightness_level < -255)
 	{
-		throw std::exception("Brightness has to be in range [-255, 255]");
+		throw std::invalid_argument("Brightness has to be in range [-255, 255]");
 	}
 	for (int x = 0; x < newImage->width; x++) {
 		for (int y = 0; y < newImage->height; y++)
