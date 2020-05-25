@@ -4,9 +4,13 @@
 
 void Contrast::processImage(Arguments* args)
 {
+	if (oldImage->channels == 1)
+	{
+		throw std::exception("Contrast adjustment is not available for 1bpp");
+	}
 	ContrastArguments* contr_args = dynamic_cast<ContrastArguments*>(args);
 	contr_args->contrast_value = static_cast<int>(contr_args->contrast_value);
-	if (contr_args->contrast_value > 255 || contr_args->contrast_value < -255)
+	if (contr_args->contrast_value > 255 || contr_args->contrast_value < 0)
 	{
 		throw std::exception("Contrast has to be in range [-255, 255]");
 	}

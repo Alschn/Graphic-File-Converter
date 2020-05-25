@@ -10,7 +10,6 @@
 #include "user_interface/user_interface.h"
 #include "arguments/reflection_arguments.h"
 #include "arguments/rotation_arguments.h"
-#include "conversions/enhancer.h"
 #include "conversions/rescaler.h"
 #include "arguments/scale_arguments.h"
 #include "conversions/brightness.h"

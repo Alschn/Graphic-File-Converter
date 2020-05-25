@@ -1,10 +1,13 @@
-
 //Created by Adam Lisichin
 #include "brightness.h"
 #include "../arguments/brightness_arguments.h"
 
 void Brightness::processImage(Arguments* args)
 {
+	if (oldImage->channels == 1)
+	{
+		throw std::exception("Brightness adjustment is not available for 1bpp");
+	}
 	BrightnessArguments* bright_args = dynamic_cast<BrightnessArguments*>(args);
 	bright_args->brightness_level = static_cast<int>(bright_args->brightness_level);
 	if (bright_args->brightness_level > 255 || bright_args->brightness_level < -255)

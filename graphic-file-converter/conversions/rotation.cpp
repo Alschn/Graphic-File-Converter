@@ -20,8 +20,8 @@ std::map <std::pair<int, int>, std::pair<int, int>> Rotation::createMap(int heig
 		for (int j = 0; j < width; j++)
 		{
 			// rotation matrix
-			auto x_n = int(round(j * std::cos(-deg) - i * std::sin(-deg)));
-			auto y_n = int(round(j * std::sin(-deg) + i * std::cos(-deg)));
+			auto x_n = static_cast<int>(round(j * std::cos(-deg) - i * std::sin(-deg)));
+			auto y_n = static_cast<int>(round(j * std::sin(-deg) + i * std::cos(-deg)));
 			// translation vector
 			switch (angle)
 			{

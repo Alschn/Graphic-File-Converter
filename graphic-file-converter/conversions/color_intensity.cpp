@@ -4,6 +4,10 @@
 
 void Intensity::processImage(Arguments* args)
 {
+	if (oldImage->channels == 1)
+	{
+		throw std::exception("Color intensity is not available for 1bpp");
+	}
 	ColorIntensityArguments* col_args = dynamic_cast<ColorIntensityArguments*>(args);
 	col_args->r = static_cast<int>(col_args->r);
 	col_args->g = static_cast<int>(col_args->g);
@@ -20,9 +24,9 @@ void Intensity::processImage(Arguments* args)
 			unsigned char pixels[3];
 			this->oldImage->getPixel(x, y, pixels);
 
-			pixels[0] = checkColorRange(pixels[0] + col_args->r);
-			pixels[1] = checkColorRange(pixels[1] + col_args->g);
-			pixels[2] = checkColorRange(pixels[2] + col_args->b);
+			pixels[0] = this->checkColorRange(pixels[0] + col_args->r);
+			pixels[1] = this->checkColorRange(pixels[1] + col_args->g);
+			pixels[2] = this->checkColorRange(pixels[2] + col_args->b);
 
 			this->newImage->putPixel(x, y, pixels);
 		}
