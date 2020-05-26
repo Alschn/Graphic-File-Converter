@@ -2,6 +2,7 @@
 #include "image.h"
 #include <iostream>
 #include <map>
+#include "image_content/bpp1.h"
 #include "image_file_types/bmp_file.h"
 
 std::map<unsigned int, std::function<ImageContent*()>> Image::content_type_map = {};

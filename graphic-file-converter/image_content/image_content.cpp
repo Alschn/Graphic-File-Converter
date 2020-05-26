@@ -2,6 +2,7 @@
 #include "image_content.h"
 #include <stdexcept>
 #include "../utils.h"
+
 void ImageContent::resize(const unsigned new_width, const unsigned new_height)
 {
 	delete[] this->buffer;
@@ -40,8 +41,8 @@ size_t ImageContent::getBufferSize() const
 
 unsigned ImageContent::bmpPadding()
 {
-		auto row_size = this->memRowSize();
-		return Utils::closestFourMultiple(row_size) - row_size;
+	auto row_size = this->memRowSize();
+	return Utils::closestFourMultiple(row_size) - row_size;
 }
 
 unsigned ImageContent::bmpRowSize()
@@ -54,7 +55,7 @@ std::vector<uint8_t> ImageContent::colorPalette()
 	return std::vector<uint8_t>();
 }
 
-unsigned ImageContent::getChannels() 
+unsigned ImageContent::getChannels()
 {
 	return this->channels;
 }
@@ -74,17 +75,17 @@ size_t ImageContent::getBufferSize()
 	return this->buffer_size;
 }
 
-ImageContent::ImageContent(const ImageContent& other): distinct_colors(0)
+ImageContent::ImageContent(const ImageContent& other): distinct_colors(other.distinct_colors),
+                                                       onePixelByteSize(other.onePixelByteSize),
+                                                       channels(other.channels), type(other.type), width(other.width),
+                                                       height(other.height), buffer_size(other.buffer_size)
 {
-	this->width = other.width;
-	this->height = other.height;
-	this->buffer_size = other.buffer_size;
 	this->buffer = new uint8_t[this->buffer_size];
 	memcpy(this->buffer, other.buffer, this->buffer_size);
 }
 
 ImageContent::ImageContent()
-	: width(0), height(0), buffer_size(0), type(0), onePixelByteSize(0)
+	: width(0), height(0), buffer_size(0), type(0), onePixelByteSize(0), distinct_colors(0)
 {
 }
 
