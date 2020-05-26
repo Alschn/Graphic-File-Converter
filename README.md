@@ -27,7 +27,7 @@ Optymalizacja pamięci pod względem przechowywanego obrazu.
 * Klasy `Parameter` oraz dziedziczące z nich - odpowiadają za opcjonalne parametry CLI - Wojciech Nowicki
 * Klasa `Argument` oraz dziedziące z niej - odpowiadają za przekazywanie argumentów konwersji z CLI do `Converter` - Wojciech Nowicki
 * Klasa `Image` odpowiadająca za zarządzanie zdjęciami jako interfejs dla innych klas (nadrzędna) - Gustaw Daczkowski
-* Klasa `Converter` klasa główna odpowiedzialna za konwersję, z wirtualnymi metodami (plus wszystkie konwersje: Reflection, Rotation, Rescaler, Negative, Brightness, Contrast, Intensity) - Adam Lisichin
+* Klasa `Converter` klasa główna odpowiedzialna za konwersję, z wirtualnymi metodami (plus wszystkie konwersje: `Reflection`, `Rotation`, `Rescaler`, `Negative`, `Brightness`, `Contrast`, `Intensity`) - Adam Lisichin
 * Klasa `Utils`- bardzo mała, znajdują się w niej statyczne metody do obsługi operacji bitowych oraz bajtowych - Gustaw Daczkowski
 * Klasa `File` - odpowiedzialna za pracę nad plikami (plus dziedziczące z niej) - Gustaw Daczkowski
 * Klasa `ImageContent` - odpowiedzialna za zarządzanie pamięcią (plus dziedziczące z niej) - Gustaw Daczkowski
