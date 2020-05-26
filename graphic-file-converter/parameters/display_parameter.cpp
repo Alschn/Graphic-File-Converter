@@ -4,5 +4,5 @@
 
 void DisplayParameter::executeParam(Converter* conversion, std::string& output_path)
 {
-	std::cout << conversion->newImage <<std::endl;
+	std::cout << *conversion->newImage <<std::endl;
 }

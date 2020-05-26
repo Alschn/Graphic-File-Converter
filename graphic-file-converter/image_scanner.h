@@ -19,7 +19,7 @@ public:
 
 	void processImage(Arguments* args) override;
 
-	void saveImage(std::string &path) const;
+	void saveImage(const std::string& path) override;
 
 	void saveToBmp(std::string& path) const;
 

@@ -15,8 +15,8 @@ public:
 
 public:
 	virtual void processImage(Arguments* args);
-	void saveImage(const std::string& path) const;
-	void loadImage(const Image* image);
+	virtual void saveImage(const std::string& path);
+	virtual void loadImage(const Image* image);
 	
 
 	Converter() = default;

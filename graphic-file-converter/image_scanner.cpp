@@ -99,11 +99,12 @@ void ImageScanner::processImage(Arguments* args)
 	generateNewImages(found_images);
 }
 
-void ImageScanner::saveImage(std::string& path) const
+void ImageScanner::saveImage(const std::string& path) 
 {
 	const auto file = HeaderFile();
-	path += ".h";
-	file.saveFont(this->letters, path);
+	auto n_p = path;
+	n_p += ".h";
+	file.saveFont(this->letters, n_p);
 }
 
 void ImageScanner::saveToBmp(std::string& path) const

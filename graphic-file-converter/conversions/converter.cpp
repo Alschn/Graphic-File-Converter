@@ -23,7 +23,7 @@ double Converter::checkColorRange(double value)
 	return value;
 }
 
-void Converter::saveImage(const std::string& path) const
+void Converter::saveImage(const std::string& path)
 {
 	this->newImage->save(path);
 }
