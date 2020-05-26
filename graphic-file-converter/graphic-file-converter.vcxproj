@@ -168,7 +168,6 @@
     <ClInclude Include="conversions\color_intensity.h" />
     <ClInclude Include="conversions\contrast.h" />
     <ClInclude Include="conversions\converter.h" />
-    <ClInclude Include="conversions\enhancer.h" />
     <ClInclude Include="conversions\negative.h" />
     <ClInclude Include="conversions\reflection.h" />
     <ClInclude Include="conversions\rescaler.h" />

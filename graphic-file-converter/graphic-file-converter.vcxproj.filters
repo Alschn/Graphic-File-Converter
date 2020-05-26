@@ -36,9 +36,6 @@
     <ClInclude Include="conversions\converter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="conversions\enhancer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="conversions\reflection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
