@@ -1,11 +1,7 @@
 //Created by Gustaw Daczkowski
 #include "utils.h"
-#include <fstream>
 #include <regex>
 #include <sstream>
-#include <sys/types.h>
-#include <sys/stat.h>
-
 
 unsigned Utils::fourCharsToInt(const std::vector<unsigned char>& input, const int offset)
 {
@@ -58,6 +54,20 @@ bool Utils::findMatch(const std::string& str, const std::regex r, std::string& o
 	return false;
 }
 
+bool Utils::findMatches(const std::string& str, const std::regex r, std::vector<std::string>& output)
+{
+	std::smatch matches;
+	if (std::regex_search(str, matches, r))
+	{
+		for (unsigned int i = 1; i < matches.size(); ++i)
+		{
+			output.emplace_back(matches.str(i));
+		}
+		return true;
+	}
+	return false;
+}
+
 std::vector<std::string> Utils::splitString(const std::string& str, char delimiter)
 {
 	std::vector<std::string> output;
@@ -74,14 +84,4 @@ std::vector<std::string> Utils::splitString(const std::string& str, char delimit
 unsigned Utils::closestFourMultiple(const unsigned input)
 {
 	return (input + 3) & ~3;
-}
-
-bool Utils::directoryExists(std::string& path)
-{
-	struct stat info;
-	if (stat(path.c_str(), &info) != 0)
-		throw std::runtime_error("Directory: " + path + " is not accessible!;");
-	if (info.st_mode & S_IFDIR) // S_ISDIR() doesn't exist on my windows 
-		return true;
-	throw std::runtime_error("Path: " + path + " is not a directory!;");
 }

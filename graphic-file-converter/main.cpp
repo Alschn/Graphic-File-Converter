@@ -36,7 +36,7 @@ int main()
 	Image::registerImageContent<Bpp1>(1);
 	Image::registerImageContent<Bpp24>(24);
 	Image::registerFileType<BmpFile>(".bmp");
-	Image::registerFileType<HeaderFile>(".gh");
+	Image::registerFileType<HeaderFile>(".h");
 
 
 	
@@ -45,8 +45,14 @@ int main()
 	auto scanner = ImageScanner();
 	scanner.loadImage(im);
 	scanner.processImage(new Arguments);
-	std::string p = "../sample_bmps/found_letters/Arial";
-	scanner.saveToBmp(p);
+	std::string p = "../sample_bmps/found_letters/Arial2.h";
+	// scanner.saveToBmp(p);
+	scanner.saveImage(p);
+
+	Image *im2 = new Image("../sample_bmps/found_letters/Arial2_9.h");
+
+	std::cout << *im2;
+
 	// std::cout << "a";
 	// bool rest = im.getPixel<Bpp1>(1, 2);
 	// im.getPixel<Bpp24>(1, 2);

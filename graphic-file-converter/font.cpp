@@ -1,33 +1,25 @@
 #include "font.h"
+
+#include <utility>
 #include "utils.h"
+unsigned char Font::alphabet[char_count] = {};
 
 Font::Font(std::vector<std::unique_ptr<Image>> letters): char_images(std::move(letters))
 {
 }
 
-void Font::saveLetters(std::string& path)
-{
-	const auto font_name = extractFontName(path);
-	Utils::directoryExists(path); //throws an exception if path does not exist
-	const auto path_to_save = path + font_name + "_";
-	generateAlphabet();
-	for (unsigned int i = 0; i < char_images.size(); ++i)
-	{
-		char_images.at(i)->save(path_to_save + std::string(1, alphabet[i]) + ".bmp");
-	}
-}
 
 void Font::generateAlphabet()
 {
 	unsigned int counter = 0;
 	for (char i = 'A'; i <= 'Z'; ++i)
 	{
-		this->alphabet[counter] = i;
+		Font::alphabet[counter] = i;
 		counter++;
 	}
 	for (char i = '0'; i <= '9'; ++i)
 	{
-		this->alphabet[counter] = i;
+		Font::alphabet[counter] = i;
 		counter++;
 	}
 }

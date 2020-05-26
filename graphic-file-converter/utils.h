@@ -17,9 +17,11 @@ public:
 	static void writeIntToCharBuffer(std::vector<uint8_t>& input, const unsigned int value, const unsigned int offset);
 	static bool isBitSet(const char input, unsigned int position);
 	static bool findMatch(const std::string& str, const std::regex r, std::string& output);
+	static bool findMatches(const std::string& str, const std::regex r, std::vector<std::string>& output);
 	static std::vector<std::string> splitString(const std::string& str, char delimiter);
 	static unsigned int closestFourMultiple(const unsigned int input);
-	static bool directoryExists(std::string& path);
+
+
 };
 
 #endif

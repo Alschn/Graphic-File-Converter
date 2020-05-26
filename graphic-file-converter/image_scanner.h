@@ -9,6 +9,7 @@ class ImageScanner: Converter
 {
 
 	Font *font;
+	std::vector<Image* > letters;
 
 	void generateNewImages(const std::vector<std::pair<int, int >>& coordinates);
 	

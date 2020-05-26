@@ -1,10 +1,11 @@
 #include "image_scanner.h"
-
+#include "image_file_types/header_file.h"
 #include "font.h"
+#include "image_file_types/bmp_file.h"
 
 void ImageScanner::generateNewImages(const std::vector<std::pair<int, int>>& coordinates)
 {
-	std::vector<std::unique_ptr<Image>> resultLetters;
+	// std::vector<Image*> resultLetters;
 
 	const unsigned int threshold = this->oldImage->type >= 8 ? 80 : 1; //todo: threshold as argument
 	const int padding = 3;
@@ -14,7 +15,7 @@ void ImageScanner::generateNewImages(const std::vector<std::pair<int, int>>& coo
 
 	for (const auto pair : coordinates)
 	{
-		auto im = std::make_unique<Image>(1, pair.second + 2 * padding, this->oldImage->height);
+		auto im = new Image(1, pair.second + 2 * padding, this->oldImage->height);
 		for (unsigned int j = 0; j < this->oldImage->height; ++j)
 		{
 			for (unsigned int i = 0; i < pair.second + 2 * padding; ++i)
@@ -24,21 +25,20 @@ void ImageScanner::generateNewImages(const std::vector<std::pair<int, int>>& coo
 				{
 					if (colors[k] < threshold)
 					{
-						uint8_t clr = {0x01};
-						im->putPixel(i, j, &clr);
+						im->putPixel(i, j, true);
 						break;
 					}
 					else
 					{
-						uint8_t clr = {0x00};
-						im->putPixel(i, j, &clr);
+						im->putPixel(i, j, false);
 					}
 				}
 			}
 		}
-		resultLetters.push_back(std::move(im));
+		letters.push_back(im);
+		im->save("../sample_bmps/abcabcd.bmp");
 	}
-	this->font = new Font(std::move(resultLetters));
+	// this->font = new Font(resultLetters);
 }
 
 void ImageScanner::loadImage(Image* im)
@@ -49,10 +49,11 @@ void ImageScanner::loadImage(Image* im)
 void ImageScanner::processImage(Arguments* args)
 {
 	bool black_pixel_found = false;
-	const unsigned int threshold = this->oldImage->type >= 8 ? 80 : 1;
 	int letter_start_index = -1;
 	int letter_width = -1;
+
 	int padding = 4;
+	const unsigned int threshold = this->oldImage->type >= 8 ? 80 : 1;
 
 	std::vector<std::pair<int, int>> found_images;
 
@@ -106,11 +107,14 @@ void ImageScanner::processImage(Arguments* args)
 
 void ImageScanner::saveImage(std::string& path)
 {
+	auto file = HeaderFile();
+	file.saveFont(letters, path);
 }
 
 void ImageScanner::saveToBmp(std::string& path) const
 {
-	this->font->saveLetters(path);
+	auto file = BmpFile();
+	file.saveFont(this->letters, path);
 }
 
 ImageScanner::~ImageScanner()
