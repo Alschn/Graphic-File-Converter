@@ -33,7 +33,7 @@ std::map <std::pair<int, int>, std::pair<int, int>> Reflection::createMap(int he
 				y_n = height - j - 1;
 				break;
 			default:
-				throw std::exception("Such number not associated");
+				throw std::exception("Such number of reflection not associated!");
 			}
 
 			map.emplace(std::make_pair(std::make_pair(j, i), std::make_pair(x_n, y_n)));

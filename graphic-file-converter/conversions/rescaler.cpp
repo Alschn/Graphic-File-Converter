@@ -15,6 +15,10 @@ double Rescaler::bilinearInterpolation(double c00, double c10, double c01, doubl
 void Rescaler::processImage(Arguments* args)
 {
 	ScaleArguments* scale_args = dynamic_cast<ScaleArguments*>(args);
+	if(scale_args->x<0 || scale_args->y<0)
+	{
+		throw std::invalid_argument("Scale arguments have to be positive numbers!");
+	}
 	const auto new_width = static_cast<int>(oldImage->width * scale_args->x);
 	const auto new_height = static_cast<int>(oldImage->height * scale_args->y);
 	this->newImage->resize(new_width, new_height);
