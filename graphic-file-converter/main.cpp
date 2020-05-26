@@ -1,8 +1,6 @@
 #include <iostream>
-#include "image_content/image_content.h"
 #include "image_content/bpp1.h"
 #include "image_content/bpp24.h"
-#include "utils.h"
 #include "conversions/rotation.h"
 #include "conversions/rescaler.h"
 #include "conversions/reflection.h"
@@ -10,7 +8,6 @@
 #include "user_interface/user_interface.h"
 #include "arguments/reflection_arguments.h"
 #include "arguments/rotation_arguments.h"
-#include "conversions/rescaler.h"
 #include "arguments/scale_arguments.h"
 #include "conversions/brightness.h"
 #include "conversions/color_intensity.h"
@@ -50,15 +47,17 @@ int main(int argc, char* argv[])
 	Image::registerFileType<BmpFile>(".bmp");
 	Image::registerFileType<HeaderFile>(".h");
 
-	//Image* im = new Image("../font_bmps/wojtek24bpp.bmp");
-	//std::string path = "../sample_bmps/found_letters/WojtekFontz";
-	//////im->save(path);
-	//////std::cout << *im;
-	//auto scanner = new ImageScanner();
-	//scanner->loadImage(im);
-	//scanner->processImage(new Arguments());
-	//scanner->saveToBmp(path);
-	//scanner->saveImage(path);
+	Image* im = new Image("../font_bmps/bernard_f24.bmp");
+	// Image* im = new Image("../sample_bmps/found_letters/Bernard_A.h");
+	std::string path = "../sample_bmps/found_letters/Bernard.bmp";
+	// // im->save(path);
+	//
+	// std::cout << *im;
+	auto scanner = new ImageScanner();
+	scanner->loadImage(im);
+	scanner->processImage(new Arguments());
+	scanner->saveToBmp(path);
+	scanner->saveImage(path);
 
 	Desktop.registerParameter("-d", &display);
 	Desktop.registerAction("rotate", "rotates picture by n degrees", &rotation,

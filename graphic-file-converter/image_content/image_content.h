@@ -15,7 +15,7 @@ protected:
 	unsigned int height;
 	size_t buffer_size;
 	uint8_t* buffer = nullptr;
-	const unsigned int distinct_colors = 0;
+	const unsigned int distinct_colors;
 	unsigned int onePixelByteSize;
 	unsigned int channels;
 	unsigned int type;

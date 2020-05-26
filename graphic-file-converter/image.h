@@ -2,11 +2,8 @@
 #pragma once
 #include <string>
 #include <map>
-
 #include "image_file_types/file.h"
 #include "image_content/image_content.h"
-#include "image_content/bpp1.h"
-#include "image_content/bpp24.h"
 #include <functional>
 #include <iostream>
 #ifndef  CLASS_IMAGE
@@ -120,7 +117,7 @@ public:
 	unsigned int onePixelByteSize() const;
 
 	ImageContent* getContent() const;
-	
+
 	Image() = default;
 
 	Image(unsigned int content_type, unsigned int width, unsigned int height);

@@ -4,5 +4,5 @@
 
 void DisplayParameter::executeParam(Image* image)
 {
-	std::cout << *image <<std::endl;
+	std::cout << *image << std::endl;
 }

@@ -1,28 +1,24 @@
 //Created by Gustaw Daczkowski
 #include "bmp_file.h"
-#include <iostream>
-#include "../image_content/bpp1.h"
 #include "../image.h"
 #include "../utils.h"
 #include "../font.h"
 #include <fstream>
-
 
 std::vector<uint8_t> BmpFile::generateHeader(ImageContent* content) const
 {
 	const auto color_table = content->colorPalette();
 	const auto color_table_size = color_table.size();
 	const auto content_size = content->getHeight() * (content->bmpRowSize() + content->bmpPadding());
-	const auto buffer_size = this->HEADER_SIZE + color_table_size;
 
 	std::vector<uint8_t> header;
 	header.resize(this->HEADER_SIZE);
-	header[0]='B'; //signature
-	header[1]='M'; //signature
+	header[0] = 'B'; //signature
+	header[1] = 'M'; //signature
 
 	Utils::writeIntToCharBuffer(header, this->HEADER_SIZE + color_table_size + content_size, 2);
 	Utils::writeIntToCharBuffer(header, 0, 6); //not used space
-	Utils::writeIntToCharBuffer(header, this->HEADER_SIZE + color_table_size, 10);//pixel content offset
+	Utils::writeIntToCharBuffer(header, this->HEADER_SIZE + color_table_size, 10); //pixel content offset
 	Utils::writeIntToCharBuffer(header, this->WINDOWS_HEADER_SIZE, 14); //header size
 	Utils::writeIntToCharBuffer(header, content->getWidth(), 18); // image's height
 	Utils::writeIntToCharBuffer(header, content->getHeight(), 22); // image's width
@@ -35,7 +31,7 @@ std::vector<uint8_t> BmpFile::generateHeader(ImageContent* content) const
 	Utils::writeIntToCharBuffer(header, 0, 46); //color palette
 	Utils::writeIntToCharBuffer(header, 0, 50); //important colors
 
-	 if (color_table_size != 0) //color table
+	if (color_table_size != 0) //color table
 		header.insert(header.end(), color_table.data(), color_table.data() + color_table_size);
 	return header;
 }
@@ -66,13 +62,18 @@ void BmpFile::readPixelArray(char* pixel_array_buffer) const
 
 ImageContent* BmpFile::loadForContent(const std::string& filename)
 {
+	if (!File::fileExists(filename))
+	{
+		throw std::runtime_error("File you're trying to read from does not exist!");
+	}
 	char* header_buffer = new char[this->HEADER_SIZE];
 	header_buffer = File::readBytesFromFile(filename, header_buffer, this->HEADER_SIZE);
 	this->readHeader(header_buffer);
 	delete[] header_buffer;
 
 	char* pixel_array_buffer = new char[this->file_size - this->HEADER_SIZE];
-	pixel_array_buffer = File::readBytesFromFile(filename, pixel_array_buffer, this->file_size - this->HEADER_SIZE, this->pixel_array_offset);
+	pixel_array_buffer = File::readBytesFromFile(filename, pixel_array_buffer, this->file_size - this->HEADER_SIZE,
+	                                             this->pixel_array_offset);
 	this->readPixelArray(pixel_array_buffer);
 	delete[] pixel_array_buffer;
 
@@ -92,9 +93,10 @@ void BmpFile::save(ImageContent* content, const std::string& path)
 
 void BmpFile::saveFont(std::vector<Image*> char_images, std::string& path)
 {
-	const auto font_name = Font::extractFontName(path);
-	File::directoryExists(path); //throws an exception if path does not exist
-	const auto path_to_save = path + font_name + "_";
+	std::string new_path = path;
+	const auto font_name = Font::extractFontName(new_path);
+	File::directoryExists(new_path); //throws an exception if path does not exist
+	const auto path_to_save = new_path + font_name + "_";
 	Font::generateAlphabet();
 	for (unsigned int i = 0; i < char_images.size(); ++i)
 	{

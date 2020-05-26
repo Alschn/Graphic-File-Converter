@@ -3,7 +3,6 @@
 #include <fstream>
 #include "../image.h"
 #include "../utils.h"
-#include <sstream>
 #include <string>
 
 
@@ -13,7 +12,8 @@ std::string HeaderFile::generateFileInfo(ImageContent* content)
 	return this->generateFileInfo(this->variable_name, content->getType(), this->variable_name, type);
 }
 
-std::string HeaderFile::generateFileInfo(std::string& font_name, int content_type, std::string& variable_name, std::string& type) const
+std::string HeaderFile::generateFileInfo(std::string& font_name, unsigned int content_type, std::string& variable_name,
+                                         std::string& type) const
 {
 	std::string output;
 	auto new_name = font_name;
@@ -56,7 +56,7 @@ std::string HeaderFile::generateFileContent(ImageContent* content, unsigned char
 	auto buf_size = content->getBufferSize();
 	int counter = 0;
 	const auto rows = buf_size >> 3;
-	for (int j = 0; j < rows; ++j)
+	for (unsigned int j = 0; j < rows; ++j)
 	{
 		for (int i = 0; i < row_size; ++i)
 		{
@@ -114,6 +114,8 @@ void HeaderFile::saveStringToFile(const std::string& content, const std::string&
 ImageContent* HeaderFile::loadForContent(const std::string& filename)
 {
 	auto resolved_path = HeaderFile::resolvePath(filename);
+	if (!File::fileExists(resolved_path))
+		throw std::runtime_error("File does not exist!");
 
 	this->name = pathToVariableName(filename);;
 
