@@ -53,12 +53,12 @@ Tj. można przekonwertować znak z fontu .h do .bmp oraz odwrotnie plik .h z dow
 
 
 ### Przykładowe użycie programu:
-* `graphic-file-converter.exe 90 "../sample_bmps/10x10.bmp" -d` - obrót zdjęcia 10x10.bmp o 90 stopni w prawo.
+* `graphic-file-converter.exe 90 '../sample_bmps/10x10.bmp' -d` - obrót zdjęcia 10x10.bmp o 90 stopni w prawo.
 Podanie opcjonalnego parametru `-d` powoduje wyświetlenie zdjęcia na ekranie konsoli.
-* `graphic-file-converter.exe reflect 2 "../sample_bmps/10x10.bmp" "../sample_bmps/output.bmp"` odbicie symetryczne względem prostej y=x i zapis do pliku output.bmp.
+* `graphic-file-converter.exe reflect 2 '../sample_bmps/10x10.bmp' '../sample_bmps/output.bmp'` odbicie symetryczne względem prostej y=x i zapis do pliku output.bmp.
 * `graphic-file-converter.exe help` wyświetlenie pomocy
-* `graphic-file-converter.exe scale 2 2 "../sample_bmps/10x10.bmp" "../sample_bmps/out.bmp" -d` przeskalowanie obrazu x2 w osi X i Y wraz z wyświetleniem go w konsoli
-* `graphic-file-converter.exe scale 2 2 "../sample_bmps/arialDig32x24_0.h" "../sample_bmps/out.bmp" -d` przeskalowanie obrazu tj. cyfry 0 z fontu Arial x2 w osi X i Y i zapis do pliku .bmp wraz z wyświetleniem go
+* `graphic-file-converter.exe scale 2 2 '../sample_bmps/10x10.bmp' '../sample_bmps/out.bmp' -d` przeskalowanie obrazu x2 w osi X i Y wraz z wyświetleniem go w konsoli
+* `graphic-file-converter.exe scale 2 2 '../sample_bmps/arialDig32x24_0.h' '../sample_bmps/out.bmp' -d` przeskalowanie obrazu tj. cyfry 0 z fontu Arial x2 w osi X i Y i zapis do pliku .bmp wraz z wyświetleniem go
 w konsoli
 
 Szczegółowe objaśnienia komend znajdują się w #11, #15.  
