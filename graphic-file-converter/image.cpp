@@ -4,13 +4,19 @@
 #include <map>
 #include "image_file_types/bmp_file.h"
 
-
 std::map<unsigned int, std::function<ImageContent*()>> Image::content_type_map = {};
 std::map<std::string, std::function<File*()>> Image::file_type_map = {};
 
 void Image::getPixel(unsigned int x, unsigned int y, unsigned char output[]) const
 {
 	this->content->getPixel(x, y, output);
+}
+
+bool Image::getPixel(unsigned x, unsigned y) const
+{
+	uint8_t out;
+	this->content->getPixel(x, y, &out);
+	return out != 0;
 }
 
 void Image::putPixel(unsigned int x, unsigned int y, unsigned char input[])
@@ -20,7 +26,6 @@ void Image::putPixel(unsigned int x, unsigned int y, unsigned char input[])
 
 void Image::putPixel(unsigned x, unsigned y, bool value)
 {
-	// auto d = typeid(this->content);
 	if (typeid(*this->content) == typeid(Bpp1))
 	{
 		uint8_t in = value ? 0x01 : 0x00;
@@ -87,13 +92,11 @@ ImageContent* Image::getContent() const
 	return this->content;
 }
 
-Image::Image(unsigned int content_type, unsigned int width, unsigned int height)
+Image::Image(unsigned int content_type, unsigned int width, unsigned int height): width(width), height(height)
 {
 	if (Image::content_type_map.count(content_type))
 	{
 		delete this->content;
-		this->width = width;
-		this->height = height;
 		this->content = Image::content_type_map[content_type]();
 		this->content->resize(width, height);
 		this->type = content_type;
@@ -113,7 +116,6 @@ Image::Image(const Image& other)
 #ifdef _DEBUG
 	std::cout << "Inside copy constructor of class Image" << std::endl;
 #endif
-
 	this->width = other.width;
 	this->height = other.height;
 	this->content = other.content->clone();
@@ -122,9 +124,6 @@ Image::Image(const Image& other)
 
 Image::~Image()
 {
-#ifdef _DEBUG
-	std::cout << "~Image!";
-#endif
 	delete[] this->content;
 }
 

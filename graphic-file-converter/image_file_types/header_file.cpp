@@ -2,17 +2,16 @@
 #include "header_file.h"
 #include <fstream>
 #include "../image.h"
-#include "../image_content/bpp1.h"
 #include "../utils.h"
 #include <sstream>
 #include <string>
 
 
-std::string HeaderFile::generateFileInfo()
+std::string HeaderFile::generateFileInfo(ImageContent* content)
 {
 	std::string type = "GENERIC";
-	return this->generateFileInfo(this->variable_name, this->content->getType(), this->content->getWidth(),
-	                              this->content->getHeight(), this->variable_name, type);
+	return this->generateFileInfo(this->variable_name, content->getType(), content->getWidth(),
+	                              content->getHeight(), this->variable_name, type);
 }
 
 std::string HeaderFile::generateFileInfo(std::string& font_name, int content_type, unsigned int width,
@@ -44,7 +43,7 @@ std::string HeaderFile::generateFileInfo(std::string& font_name, int content_typ
 std::string HeaderFile::generateFileContent(ImageContent* content, unsigned char letter) const
 {
 	std::string output;
-	const auto row_size = content->memRowSize();
+	const auto row_size = 8;
 	output += "// ";
 	if (letter != 0)
 	{
@@ -55,20 +54,38 @@ std::string HeaderFile::generateFileContent(ImageContent* content, unsigned char
 	output += " | H: ";
 	output += std::to_string(content->getHeight());
 	output += "\n";
-	for (int j = content->getHeight() - 1; j >= 0; --j)
+
+	auto buf_size = content->getBufferSize();
+	int counter = 0;
+	const auto rows = buf_size >> 3;
+	for (int j = 0; j < rows; ++j)
 	{
 		for (int i = 0; i < row_size; ++i)
 		{
 			output += "0x";
 			char hex_string[4];
-			auto byte = content->getByte(j * row_size + i);
+			auto byte = content->getByte(counter);
 			sprintf_s(hex_string, "%02X", byte);
 			output += hex_string;
 			output += ", ";
+			counter++;
 		}
 		output.pop_back();
 		output.push_back('\n');
 	}
+	for (int i = 0; i < counter - buf_size; ++i)
+	{
+		output += "0x";
+		char hex_string[4];
+		auto byte = content->getByte(counter);
+		sprintf_s(hex_string, "%02X", byte);
+		output += hex_string;
+		output += ", ";
+		counter++;
+	}
+	output.pop_back();
+	output.push_back('\n');
+
 	return output;
 }
 
@@ -98,11 +115,13 @@ void HeaderFile::saveStringToFile(const std::string& content, const std::string&
 
 ImageContent* HeaderFile::loadForContent(const std::string& filename)
 {
+	auto resolved_path = HeaderFile::resolvePath(filename);
+
 	this->name = pathToVariableName(filename);;
 
 	const auto letter_index = HeaderFile::getLetterIndexFromFName(this->name);
-	auto lines = HeaderFile::fileToLines(HeaderFile::resolvePath(filename));
-	std::string content_type;
+	auto lines = HeaderFile::fileToLines(resolved_path);
+	std::string content_type, header_type;
 
 	size_t counter = 0;
 
@@ -110,43 +129,64 @@ ImageContent* HeaderFile::loadForContent(const std::string& filename)
 	{
 		auto line = lines.at(counter);
 		Utils::findMatch(line, this->image_content_type, content_type);
+		Utils::findMatch(line, this->header_t, header_type);
 
 		if (line.find("static const uint8_t") != std::string::npos)
 			break;
 		++counter;
 	}
-	bool found = false;
+
+	if (header_type.empty() || content_type.empty())
+		throw std::runtime_error("Provided header file is not valid!");
+
+	ImageContent* content = Image::content_type_map[std::stoi(content_type)]();
 	unsigned int width = 0;
 	unsigned int height = 0;
-
-	while (!found && counter < lines.size())
+	if (header_type == "FONT")
 	{
-		found = this->extractLetterInformation(lines.at(counter), letter_index, width, height);
+		bool found = false;
+
+
+		while (!found && counter < lines.size())
+		{
+			found = this->extractLetterInformation(lines.at(counter), letter_index, width, height);
+			++counter;
+		}
+
+		if (counter == lines.size())
+		{
+			throw std::runtime_error("Letter not found in font file. Maybe it's corrupted");
+		}
+	}
+	else
+	{
+		std::vector<std::string> output;
+		output.reserve(2);
+		const auto found = Utils::findMatches(lines.at(++counter), this->generic_information, output);
+		if (!found)
+		{
+			throw std::runtime_error("Incorrect header file format. Could not read width or height of the image!");
+		}
+		width = std::atoi(output.at(0).c_str());
+		height = std::atoi(output.at(1).c_str());
 		++counter;
+
 	}
 
-	if (counter == lines.size())
-	{
-		throw std::runtime_error("Letter not found in font file. Maybe it's corrupted");
-	}
-	ImageContent* content = Image::content_type_map[std::stoi(content_type)]();
 	content->resize(width, height);
 
 
-	auto start_index = counter + height - 1;
 	int bytes_write_index = 0;
-
-
-	for (int i = start_index; i >= counter; --i)
+	while (bytes_write_index < content->getBufferSize())
 	{
-		auto line = lines.at(i);
-		auto words = Utils::splitString(line, ',');
+		auto line = lines.at(counter);
+		std::vector<std::string> words = Utils::splitString(line, ',');
 		for (auto w : words)
 		{
 			uint8_t hex_byte = std::stoi(w, nullptr, 16);
-			content->putByte(hex_byte, bytes_write_index);
-			bytes_write_index++;
+			content->putByte(hex_byte, bytes_write_index++);
 		}
+		++counter;
 	}
 	return content;
 }
@@ -154,9 +194,9 @@ ImageContent* HeaderFile::loadForContent(const std::string& filename)
 void HeaderFile::save(ImageContent* content, const std::string& path)
 {
 	this->variable_name = HeaderFile::pathToVariableName(path);
-	this->content = content;
-	auto file = this->generateFileInfo();
-	file += this->generateFileContent(this->content);
+	auto file = this->generateFileInfo(content);
+	file += this->generateFileContent(content);
+	file += this->epilogue;
 	saveStringToFile(file, path);
 }
 
@@ -226,11 +266,28 @@ bool HeaderFile::extractLetterInformation(std::string& line, unsigned char desir
 
 std::string HeaderFile::resolvePath(const std::string& path)
 {
-	const auto underscore = path.rfind('_');
-	return path.substr(0, underscore) + ".h";
+	std::string correct_path;
+	auto slash_pos = path.rfind('/');
+	if (slash_pos == std::string::npos)
+	{
+		correct_path = "./" + path;
+		slash_pos = 2;
+	}
+	else
+	{
+		correct_path = path;
+	}
+
+	const auto underscore_pos= correct_path.rfind('_');
+	if(underscore_pos == std::string::npos || underscore_pos <= slash_pos)
+	{
+		return correct_path;
+	}
+	
+	return correct_path.substr(0, underscore_pos) + ".h";
 }
 
 HeaderFile::~HeaderFile()
 {
-	delete this->content;
+	// delete this->content;
 }

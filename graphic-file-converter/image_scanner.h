@@ -8,9 +8,10 @@
 class ImageScanner: Converter
 {
 
-	Font *font;
 	std::vector<Image* > letters;
-
+	unsigned int padding;
+	unsigned int threshold;
+	
 	void generateNewImages(const std::vector<std::pair<int, int >>& coordinates);
 	
 public:
@@ -18,7 +19,7 @@ public:
 
 	void processImage(Arguments* args) override;
 
-	void saveImage(std::string &path);
+	void saveImage(std::string &path) const;
 
 	void saveToBmp(std::string& path) const;
 

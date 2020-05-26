@@ -11,6 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		sample_bmps\10x10.bmp = sample_bmps\10x10.bmp
 		sample_bmps\8x48.bmp = sample_bmps\8x48.bmp
+		sample_bmps\found_letters\abc_9.h = sample_bmps\found_letters\abc_9.h
 		sample_bmps\found_letters\Arial2.h = sample_bmps\found_letters\Arial2.h
 		sample_bmps\arialDig32x24.h = sample_bmps\arialDig32x24.h
 		sample_bmps\minilogo.h = sample_bmps\minilogo.h

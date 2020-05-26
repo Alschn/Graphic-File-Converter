@@ -42,17 +42,22 @@ int main()
 	
 	auto im = new Image("../font_bmps/arialf1bpp.bmp");
 	// auto im = Image("../font_bmps/lw_test_1.bmp");
-	auto scanner = ImageScanner();
-	scanner.loadImage(im);
-	scanner.processImage(new Arguments);
+	auto scanner =new  ImageScanner();
+	scanner->loadImage(im);
+	scanner->processImage(new Arguments);
 	std::string p = "../sample_bmps/found_letters/Arial2.h";
 	// scanner.saveToBmp(p);
-	scanner.saveImage(p);
+	scanner->saveImage(p);
+	
+	delete scanner;
+	Image *im2 = new Image("../sample_bmps/found_letters/Arial2_B.h");
+	im2->save("../sample_bmps/found_letters/xdd.h");
+	im2->save("../sample_bmps/found_letters/xdd.bmp");
+	Image* im3 = new Image("../sample_bmps/found_letters/xdd.h");
 
-	Image *im2 = new Image("../sample_bmps/found_letters/Arial2_9.h");
+	std::cout << *im3;
 
-	std::cout << *im2;
-
+	
 	// std::cout << "a";
 	// bool rest = im.getPixel<Bpp1>(1, 2);
 	// im.getPixel<Bpp24>(1, 2);

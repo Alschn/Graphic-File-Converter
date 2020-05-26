@@ -4,14 +4,9 @@
 #include "image_file_types/bmp_file.h"
 
 void ImageScanner::generateNewImages(const std::vector<std::pair<int, int>>& coordinates)
-{
-	// std::vector<Image*> resultLetters;
-
-	const unsigned int threshold = this->oldImage->type >= 8 ? 80 : 1; //todo: threshold as argument
-	const int padding = 3;
+{	
 	const auto color_arr_size = this->oldImage->onePixelByteSize();
 	std::unique_ptr<unsigned char[]> colors = std::make_unique<unsigned char[]>(color_arr_size);
-
 
 	for (const auto pair : coordinates)
 	{
@@ -28,17 +23,12 @@ void ImageScanner::generateNewImages(const std::vector<std::pair<int, int>>& coo
 						im->putPixel(i, j, true);
 						break;
 					}
-					else
-					{
-						im->putPixel(i, j, false);
-					}
+					im->putPixel(i, j, false);
 				}
 			}
 		}
 		letters.push_back(im);
-		im->save("../sample_bmps/abcabcd.bmp");
 	}
-	// this->font = new Font(resultLetters);
 }
 
 void ImageScanner::loadImage(Image* im)
@@ -48,11 +38,13 @@ void ImageScanner::loadImage(Image* im)
 
 void ImageScanner::processImage(Arguments* args)
 {
+	padding = 4;
+	threshold = this->oldImage->type >= 8 ? 60 : 1; //todo: threshold as argument
+	
 	bool black_pixel_found = false;
 	int letter_start_index = -1;
 	int letter_width = -1;
 
-	int padding = 4;
 	const unsigned int threshold = this->oldImage->type >= 8 ? 80 : 1;
 
 	std::vector<std::pair<int, int>> found_images;
@@ -105,10 +97,10 @@ void ImageScanner::processImage(Arguments* args)
 	generateNewImages(found_images);
 }
 
-void ImageScanner::saveImage(std::string& path)
+void ImageScanner::saveImage(std::string& path) const
 {
-	auto file = HeaderFile();
-	file.saveFont(letters, path);
+	const auto file = HeaderFile();
+	file.saveFont(this->letters, path);
 }
 
 void ImageScanner::saveToBmp(std::string& path) const
@@ -119,5 +111,8 @@ void ImageScanner::saveToBmp(std::string& path) const
 
 ImageScanner::~ImageScanner()
 {
-	delete this->font;
+	for(auto l: this->letters)
+	{
+		delete l;
+	}
 }

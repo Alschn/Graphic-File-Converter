@@ -20,8 +20,8 @@ private:
 	ImageContent* content = nullptr;
 
 public:
-	unsigned int width{}; // width in pixels
-	unsigned int height{}; // height in pixels
+	unsigned int width = 0; // width in pixels
+	unsigned int height = 0; // height in pixels
 	unsigned int channels = 0;
 	unsigned int type = 0;
 	/**
@@ -34,52 +34,34 @@ public:
 	 */
 	void getPixel(unsigned int x, unsigned int y, unsigned char output[]) const;
 
-	// in the normal case, just the identity
-	template <class T>
-	struct item_return
-	{
-		typedef T type;
-	};
+	bool getPixel(unsigned int x, unsigned int y) const;
 
-	template <class T>
-	typename item_return<T>::type getPixel1(unsigned int x, unsigned int y, uint8_t* output = nullptr);
-
-	template <>
-	struct item_return<Bpp1>
-	{
-		typedef bool type;
-	};
-
-	template <>
-	bool getPixel1<Bpp1>(unsigned int x, unsigned int y, uint8_t* output)
-	{
-		if (dynamic_cast<Bpp1*>(this->content))
-		{
-			uint8_t out;
-			this->content->getPixel(x, y, &out);
-			return out != 0;
-		}
-		throw std::runtime_error("This function call is allowed only for 1Bpp content type!");
-	}
-
-	// template<>
-	// item_return<bool>::type getPixel1<float>(unsigned int x, unsigned int y) { }
+	// ****getPixel variant with templates*****
+	// template <class T>
+	// struct item_return
+	// {
+	// 	typedef T type;
+	// };
 	//
-	// template<ImageContent* T>
-	// auto getPixel(unsigned int x, unsigned int y, unsigned char output[] = 0)
-	// {
-	// 	std::cout << "Bpp1";
-	// 	return false
-	// }
-	// template <> bool getPixel<Bpp1>(unsigned int x, unsigned int y, unsigned char output[])
-	// {
-	// 	std::cout << "Bpp11";
-	// 	return false;
-	// }
+	// template <class T>
+	// typename item_return<T>::type getPixel1(unsigned int x, unsigned int y, uint8_t* output = nullptr);
 	//
-	// template <> void getPixel<Bpp24, void>(unsigned int x, unsigned int y, unsigned char output[])
+	// template <>
+	// struct item_return<Bpp1>
 	// {
-	// 	std::cout << "Bpp34";
+	// 	typedef bool type;
+	// };
+	//
+	// template <>
+	// bool getPixel1<Bpp1>(unsigned int x, unsigned int y, uint8_t* output)
+	// {
+	// 	if (dynamic_cast<Bpp1*>(this->content))
+	// 	{
+	// 		uint8_t out;
+	// 		this->content->getPixel(x, y, &out);
+	// 		return out != 0;
+	// 	}
+	// 	throw std::runtime_error("This function call is allowed only for 1Bpp content type!");
 	// }
 
 	/**
@@ -90,8 +72,10 @@ public:
 	 */
 	void putPixel(unsigned int x, unsigned int y, unsigned char input[]);
 
+	/*
+	 * Variant for 1bpp with boolean
+	 */
 	void putPixel(unsigned int x, unsigned int y, bool value);
-
 
 	/**
 	 * \brief Resizes image and memory for new dimensions.
@@ -130,6 +114,7 @@ public:
 
 	static std::map<unsigned int, std::function<ImageContent*()>> content_type_map;
 	static std::map<std::string, std::function<File*()>> file_type_map;
+
 	static std::string getExtension(const std::string& path);
 
 	unsigned int onePixelByteSize() const;

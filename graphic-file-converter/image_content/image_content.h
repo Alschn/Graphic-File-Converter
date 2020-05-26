@@ -39,6 +39,7 @@ public:
 	virtual unsigned int getChannels();
 	virtual unsigned int getType();
 	virtual unsigned int getPixelByteSize();
+	virtual size_t getBufferSize();
 	
 	ImageContent(const ImageContent& other);
 	ImageContent();
