@@ -176,16 +176,18 @@ Bpp1::Bpp1(const Bpp1& other)
 	this->buffer = new uint8_t[this->buffer_size];
 	this->type = other.type;
 	memcpy(this->buffer, other.buffer, this->buffer_size);
+	this->onePixelByteSize = other.onePixelByteSize;
 	this->channels = other.channels;
 }
 
 Bpp1::Bpp1()
 {
-	this->width = 0;   // nadpisywanie wartoœci Imagecontet odpowiada za inicjalizacje
+	this->width = 0;   
 	this->height = 0;
 	this->buffer_size = 0;
 	this->channels = 1;
 	this->type = 1;
+	this->onePixelByteSize = 1;
 }
 
 

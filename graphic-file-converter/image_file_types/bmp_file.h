@@ -2,6 +2,7 @@
 #pragma once
 #include <vector>
 #include "file.h"
+#include "../font.h"
 
 class BmpFile :public File
 {
@@ -31,6 +32,7 @@ public:
 	void readPixelArray(char* pixel_array_buffer) const;
 	ImageContent* loadForContent(const std::string& filename) override;
 	void save(ImageContent* content, const std::string& path) override;
+	void saveFont(std::vector<Image*> char_images, std::string& path);
 	~BmpFile();
 };
 

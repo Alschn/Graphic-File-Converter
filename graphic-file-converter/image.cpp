@@ -4,9 +4,19 @@
 #include <map>
 #include "image_file_types/bmp_file.h"
 
+std::map<unsigned int, std::function<ImageContent*()>> Image::content_type_map = {};
+std::map<std::string, std::function<File*()>> Image::file_type_map = {};
+
 void Image::getPixel(unsigned int x, unsigned int y, unsigned char output[]) const
 {
 	this->content->getPixel(x, y, output);
+}
+
+bool Image::getPixel(unsigned x, unsigned y) const
+{
+	uint8_t out;
+	this->content->getPixel(x, y, &out);
+	return out != 0;
 }
 
 void Image::putPixel(unsigned int x, unsigned int y, unsigned char input[])
@@ -14,8 +24,16 @@ void Image::putPixel(unsigned int x, unsigned int y, unsigned char input[])
 	this->content->putPixel(x, y, input);
 }
 
-
-
+void Image::putPixel(unsigned x, unsigned y, bool value)
+{
+	if (typeid(*this->content) == typeid(Bpp1))
+	{
+		uint8_t in = value ? 0x01 : 0x00;
+		this->content->putPixel(x, y, &in);
+	}
+	else
+		throw std::runtime_error("This function call is allowed only for 1Bpp content type!");
+}
 
 
 void Image::resize(unsigned int width, unsigned int height)
@@ -64,11 +82,28 @@ std::string Image::getExtension(const std::string& path)
 	return path.substr(pos);
 }
 
-Image::Image(unsigned int content_type, unsigned int width, unsigned int height)
+unsigned Image::onePixelByteSize() const
 {
-	delete this->content;
-	this->content = Image::content_type_map[content_type]();
-	this->content->resize(width, height);
+	return this->content->getPixelByteSize();
+}
+
+ImageContent* Image::getContent() const
+{
+	return this->content;
+}
+
+Image::Image(unsigned int content_type, unsigned int width, unsigned int height): width(width), height(height)
+{
+	if (Image::content_type_map.count(content_type))
+	{
+		delete this->content;
+		this->content = Image::content_type_map[content_type]();
+		this->content->resize(width, height);
+		this->type = content_type;
+	}
+	else
+		throw std::runtime_error(
+			"Content you used: " + std::to_string(content_type) + "is not valid content type for Image!");
 }
 
 Image::Image(const std::string& path)
@@ -81,7 +116,6 @@ Image::Image(const Image& other)
 #ifdef _DEBUG
 	std::cout << "Inside copy constructor of class Image" << std::endl;
 #endif
-
 	this->width = other.width;
 	this->height = other.height;
 	this->content = other.content->clone();
@@ -98,10 +132,3 @@ std::ostream& operator<<(std::ostream& os, const Image& im)
 	os << im.toStr();
 	return os;
 }
-
-std::map<unsigned int, std::function<ImageContent*()>> Image::content_type_map = {};
-
-std::map<std::string, std::function<File*()>> Image::file_type_map = {
-	{".h", []() -> File* { return new HeaderFile(); }},
-	{".bmp", []() -> File* { return new BmpFile(); }}
-};

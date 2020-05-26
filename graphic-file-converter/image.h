@@ -4,12 +4,14 @@
 #include <map>
 
 #include "image_file_types/file.h"
-#include "image_file_types/header_file.h"
 #include "image_content/image_content.h"
 #include "image_content/bpp1.h"
 #include "image_content/bpp24.h"
 #include <functional>
 #include <iostream>
+#ifndef  CLASS_IMAGE
+#define CLASS_IMAGE
+
 
 class Image
 {
@@ -18,8 +20,8 @@ private:
 	ImageContent* content = nullptr;
 
 public:
-	unsigned int width{}; // width in pixels
-	unsigned int height{}; // height in pixels
+	unsigned int width = 0; // width in pixels
+	unsigned int height = 0; // height in pixels
 	unsigned int channels = 0;
 	unsigned int type = 0;
 	/**
@@ -32,24 +34,36 @@ public:
 	 */
 	void getPixel(unsigned int x, unsigned int y, unsigned char output[]) const;
 
+	bool getPixel(unsigned int x, unsigned int y) const;
 
-	// template<ImageContent* T, typename F = bool>
-	// F getPixel(unsigned int x, unsigned int y, unsigned char output[] = 0)
+	// ****getPixel variant with templates*****
+	// template <class T>
+	// struct item_return
 	// {
-	// 	std::cout << "Bpp1";
-	// 	return false;
-	// }
-	// template <> bool getPixel<Bpp1>(unsigned int x, unsigned int y, unsigned char output[])
-	// {
-	// 	std::cout << "Bpp11";
-	// 	return false;
-	// }
+	// 	typedef T type;
+	// };
 	//
-	// template <> void getPixel<Bpp24, void>(unsigned int x, unsigned int y, unsigned char output[])
+	// template <class T>
+	// typename item_return<T>::type getPixel1(unsigned int x, unsigned int y, uint8_t* output = nullptr);
+	//
+	// template <>
+	// struct item_return<Bpp1>
 	// {
-	// 	std::cout << "Bpp34";
+	// 	typedef bool type;
+	// };
+	//
+	// template <>
+	// bool getPixel1<Bpp1>(unsigned int x, unsigned int y, uint8_t* output)
+	// {
+	// 	if (dynamic_cast<Bpp1*>(this->content))
+	// 	{
+	// 		uint8_t out;
+	// 		this->content->getPixel(x, y, &out);
+	// 		return out != 0;
+	// 	}
+	// 	throw std::runtime_error("This function call is allowed only for 1Bpp content type!");
 	// }
-	
+
 	/**
 	 * \brief Puts pixel into memory by given coordinates. This function is meant to be used for 24bit color space.
 	 * \param x x coordinate
@@ -58,12 +72,17 @@ public:
 	 */
 	void putPixel(unsigned int x, unsigned int y, unsigned char input[]);
 
+	/*
+	 * Variant for 1bpp with boolean
+	 */
+	void putPixel(unsigned int x, unsigned int y, bool value);
+
 	/**
 	 * \brief Resizes image and memory for new dimensions.
 	 * \param width width in pixels
 	 * \param height height in pixels
 	 */
-	void resize(unsigned int width,unsigned int height);
+	void resize(unsigned int width, unsigned int height);
 
 	/**
 	 * \brief Saves file.
@@ -77,32 +96,41 @@ public:
 	std::string toStr() const;
 
 private:
-	void loadFromPath(const std::string &path);
+	void loadFromPath(const std::string& path);
 
 public:
 	//allow only image content
-	template<typename T, typename = std::enable_if<std::is_base_of<ImageContent, T>::value>>
+	template <typename T, typename = std::enable_if<std::is_base_of<ImageContent, T>::value>>
 	static void registerImageContent(unsigned bpp)
 	{
 		Image::content_type_map[bpp] = []() -> ImageContent* { return new T(); };
 	}
-	
-	
-	static std::map<unsigned int, std::function<ImageContent* ()>> content_type_map;
-	static std::map<std::string, std::function<File* ()>> file_type_map;
+
+	template <typename T, typename = std::enable_if<std::is_base_of<File, T>::value>>
+	static void registerFileType(std::string extension)
+	{
+		Image::file_type_map[extension] = []() -> File* { return new T(); };
+	}
+
+	static std::map<unsigned int, std::function<ImageContent*()>> content_type_map;
+	static std::map<std::string, std::function<File*()>> file_type_map;
+
 	static std::string getExtension(const std::string& path);
 
-	//static void registerImageContent(unsigned int bpp, std::function<ImageContent* ()> func);
+	unsigned int onePixelByteSize() const;
+
+	ImageContent* getContent() const;
 	
 	Image() = default;
 
 	Image(unsigned int content_type, unsigned int width, unsigned int height);
 
-	Image(const std::string & path);
-	
+	Image(const std::string& path);
+
 	Image(const Image& other);
 
 	~Image();
 
 	friend std::ostream& operator<<(std::ostream& os, const Image& im);
 };
+#endif

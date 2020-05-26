@@ -13,6 +13,8 @@ void ImageContent::resize(const unsigned new_width, const unsigned new_height)
 
 void ImageContent::putByte(uint8_t input, unsigned index)
 {
+	if (index >= this->buffer_size)
+		throw std::runtime_error("Index too high");
 	this->buffer[index] = input;
 }
 
@@ -62,6 +64,16 @@ unsigned ImageContent::getType()
 	return this->type;
 }
 
+unsigned ImageContent::getPixelByteSize()
+{
+	return this->onePixelByteSize;
+}
+
+size_t ImageContent::getBufferSize()
+{
+	return this->buffer_size;
+}
+
 ImageContent::ImageContent(const ImageContent& other): distinct_colors(0)
 {
 	this->width = other.width;
@@ -72,9 +84,8 @@ ImageContent::ImageContent(const ImageContent& other): distinct_colors(0)
 }
 
 ImageContent::ImageContent()
-	: width(0), height(0), buffer_size(0), type(0), distinct_colors(0)
+	: width(0), height(0), buffer_size(0), type(0), onePixelByteSize(0)
 {
-	
 }
 
 void ImageContent::verifyAccess(const unsigned x, const unsigned y)

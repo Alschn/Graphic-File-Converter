@@ -4,7 +4,9 @@
 #include "../image_content/bpp1.h"
 #include "../image.h"
 #include "../utils.h"
+#include "../font.h"
 #include <fstream>
+
 
 std::vector<uint8_t> BmpFile::generateHeader(ImageContent* content) const
 {
@@ -86,6 +88,18 @@ void BmpFile::save(ImageContent* content, const std::string& path)
 	file_out.write(reinterpret_cast<char*>(header.data()), header.size());
 	file_out.write(reinterpret_cast<char*>(byte_content.data()), byte_content.size());
 	file_out.close();
+}
+
+void BmpFile::saveFont(std::vector<Image*> char_images, std::string& path)
+{
+	const auto font_name = Font::extractFontName(path);
+	File::directoryExists(path); //throws an exception if path does not exist
+	const auto path_to_save = path + font_name + "_";
+	Font::generateAlphabet();
+	for (unsigned int i = 0; i < char_images.size(); ++i)
+	{
+		char_images.at(i)->save(path_to_save + std::string(1, Font::alphabet[i]) + ".bmp");
+	}
 }
 
 BmpFile::~BmpFile()
