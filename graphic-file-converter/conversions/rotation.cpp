@@ -1,6 +1,7 @@
 //Created by Adam Lisichin
 #include "rotation.h"
-
+#define _USE_MATH_DEFINES
+#include <math.h>
 #include <cmath>
 #include "../arguments/rotation_arguments.h"
 
@@ -9,19 +10,18 @@ std::map <std::pair<int, int>, std::pair<int, int>> Rotation::createMap(int heig
 	std::map <std::pair<int, int>, std::pair<int, int>> map;
 	if (angle % 90 != 0)
 	{
-		throw std::exception("Angle has to be a multiple of 90 degrees");
+		throw std::invalid_argument("Angle has to be a multiple of 90 degrees");
 	}
 
-	const auto pi = std::acos(-1); // mo¿na dodaæ M_PI z pliku math.h
-	const double deg = angle * pi / 180;
+	const double deg = angle * M_PI / 180;
 
 	for (int i = 0; i < height; i++)
 	{
 		for (int j = 0; j < width; j++)
 		{
 			// rotation matrix
-			auto x_n = int(round(j * std::cos(-deg) - i * std::sin(-deg)));
-			auto y_n = int(round(j * std::sin(-deg) + i * std::cos(-deg)));
+			auto x_n = static_cast<int>(round(j * std::cos(-deg) - i * std::sin(-deg)));
+			auto y_n = static_cast<int>(round(j * std::sin(-deg) + i * std::cos(-deg)));
 			// translation vector
 			switch (angle)
 			{
@@ -52,11 +52,12 @@ void Rotation::processImage(Arguments* args)
 	{
 		throw std::invalid_argument("Rotation degree has to be a positive number!");
 	}
+	// keep angle in [0, 360] degree interval
 	const int multiple = rot_args->degrees / 360;
 	rot_args->degrees = rot_args->degrees - multiple * 360;
-	if (!(rot_args->degrees == 360 || rot_args->degrees == 0))
+	if (!(rot_args->degrees == 360 || rot_args->degrees == 0))	// do not calculate if deg is 0 or 360
 	{
-		if (rot_args->degrees != 180)
+		if (rot_args->degrees != 180)	// do not resize for 180 degree rotation
 		{
 			this->newImage->resize(this->oldImage->height, this->oldImage->width);
 		}

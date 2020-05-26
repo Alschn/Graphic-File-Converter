@@ -167,10 +167,10 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="testBpp1.cpp" />
+    <ClCompile Include="testColorRange.cpp" />
     <ClCompile Include="testFile.cpp" />
     <ClCompile Include="testHeaderFile.cpp" />
     <ClCompile Include="testImage.cpp" />
-    <ClCompile Include="testInterpolation.cpp" />
     <ClCompile Include="testReflection.cpp" />
     <ClCompile Include="testRotation.cpp" />
     <ClCompile Include="testUserInterface.cpp" />

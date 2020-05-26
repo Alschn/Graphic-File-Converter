@@ -15,6 +15,10 @@ double Rescaler::bilinearInterpolation(double c00, double c10, double c01, doubl
 void Rescaler::processImage(Arguments* args)
 {
 	ScaleArguments* scale_args = dynamic_cast<ScaleArguments*>(args);
+	if(scale_args->x<0 || scale_args->y<0)
+	{
+		throw std::invalid_argument("Scale arguments have to be positive numbers!");
+	}
 	const auto new_width = static_cast<int>(oldImage->width * scale_args->x);
 	const auto new_height = static_cast<int>(oldImage->height * scale_args->y);
 	this->newImage->resize(new_width, new_height);
@@ -22,12 +26,13 @@ void Rescaler::processImage(Arguments* args)
 	for (int x = 0; x < newImage->width; x++) {
 		for (int y = 0; y < newImage->height; y++)
 		{
+			// new coordinates calculation
 			const auto gx = static_cast<double>(x) / newImage->width * (oldImage->width - 1);
 			const auto gy = static_cast<double>(y) / newImage->height * (oldImage->height - 1);
 			const auto gxi = static_cast<int>(gx);
 			const auto gyi = static_cast<int>(gy);
 
-			if (oldImage->channels == 1)
+			if (oldImage->channels == 1) // check if 1bpp
 			{
 				unsigned char c00[1];
 				this->oldImage->getPixel(gxi, gyi, c00);
@@ -46,7 +51,7 @@ void Rescaler::processImage(Arguments* args)
 				unsigned char color[1] = { c };
 				this->newImage->putPixel(x, y, color);
 			}
-			else
+			else // 24 bpp
 			{
 				unsigned char c00[3];
 				this->oldImage->getPixel(gxi, gyi, c00);
