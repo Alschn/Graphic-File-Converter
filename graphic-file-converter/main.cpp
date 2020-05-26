@@ -50,15 +50,15 @@ int main(int argc, char* argv[])
 	Image::registerFileType<BmpFile>(".bmp");
 	Image::registerFileType<HeaderFile>(".h");
 
-	Image* im = new Image("../sample_bmps/found_letters/Arial2.h");
-	std::string path = "../sample_bmps/found_letters/WojtekFont000.bmp";
-	//im->save(path);
-	//std::cout << *im;
-	 auto scanner = new ImageScanner();
-	 scanner->loadImage(im);
-	 scanner->processImage(new Arguments());
-	 // scanner->saveToBmp(path);
-	 scanner->saveImage(path);
+	//Image* im = new Image("../font_bmps/wojtek24bpp.bmp");
+	//std::string path = "../sample_bmps/found_letters/WojtekFontz";
+	//////im->save(path);
+	//////std::cout << *im;
+	//auto scanner = new ImageScanner();
+	//scanner->loadImage(im);
+	//scanner->processImage(new Arguments());
+	//scanner->saveToBmp(path);
+	//scanner->saveImage(path);
 
 	Desktop.registerParameter("-d", &display);
 	Desktop.registerAction("rotate", "rotates picture by n degrees", &rotation,
