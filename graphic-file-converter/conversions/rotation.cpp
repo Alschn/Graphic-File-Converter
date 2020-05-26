@@ -12,10 +12,6 @@ std::map <std::pair<int, int>, std::pair<int, int>> Rotation::createMap(int heig
 	{
 		throw std::invalid_argument("Angle has to be a multiple of 90 degrees");
 	}
-	if(angle<0)
-	{
-		throw std::invalid_argument("Angle has to be a positive number!");
-	}
 
 	const double deg = angle * M_PI / 180;
 
