@@ -99,6 +99,12 @@
     <ClInclude Include="image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="font.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="image_scanner.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="user_interface\user_interface.cpp">
@@ -183,6 +189,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="arguments\color_intensity_arguments.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="font.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="image_scanner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

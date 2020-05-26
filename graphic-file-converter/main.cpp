@@ -19,6 +19,9 @@
 #include "arguments/brightness_arguments.h"
 #include "arguments/contrast_arguments.h"
 #include "arguments/color_intesity_arguments.h"
+#include "image_file_types/bmp_file.h"
+#include "image_file_types/header_file.h"
+#include "image_scanner.h"
 
 using namespace std;
 
@@ -44,9 +47,19 @@ int main(int argc, char* argv[])
 
 	Image::registerImageContent<Bpp1>(1);
 	Image::registerImageContent<Bpp24>(24);
-	// Image::registerFileType<BmpFile>(".bmp");
-	// Image::registerFileType<HeaderFile>(".gh");
+	Image::registerFileType<BmpFile>(".bmp");
+	Image::registerFileType<HeaderFile>(".h");
 
+	// Image* im = new Image("../sample_bmps/found_letters/WojtekFont_7.h");
+	// std::string path = "../sample_bmps/found_letters/WojtekFont777.bmp";
+	// im->save(path);
+	//
+	// std::cout << *im;
+	// auto scanner = new ImageScanner();
+	// scanner->loadImage(im);
+	// scanner->processImage(new Arguments());
+	// // scanner->saveToBmp(path);
+	// scanner->saveImage(path);
 
 	Desktop.registerParameter("-d", &display);
 	Desktop.registerAction("rotate", "rotates picture by n degrees", &rotation,
@@ -75,7 +88,7 @@ int main(int argc, char* argv[])
 	                       regex(
 		                       R"###(^intensify +(-?[0-9]\d*(\.\d+)?) +(-?[0-9]\d*(\.\d+)?) +(-?[0-9]\d*(\.\d+)?) +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"),
 	                       &intens_args,3);
-
+	
 	if (argc > 1)
 	{
 		Desktop.display(argv_to_string(argv, argc));

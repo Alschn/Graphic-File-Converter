@@ -39,7 +39,7 @@ void ImageScanner::loadImage(Image* im)
 void ImageScanner::processImage(Arguments* args)
 {
 	padding = 4;
-	threshold = this->oldImage->type >= 8 ? 60 : 1; //todo: threshold as argument
+	threshold = this->oldImage->type >= 8 ? 40 : 1; //todo: threshold as argument
 	
 	bool black_pixel_found = false;
 	int letter_start_index = -1;
@@ -100,6 +100,7 @@ void ImageScanner::processImage(Arguments* args)
 void ImageScanner::saveImage(std::string& path) const
 {
 	const auto file = HeaderFile();
+	path += ".h";
 	file.saveFont(this->letters, path);
 }
 
