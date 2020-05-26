@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "CppUnitTest.h"
-#include "../graphic-file-converter/rescaler.h"
-#include "../graphic-file-converter/converter.h"
+#include "../graphic-file-converter/conversions/rescaler.h"
+#include "../graphic-file-converter/conversions/converter.h"
 
 //using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 //

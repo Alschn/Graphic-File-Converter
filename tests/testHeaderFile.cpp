@@ -1,7 +1,7 @@
 #include "pch.h"
 
-#include "../graphic-file-converter/header_file.h"
-#include "../graphic-file-converter/header_file.cpp"
+#include "../graphic-file-converter/image_file_types/header_file.h"
+#include "../graphic-file-converter/image_file_types/header_file.cpp"
 #include "CppUnitTest.h"
 
 
