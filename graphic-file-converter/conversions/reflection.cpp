@@ -33,7 +33,7 @@ std::map <std::pair<int, int>, std::pair<int, int>> Reflection::createMap(int he
 				y_n = height - j - 1;
 				break;
 			default:
-				throw std::exception("Such number not associated");
+				throw std::exception("Such number of reflection not associated!");
 			}
 
 			map.emplace(std::make_pair(std::make_pair(j, i), std::make_pair(x_n, y_n)));
@@ -47,10 +47,15 @@ void Reflection::processImage(Arguments* args)
 {
 	ReflectionArguments* ref_args = dynamic_cast<ReflectionArguments*>(args);
 	ref_args->reflection_number = static_cast<int>(ref_args->reflection_number);
-	// diagonal reflection allowed only for squares
-	if (this->oldImage->width != this->oldImage->height && ref_args->reflection_number || ref_args->reflection_number == 3)
+	if (ref_args->reflection_number < 0)
 	{
-		throw std::exception("Diagonal reflection is not allowed for non-square bmp files");
+		throw std::invalid_argument("Reflection argument has to be positive numbers!");
+	}
+	
+	// diagonal reflection allowed only for squares
+	if (this->oldImage->width != this->oldImage->height && (ref_args->reflection_number == 2 || ref_args->reflection_number == 3))
+	{
+		throw std::invalid_argument("Diagonal reflection is not allowed for non-square bmp files");
 	}
 
 	auto map = this->createMap(this->oldImage->height, this->oldImage->width, ref_args->reflection_number);

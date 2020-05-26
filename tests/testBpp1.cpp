@@ -1,9 +1,8 @@
 #include "pch.h"
 
-#include "../graphic-file-converter/bpp1.h"
-#include "../graphic-file-converter/bpp1.cpp"
 #include "CppUnitTest.h"
-
+#include "../graphic-file-converter/image_content/bpp1.h"
+#include "../graphic-file-converter/image_content/bpp1.cpp"
 
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;

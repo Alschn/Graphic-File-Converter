@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "CppUnitTest.h"
-#include "../graphic-file-converter/rotation.h"
+#include "../graphic-file-converter/conversions/rotation.h"
 // #include "../graphic-file-converter/image.h"
 
 #include <map>

@@ -10,7 +10,6 @@
 #include "user_interface/user_interface.h"
 #include "arguments/reflection_arguments.h"
 #include "arguments/rotation_arguments.h"
-#include "conversions/enhancer.h"
 #include "conversions/rescaler.h"
 #include "arguments/scale_arguments.h"
 #include "conversions/brightness.h"
@@ -52,17 +51,17 @@ int main(int argc, char* argv[])
 	Desktop.registerParameter("-d", &display);
 	Desktop.registerAction("rotate", "rotates picture by n degrees", &rotation,
 	                       regex(
-		                       R"###(^rotate +\d+ +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"),
+		                       R"###(^rotate +(-?[0-9]\d*(\.\d+)?) +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"),
 	                       &rot_args,1);
 	Desktop.registerAction("reflect", "reflects picture over selected axis", &reflection,
 	                       regex(
-		                       R"###(^reflect +\d+ +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"),
+		                       R"###(^reflect +(-?[0-9]\d*(\.\d+)?) +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"),
 	                       &ref_args,1);
 	Desktop.registerAction("scale", "scales picture to selected values", &rescaler,
 	                       regex(
-		                       R"###(^scale +(\d+|\d+.\d+) +(\d+|\d+.\d+) +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"),
+		                       R"###(^scale +(-?[0-9]\d*(\.\d+)?) +(-?[0-9]\d*(\.\d+)?) +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"),
 	                       &scale_args,2);
-	Desktop.registerAction("negate", "changes picture colors to their oppostie value", &negative, regex(
+	Desktop.registerAction("negate", "changes picture colors to their opposite value", &negative, regex(
 		                       R"###(^negate +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"), &neg_args,0);
 	Desktop.registerAction("brighten", "adjust brightness level of picture", &brightness,
 	                       regex(

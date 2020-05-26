@@ -2,14 +2,14 @@
 #include "CppUnitTest.h"
 #include "../graphic-file-converter/image.h"
 #include "../graphic-file-converter/image.cpp"
-#include "../graphic-file-converter/file.h"
-#include "../graphic-file-converter/file.cpp"
-#include "../graphic-file-converter/bmp_file.h"
-#include "../graphic-file-converter/bmp_file.cpp"
-#include "../graphic-file-converter/image_content.h"
-#include "../graphic-file-converter/image_content.cpp"
-#include "../graphic-file-converter/Bpp24.h"
-#include "../graphic-file-converter/Bpp24.cpp"
+#include "../graphic-file-converter/image_file_types/file.h"
+#include "../graphic-file-converter/image_file_types/file.cpp"
+#include "../graphic-file-converter/image_file_types/bmp_file.h"
+#include "../graphic-file-converter/image_file_types/bmp_file.cpp"
+#include "../graphic-file-converter/image_content/image_content.h"
+#include "../graphic-file-converter/image_content/image_content.cpp"
+#include "../graphic-file-converter/image_content/Bpp24.h"
+#include "../graphic-file-converter/image_content/Bpp24.cpp"
 #include<conio.h>
 #include<cstdio>
 
