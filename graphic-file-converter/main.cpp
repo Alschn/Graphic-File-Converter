@@ -52,60 +52,45 @@ int main(int argc, char* argv[])
 	Image::registerImageContent<Bpp24>(24);
 	Image::registerFileType<BmpFile>(".bmp");
 	Image::registerFileType<HeaderFile>(".h");
-	//
-	Image* im = new Image("../font_bmps/bernard_f24.bmp");
-	// Image* im = new Image("../sample_bmps/found_letters/Bernard_A.h");
-	std::string path = "../sample_bmps/found_letters/Bernard";
-	// // im->save(path);
-	//
-	// std::cout << *im;
-	auto scanner = new ImageScanner();
-	scanner->loadImage(im);
-	auto args = new ScannerArguments();
-	args->padding = 5;
-	args->treshold = 50;;
-	scanner->processImage(args);
-	scanner->saveToBmp(path);
-	scanner->saveImage(path);
 
-	// Desktop.registerParameter("-d", &display);
-	// Desktop.registerParameter("-b", &save_param);
-	// Desktop.registerAction("rotate", "rotates picture by n degrees", &rotation,
-	//                        regex(
-	// 	                       R"###(^rotate +(-?[0-9]\d*(\.\d+)?) +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"),
-	//                        &rot_args,1);
-	// Desktop.registerAction("reflect", "reflects picture over selected axis", &reflection,
-	//                        regex(
-	// 	                       R"###(^reflect +(-?[0-9]\d*(\.\d+)?) +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"),
-	//                        &ref_args,1);
-	// Desktop.registerAction("scale", "scales picture to selected values", &rescaler,
-	//                        regex(
-	// 	                       R"###(^scale +(-?[0-9]\d*(\.\d+)?) +(-?[0-9]\d*(\.\d+)?) +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"),
-	//                        &scale_args,2);
-	// Desktop.registerAction("negate", "changes picture colors to their opposite value", &negative, regex(
-	// 	                       R"###(^negate +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"), &neg_args,0);
-	// Desktop.registerAction("brighten", "adjust brightness level of picture", &brightness,
-	//                        regex(
-	// 	                       R"###(^brighten +(-?[0-9]\d*(\.\d+)?) +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"),
-	//                        &bright_args,1);
-	// Desktop.registerAction("contrast", "adjust contrast of picture", &contrast,
-	//                        regex(
-	// 	                       R"###(^contrast +(-?[0-9]\d*(\.\d+)?) +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"),
-	//                        &contr_args,1);
-	// Desktop.registerAction("intensify", "adjust R G B values of picture", &intensity,
-	//                        regex(
-	// 	                       R"###(^intensify +(-?[0-9]\d*(\.\d+)?) +(-?[0-9]\d*(\.\d+)?) +(-?[0-9]\d*(\.\d+)?) +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"),
-	//                        &intens_args,3);
-	// Desktop.registerAction("scan", "scans letters in picture and separates them",&scan, regex(
-	// 	R"###(^scan +(-?[0-9]\d*(\.\d+)?) +(-?[0-9]\d*(\.\d+)?) +('[^']\S+[^']') +('[^']\S+[^']') *(-\w)? *$)###"), &scan_args,2);
-	//
-	// if (argc > 1)
-	// {
-	// 	Desktop.display(argv_to_string(argv, argc));
-	// }
-	// else
-	// {
-	// 	std::cout << "No command typed! Try again!" << std::endl;
-	// 	Desktop.showHelp();
-	// }
+	Desktop.registerParameter("-d", &display);
+	Desktop.registerParameter("-b", &save_param);
+	Desktop.registerAction("rotate", "rotates picture by n degrees", &rotation,
+	                       regex(
+		                       R"###(^rotate +(-?[0-9]\d*(\.\d+)?) +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"),
+	                       &rot_args,1);
+	Desktop.registerAction("reflect", "reflects picture over selected axis", &reflection,
+	                       regex(
+		                       R"###(^reflect +(-?[0-9]\d*(\.\d+)?) +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"),
+	                       &ref_args,1);
+	Desktop.registerAction("scale", "scales picture to selected values", &rescaler,
+	                       regex(
+		                       R"###(^scale +(-?[0-9]\d*(\.\d+)?) +(-?[0-9]\d*(\.\d+)?) +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"),
+	                       &scale_args,2);
+	Desktop.registerAction("negate", "changes picture colors to their opposite value", &negative, regex(
+		                       R"###(^negate +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"), &neg_args,0);
+	Desktop.registerAction("brighten", "adjust brightness level of picture", &brightness,
+	                       regex(
+		                       R"###(^brighten +(-?[0-9]\d*(\.\d+)?) +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"),
+	                       &bright_args,1);
+	Desktop.registerAction("contrast", "adjust contrast of picture", &contrast,
+	                       regex(
+		                       R"###(^contrast +(-?[0-9]\d*(\.\d+)?) +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"),
+	                       &contr_args,1);
+	Desktop.registerAction("intensify", "adjust R G B values of picture", &intensity,
+	                       regex(
+		                       R"###(^intensify +(-?[0-9]\d*(\.\d+)?) +(-?[0-9]\d*(\.\d+)?) +(-?[0-9]\d*(\.\d+)?) +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"),
+	                       &intens_args,3);
+	Desktop.registerAction("scan", "scans letters in picture and separates them",&scan, regex(
+		R"###(^scan +(-?[0-9]\d*(\.\d+)?) +(-?[0-9]\d*(\.\d+)?) +('[^']\S+[^']') +('[^']\S+[^']') *(-\w)? *$)###"), &scan_args,2);
+	
+	if (argc > 1)
+	{
+		Desktop.display(argv_to_string(argv, argc));
+	}
+	else
+	{
+		std::cout << "No command typed! Try again!" << std::endl;
+		Desktop.showHelp();
+	}
 }

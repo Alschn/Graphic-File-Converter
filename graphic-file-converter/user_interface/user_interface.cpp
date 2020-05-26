@@ -143,6 +143,8 @@ void UserInterface::display(const std::string& command)
 					std::cout << "Wrong letter entered!" << std::endl;
 					goto SAVING;
 				}
+				PARAM:
+				int param_flag = 0;
 				std::string parameter;
 				std::cout << "Enter parameter (if do not want any, type '-'): " << std::endl;
 				std::getline(std::cin, parameter);
@@ -156,26 +158,34 @@ void UserInterface::display(const std::string& command)
 					{
 						if (par.first == parameter)
 						{
-							if (parameter == "b")
+							if (parameter == "-b")
 							{
 								if (entered_command == "scan")
 								{
 									parameters_map[parameter]->executeParam(conversion, output_path);
+									param_flag++;
 								}
 								else
 								{
 									std::cout << "You can only execute -b on scan function" << std::endl;
+									goto PARAM;
 								}
 							}
 							else
 							{
 								parameters_map[parameter]->executeParam(conversion, output_path);
+								param_flag++;
 							}
 						}
 						else
 						{
 							;
 						}
+					}
+					if(param_flag==0)
+					{
+						std::cout << "There is no such parameter! Try again!" << std::endl;
+						goto PARAM;
 					}
 				}
 				command_flag++;

@@ -1,10 +1,8 @@
 #include "image_scanner.h"
-
-#include "arguments/reflection_arguments.h"
-#include "arguments/scanner_arguments.h"
 #include "image_file_types/header_file.h"
 #include "font.h"
 #include "image_file_types/bmp_file.h"
+#include "arguments/scanner_arguments.h"
 
 void ImageScanner::generateNewImages(const std::vector<std::pair<int, int>>& coordinates)
 {	
@@ -41,9 +39,9 @@ void ImageScanner::loadImage(Image* im)
 
 void ImageScanner::processImage(Arguments* args)
 {
-	auto ref_args = dynamic_cast<ScannerArguments*>(args);
-	padding = ref_args->padding;
-	threshold = this->oldImage->type >= 8 ? ref_args->treshold : 1; 
+	ScannerArguments* scan_args = dynamic_cast<ScannerArguments*>(args);
+	padding = scan_args->padding;
+	threshold = this->oldImage->type >= 8 ? scan_args->treshold : 1;
 	
 	bool black_pixel_found = false;
 	int letter_start_index = -1;
