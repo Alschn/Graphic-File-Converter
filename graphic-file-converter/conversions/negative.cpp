@@ -8,8 +8,8 @@ void Negative::processImage(Arguments* args)
 	{
 		throw std::exception("Negative is not available for 1bpp");
 	}
-	for (int x = 0; x < newImage->width; x++) {
-		for (int y = 0; y < newImage->height; y++)
+	for (unsigned x = 0; x < newImage->width; x++) {
+		for (unsigned y = 0; y < newImage->height; y++)
 		{
 
 			unsigned char pixels[3];
