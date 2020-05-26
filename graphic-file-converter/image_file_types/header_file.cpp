@@ -114,6 +114,8 @@ void HeaderFile::saveStringToFile(const std::string& content, const std::string&
 ImageContent* HeaderFile::loadForContent(const std::string& filename)
 {
 	auto resolved_path = HeaderFile::resolvePath(filename);
+	if (!File::fileExists(resolved_path))
+		throw std::runtime_error("File does not exist!");
 
 	this->name = pathToVariableName(filename);;
 

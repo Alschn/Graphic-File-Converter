@@ -47,16 +47,17 @@ int main(int argc, char* argv[])
 	Image::registerFileType<BmpFile>(".bmp");
 	Image::registerFileType<HeaderFile>(".h");
 
-	Image* im = new Image("../font_bmps/bernard_f24.bmp");
-	std::string path = "../sample_bmps/found_letters/Bernard";
-	// im->save(path);
-	
+	// Image* im = new Image("../font_bmps/bernard_f24.bmp");
+	// Image* im = new Image("../sample_bmps/found_letters/Bernard_A.h");
+	// std::string path = "../sample_bmps/found_letters/Bernard";
+	// // im->save(path);
+	//
 	// std::cout << *im;
-	auto scanner = new ImageScanner();
-	scanner->loadImage(im);
-	scanner->processImage(new Arguments());
-	scanner->saveToBmp(path);
-	scanner->saveImage(path);
+	// auto scanner = new ImageScanner();
+	// scanner->loadImage(im);
+	// scanner->processImage(new Arguments());
+	// scanner->saveToBmp(path);
+	// scanner->saveImage(path);
 
 	Desktop.registerParameter("-d", &display);
 	Desktop.registerAction("rotate", "rotates picture by n degrees", &rotation,
