@@ -2,6 +2,7 @@
 #include "image_file_types/header_file.h"
 #include "font.h"
 #include "image_file_types/bmp_file.h"
+#include "arguments/scanner_arguments.h"
 
 void ImageScanner::generateNewImages(const std::vector<std::pair<int, int>>& coordinates)
 {	
@@ -38,8 +39,9 @@ void ImageScanner::loadImage(Image* im)
 
 void ImageScanner::processImage(Arguments* args)
 {
-	padding = 4;
-	threshold = this->oldImage->type >= 8 ? 40 : 1; //todo: threshold as argument
+	ScannerArguments* scan_args = dynamic_cast<ScannerArguments*>(args);
+	padding = scan_args->padding;
+	threshold = this->oldImage->type >= 8 ? scan_args->treshold : 1;
 	
 	bool black_pixel_found = false;
 	int letter_start_index = -1;
