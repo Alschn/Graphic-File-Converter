@@ -9,8 +9,6 @@
 #include <map>
 #include "../graphic-file-converter/arguments/rotation_arguments.cpp"
 #include "../graphic-file-converter/image.h"
-#include "../graphic-file-converter/conversions/converter.h"
-#include "../graphic-file-converter/conversions/converter.cpp"
 #include "../graphic-file-converter/conversions/rotation.cpp"
 #include "../graphic-file-converter/arguments/arguments.cpp"
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;

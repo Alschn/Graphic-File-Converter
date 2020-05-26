@@ -36,13 +36,13 @@
     <ClCompile Include="testRotation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="testInterpolation.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="testBpp1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="testFile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="testColorRange.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
