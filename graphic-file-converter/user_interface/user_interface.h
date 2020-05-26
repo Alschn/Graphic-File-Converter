@@ -20,7 +20,7 @@ public:
 	static void registerAction(const std::string& command_name, const std::string& command_explanation,
 		Converter* conversion, const std::regex& command_regex, Arguments* arguments, int arguments_required);
 	void display(const std::string& command);
-	static Image* executeAction(const std::string& command, const std::string& path, const std::string& out_path, Arguments* args);
+	static Converter* executeAction(const std::string& command, const std::string& path, const std::string& out_path, Arguments* args);
 	void showHelp();
 	void registerHelp(const std::string& command_name, const std::string& explanation);
 	void registerParameter(const std::string name, Parameter* action);

@@ -1,9 +1,7 @@
 //Created by Wojciech Nowicki
 #include "parameter.h"
-#include <iostream>
-#include "../image.h"
 
-void Parameter::executeParam(Image* image)
+void Parameter::executeParam(Converter* conversion, std::string& output_path)
 {
 	;
 }

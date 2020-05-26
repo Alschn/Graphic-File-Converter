@@ -24,7 +24,7 @@ void Bpp24::putPixel(unsigned x, unsigned y, uint8_t* input)
 
 size_t Bpp24::calculateBufferSize()
 {
-	return this->width * this->height * 3;
+	return static_cast<size_t>(this->width) * this->height * 3;
 }
 
 std::string Bpp24::toString()

@@ -2,7 +2,7 @@
 #include <iostream>
 #include  "display_parameter.h"
 
-void DisplayParameter::executeParam(Image* image)
+void DisplayParameter::executeParam(Converter* conversion, std::string& output_path)
 {
-	std::cout << *image << std::endl;
+	std::cout << conversion->newImage <<std::endl;
 }
