@@ -74,6 +74,7 @@ void UserInterface::display(const std::string& command)
 			std::cout << explanation.first << "   |   " << explanation.second << std::endl;
 		}
 		std::string entered_command;
+		std::string output_path;
 		std::getline(std::cin, entered_command);
 		int command_flag = 0;
 		for (auto command_name : arguments_required_map)
@@ -110,32 +111,17 @@ void UserInterface::display(const std::string& command)
 					args.clear();
 					goto ARG_LOOP;
 				}
-				std::string parameter;
-				std::cout << "Enter parameter (if do not want any, type '-'): " << std::endl;
-				std::getline(std::cin, parameter);
-				if (parameter == "-")
-				{
-					;
-				}
-				else
-				{
-					for (auto par : parameters_map)
-					{
-						if (par.first == parameter)
-						{
-							parameters_map[parameter]->executeParam(conversion->newImage);
-						}
-					}
-
-				}
 				std::string save_answer;
+				if(entered_command=="scan")
+				{
+					goto SAVING_PATH;
+				}
 			SAVING:
 				std::cout << "Save file? [y/n]" << std::endl;
 				std::getline(std::cin, save_answer);
 				if (save_answer == "y")
 				{
 				SAVING_PATH:
-					std::string output_path;
 					std::cout << "Enter output path: " << std::endl;
 					std::getline(std::cin, output_path);
 					try
@@ -156,6 +142,41 @@ void UserInterface::display(const std::string& command)
 				{
 					std::cout << "Wrong letter entered!" << std::endl;
 					goto SAVING;
+				}
+				std::string parameter;
+				std::cout << "Enter parameter (if do not want any, type '-'): " << std::endl;
+				std::getline(std::cin, parameter);
+				if (parameter == "-")
+				{
+					;
+				}
+				else
+				{
+					for (auto par : parameters_map)
+					{
+						if (par.first == parameter)
+						{
+							if (parameter == "b")
+							{
+								if (entered_command == "scan")
+								{
+									parameters_map[parameter]->executeParam(conversion, output_path);
+								}
+								else
+								{
+									std::cout << "You can only execute -b on scan function" << std::endl;
+								}
+							}
+							else
+							{
+								parameters_map[parameter]->executeParam(conversion, output_path);
+							}
+						}
+						else
+						{
+							;
+						}
+					}
 				}
 				command_flag++;
 			}
@@ -296,15 +317,38 @@ void UserInterface::display(const std::string& command)
 					//*/
 					if (std::find(splitted.begin(), splitted.end(), param.first) != splitted.end())
 					{
-						try
+						if (param.first == "-b")
 						{
-							param.second->executeParam(
-								executeAction(command_name.first, input_path, output_path, arguments_map[command_fullname]));
+							if (command_name.first == "scan")
+							{
+								try
+								{
+									param.second->executeParam(
+										executeAction(command_name.first, input_path, output_path, arguments_map[command_fullname]),output_path);
+								}
+								catch (const std::exception& ex)
+								{
+									std::cerr << ex.what() << std::endl;
+									exit(1);
+								}
+							}
+							else
+							{
+								std::cout << "You can only use -b parameter with scan function!" << std::endl;
+							}
 						}
-						catch(const std::exception & ex)
+						else
 						{
-							std::cerr << ex.what() << std::endl;
-							exit(1);
+							try
+							{
+								param.second->executeParam(
+									executeAction(command_name.first, input_path, output_path, arguments_map[command_fullname]),output_path);
+							}
+							catch (const std::exception& ex)
+							{
+								std::cerr << ex.what() << std::endl;
+								exit(1);
+							}
 						}
 					}
 					else
@@ -337,22 +381,15 @@ void UserInterface::display(const std::string& command)
 	}
 }
 
-Image* UserInterface::executeAction(const std::string& command, const std::string& path, const std::string& out_path,
+Converter* UserInterface::executeAction(const std::string& command, const std::string& path, const std::string& out_path,
                                     Arguments* args)
 {
 	Image* img_pointer = new Image(path);
 	Converter* conversion = conversions_map[command];
 	conversion->loadImage(img_pointer);
 	conversion->processImage(args);
-	try
-	{
-		conversion->saveImage(out_path);
-	}
-	catch(...)
-	{
-		throw std::runtime_error("Wrong path!");
-	}
-	return conversion->newImage;
+	conversion->saveImage(out_path);
+	return conversion;
 }
 
 void UserInterface::registerHelp(const std::string& command_name, const std::string& explanation)
