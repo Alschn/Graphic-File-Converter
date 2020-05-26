@@ -109,7 +109,7 @@ Klasy Rotation i Reflection powstały jako pierwsze. Dzielą ten sam mechanizm b
     Konwersja działa tylko dla 24bpp.  
 
 `Contrast` - modyfikuje kontrast zdjęcia.  
-    **processImage**  - przyjmuje liczbę calkowitą od -255 do 255, dzięki której zmienimy wartość kontrastu (obliczanego ze wzoru na kontrast)  
+    **processImage**  - przyjmuje liczbę calkowitą od 0 do 255, dzięki której zmienimy wartość kontrastu (obliczanego ze wzoru na kontrast)  
     Funkcja posiada ochronę przed wykroczeniem poza zakres [0, 255] - checkColorRange z Convertera.
     Konwersja działa tylko dla 24bpp.  
 
