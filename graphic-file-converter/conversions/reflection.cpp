@@ -49,7 +49,7 @@ void Reflection::processImage(Arguments* args)
 	ref_args->reflection_number = static_cast<int>(ref_args->reflection_number);
 	if (ref_args->reflection_number < 0)
 	{
-		throw std::invalid_argument("Rotation argument has to be positive numbers!");
+		throw std::invalid_argument("Reflection argument has to be positive numbers!");
 	}
 	
 	// diagonal reflection allowed only for squares
