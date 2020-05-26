@@ -4,6 +4,10 @@
 
 void Negative::processImage(Arguments* args)
 {
+	if (oldImage->channels == 1)
+	{
+		throw std::exception("Negative is not available for 1bpp");
+	}
 	for (int x = 0; x < newImage->width; x++) {
 		for (int y = 0; y < newImage->height; y++)
 		{

@@ -143,9 +143,6 @@
     <ClCompile Include="conversions\converter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="conversions\enhancer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="conversions\reflection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

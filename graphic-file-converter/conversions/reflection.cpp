@@ -48,7 +48,7 @@ void Reflection::processImage(Arguments* args)
 	ReflectionArguments* ref_args = dynamic_cast<ReflectionArguments*>(args);
 	ref_args->reflection_number = static_cast<int>(ref_args->reflection_number);
 	// diagonal reflection allowed only for squares
-	if (this->oldImage->width != this->oldImage->height && ref_args->reflection_number || ref_args->reflection_number == 3)
+	if (this->oldImage->width != this->oldImage->height && (ref_args->reflection_number == 2 || ref_args->reflection_number == 3))
 	{
 		throw std::exception("Diagonal reflection is not allowed for non-square bmp files");
 	}

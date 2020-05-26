@@ -10,7 +10,6 @@
 #include "user_interface/user_interface.h"
 #include "arguments/reflection_arguments.h"
 #include "arguments/rotation_arguments.h"
-#include "conversions/enhancer.h"
 #include "conversions/rescaler.h"
 #include "arguments/scale_arguments.h"
 #include "conversions/brightness.h"
@@ -62,7 +61,7 @@ int main(int argc, char* argv[])
 	                       regex(
 		                       R"###(^scale +(\d+|\d+.\d+) +(\d+|\d+.\d+) +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"),
 	                       &scale_args,2);
-	Desktop.registerAction("negate", "changes picture colors to their oppostie value", &negative, regex(
+	Desktop.registerAction("negate", "changes picture colors to their opposite value", &negative, regex(
 		                       R"###(^negate +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"), &neg_args,0);
 	Desktop.registerAction("brighten", "adjust brightness level of picture", &brightness,
 	                       regex(
