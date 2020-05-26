@@ -66,6 +66,10 @@ void BmpFile::readPixelArray(char* pixel_array_buffer) const
 
 ImageContent* BmpFile::loadForContent(const std::string& filename)
 {
+	if(!File::fileExists(filename))
+	{
+		throw std::runtime_error("File you're trying to read from does not exist!");
+	}
 	char* header_buffer = new char[this->HEADER_SIZE];
 	header_buffer = File::readBytesFromFile(filename, header_buffer, this->HEADER_SIZE);
 	this->readHeader(header_buffer);
@@ -92,9 +96,10 @@ void BmpFile::save(ImageContent* content, const std::string& path)
 
 void BmpFile::saveFont(std::vector<Image*> char_images, std::string& path)
 {
-	const auto font_name = Font::extractFontName(path);
-	File::directoryExists(path); //throws an exception if path does not exist
-	const auto path_to_save = path + font_name + "_";
+	std::string new_path = path;
+	const auto font_name = Font::extractFontName(new_path);
+	File::directoryExists(new_path); //throws an exception if path does not exist
+	const auto path_to_save = new_path + font_name + "_";
 	Font::generateAlphabet();
 	for (unsigned int i = 0; i < char_images.size(); ++i)
 	{

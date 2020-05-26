@@ -70,16 +70,26 @@ void Image::loadFromPath(const std::string& path)
 
 std::string Image::getExtension(const std::string& path)
 {
-	const auto pos = path.rfind('.');
-	if (pos == std::string::npos)
-		throw std::runtime_error("Provided path is invalid!");
+	const auto dot_pos = path.rfind('.');
+	const auto slash_pos = path.rfind('/');
 
+	if(slash_pos == std::string::npos)
+	{
+		if (dot_pos == std::string::npos)
+			throw std::runtime_error("Provided path is invalid!");
+	}
+
+	if (dot_pos < slash_pos)
+	{
+		throw std::runtime_error("Provided path is invalid!");
+	}
+	
 	const auto end_of_extension = path.rfind('_');
 	if (end_of_extension != std::string::npos)
 	{
-		return path.substr(pos, end_of_extension - pos);
+		return path.substr(dot_pos, end_of_extension - dot_pos);
 	}
-	return path.substr(pos);
+	return path.substr(dot_pos);
 }
 
 unsigned Image::onePixelByteSize() const
