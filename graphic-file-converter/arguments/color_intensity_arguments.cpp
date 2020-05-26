@@ -1,5 +1,4 @@
 //Created by Wojciech Nowicki
-#pragma once
 #include "color_intesity_arguments.h"
 
 int ColorIntensityArguments::get_number_of_arguments()

@@ -21,7 +21,7 @@ private:
 		R"****(\/\/\s*?W:\s(\d+)\s\|\sH:\s(\d+))****");
 	std::string variable_name;
 	std::string generateFileInfo(ImageContent* content);
-	std::string generateFileInfo(std::string& font_name, int content_type, std::string& variable_name,
+	std::string generateFileInfo(std::string& font_name, unsigned int content_type, std::string& variable_name,
 	                             std::string& type) const;
 	std::string generateFileContent(ImageContent* content, unsigned char letter = 0) const;
 	static std::string pathToVariableName(const std::string& path);
