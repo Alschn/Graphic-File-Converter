@@ -10,12 +10,10 @@
 std::string HeaderFile::generateFileInfo(ImageContent* content)
 {
 	std::string type = "GENERIC";
-	return this->generateFileInfo(this->variable_name, content->getType(), content->getWidth(),
-	                              content->getHeight(), this->variable_name, type);
+	return this->generateFileInfo(this->variable_name, content->getType(), this->variable_name, type);
 }
 
-std::string HeaderFile::generateFileInfo(std::string& font_name, int content_type, unsigned int width,
-                                         unsigned int height, std::string& variable_name, std::string& type) const
+std::string HeaderFile::generateFileInfo(std::string& font_name, int content_type, std::string& variable_name, std::string& type) const
 {
 	std::string output;
 	auto new_name = font_name;
@@ -170,7 +168,6 @@ ImageContent* HeaderFile::loadForContent(const std::string& filename)
 		width = std::atoi(output.at(0).c_str());
 		height = std::atoi(output.at(1).c_str());
 		++counter;
-
 	}
 
 	content->resize(width, height);
@@ -207,7 +204,7 @@ void HeaderFile::saveFont(std::vector<Image*> font, std::string& path) const
 	auto var_name = pathToVariableName(path);
 	std::string type = "FONT";
 	std::string file;
-	file += this->generateFileInfo(var_name, font.at(0)->type, 0, 0, var_name, type);
+	file += this->generateFileInfo(var_name, font.at(0)->type, var_name, type);
 	int counter = 0;
 	Font::generateAlphabet();
 	for (auto letter : font)
@@ -215,7 +212,6 @@ void HeaderFile::saveFont(std::vector<Image*> font, std::string& path) const
 		file += this->generateFileContent(letter->getContent(), Font::alphabet[counter]);
 		++counter;
 	}
-
 	file += this->epilogue;
 	HeaderFile::saveStringToFile(file, path);
 }
@@ -278,12 +274,12 @@ std::string HeaderFile::resolvePath(const std::string& path)
 		correct_path = path;
 	}
 
-	const auto underscore_pos= correct_path.rfind('_');
-	if(underscore_pos == std::string::npos || underscore_pos <= slash_pos)
+	const auto underscore_pos = correct_path.rfind('_');
+	if (underscore_pos == std::string::npos || underscore_pos <= slash_pos)
 	{
 		return correct_path;
 	}
-	
+
 	return correct_path.substr(0, underscore_pos) + ".h";
 }
 

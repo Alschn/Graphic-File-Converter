@@ -3,13 +3,10 @@
 #include <vector>
 #include <regex>
 #include "file.h"
-#include "../utils.h"
 #include "../font.h"
-
 
 #ifndef  CLASS_HEADER_FILE
 #define CLASS_HEADER_FILE
-
 
 class HeaderFile : public File
 {
@@ -24,11 +21,10 @@ private:
 		R"****(\/\/\s*?W:\s(\d+)\s\|\sH:\s(\d+))****");
 	std::string variable_name;
 	std::string generateFileInfo(ImageContent* content);
-	std::string generateFileInfo(std::string& font_name, int content_type, unsigned int width, unsigned int height,
-	                             std::string& variable_name, std::string& type) const;
+	std::string generateFileInfo(std::string& font_name, int content_type, std::string& variable_name,
+	                             std::string& type) const;
 	std::string generateFileContent(ImageContent* content, unsigned char letter = 0) const;
 	static std::string pathToVariableName(const std::string& path);
-	const int bytes_per_row = 12;
 	const std::string epilogue = "}\n#endif";
 	static void saveStringToFile(const std::string& content, const std::string& path);
 
@@ -44,6 +40,4 @@ public:
 
 	~HeaderFile();
 };
-
-
 #endif

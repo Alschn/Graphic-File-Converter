@@ -19,10 +19,13 @@
 #include "image_scanner.h"
 
 
-// int main(int argc, char* argv[])
-int main()
+int main(int argc, char* argv[])
 {
 
+	Image::registerImageContent<Bpp1>(1);
+	Image::registerImageContent<Bpp24>(24);
+	Image::registerFileType<BmpFile>(".bmp");
+	Image::registerFileType<HeaderFile>(".h");
 	// UserInterface Desktop;
 	// Rotation conversion;
 	// DisplayParameter display;
@@ -33,10 +36,7 @@ int main()
 	// ScaleArguments scale_args;
 
 	//register content types
-	Image::registerImageContent<Bpp1>(1);
-	Image::registerImageContent<Bpp24>(24);
-	Image::registerFileType<BmpFile>(".bmp");
-	Image::registerFileType<HeaderFile>(".h");
+
 
 
 	
@@ -50,18 +50,17 @@ int main()
 	scanner->saveImage(p);
 	
 	delete scanner;
-	Image *im2 = new Image("../sample_bmps/found_letters/Arial2_B.h");
+	Image *im2 = new Image("../sample_bmps/10x10.bmp");
 	im2->save("../sample_bmps/found_letters/xdd.h");
 	im2->save("../sample_bmps/found_letters/xdd.bmp");
 	Image* im3 = new Image("../sample_bmps/found_letters/xdd.h");
+	im3->save("../sample_bmps/found_letters/xdd222.bmp");
+
 
 	std::cout << *im3;
 
 	
-	// std::cout << "a";
-	// bool rest = im.getPixel<Bpp1>(1, 2);
-	// im.getPixel<Bpp24>(1, 2);
-	// im.getPixel<Bpp1>(1, 2);
+
 
 	// Desktop.registerParameter("-d", &display);
 	// Desktop.registerAction("rotate", "rotates picture by n degrees", &conversion,
@@ -104,16 +103,4 @@ int main()
 	//
 	//
 	//
-// 	im = new Image("../sample_bmps/10x10.bmp");
-// 	/*im.save("../sample_bmps/abc.bmp");*/
-//
-// // Rescale 1.5, 0.75
-// 	Converter* conv = new Rescaler(im);
-// 	auto args = new ScaleArguments();
-// 	args->set_arguments({ 1.5, 0.75f });
-// 	conv->processImage(args);
-// 	std::cout << conv->newImage->toStr();
-//
-// 	conv->newImage->save("../sample_bmps/GFC_scale1_5-0_75.bmp");
-// 	
 }
