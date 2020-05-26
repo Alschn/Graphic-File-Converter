@@ -5,7 +5,7 @@
 #include "font.h"
 
 #pragma once
-class ImageScanner: Converter
+class ImageScanner: public Converter
 {
 
 	std::vector<Image* > letters;
