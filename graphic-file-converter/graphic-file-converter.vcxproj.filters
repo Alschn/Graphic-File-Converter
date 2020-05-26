@@ -105,6 +105,12 @@
     <ClInclude Include="image_scanner.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="arguments\scanner_arguments.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="parameters\saveToBmp_parameter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="user_interface\user_interface.cpp">
@@ -195,6 +201,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="image_scanner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="arguments\scanner_arguments.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="parameters\saveToBmp_parameter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

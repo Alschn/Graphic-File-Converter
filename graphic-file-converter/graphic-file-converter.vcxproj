@@ -164,6 +164,7 @@
     <ClInclude Include="arguments\reflection_arguments.h" />
     <ClInclude Include="arguments\rotation_arguments.h" />
     <ClInclude Include="arguments\scale_arguments.h" />
+    <ClInclude Include="arguments\scanner_arguments.h" />
     <ClInclude Include="conversions\brightness.h" />
     <ClInclude Include="conversions\color_intensity.h" />
     <ClInclude Include="conversions\contrast.h" />
@@ -184,6 +185,7 @@
     <ClInclude Include="image_scanner.h" />
     <ClInclude Include="parameters\display_parameter.h" />
     <ClInclude Include="parameters\parameter.h" />
+    <ClInclude Include="parameters\saveToBmp_parameter.h" />
     <ClInclude Include="user_interface\user_interface.h" />
   </ItemGroup>
   <ItemGroup>
@@ -194,6 +196,7 @@
     <ClCompile Include="arguments\reflection_arguments.cpp" />
     <ClCompile Include="arguments\rotation_arguments.cpp" />
     <ClCompile Include="arguments\scale_arguments.cpp" />
+    <ClCompile Include="arguments\scanner_arguments.cpp" />
     <ClCompile Include="conversions\brightness.cpp" />
     <ClCompile Include="conversions\color_intensity.cpp" />
     <ClCompile Include="conversions\contrast.cpp" />
@@ -215,6 +218,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="parameters\display_parameter.cpp" />
     <ClCompile Include="parameters\parameter.cpp" />
+    <ClCompile Include="parameters\saveToBmp_parameter.cpp" />
     <ClCompile Include="user_interface\user_interface.cpp" />
     <ClCompile Include="utils.cpp" />
   </ItemGroup>

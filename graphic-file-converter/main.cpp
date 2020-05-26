@@ -19,12 +19,16 @@
 #include "image_file_types/bmp_file.h"
 #include "image_file_types/header_file.h"
 #include "image_scanner.h"
+#include "parameters/saveToBmp_parameter.h"
+#include "arguments/scanner_arguments.h"
+
 
 using namespace std;
 
 int main(int argc, char* argv[])
 {
 	UserInterface Desktop;
+	ImageScanner scan;
 	Rotation rotation;
 	Reflection reflection;
 	Rescaler rescaler;
@@ -36,9 +40,11 @@ int main(int argc, char* argv[])
 	RotationArguments rot_args;
 	ScaleArguments scale_args;
 	DisplayParameter display;
+	SaveToBmpParameter save_param;
 	BrightnessArguments bright_args;
 	ContrastArguments contr_args;
 	ColorIntensityArguments intens_args;
+	ScannerArguments scan_args;
 	Arguments neg_args;
 	// "fake" arguments to satisfy registerAction - negative does not use arguments so it does not have special class for them
 
@@ -60,6 +66,7 @@ int main(int argc, char* argv[])
 	scanner->saveImage(path);
 
 	Desktop.registerParameter("-d", &display);
+	Desktop.registerParameter("-b", &save_param);
 	Desktop.registerAction("rotate", "rotates picture by n degrees", &rotation,
 	                       regex(
 		                       R"###(^rotate +(-?[0-9]\d*(\.\d+)?) +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"),
@@ -86,6 +93,8 @@ int main(int argc, char* argv[])
 	                       regex(
 		                       R"###(^intensify +(-?[0-9]\d*(\.\d+)?) +(-?[0-9]\d*(\.\d+)?) +(-?[0-9]\d*(\.\d+)?) +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"),
 	                       &intens_args,3);
+	Desktop.registerAction("scan", "scans letters in picture and separates them",&scan, regex(
+		R"###(^scan +(-?[0-9]\d*(\.\d+)?) +(-?[0-9]\d*(\.\d+)?) +('[^']\S+[^']') +('[^']\S+[^']') *(-\w)? *$)###"), &scan_args,2);
 	
 	if (argc > 1)
 	{
