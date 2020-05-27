@@ -86,6 +86,7 @@ int main(int argc, char* argv[])
 	
 	if (argc > 1)
 	{
+		_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 		Desktop.display(argv_to_string(argv, argc));
 	}
 	else

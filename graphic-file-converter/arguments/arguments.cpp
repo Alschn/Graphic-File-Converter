@@ -10,3 +10,9 @@ void Arguments::set_arguments(std::vector<double> args)
 {
 	;
 }
+
+std::vector<std::string> Arguments::get_labels()
+{
+	return args;
+}
+

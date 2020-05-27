@@ -10,3 +10,8 @@ void ReflectionArguments::set_arguments(std::vector<double> args)
 {
 	this->reflection_number = args[0];
 }
+
+std::vector<std::string> ReflectionArguments::get_labels()
+{
+	return arg_label;
+}

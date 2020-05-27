@@ -10,3 +10,8 @@ void RotationArguments::set_arguments(std::vector<double> args)
 {
 	this->degrees = args[0];
 }
+
+std::vector<std::string> RotationArguments::get_labels()
+{
+	return arg_label;
+}

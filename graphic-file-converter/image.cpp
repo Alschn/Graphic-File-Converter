@@ -125,7 +125,7 @@ Image::Image(const std::string& path)
 Image::Image(const Image& other)
 {
 #ifdef _DEBUG
-	std::cout << "Inside copy constructor of class Image" << std::endl;
+	std::cout << "Processing" << std::endl;
 #endif
 	this->width = other.width;
 	this->height = other.height;
