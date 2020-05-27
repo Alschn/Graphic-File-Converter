@@ -67,7 +67,7 @@ int main(int argc, char* argv[])
 	                       regex(
 		                       R"###(^scale +(-?[0-9]\d*(\.\d+)?) +(-?[0-9]\d*(\.\d+)?) +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"),
 	                       &scale_args,2);
-	Desktop.registerAction("negate", "changes picture colors to their opposite value", &negative, regex(
+	Desktop.registerAction("negate", "reverses colors of picture", &negative, regex(
 		                       R"###(^negate +('[^']\S+[^']') *('[^']\S+[^']')? *(-\w)? *$)###"), &neg_args,0);
 	Desktop.registerAction("brighten", "adjust brightness level of picture", &brightness,
 	                       regex(
@@ -86,7 +86,6 @@ int main(int argc, char* argv[])
 	
 	if (argc > 1)
 	{
-		_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 		Desktop.display(argv_to_string(argv, argc));
 	}
 	else

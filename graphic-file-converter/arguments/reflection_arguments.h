@@ -10,6 +10,6 @@ public:
 	void set_arguments(std::vector<double> args) override;
 	const int number_of_arguments = 1;
 	int reflection_number;
-	std::vector<std::string>arg_label{ "reflection number (0 - vertical, 1 - horizontal, 2 - y=x, 3 - y=h-x" };
+	std::vector<std::string>arg_label{ "reflection number (0 - vertical, 1 - horizontal, 2 - diagonal 1, 3 - diagonal 2" };
 	std::vector<std::string> get_labels() override;
 };
