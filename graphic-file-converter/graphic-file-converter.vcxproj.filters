@@ -15,10 +15,11 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="image_content_diag.cd" />
-    <None Include="file_diag.cd" />
-    <None Include="main_diag.cd" />
-    <None Include="ClassDiagram.cd" />
+    <None Include="..\class_diagrams\ClassDiagramAdam2.cd" />
+    <None Include="..\class_diagrams\file_diag.cd" />
+    <None Include="..\class_diagrams\image_content_diag.cd" />
+    <None Include="..\class_diagrams\main_diag.cd" />
+    <None Include="..\class_diagrams\Wojtek_Classs_Diagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="arguments\arguments.h">
