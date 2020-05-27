@@ -117,16 +117,16 @@ Klasy Rotation i Reflection powstały jako pierwsze. Dzielą ten sam mechanizm b
 
 #### Command Line Interface - Wojciech Nowicki  
 
-Klasa `UserInterface` - odpowiada za komunikację z użytkownikiem
-    **registerAction** - system rejestrowania funkcjonalności pozwala w łatwy sposób rozszerzać możliwości programu
-    **showHelp** - umożliwia dynamiczne tworzenie i wyświetlanie pomocy na bazie funkcjonalności zarejestrowanych w klasie
-    **registerParameter** - system rejestrowania parametrów, pozwala na ich szybkie i proste dodawanie
+Klasa `UserInterface` - odpowiada za komunikację z użytkownikiem  
+    **registerAction** - system rejestrowania funkcjonalności pozwala w łatwy sposób rozszerzać możliwości programu  
+    **showHelp** - umożliwia dynamiczne tworzenie i wyświetlanie pomocy na bazie funkcjonalności zarejestrowanych w klasie  
+    **registerParameter** - system rejestrowania parametrów, pozwala na ich szybkie i proste dodawanie  
 
-Klasa `Arguments` i zniej dziedziczące - pozwalają na tworzenie spersonalizowanych argumentych dla konkretnych konwersji
-    **set_arguments** - na podstawie dostarczonego wektora, przpisuje wartości do odpowiednich miejsc
+Klasa `Arguments` i zniej dziedziczące - pozwalają na tworzenie spersonalizowanych argumentych dla konkretnych konwersji  
+    **set_arguments** - na podstawie dostarczonego wektora, przpisuje wartości do odpowiednich miejsc  
 
-Klasa `Parameter` i zniej dziedziczące - pozwala na tworzenie parametrów wykonujących dodatkowe operacje na zdjęciach
-    **executeParam** - na podstawie dostarczonego rodzaju konwersji, wykonuje funkcje parametru
+Klasa `Parameter` i zniej dziedziczące - pozwala na tworzenie parametrów wykonujących dodatkowe operacje na zdjęciach  
+    **executeParam** - na podstawie dostarczonego rodzaju konwersji, wykonuje funkcje parametru  
 
 ## Diagramy klas:
 ### Converter i pochodne:
