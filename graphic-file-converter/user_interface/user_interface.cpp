@@ -68,7 +68,7 @@ void UserInterface::display(const std::string& command)
 		}
 		Converter* conversion;
 	ASK_LOOP:
-		std::cout << "What do you want to do ?" << std::endl;
+		std::cout << "What do you want to do ? (enter name of conversion)" << std::endl;
 		for (const auto& explanation : help_map)
 		{
 			std::cout << explanation.first << "   |   " << explanation.second << std::endl;
@@ -87,7 +87,7 @@ void UserInterface::display(const std::string& command)
 				while (command_name.second > args.size())
 				{
 					ARG_LOOP:
-					std::cout << "Enter argument " << args.size() + 1 << " :   " << std::endl;
+					std::cout << "Enter argument - " << arguments_map[entered_command]->get_labels()[args.size()] << " :   " << std::endl;
 					std::string line;
 					std::getline(std::cin, line);
 					try
@@ -154,7 +154,7 @@ void UserInterface::display(const std::string& command)
 				}
 				else
 				{
-					for (auto par : parameters_map)
+					for (const auto par : parameters_map)
 					{
 						if (par.first == parameter)
 						{
@@ -288,7 +288,7 @@ void UserInterface::display(const std::string& command)
 				splitted[args.size() + 1].erase(splitted[args.size() + 1].end() - 1, splitted[args.size() + 1].end());
 				std::string input_path = splitted[args.size() + 1];
 				std::string output_path;
-				if (splitted.size() > args.size() + 2)
+				if (splitted.size() > args.size() + 2 && splitted[args.size() + 2].size()>2)
 				{
 					if (splitted[args.size() + 2].size() > 2)
 					{
@@ -320,7 +320,8 @@ void UserInterface::display(const std::string& command)
 						}
 					}
 				}
-				for (auto param : parameters_map)
+				int param_flag = 0;
+				for (const auto param : parameters_map)
 				{
 					/*
 						Checking if any parameter was given.
@@ -352,7 +353,7 @@ void UserInterface::display(const std::string& command)
 							try
 							{
 								param.second->executeParam(
-									executeAction(command_name.first, input_path, output_path, arguments_map[command_fullname]),output_path);
+									executeAction(command_name.first, input_path, output_path, arguments_map[command_fullname]), output_path);
 							}
 							catch (const std::exception& ex)
 							{
@@ -363,18 +364,22 @@ void UserInterface::display(const std::string& command)
 					}
 					else
 					{
-						try
-						{
-							executeAction(command_name.first, input_path, output_path, arguments_map[command_fullname]);
-						}
-						catch (const std::exception& ex)
-						{
-							std::cerr << ex.what() << std::endl;
-							exit(1);
-						}
+						param_flag++;
 					}
 				}
-				std::cout << "Action executed!" << std::endl;
+				if(param_flag==parameters_map.size())
+				{
+					try
+					{
+						executeAction(command_name.first, input_path, output_path, arguments_map[command_fullname]);
+					}
+					catch (const std::exception& ex)
+					{
+						std::cerr << ex.what() << std::endl;
+						exit(1);
+					}
+				}
+				std::cout << "Action executed!"<<" File in: "<< output_path << std::endl;
 			}
 			else
 			{
@@ -394,9 +399,9 @@ void UserInterface::display(const std::string& command)
 Converter* UserInterface::executeAction(const std::string& command, const std::string& path, const std::string& out_path,
                                     Arguments* args)
 {
-	Image* img_pointer = new Image(path);
+	Image* imp_pointer = new Image(path);
 	Converter* conversion = conversions_map[command];
-	conversion->loadImage(img_pointer);
+	conversion->loadImage(this->picture);
 	conversion->processImage(args);
 	conversion->saveImage(out_path);
 	return conversion;
@@ -413,19 +418,34 @@ void UserInterface::showHelp()
 		Displays help.
 	//*/
 	std::cout << "Command structure:" << std::endl;
-	std::cout << "graphic-file-converter.exe [command_name] [argument] ['in_path'] {'out_path'} {-parameter}" << std::
+	std::cout << "graphic-file-converter.exe [command_name] [arguments] ['in_path'] {'out_path'} {-parameter}" << std::
 		endl;
-	std::cout << "( {} - possible )" << std::endl;
+	std::cout << "( {} - possible, [] - necessary  ), output and input path has to be in single quotes" << std::endl;
 	for (int i = 0; i < 90; i++)
 	{
 		std::cout << "=";
 	}
 	std::cout << std::endl;
 	std::cout << "Possible commands: " << std::endl;
-	std::cout << "load" << "   |   " << "step-by-step operations" << std::endl;
+	std::cout << "load" << "   |   " << "step-by-step operations ( graphic-file-converter.exe load 'input_path')" << std::endl;
+	std::cout << std::endl;
 	for (const auto& explanation : help_map)
 	{
 		std::cout << explanation.first << "   |   " << explanation.second << std::endl;
+		std::cout << "Needed arguments: ";
+		if (arguments_map[explanation.first]->get_labels().size()==0)
+		{
+			std::cout << "None";
+		}
+		else
+		{
+			for (const auto arg : arguments_map[explanation.first]->get_labels())
+			{
+				std::cout << arg << ", ";
+			}
+		}
+		std::cout << std::endl;
+		std::cout << std::endl;
 	}
 	std::cout << std::endl;
 }

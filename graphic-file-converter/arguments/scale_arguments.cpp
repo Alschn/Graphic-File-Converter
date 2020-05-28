@@ -11,3 +11,8 @@ void ScaleArguments::set_arguments(std::vector<double> args)
 	this->x = args[0];
 	this->y = args[1];
 }
+
+std::vector<std::string> ScaleArguments::get_labels()
+{
+	return arg_label;
+}

@@ -1,6 +1,7 @@
 //Created by Wojciech Nowicki
 #pragma once
 #include <vector>
+#include <string>
 
 class Arguments
 {
@@ -14,4 +15,6 @@ public:
 	virtual int get_number_of_arguments();
 	virtual void set_arguments(std::vector <double> args);
 	Arguments() = default;
+	std::vector<std::string>args;
+	virtual std::vector<std::string> get_labels();
 };

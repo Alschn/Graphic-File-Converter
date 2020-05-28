@@ -10,3 +10,8 @@ void BrightnessArguments::set_arguments(std::vector<double> args)
 {
 	this->brightness_level = args[0];
 }
+
+std::vector<std::string> BrightnessArguments::get_labels()
+{
+	return arg_label;
+}

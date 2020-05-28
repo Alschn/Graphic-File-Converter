@@ -38,18 +38,7 @@ Optymalizacja pamięci pod względem przechowywanego obrazu.
 * Jednostkowo są wybrane metody z wybranych klas (to co się da, choć jeszcze nie wszystko)
 
 #### Aktualna funkcjonalność programu:
-* CLI reaguje na komendę --help i wyświetla pomoc dla użytkownika, przy każdej źle wpisanej komendzie  
-również wyśtwietla pomoc, CLI jest gotowy do rejestracji kolejnych funckjonalności programu.
-* CLI obsługuje dwie komendy konwersji zdjęć:
-    1. **Obrót o zadany kąt:** rotation kat "scieżka wejściowa" ["scieżka wyjściowa"] [-d]
-    2. **Odbicie lustrzane:**  reflection ytyb "scieżka wejściowa" ["ścieżka wyjściowa"] [-d]
-    3. **Rescaler - skalowanie obrazu** rescaler xskala yskala "sciezka wejsciowa" ["sciezka wyjsciowa"] [-d] 
-
-    
-
-* Obecnie obsługiwane jest odczytywanie i pisanie do plików .bmp w wersji 24 oraz 1 bpp, podobnie w przypadku pliku nagłowkowego .h. Zaimplementowane są również konwersje między nimi.
-Tj. można przekonwertować znak z fontu .h do .bmp oraz odwrotnie plik .h z dowolnego .bmp. Konwersja wszystkich znaków z fontu do .bmp nie jest zaimplementowana.
-* Odczyt fontu z pliku .h następuje poprzez podanie ścieżki z dopiskiem `_x` gdzie x to znak odpowiadający znakowi z fontu. Np. `arialdig_0.h` - wczytanie cyfry `0` z fontu Arial.
+*7 konwersji dostępnych za pomocą komend oraz tryb "za rękę" ułatwiający obsługę programu
 
 
 ### Przykładowe użycie programu:
@@ -126,13 +115,25 @@ Klasy Rotation i Reflection powstały jako pierwsze. Dzielą ten sam mechanizm b
     Zamienia wartości składowych R G B na ich dopełnienie do 255.  
     Funkcja posiada ochronę przed wykroczeniem poza zakres [0, 255] - checkColorRange z Convertera.  
 
+#### Command Line Interface - Wojciech Nowicki  
+
+Klasa `UserInterface` - odpowiada za komunikację z użytkownikiem  
+    **registerAction** - system rejestrowania funkcjonalności pozwala w łatwy sposób rozszerzać możliwości programu  
+    **showHelp** - umożliwia dynamiczne tworzenie i wyświetlanie pomocy na bazie funkcjonalności zarejestrowanych w klasie  
+    **registerParameter** - system rejestrowania parametrów, pozwala na ich szybkie i proste dodawanie  
+
+Klasa `Arguments` i zniej dziedziczące - pozwalają na tworzenie spersonalizowanych argumentych dla konkretnych konwersji  
+    **set_arguments** - na podstawie dostarczonego wektora, przpisuje wartości do odpowiednich miejsc  
+
+Klasa `Parameter` i zniej dziedziczące - pozwala na tworzenie parametrów wykonujących dodatkowe operacje na zdjęciach  
+    **executeParam** - na podstawie dostarczonego rodzaju konwersji, wykonuje funkcje parametru  
 
 ## Diagramy klas:
 ### Converter i pochodne:
 ![Converter](class_diagrams/ClassDiagramAdam2.png)
 
 ### Arguments oraz Parameters i pochodne:
-![ui](class_diagrams/class_diag_wojtek.png)
+![ui](class_diagrams/Wojtek_Classs_Diagram.png)
 
 ### File i pochodne:
 ![file](class_diagrams/file_diag.png)
