@@ -27,7 +27,6 @@ public:
 	 * \param x x coordinate
 	 * \param y y coordinate
 	 * \param output empty char array for output
-	 * \param mode for color space if the color space has more than one color.
 	 */
 	void getPixel(unsigned int x, unsigned int y, unsigned char output[]) const;
 

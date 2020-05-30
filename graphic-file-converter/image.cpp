@@ -74,7 +74,7 @@ std::string Image::getExtension(const std::string& path)
 	const auto dot_pos = path.rfind('.');
 	const auto slash_pos = path.rfind('/');
 
-	if(slash_pos == std::string::npos)
+	if (slash_pos == std::string::npos)
 	{
 		if (dot_pos == std::string::npos)
 			throw std::runtime_error("Provided path is invalid!");
@@ -84,7 +84,7 @@ std::string Image::getExtension(const std::string& path)
 	{
 		throw std::runtime_error("Provided path is invalid!");
 	}
-	
+
 	const auto end_of_extension = path.rfind('_');
 	if (end_of_extension != std::string::npos)
 	{

@@ -169,6 +169,7 @@
     <ClInclude Include="conversions\color_intensity.h" />
     <ClInclude Include="conversions\contrast.h" />
     <ClInclude Include="conversions\converter.h" />
+    <ClInclude Include="conversions\image_scanner.h" />
     <ClInclude Include="conversions\negative.h" />
     <ClInclude Include="conversions\reflection.h" />
     <ClInclude Include="conversions\rescaler.h" />
@@ -182,7 +183,6 @@
     <ClInclude Include="image_file_types\bmp_file.h" />
     <ClInclude Include="image_file_types\file.h" />
     <ClInclude Include="image_file_types\header_file.h" />
-    <ClInclude Include="image_scanner.h" />
     <ClInclude Include="parameters\display_parameter.h" />
     <ClInclude Include="parameters\parameter.h" />
     <ClInclude Include="parameters\saveToBmp_parameter.h" />
@@ -201,6 +201,7 @@
     <ClCompile Include="conversions\color_intensity.cpp" />
     <ClCompile Include="conversions\contrast.cpp" />
     <ClCompile Include="conversions\converter.cpp" />
+    <ClCompile Include="conversions\image_scanner.cpp" />
     <ClCompile Include="conversions\negative.cpp" />
     <ClCompile Include="conversions\reflection.cpp" />
     <ClCompile Include="conversions\rescaler.cpp" />
@@ -214,7 +215,6 @@
     <ClCompile Include="image_file_types\bmp_file.cpp" />
     <ClCompile Include="image_file_types\file.cpp" />
     <ClCompile Include="image_file_types\header_file.cpp" />
-    <ClCompile Include="image_scanner.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="parameters\display_parameter.cpp" />
     <ClCompile Include="parameters\parameter.cpp" />
