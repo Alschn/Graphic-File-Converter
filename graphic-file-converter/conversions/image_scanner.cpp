@@ -66,7 +66,7 @@ void ImageScanner::processImage(Arguments* args)
 		{
 			this->oldImage->getPixel(i, j, colors.get());
 
-			for (int k = 0; k < color_arr_size; ++k)
+			for (unsigned int k = 0; k < color_arr_size; ++k)
 			{
 				if (colors[k] < threshold)
 				{
