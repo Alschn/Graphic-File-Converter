@@ -5,5 +5,7 @@ graphic-file-converter.exe contrast 100 '../sample_bmps/10x10.bmp' '../sample_bm
 graphic-file-converter.exe brighten -200 '../sample_bmps/10x10.bmp' '../sample_bmps/out_bright-200.bmp'
 graphic-file-converter.exe intensify 0 0 100 '../sample_bmps/10x10.bmp' '../sample_bmps/out_blue+100.bmp'
 graphic-file-converter.exe negate '../sample_bmps/10x10.bmp' '../sample_bmps/out_neg.bmp'
+graphic-file-converter.exe scan 1 45 '../font_bmps/bernardT.bmp' '../sample_bmps/found_letters/Bernard_font' -b
+graphic-file-converter.exe scan 3 60 '../font_bmps/arial_f.bmp' '../sample_bmps/found_letters/ArialFont' -b
 
 More commands in command_tests file.
