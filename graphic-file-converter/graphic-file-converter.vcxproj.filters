@@ -103,13 +103,13 @@
     <ClInclude Include="font.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="image_scanner.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="arguments\scanner_arguments.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="parameters\saveToBmp_parameter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="conversions\image_scanner.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -201,13 +201,13 @@
     <ClCompile Include="font.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="image_scanner.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="arguments\scanner_arguments.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="parameters\saveToBmp_parameter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="conversions\image_scanner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

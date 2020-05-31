@@ -1,0 +1,9 @@
+graphic-file-converter.exe rotate 90 '../sample_bmps/10x10.bmp' '../sample_bmps/out_rot90.bmp'
+graphic-file-converter.exe reflect 2 '../sample_bmps/10x10.bmp' '../sample_bmps/out_refl2.bmp'
+graphic-file-converter.exe scale 2 2 '../sample_bmps/10x10.bmp' '../sample_bmps/out_scale2-2.bmp'
+graphic-file-converter.exe contrast 100 '../sample_bmps/10x10.bmp' '../sample_bmps/out_contr100.bmp'
+graphic-file-converter.exe brighten -200 '../sample_bmps/10x10.bmp' '../sample_bmps/out_bright-200.bmp'
+graphic-file-converter.exe intensify 0 0 100 '../sample_bmps/10x10.bmp' '../sample_bmps/out_blue+100.bmp'
+graphic-file-converter.exe negate '../sample_bmps/10x10.bmp' '../sample_bmps/out_neg.bmp'
+
+More commands in command_tests file.

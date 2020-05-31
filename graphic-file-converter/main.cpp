@@ -18,7 +18,7 @@
 #include "arguments/color_intesity_arguments.h"
 #include "image_file_types/bmp_file.h"
 #include "image_file_types/header_file.h"
-#include "image_scanner.h"
+#include "conversions/image_scanner.h"
 #include "parameters/saveToBmp_parameter.h"
 #include "arguments/scanner_arguments.h"
 

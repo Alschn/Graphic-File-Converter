@@ -1,8 +1,8 @@
 #include "image_scanner.h"
-#include "image_file_types/header_file.h"
-#include "font.h"
-#include "image_file_types/bmp_file.h"
-#include "arguments/scanner_arguments.h"
+#include "../image_file_types/header_file.h"
+#include "../font.h"
+#include "../image_file_types/bmp_file.h"
+#include "../arguments/scanner_arguments.h"
 
 void ImageScanner::generateNewImages(const std::vector<std::pair<int, int>>& coordinates)
 {	
@@ -66,7 +66,7 @@ void ImageScanner::processImage(Arguments* args)
 		{
 			this->oldImage->getPixel(i, j, colors.get());
 
-			for (int k = 0; k < color_arr_size; ++k)
+			for (unsigned int k = 0; k < color_arr_size; ++k)
 			{
 				if (colors[k] < threshold)
 				{

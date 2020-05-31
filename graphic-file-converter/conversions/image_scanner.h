@@ -1,8 +1,8 @@
-#include "image.h"
+#include "../image.h"
 #include <array>
 
-#include "conversions/converter.h"
-#include "font.h"
+#include "converter.h"
+#include "../font.h"
 
 #pragma once
 class ImageScanner: public Converter
