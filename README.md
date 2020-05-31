@@ -31,6 +31,7 @@ Optymalizacja pamięci pod względem przechowywanego obrazu.
 * Klasa `Utils`- bardzo mała, znajdują się w niej statyczne metody do obsługi operacji bitowych oraz bajtowych - Gustaw Daczkowski
 * Klasa `File` - odpowiedzialna za pracę nad plikami (plus dziedziczące z niej) - Gustaw Daczkowski
 * Klasa `ImageContent` - odpowiedzialna za zarządzanie pamięcią (plus dziedziczące z niej) - Gustaw Daczkowski
+* Klasa `Font` - zawiera metody pomocniczne do operowania na skanowaniu plików z fontami - Gustaw Daczkowski
 
 
 #### Testy jednostkowe:
@@ -42,18 +43,17 @@ Optymalizacja pamięci pod względem przechowywanego obrazu.
 
 
 ### Przykładowe użycie programu:
-* `graphic-file-converter.exe 90 '../sample_bmps/10x10.bmp' -d` - obrót zdjęcia 10x10.bmp o 90 stopni w prawo.
-Podanie opcjonalnego parametru `-d` powoduje wyświetlenie zdjęcia na ekranie konsoli.
 * `graphic-file-converter.exe reflect 2 '../sample_bmps/10x10.bmp' '../sample_bmps/output.bmp'` odbicie symetryczne względem prostej y=x i zapis do pliku output.bmp.
 * `graphic-file-converter.exe help` wyświetlenie pomocy
 * `graphic-file-converter.exe scale 2 2 '../sample_bmps/10x10.bmp' '../sample_bmps/out.bmp' -d` przeskalowanie obrazu x2 w osi X i Y wraz z wyświetleniem go w konsoli
 * `graphic-file-converter.exe scale 2 2 '../sample_bmps/arialDig32x24_0.h' '../sample_bmps/out.bmp' -d` przeskalowanie obrazu tj. cyfry 0 z fontu Arial x2 w osi X i Y i zapis do pliku .bmp wraz z wyświetleniem go
 w konsoli
+* `graphic-file-converter.exe scan 1 45 '../font_bmps/bernardT.bmp' '../sample_bmps/found_letters/Bernard_font' -b` - przeskanowanie zdjęcia bernardT.bmp, zapis do pliku nagłówkowego o nazwie Bernard_font.h. Padding = 1, Próg = 45
 
 Szczegółowe objaśnienia komend znajdują się w #11, #15.  
 Szczegółowe objaśnienia funkcjonalności klasy `Image` znajdują się w #10.  
 Szczegółowe objaśnienia funkcjonalności klasy `ImageContent`, `File` oraz pochodnych znajdują się w #14.  
-Szczegółowe objaśnienia trybów konwersji znajdują się w #9, #13, #16.
+Szczegółowe objaśnienia trybów konwersji znajdują się w #9, #13, #16, #17.
 
 #### Konwersje - Adam Lisichin
 Klasa `Converter` jest klasą matką dla wszystkich niżej wymienionych konwersji.  
@@ -128,6 +128,26 @@ Klasa `Arguments` i zniej dziedziczące - pozwalają na tworzenie spersonalizowa
 Klasa `Parameter` i zniej dziedziczące - pozwala na tworzenie parametrów wykonujących dodatkowe operacje na zdjęciach  
     **executeParam** - na podstawie dostarczonego rodzaju konwersji, wykonuje funkcje parametru  
 
+#### Skanowanie zdjęć - Gustaw Daczkowski
+
+Za całość odpowiada klasa `ImageScanner` dziedzicząca z `Converter`
+
+Założenia zdjęcia wejściowego:
+* Musi zawierać litery A-Z oraz cyfry 0-9 w odpowiedniej, alfabetycznej kolejności (w sumie 36 znaków).
+* Znaki te muszą być oddzielone niezerowymi odstępami (litery nie mogą na siebie nachodzić)
+* Zdjęcie wejściowe może być w formacie 1bpp albo 24bpp (inne nie są obsługiwane przez konwerter)
+
+Komenda `scan P(int) T(int)` - przyjmuje dwa argumenty liczbowe:
+* Pierwszy to padding - zarówno z lewej jak i z prawej oznacza ile białych pikseli będzie dodanych do znaku
+* Drugi to threshold (próg) - w przypadku zdjęć o rozdzielczości >=8bpp jest to próg poniżej którego dany piksel zostaje uznany za czarny (max 255)
+
+Dalej komenda podobnie jak inne przyjmuje ścieżki:
+* wejściową (do pliku .bmp do przeskanowania)
+* wyjściową - tutaj należy podać ścieżkę do pliku, ale bez rozszerzenia np. `results/fontArial` - program domyślnie doda .h na końcu pliku
+
+Istnieje również opcjonalny parametr `-b`, który powoduje wygenerowanie plików .bmp dla każdego ze znaków o nazwach np. fontArial_A.bmp (te pliki są w formacie 1bpp)
+
+
 ## Diagramy klas:
 ### Converter i pochodne:
 ![Converter](class_diagrams/ClassDiagramAdam2.png)
@@ -138,7 +158,7 @@ Klasa `Parameter` i zniej dziedziczące - pozwala na tworzenie parametrów wykon
 ### File i pochodne:
 ![file](class_diagrams/file_diag.png)
 
-### ImageContent i pochodne:
+### ImageContent i pochodne (na zielono zaznaczona klasa do dokończenia - 16bpp):
 ![content](class_diagrams/image_content_diag.png)
 
 ## Hierarchia nadrzędna 
