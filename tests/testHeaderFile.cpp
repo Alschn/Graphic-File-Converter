@@ -17,26 +17,7 @@ namespace Tests
 	{
 	public:
 
-		TEST_METHOD(testgetLetterIndexFromFName0)
-		{
-			auto result = HeaderFile::getLetterIndexFromFName(std::string("abc.h_0"));
-			Assert::AreEqual<unsigned char>(0, result);
-		}
-		TEST_METHOD(testgetLetterIndexFromFName1)
-		{
-			auto result = HeaderFile::getLetterIndexFromFName(std::string("abc.h_A"));
-			Assert::AreEqual<unsigned char>(10, result);
-		}
-		TEST_METHOD(testgetLetterIndexFromFName2)
-		{
-			auto result = HeaderFile::getLetterIndexFromFName(std::string("abc.h_2"));
-			Assert::AreEqual<unsigned char>(2, result);
-		}
-		TEST_METHOD(testgetLetterIndexFromFName3)
-		{
-			auto result = HeaderFile::getLetterIndexFromFName(std::string("abc.h_a"));
-			Assert::AreEqual<unsigned char>(35, result);
-		}
+
 		TEST_METHOD(testgetLetterIndexFromFName4)
 		{
 			auto result = HeaderFile::getLetterIndexFromFName(std::string("abc.h"));
