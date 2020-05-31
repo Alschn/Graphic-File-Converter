@@ -46,8 +46,6 @@ Optymalizacja pamięci pod względem przechowywanego obrazu.
 * `graphic-file-converter.exe reflect 2 '../sample_bmps/10x10.bmp' '../sample_bmps/output.bmp'` odbicie symetryczne względem prostej y=x i zapis do pliku output.bmp.
 * `graphic-file-converter.exe help` wyświetlenie pomocy
 * `graphic-file-converter.exe scale 2 2 '../sample_bmps/10x10.bmp' '../sample_bmps/out.bmp' -d` przeskalowanie obrazu x2 w osi X i Y wraz z wyświetleniem go w konsoli
-* `graphic-file-converter.exe scale 2 2 '../sample_bmps/arialDig32x24_0.h' '../sample_bmps/out.bmp' -d` przeskalowanie obrazu tj. cyfry 0 z fontu Arial x2 w osi X i Y i zapis do pliku .bmp wraz z wyświetleniem go
-w konsoli
 * `graphic-file-converter.exe scan 1 45 '../font_bmps/bernardT.bmp' '../sample_bmps/found_letters/Bernard_font' -b` - przeskanowanie zdjęcia bernardT.bmp, zapis do pliku nagłówkowego o nazwie Bernard_font.h. Padding = 1, Próg = 45.
 Ponadto zapis poszczególnych znaków do plików .bmp np. `Bernard_font_0.bmp` odpowiada za to parametr `-b`
 
