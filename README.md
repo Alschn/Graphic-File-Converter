@@ -48,7 +48,8 @@ Optymalizacja pamięci pod względem przechowywanego obrazu.
 * `graphic-file-converter.exe scale 2 2 '../sample_bmps/10x10.bmp' '../sample_bmps/out.bmp' -d` przeskalowanie obrazu x2 w osi X i Y wraz z wyświetleniem go w konsoli
 * `graphic-file-converter.exe scale 2 2 '../sample_bmps/arialDig32x24_0.h' '../sample_bmps/out.bmp' -d` przeskalowanie obrazu tj. cyfry 0 z fontu Arial x2 w osi X i Y i zapis do pliku .bmp wraz z wyświetleniem go
 w konsoli
-* `graphic-file-converter.exe scan 1 45 '../font_bmps/bernardT.bmp' '../sample_bmps/found_letters/Bernard_font' -b` - przeskanowanie zdjęcia bernardT.bmp, zapis do pliku nagłówkowego o nazwie Bernard_font.h. Padding = 1, Próg = 45
+* `graphic-file-converter.exe scan 1 45 '../font_bmps/bernardT.bmp' '../sample_bmps/found_letters/Bernard_font' -b` - przeskanowanie zdjęcia bernardT.bmp, zapis do pliku nagłówkowego o nazwie Bernard_font.h. Padding = 1, Próg = 45.
+Ponadto zapis poszczególnych znaków do plików .bmp np. `Bernard_font_0.bmp` odpowiada za to parametr `-b`
 
 Szczegółowe objaśnienia komend znajdują się w #11, #15.  
 Szczegółowe objaśnienia funkcjonalności klasy `Image` znajdują się w #10.  
@@ -146,6 +147,9 @@ Dalej komenda podobnie jak inne przyjmuje ścieżki:
 * wyjściową - tutaj należy podać ścieżkę do pliku, ale bez rozszerzenia np. `results/fontArial` - program domyślnie doda .h na końcu pliku
 
 Istnieje również opcjonalny parametr `-b`, który powoduje wygenerowanie plików .bmp dla każdego ze znaków o nazwach np. fontArial_A.bmp (te pliki są w formacie 1bpp)
+
+#### Dalszy rozwój:
+W przypadku dalszego rozwoju programu można dodać inne typy plików oraz inne typy zdjęć np. 8bpp, 16bpp czy inne, własne typy. Można również pomyśleć nad dodaniem własnych tablic pikseli, tj. dla zdjęć o rozdzielczości <8bpp zamiast biało/czarnych może być np. czerwono/zielone.
 
 
 ## Diagramy klas:
