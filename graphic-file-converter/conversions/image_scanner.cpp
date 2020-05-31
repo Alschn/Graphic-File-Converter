@@ -1,3 +1,5 @@
+//Created by Gustaw Daczkowski
+
 #include "image_scanner.h"
 #include "../image_file_types/header_file.h"
 #include "../font.h"
@@ -5,7 +7,7 @@
 #include "../arguments/scanner_arguments.h"
 
 void ImageScanner::generateNewImages(const std::vector<std::pair<int, int>>& coordinates)
-{	
+{
 	const auto color_arr_size = this->oldImage->onePixelByteSize();
 	std::unique_ptr<unsigned char[]> colors = std::make_unique<unsigned char[]>(color_arr_size);
 
@@ -42,7 +44,7 @@ void ImageScanner::processImage(Arguments* args)
 	ScannerArguments* scan_args = dynamic_cast<ScannerArguments*>(args);
 	padding = scan_args->padding;
 	threshold = this->oldImage->type >= 8 ? scan_args->treshold : 1;
-	
+
 	bool black_pixel_found = false;
 	int letter_start_index = -1;
 	int letter_width = -1;
@@ -99,7 +101,7 @@ void ImageScanner::processImage(Arguments* args)
 	generateNewImages(found_images);
 }
 
-void ImageScanner::saveImage(const std::string& path) 
+void ImageScanner::saveImage(const std::string& path)
 {
 	const auto file = HeaderFile();
 	auto n_p = path;
@@ -115,7 +117,7 @@ void ImageScanner::saveToBmp(std::string& path) const
 
 ImageScanner::~ImageScanner()
 {
-	for(auto l: this->letters)
+	for (auto l : this->letters)
 	{
 		delete l;
 	}

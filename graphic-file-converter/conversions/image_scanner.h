@@ -1,19 +1,19 @@
+//Created by Gustaw Daczkowski
+
 #include "../image.h"
 #include <array>
-
 #include "converter.h"
 #include "../font.h"
 
 #pragma once
-class ImageScanner: public Converter
+class ImageScanner : public Converter
 {
-
-	std::vector<Image* > letters;
+	std::vector<Image*> letters;
 	unsigned int padding;
 	unsigned int threshold;
-	
-	void generateNewImages(const std::vector<std::pair<int, int >>& coordinates);
-	
+
+	void generateNewImages(const std::vector<std::pair<int, int>>& coordinates);
+
 public:
 	void loadImage(Image* im);
 
@@ -26,4 +26,3 @@ public:
 	ImageScanner() = default;
 	~ImageScanner() override;
 };
-

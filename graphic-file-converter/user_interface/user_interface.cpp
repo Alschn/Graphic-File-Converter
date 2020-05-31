@@ -401,7 +401,7 @@ Converter* UserInterface::executeAction(const std::string& command, const std::s
 {
 	Image* imp_pointer = new Image(path);
 	Converter* conversion = conversions_map[command];
-	conversion->loadImage(this->picture);
+	conversion->loadImage(imp_pointer);
 	conversion->processImage(args);
 	conversion->saveImage(out_path);
 	return conversion;
