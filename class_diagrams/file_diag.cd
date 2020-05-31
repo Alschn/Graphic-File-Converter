@@ -3,22 +3,22 @@
   <Class Name="File">
     <Position X="6" Y="0.5" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAQEAAAAAACEAAAAAAAAAAAAAAAECAAAAAAAAAAAAAA=</HashCode>
-      <FileName>file.h</FileName>
+      <HashCode>QAQEAABAAACEAAAAAAAAAAAAAAAECAAAAAAAAAAAAAA=</HashCode>
+      <FileName>image_file_types\file.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HeaderFile">
     <Position X="4" Y="3.75" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>IESiAAAAAACABAAAgAAAAAAAAAAAAEAABEAAAIQAAAI=</HashCode>
-      <FileName>header_file.h</FileName>
+      <HashCode>IESgAAAAIACABACAgBAAAAAoAAAAAABABBAAAIQAAAI=</HashCode>
+      <FileName>image_file_types\header_file.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="BmpFile">
     <Position X="7.5" Y="3.75" Width="3.25" />
     <TypeIdentifier>
-      <HashCode>EAQCCACIYACAADIAAAAAIggAgAAAACCAAAAAAAAAAFA=</HashCode>
-      <FileName>bmp_file.h</FileName>
+      <HashCode>EAQCCACIYACAADIAAAAAIggIgAAAACCAAAAAAAAAAFA=</HashCode>
+      <FileName>image_file_types\bmp_file.h</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

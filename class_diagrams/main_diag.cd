@@ -3,36 +3,36 @@
   <Class Name="Image">
     <Position X="6" Y="2" Width="4.5" />
     <TypeIdentifier>
-      <HashCode>AAYCAAgAAACAAAQAQIACAAAAAAACABIAAQAQAQAAAQA=</HashCode>
+      <HashCode>AIYCAAwAAAKAAAQAQIACAAAAAAABABIAAQAQAQAgAQA=</HashCode>
       <FileName>image.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ImageContent" Collapsed="true">
     <Position X="11" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QAIAAAAAEAAAoAQARBAEBBAEAUABQAAAAQZQUAYAAQA=</HashCode>
-      <FileName>image_content.h</FileName>
+      <HashCode>QIIAAAAAEAAAoAQARBAEBBAEAUABQAAAAQZRUAYAAQA=</HashCode>
+      <FileName>image_content\image_content.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Converter">
     <Position X="3.5" Y="2" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAIAEAAAwAAAAAAAAAAIAAAAAAABAAAAAAAAAAAAAQA=</HashCode>
-      <FileName>converter.h</FileName>
+      <HashCode>AAIAEAAAwgAAAAAAAAAIAAAAAAABAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>conversions\converter.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="File" Collapsed="true">
     <Position X="11" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQEAAAAAACEAAAAAAAAAAAAAAAECAAAAAAAAAAAAAA=</HashCode>
-      <FileName>file.h</FileName>
+      <HashCode>QAQEAABAAACEAAAAAAAAAAAAAAAECAAAAAAAAAAAAAA=</HashCode>
+      <FileName>image_file_types\file.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="UserInterface" Collapsed="true">
     <Position X="3.5" Y="0.75" Width="2" />
     <TypeIdentifier>
-      <HashCode>EAAAEAAEAAICAABEEgAAAAAAAIEAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>user_interface.h</FileName>
+      <HashCode>EAAAEAAEAIICAABEEgAAAAAAAIEAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>user_interface\user_interface.h</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
